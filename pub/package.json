@@ -1,0 +1,25 @@
+{
+  "author": "Corno",
+  "dependencies": {
+    "api-pareto-diff": "^0.3.0",
+    "api-pareto-filesystem": "^0.1.1",
+    "api-pareto-handledfilesystem": "^0.2.1",
+    "pareto-core-async": "^0.3.0",
+    "pareto-core-lib": "^0.6.0"
+  },
+  "description": "test functions for pareto",
+  "files": [
+    "dist"
+  ],
+  "license": "ISC",
+  "main": "dist/index.js",
+  "name": "lib-pareto-test",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/corno/lib-pareto-test.git"
+  },
+  "types": "dist/index.d.ts",
+  "version": "0.1.0",
+  "interface-fingerprint": "8d6d3ac12480c7ca5b9d6bd4a597dcee4d238520",
+  "content-fingerprint": "7f1594319ce9e8d449f02b1df69b122131a29948"
+}
