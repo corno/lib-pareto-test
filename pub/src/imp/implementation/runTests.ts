@@ -6,6 +6,7 @@ import * as diff from "api-pareto-diff"
 
 import * as api from "../../interface"
 import { TTestElementResult } from "../../interface"
+import { validateFile } from "./validateFile"
 
 // function after(
 //     $: pt.AsyncNonValue,
@@ -56,13 +57,10 @@ export const runTests: api.RunTests = ($, $i, $d) => {
                                                 })
                                             case "file string":
                                                 return pl.cc($.type[1], ($) => {
-                                                    pl.implementMe("!!!!")
-                                                    // return pa.value({
-                                                    //     type: ["test", {
-                                                    //         success: false,
-                                                    //         type: ["boolean", {}]
-                                                    //     }]
-                                                    // })
+                                                    return validateFile(
+                                                        $,
+                                                        $d.validateFile,
+                                                    )
                                                 })
                                             case "large string":
                                                 return pl.cc($.type[1], ($) => {
@@ -113,7 +111,7 @@ export const runTests: api.RunTests = ($, $i, $d) => {
                 pa.processValue(
                     doTestSet($.testSet),
                     ($) => {
-                        pl.logDebugMessage("TESTS DONE, REPORT")
+                        $i.onDone($)
                     }
                 )
             )

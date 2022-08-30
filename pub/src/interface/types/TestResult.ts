@@ -7,6 +7,16 @@ export type TTestSet = {
     readonly "elements": pt.Dictionary<TTestElement>
 }
 
+export type ValidateFileData = {
+    readonly "expectedFile": {
+        path: fs.Path,
+        fileName: string,
+        extension: string,
+    },
+    readonly "actual": string,
+
+}
+
 export type TTestElement = {
     readonly "type":
     | ["subset", TTestSet]
@@ -23,11 +33,7 @@ export type TTestElement = {
             readonly "expected": string,
             readonly "actual": string,
         }]
-        | ["file string", {
-            readonly "expectedFile": fs.Path,
-            readonly "actual": string,
-
-        }]
+        | ["file string", ValidateFileData]
     }]
 }
 
@@ -42,6 +48,7 @@ export type TTestType =
         readonly "parts": pt.Array<TMultilinePart>,
     }]
     | ["file string", {
+        readonly "fileLocation": string
         readonly "parts": pt.Array<TMultilinePart>,
     }]
 
