@@ -59,13 +59,15 @@ export type HandledFileSystemDependencies = {
     unlink: fsLib.UnlinkFireAndForget
 }
 
+export type GetTestSet = (
+    $: {
+        testDirectory: string
+    }
+) => pt.AsyncValue<TTestSet>
+
 export type CreateTester = (
     $d: {
-        getTestSet: (
-            $: {
-                testDirectory: string
-            }
-        ) => pt.AsyncValue<TTestSet>,
+        getTestSet: GetTestSet,
         fs: {
             readFile: fs.ReadFile
             writeFile: fs.WriteFile
