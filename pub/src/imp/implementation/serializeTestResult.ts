@@ -21,12 +21,15 @@ export const serializeTestResult: api.SerializeTestResult = (
             switch ($.type[0]) {
                 case "test":
                     pl.cc($.type[1], ($) => {
+                        const success = $.success
                         $i.log(`${indentation}${$.success ? green : red}${name}${reset}`)
                         switch ($.type[0]) {
                             case "simple string":
                                 pl.cc($.type[1], ($) => {
-                                    $i.log(`${indentation}  expected: '${$.expected}'`)
-                                    $i.log(`${indentation}  actual:   '${$.actual}'`)
+                                    if (!success) {
+                                        $i.log(`${indentation}  expected: '${$.expected}'`)
+                                        $i.log(`${indentation}  actual:   '${$.actual}'`)
+                                    }
                                 })
                                 break
                             case "large string":
