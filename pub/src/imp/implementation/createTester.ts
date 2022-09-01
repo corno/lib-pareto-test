@@ -49,6 +49,9 @@ export const createTester: api.CreateTester = (
                             getTestSet(
                                 {
                                     testDirectory: $
+                                },
+                                {
+                                    startAsync: $d.startAsync,
                                 }
                             ),
                             ($) => {

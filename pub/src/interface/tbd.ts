@@ -49,7 +49,7 @@ export type RunTests = (
     },
     $d: {
         rtd: RunTestsDependencies
-        startAsync: ($: pt.AsyncNonValue) => void
+        startAsync: main.StartAsync
     }
 ) => pt.AsyncValue<TTestSetResult>
 
@@ -62,6 +62,9 @@ export type HandledFileSystemDependencies = {
 export type GetTestSet = (
     $: {
         testDirectory: string
+    },
+    $d: {
+        startAsync: main.StartAsync
     }
 ) => pt.AsyncValue<TTestSet>
 
