@@ -1,4 +1,5 @@
 import * as pl from "pareto-core-lib"
+
 import * as api from "../../interface"
 
 export const summarize: api.Summarize = (

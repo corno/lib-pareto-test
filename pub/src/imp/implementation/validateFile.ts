@@ -2,22 +2,25 @@ import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 import * as pa from "pareto-core-async"
 
-import * as hfs from "api-pareto-handledfilesystem"
 import * as diff from "api-pareto-diff"
 
 import * as api from "../../interface"
 
+
 export function validateFile(
     $: api.ValidateFileData,
-    $d: api.ValidateFileDependencies
+    $d: {
+        fs: api.HandledFileSystemDependencies,
+        diffData: diff.DiffData,
+        startAsync: ($: pt.AsyncNonValue) => void
+    }
 ): pt.AsyncValue<api.TTestElementResult> {
     const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
     return pa.rewrite(
-        $d.file(
+        $d.fs.readFile(
             {
                 path: [$.expectedFile.path, expectedFileName]
             },
-            {},
         ),
 
         (expectedData): pt.AsyncValue<api.TTestElementResult> => {
@@ -30,14 +33,14 @@ export function validateFile(
                     newline: "\n",
                 },
             )
-            if (parts !== null) {
+            if (pl.isNotNull(parts)) {
                 $d.startAsync(
-                    $d.writeFile(
+                    $d.fs.writeFile(
                         {
                             path: [$.expectedFile.path, actualFileName],
-                            data: $.actual
+                            data: $.actual,
+                            createContainingDirectories: true,
                         },
-                        {}
                     )
                 )
                 return pa.value<api.TTestElementResult>({
@@ -52,11 +55,10 @@ export function validateFile(
 
             } else {
                 $d.startAsync(
-                    $d.unlink(
+                    $d.fs.unlink(
                         {
                             path: [$.expectedFile.path, actualFileName]
                         },
-                        {}
                     )
                 )
                 return pa.value({

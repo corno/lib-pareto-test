@@ -1,7 +1,6 @@
 import * as pl from "pareto-core-lib"
+
 import * as api from "../../interface"
-import { summarize } from "./summarize"
-// import { summarize } from "./summarize"
 
 export const serializeTestResult: api.SerializeTestResult = (
     $,
@@ -81,11 +80,4 @@ export const serializeTestResult: api.SerializeTestResult = (
         $.testResult,
         ``
     )
-
-    if ($.showSummary) {
-        $i.log(``)
-        const summary = summarize($.testResult)
-        $i.log(`${green}${summary.numberOfTests - summary.numberOfErrors} tests${reset}`)
-        $i.log(`${summary.numberOfErrors > 0 ? red : reset}${summary.numberOfErrors} errors${reset}`)
-    }
 }
