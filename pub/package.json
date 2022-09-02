@@ -1,6 +1,8 @@
 {
   "author": "Corno",
   "dependencies": {
+    "api-pareto-arithmetic": "^0.1.0",
+    "api-pareto-boolean": "^0.2.0",
     "api-pareto-diff": "^0.5.1",
     "api-pareto-filesystem": "^0.1.2",
     "api-pareto-main": "^0.4.0",
@@ -22,6 +24,6 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.4.1",
-  "interface-fingerprint": "36abf9da6c558207054f9557c579901b708e9ba3",
-  "content-fingerprint": "68ec5425a5b5d5881dbd9fedb09a36f84023102a"
+  "interface-fingerprint": "10e570188ae9269fc864bf36a35e99157308773e",
+  "content-fingerprint": "4bff387b8fe3fbd960f1085f6ee7bb2eae6bd28c"
 }

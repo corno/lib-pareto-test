@@ -7,8 +7,49 @@ import * as test from "lib-pareto-test"
 
 import * as pub from "../../../pub"
 
-export function createGetTestSet($d: {}): test.GetTestSet {
-    return () => {
+export type Dependencies = {
+    diff: pub.DiffDependencies,
+}
+
+export function createGetTestSet($d: Dependencies): test.GetTestSet {
+    return ($) => {
+
+        pub.createTester(
+            {
+                getTestSet: () => {
+                    return pa.value({
+                        elements: pl.createEmptyDictionary()
+                    })
+                },
+                diff: $d.diff,
+                fs: {
+                    //for testing purposes this should probably not really be done with the filesystem
+                    readFile: () => {
+                        pl.implementMe("!!!")
+                    },
+                    writeFile: () => {
+                        pl.implementMe("!!!")
+                    },
+                    unlink: () => {
+                        pl.implementMe("!!!")
+                    },
+                }
+            },
+        )
+
+        // pub.runTests(
+        //     {
+        //         testSet: {
+        //             elements: pl.createEmptyDictionary()
+        //         }
+        //     },
+        //     {
+        //         rtd: {
+
+        //         },
+        //         startAsync: x,
+        //     }
+        // )
 
         const builder = pm.createDictionaryBuilder<test.TTestElement>(
             ["ignore", {}],

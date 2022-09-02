@@ -116,6 +116,9 @@ export const createTester: api.CreateTester = (
                                             },
                                             {
                                                 log: out
+                                            },
+                                            {
+                                                isZero: dependencies.isZero,
                                             }
                                         )
                                         if (summary.numberOfErrors > 0) {

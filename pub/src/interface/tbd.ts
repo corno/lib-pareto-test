@@ -2,6 +2,7 @@ import * as pt from "pareto-core-types"
 
 import * as diff from "api-pareto-diff"
 import * as fs from "api-pareto-filesystem"
+import * as bool from "api-pareto-boolean"
 import * as fsLib from "lib-pareto-filesystem"
 import * as main from "api-pareto-main"
 
@@ -27,6 +28,9 @@ export type SerializeSummary = (
     $i: {
         log: (str: string) => void
     },
+    $d: {
+        isZero: bool.IsZero
+    }
 ) => void
 
 export type Summarize = (
@@ -79,6 +83,7 @@ export type CreateTester = (
         diff: {
             diffData: diff.DiffData
             stringsAreEqual: diff.StringsAreEqual
-        }
+        },
+        isZero: bool.IsZero,
     }
 ) => main.ProgramMain
