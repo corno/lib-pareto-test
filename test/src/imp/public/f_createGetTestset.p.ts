@@ -5,13 +5,14 @@ import * as pl from "pareto-core-lib"
 
 import * as test from "lib-pareto-test"
 
-import * as pub from "../../../pub"
+import * as api from "../../interface"
 
-export type Dependencies = {
-    diff: pub.DiffDependencies,
-}
 
-export function createGetTestSet($d: Dependencies): test.GetTestSet {
+
+
+import * as pub from "../../../../pub"
+
+export const f_createGetTestset: api.FCreateGetTestset = ($d) => {
     return ($) => {
 
         pub.createTester(
@@ -33,7 +34,13 @@ export function createGetTestSet($d: Dependencies): test.GetTestSet {
                     unlink: () => {
                         pl.implementMe("!!!")
                     },
-                }
+                },
+                isYinBeforeYang: collation.,
+                isZero: x,
+                add: x,
+                negative: x,
+                increment: x,
+
             },
         )
 
@@ -52,7 +59,7 @@ export function createGetTestSet($d: Dependencies): test.GetTestSet {
         // )
 
         const builder = pm.createDictionaryBuilder<test.TTestElement>(
-            ["ignore", {}],
+            ["ignore", null],
             () => {
                 pl.panic("duplicate key")
             }

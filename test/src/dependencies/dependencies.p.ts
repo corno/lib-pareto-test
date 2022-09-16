@@ -1,8 +1,7 @@
 import * as diff from "res-pareto-diff"
 
-import { Dependencies } from "../imp/createGetTestSet";
-
-export const dependencies: Dependencies = {
+import * as api from "../interface"
+export const dependencies: api.DDependencies = {
     diff: {
         stringsAreEqual: diff.stringsAreEqual,
         diffData: diff.diffData,

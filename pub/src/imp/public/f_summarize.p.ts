@@ -2,8 +2,9 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../../interface"
 
-export const summarize: api.Summarize = (
-    $
+export const f_summarize: api.FSummarize = (
+    $,
+    $d,
 ) => {
     type SSummary = {
         "numberOfErrors": number
@@ -16,7 +17,8 @@ export const summarize: api.Summarize = (
     function summarizeTestSetImp(
         $: api.TTestSetResult
     ): void {
-        $.elements.forEach((a, b) => a > b, ($, key) => {
+        //this should be a reduce function!!!
+        $.elements.forEach((a, b) => false, ($, key) => {
             switch ($.type[0]) {
                 case "subset":
                     pl.cc($.type[1], ($) => {
@@ -25,9 +27,9 @@ export const summarize: api.Summarize = (
                     break
                 case "test":
                     pl.cc($.type[1], ($) => {
-                        summary.numberOfTests += 1
+                        summary.numberOfTests = $d.increment(summary.numberOfTests)
                         if (!$.success) {
-                            summary.numberOfErrors += 1
+                            summary.numberOfErrors = $d.increment(summary.numberOfErrors)
                         }
 
                     })

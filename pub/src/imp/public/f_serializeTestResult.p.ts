@@ -2,9 +2,10 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../../interface"
 
-export const serializeTestResult: api.SerializeTestResult = (
+export const p_serializeTestResult: api.PSerializeTestResult = (
     $,
     $i,
+    $d,
 ) => {
     const red = "\x1b[31m"
     const green = "\x1b[32m"
@@ -13,10 +14,15 @@ export const serializeTestResult: api.SerializeTestResult = (
     const reset = "\x1b[0m"
 
     function serializeTestSetImp(
-        $: api.TTestSetResult,
-        indentation: string,
+        $: {
+            result:  api.TTestSetResult,
+            indentation: string,
+        },
+        $d: {
+            
+        }
     ) {
-        $.elements.forEach((a, b) => a > b, ($, key) => {
+        $.elements.forEach((a, b) => $d.isYinBeforeYang({yin: b, yang: a}), ($, key) => {
             const name = key
             switch ($.type[0]) {
                 case "test":
@@ -26,7 +32,8 @@ export const serializeTestResult: api.SerializeTestResult = (
                         switch ($.type[0]) {
                             case "simple string":
                                 pl.cc($.type[1], ($) => {
-                                    if (!success) {
+                                    if (success) {
+                                    } else {
                                         $i.log(`${indentation}  expected: '${$.expected}'`)
                                         $i.log(`${indentation}  actual:   '${$.actual}'`)
                                     }

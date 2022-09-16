@@ -1,17 +1,17 @@
 import * as pt from "pareto-core-types"
 
 import * as fs from "api-pareto-filesystem"
-import { TMultilinePart } from "api-pareto-diff/dist"
+import { TMultilinePart } from "api-pareto-diff"
 
 export type TTestSet = {
     readonly "elements": pt.Dictionary<TTestElement>
 }
 
-export type ValidateFileData = {
+export type TValidateFileData = {
     readonly "expectedFile": {
-        path: fs.Path,
-        fileName: string,
-        extension: string,
+        readonly "path": fs.TPath,
+        readonly "fileName": string,
+        readonly "extension": string,
     },
     readonly "actual": string,
 
@@ -21,9 +21,9 @@ export type TTestElement = {
     readonly "type":
     | ["subset", TTestSet]
     | ["test", {
-        type:
+        readonly "type":
         | ["boolean", {
-            test: boolean
+            readonly "test": boolean
         }]
         | ["simple string", {
             readonly "expected": string,
@@ -33,13 +33,13 @@ export type TTestElement = {
             readonly "expected": string,
             readonly "actual": string,
         }]
-        | ["file string", ValidateFileData]
+        | ["file string", TValidateFileData]
     }]
 }
 
 
 export type TTestType =
-    | ["boolean", {}]
+    | ["boolean", null]
     | ["simple string", {
         readonly "expected": string,
         readonly "actual": string,
@@ -56,8 +56,8 @@ export type TTestElementResult = {
     readonly "type":
     | ["subset", TTestSetResult]
     | ["test", {
-        success: boolean
-        type: TTestType
+        readonly "success": boolean
+        readonly "type": TTestType
     }]
 }
 
