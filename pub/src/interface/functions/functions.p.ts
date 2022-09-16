@@ -8,9 +8,9 @@ import * as bool from "api-pareto-boolean"
 import * as main from "api-pareto-main"
 
 
-import { TSummary } from "../types/Summary"
-import { TTestSetResult, TTestSet } from "../types/TestResult"
-import { DRunTestsDependencies } from "../dependencies/x"
+import { TSummary } from "../types/Summary.p"
+import { TTestSetResult, TTestSet } from "../types/TestResult.p"
+import { DRunTestsDependencies } from "../dependencies/dependencies.p"
 
 
 
@@ -23,7 +23,7 @@ export type PSerializeTestResult = (
         readonly "log": ($: string) => void
     },
     $d: {
-        readonly "isYinBeforeYang": collation.FIsYinBeforeYang
+        readonly "sortedForEach": collation.FSortedForEach
     }
 ) => void
 
@@ -79,8 +79,8 @@ export type FCreateTester = (
         readonly "isZero": bool.FIsZero,
         readonly "add": arithmetic.FAdd,
         readonly "negative": arithmetic.FNegative,
-        readonly "isYinBeforeYang": collation.FIsYinBeforeYang,
+        readonly "sortedForEach": collation.FSortedForEach
         readonly "increment": ($: number) => number
     },
     $a: pt.ProcessAsyncValue
-) => main.PProgramMain
+) => main.FProgramMain

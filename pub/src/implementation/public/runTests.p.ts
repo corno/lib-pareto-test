@@ -2,8 +2,7 @@ import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 
 import * as api from "../../interface"
-import { TTestElementResult } from "../../interface"
-import { validateFile } from "../private/f_validateFile"
+import { f_validateFile } from "../private/validateFile.p"
 
 export const f_runTests: api.FRunTests = ($, $d, $a) => {
     function doTestSet($: api.TTestSet): pt.AsyncValue<api.TTestSetResult> {
@@ -18,7 +17,7 @@ export const f_runTests: api.FRunTests = ($, $d, $a) => {
                         })
                     })
                 case "test":
-                    return pl.cc($.type[1], ($): pt.AsyncValue<TTestElementResult> => {
+                    return pl.cc($.type[1], ($): pt.AsyncValue<api.TTestElementResult> => {
 
                         switch ($.type[0]) {
                             case "boolean":
@@ -32,7 +31,7 @@ export const f_runTests: api.FRunTests = ($, $d, $a) => {
                                 })
                             case "file string":
                                 return pl.cc($.type[1], ($) => {
-                                    return validateFile(
+                                    return f_validateFile(
                                         $,
                                         {
                                             fs: $d.rtd.fs,

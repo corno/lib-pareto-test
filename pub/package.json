@@ -1,16 +1,16 @@
 {
   "author": "Corno",
   "dependencies": {
-    "api-pareto-arithmetic": "^0.3.1",
-    "api-pareto-boolean": "^0.3.1",
-    "api-pareto-collation": "^0.8.0",
-    "api-pareto-diff": "^0.7.2",
-    "api-pareto-filesystem": "^0.6.0",
-    "api-pareto-main": "^0.8.0",
-    "lib-pareto-exe": "^0.4.0",
-    "lib-pareto-filesystem": "^0.3.1",
-    "pareto-core-async": "^0.5.0",
-    "pareto-core-lib": "^0.12.0"
+    "api-pareto-arithmetic": "^0.4.0",
+    "api-pareto-boolean": "^0.4.0",
+    "api-pareto-collation": "^0.12.0",
+    "api-pareto-diff": "^0.8.0",
+    "api-pareto-filesystem": "^0.10.0",
+    "api-pareto-main": "^0.9.0",
+    "lib-pareto-exe": "^0.5.0",
+    "lib-pareto-filesystem": "^0.4.0",
+    "pareto-core-lib": "^0.13.0",
+    "res-pareto-diff": "^0.12.0"
   },
   "description": "test functions for pareto",
   "files": [
@@ -25,6 +25,6 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.4.1",
-  "interface-fingerprint": "2db71b5e581ab7ec0cb41a1cda83ccfa19e31b67",
-  "content-fingerprint": "a767cbc6222cc1d0498e4bb6acca1737d452d51e"
+  "interface-fingerprint": "6bd0990936051db90da33d5b649e54046b962ec7",
+  "content-fingerprint": "b6808134ab0e68aa16b8f1833314dceacf4b3694"
 }

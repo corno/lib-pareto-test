@@ -1,15 +1,14 @@
 import * as pl from "pareto-core-lib"
-import * as pa from "pareto-core-async"
 
 import * as exeLib from "lib-pareto-exe"
 import * as fs from "lib-pareto-filesystem"
 
 import * as api from "../../interface"
 
-import { f_runTests } from "./f_runTests"
-import { f_serializeTestResult } from "./f_serializeTestResult"
-import { f_serializeSummary } from "./f_serializeSummary"
-import { f_summarize } from "./f_summarize"
+import { f_runTests } from "./runTests.p"
+import { p_serializeTestResult } from "./serializeTestResult.p"
+import { p_serializeSummary } from "./serializeSummary.p"
+import { f_summarize } from "./summarize.p"
 
 export const f_createTester: api.FCreateTester = (
     $d,
@@ -19,13 +18,13 @@ export const f_createTester: api.FCreateTester = (
     const getTestSet = $d.getTestSet
 
     return ($, $i, $d) => {
-        const out = exeLib.createLogger(
+        const out = exeLib.f_createLogger(
             {
-                writer: $i.stdout,
                 newline: "\n",
-            }
+            },
+            $i.stdout
         )
-        exeLib.getSingleArgument(
+        exeLib.p_getSingleArgument(
             $.arguments,
             {
                 error: ($) => {
@@ -42,7 +41,7 @@ export const f_createTester: api.FCreateTester = (
                             break
                         default: pl.au($[0])
                     }
-                    $i.setExitCodeToFailed()
+                    $i.setExitCodeToFailed(null)
                 },
                 callback: ($) => {
                     $a(
@@ -61,36 +60,30 @@ export const f_createTester: api.FCreateTester = (
                                         rtd: {
                                             diff: dependencies.diff,
                                             fs: {
-                                                readFile: fs.createReadFileOrAbort(
+                                                readFile: fs.f_createReadFileOrAbort(
                                                     {
                                                         onError: ($) => {
                                                             pl.implementMe("READFILE Error Handler")
                                                         }
                                                     },
-                                                    {
-                                                        readFile: dependencies.fs.readFile
-                                                    }
+                                                    dependencies.fs.readFile,
                                                 ),
-                                                writeFile: fs.createWriteFileFireAndForget(
+                                                writeFile: fs.f_createWriteFileFireAndForget(
                                                     {
                                                         onError: ($) => {
                                                             pl.implementMe("WRITEFILE Error Handler")
                                                         }
                                                     },
-                                                    {
-                                                        writeFile: dependencies.fs.writeFile
-                                                    },
+                                                    dependencies.fs.writeFile,
                                                     $a,
                                                 ),
-                                                unlink: fs.createUnlinkFireAndForget(
+                                                unlink: fs.f_createUnlinkFireAndForget(
                                                     {
                                                         onError: ($) => {
                                                             pl.implementMe("UNLINK Error Handler")
                                                         }
                                                     },
-                                                    {
-                                                        unlink: dependencies.fs.unlink
-                                                    },
+                                                    dependencies.fs.unlink,
                                                     $a,
                                                 ),
                                             }
@@ -99,16 +92,14 @@ export const f_createTester: api.FCreateTester = (
                                     $a
                                 ),
                                 ($) => {
-                                    f_serializeTestResult(
+                                    p_serializeTestResult(
                                         {
                                             testResult: $,
                                         },
                                         {
                                             log: out
                                         },
-                                        {
-                                            isYinBeforeYang: dependencies.isYinBeforeYang
-                                        }
+                                        dependencies,
                                     )
                                     const summary = f_summarize(
                                         $,
@@ -116,7 +107,7 @@ export const f_createTester: api.FCreateTester = (
                                             increment: dependencies.increment
                                         }
                                     )
-                                    f_serializeSummary(
+                                    p_serializeSummary(
                                         {
                                             summary: summary,
                                         },
@@ -132,7 +123,7 @@ export const f_createTester: api.FCreateTester = (
                                     if (dependencies.isZero(summary.numberOfErrors)) {
                                         //
                                     } else {
-                                        $i.setExitCodeToFailed()
+                                        $i.setExitCodeToFailed(null)
                                     }
                                 }
                             )

@@ -18,7 +18,7 @@ export const f_summarize: api.FSummarize = (
         $: api.TTestSetResult
     ): void {
         //this should be a reduce function!!!
-        $.elements.forEach((a, b) => false, ($, key) => {
+        $.elements.map(($, key) => {
             switch ($.type[0]) {
                 case "subset":
                     pl.cc($.type[1], ($) => {

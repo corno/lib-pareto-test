@@ -1,6 +1,5 @@
 import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
-import * as pa from "pareto-core-async"
 
 import * as diff from "api-pareto-diff"
 
