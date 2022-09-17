@@ -10,7 +10,7 @@ import * as main from "api-pareto-main"
 
 import { TSummary } from "../types/Summary.p"
 import { TTestSetResult, TTestSet } from "../types/TestResult.p"
-import { DRunTestsDependencies } from "../dependencies/dependencies.p"
+import { DCreateTesterDependencies, DRunTestsDependencies } from "../dependencies/dependencies.p"
 
 
 
@@ -65,22 +65,9 @@ export type FGetTestSet = (
 ) => pt.AsyncValue<TTestSet>
 
 export type FCreateTester = (
+    $: null,
     $d: {
         readonly "getTestSet": FGetTestSet,
-        readonly "fs": {
-            readonly "readFile": fs.FReadFile
-            readonly "writeFile": fs.FWriteFile
-            readonly "unlink": fs.FUnlink
-        },
-        readonly "diff": {
-            readonly "diffData": diff.FDiffData
-            readonly "stringsAreEqual": diff.FStringsAreEqual
-        },
-        readonly "isZero": bool.FIsZero,
-        readonly "add": arithmetic.FAdd,
-        readonly "negative": arithmetic.FNegative,
-        readonly "sortedForEach": collation.FSortedForEach
-        readonly "increment": ($: number) => number
+        readonly "dependencies": DCreateTesterDependencies,
     },
-    $a: pt.ProcessAsyncValue
 ) => main.FProgramMain

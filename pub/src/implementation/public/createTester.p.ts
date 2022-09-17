@@ -11,13 +11,13 @@ import { p_serializeSummary } from "./serializeSummary.p"
 import { f_summarize } from "./summarize.p"
 
 export const f_createTester: api.FCreateTester = (
+    $,
     $d,
-    $a,
 ) => {
     const dependencies = $d
     const getTestSet = $d.getTestSet
 
-    return ($, $i, $d) => {
+    return ($, $i, $a) => {
         const out = exeLib.f_createLogger(
             {
                 newline: "\n",
@@ -58,7 +58,7 @@ export const f_createTester: api.FCreateTester = (
                                     },
                                     {
                                         rtd: {
-                                            diff: dependencies.diff,
+                                            diff: dependencies.dependencies.diff,
                                             fs: {
                                                 readFile: fs.f_createReadFileOrAbort(
                                                     {
@@ -66,7 +66,7 @@ export const f_createTester: api.FCreateTester = (
                                                             pl.implementMe("READFILE Error Handler")
                                                         }
                                                     },
-                                                    dependencies.fs.readFile,
+                                                    dependencies.dependencies.fs.readFile,
                                                 ),
                                                 writeFile: fs.f_createWriteFileFireAndForget(
                                                     {
@@ -74,7 +74,7 @@ export const f_createTester: api.FCreateTester = (
                                                             pl.implementMe("WRITEFILE Error Handler")
                                                         }
                                                     },
-                                                    dependencies.fs.writeFile,
+                                                    dependencies.dependencies.fs.writeFile,
                                                     $a,
                                                 ),
                                                 unlink: fs.f_createUnlinkFireAndForget(
@@ -83,7 +83,7 @@ export const f_createTester: api.FCreateTester = (
                                                             pl.implementMe("UNLINK Error Handler")
                                                         }
                                                     },
-                                                    dependencies.fs.unlink,
+                                                    dependencies.dependencies.fs.unlink,
                                                     $a,
                                                 ),
                                             }
@@ -99,12 +99,12 @@ export const f_createTester: api.FCreateTester = (
                                         {
                                             log: out
                                         },
-                                        dependencies,
+                                        dependencies.dependencies,
                                     )
                                     const summary = f_summarize(
                                         $,
                                         {
-                                            increment: dependencies.increment
+                                            increment: dependencies.dependencies.increment
                                         }
                                     )
                                     p_serializeSummary(
@@ -115,12 +115,12 @@ export const f_createTester: api.FCreateTester = (
                                             log: out
                                         },
                                         {
-                                            isZero: dependencies.isZero,
-                                            add: dependencies.add,
-                                            negative: dependencies.negative,
+                                            isZero: dependencies.dependencies.isZero,
+                                            add: dependencies.dependencies.add,
+                                            negative: dependencies.dependencies.negative,
                                         }
                                     )
-                                    if (dependencies.isZero(summary.numberOfErrors)) {
+                                    if (dependencies.dependencies.isZero(summary.numberOfErrors)) {
                                         //
                                     } else {
                                         $i.setExitCodeToFailed(null)
