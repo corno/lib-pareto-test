@@ -1,16 +1,15 @@
 {
   "author": "Corno",
   "dependencies": {
-    "api-pareto-arithmetic": "^0.4.0",
-    "api-pareto-boolean": "^0.4.0",
-    "api-pareto-collation": "^0.12.0",
-    "api-pareto-diff": "^0.8.0",
-    "api-pareto-filesystem": "^0.10.0",
     "api-pareto-main": "^0.9.0",
     "lib-pareto-exe": "^0.5.0",
     "lib-pareto-filesystem": "^0.4.0",
     "pareto-core-lib": "^0.13.0",
-    "res-pareto-diff": "^0.12.0"
+    "res-pareto-arithmetic": "^0.4.0",
+    "res-pareto-boolean": "^0.5.0",
+    "res-pareto-collation": "^0.7.0",
+    "res-pareto-diff": "^0.12.0",
+    "res-pareto-filesystem": "^0.25.0"
   },
   "description": "test functions for pareto",
   "files": [
@@ -26,5 +25,5 @@
   "types": "dist/index.d.ts",
   "version": "0.5.0",
   "interface-fingerprint": "859119dda80f1b4baf9a5617de0577f7550c5695",
-  "content-fingerprint": "0c25e0f8b008ad8351d99d396223c61f9bfb6914"
+  "content-fingerprint": "7c5a1a8bf072cfe8da49d1237dbb3ad48a700b73"
 }
