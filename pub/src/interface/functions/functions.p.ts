@@ -55,13 +55,14 @@ export type FRunTests = (
     $d: {
         readonly "rtd": DRunTestsDependencies
     },
-    $a: pt.ProcessAsyncValue
+    $a: pt.ProcessAsyncValue,
 ) => pt.AsyncValue<TTestSetResult>
 
 export type FGetTestSet = (
     $: {
         readonly "testDirectory": string
     },
+    $a: pt.ProcessAsyncValue,
 ) => pt.AsyncValue<TTestSet>
 
 export type FCreateTester = (

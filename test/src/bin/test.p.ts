@@ -1,31 +1,23 @@
-// #!/usr/bin/env node
+#!/usr/bin/env node
 
-// import * as pe from "pareto-core-exe"
+import * as pe from "pareto-core-exe"
 
-// import * as test from "lib-pareto-test"
+import * as test from "lib-pareto-test"
 
-// import * as diff from "res-pareto-diff"
-// import * as fs from "res-pareto-filesystem"
-
-// import { createGetTestset } from "../imp"
-// import { dependencies } from "../dependencies/dependencies"
+import { createGetTestset } from "../implementation"
+import { dependencies } from "../dependencies/dependencies.p"
+import { data } from "../data/data.p"
 
 
-// pe.runProgram(
-//     test.createTester(
-//         {
-//             getTestSet: createGetTestset(
-//                 dependencies
-//             ),
-//             diff: {
-//                 diffData: diff.diffData,
-//                 stringsAreEqual: diff.stringsAreEqual,
-//             },
-//             fs: {
-//                 readFile: fs.readFile,
-//                 writeFile: fs.writeFile,
-//                 unlink: fs.unlink,
-//             },
-//         },
-//     )
-// )
+pe.runProgram(
+    test.f_createTester(
+        null,
+        {
+            getTestSet: createGetTestset(
+                data,
+                dependencies
+            ),
+            dependencies: test.dependencies,
+        },
+    )
+)

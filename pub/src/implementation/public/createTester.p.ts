@@ -49,6 +49,7 @@ export const f_createTester: api.FCreateTester = (
                             {
                                 testDirectory: $
                             },
+                            $a,
                         ),
                         ($) => {
                             $a(
