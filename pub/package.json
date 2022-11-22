@@ -4,7 +4,7 @@
     "api-pareto-main": "^0.9.0",
     "lib-pareto-exe": "^0.5.0",
     "lib-pareto-filesystem": "^0.4.0",
-    "pareto-core-lib": "^0.13.0",
+    "pareto-core": "^0.0.4",
     "res-pareto-arithmetic": "^0.4.0",
     "res-pareto-boolean": "^0.5.0",
     "res-pareto-collation": "^0.7.0",
@@ -24,6 +24,6 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.7.0",
-  "interface-fingerprint": "e9045759d4b922afe34b74ef0dc79f870ac622fc",
-  "content-fingerprint": "51994b14337307f8429742b8556c513da8bf9f31"
+  "interface-fingerprint": "82bd3ce654517653879a69cd19bfb0aa6618406f",
+  "content-fingerprint": "487b7bfdc825e416b0695e27730893b8dea52a86"
 }
