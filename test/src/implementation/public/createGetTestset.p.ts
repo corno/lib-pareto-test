@@ -10,13 +10,29 @@ import * as api from "../../interface"
 import * as pub from "../../../../pub"
 
 export const createGetTestset: api.FCreateGetTestset = ($, $d) => {
-    return () => {
+    return ($) => {
 
-        const rootDir = "../../../pareto"
+
+
+
+        pub.$$.test(
+            $.testDirectory,
+            {
+                out: ($) => {
+
+                },
+                onTestErrors: () => {
+
+                }
+            },
+            {
+                getTestSet: () => {}
+            },
+        )
 
         pl.logDebugMessage("REENABLE TESTS!!!!!!")
 
-        const builder = pm.createUnsafeDictionaryBuilder<test.TTestElement>( )
+        const builder = pm.createUnsafeDictionaryBuilder<test.TTestElement>()
         function createTest(name: string, actual: string, expected: string) {
             builder.add(name, {
                 type: ["test", {

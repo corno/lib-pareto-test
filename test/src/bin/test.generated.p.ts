@@ -9,15 +9,21 @@ import { dependencies } from "../dependencies/dependencies.p"
 import { data } from "../data/data.p"
 
 
-// pe.runProgram(
-//     test.f_createTester(
-//         null,
-//         {
-//             getTestSet: createGetTestset(
-//                 data,
-//                 dependencies
-//             ),
-//             dependencies: test.dependencies,
-//         },
-//     )
-// )
+pe.runProgram(
+    ($, $i) => {
+        test.f_createTester(
+            null,
+            {
+                getTestSet: createGetTestset(
+                    data,
+                    dependencies
+                ),
+                dependencies: test.dependencies,
+            },
+        )(
+            $,
+            $i,
+            ($, $i) => $._execute($i)
+        )
+    }
+)
