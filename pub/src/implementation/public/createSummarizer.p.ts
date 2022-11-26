@@ -2,7 +2,8 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
 
-export const f_createSummarizer: api.FCreateSummarizer = (
+export const f_createSummarizer: api.CCreateSummarizer = (
+    $i,
     $d,
 ) => {
     return ($) => {

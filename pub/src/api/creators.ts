@@ -7,8 +7,12 @@ import * as arithmetic from "glo-pareto-arithmetic"
 // import * as bool from "api-pareto-boolean"
 
 import * as bound from "./types"
+import { FGetTestSet, TTestSet } from "./types"
 
-export type FCreateTestResultSerializer = (
+export type CCreateTestResultSerializer = (
+    $i: {
+        readonly "log": bound.ILog
+    },
     $d: {
         readonly "sortedForEach": <T>(
             $: pt.Dictionary<T>,
@@ -18,15 +22,18 @@ export type FCreateTestResultSerializer = (
             }) => void
         ) => void
     }
-) => bound.FSerializeTestResult
+) => bound.ISerializeTestResult
 
-export type FCreateSummarizer = (
+export type CCreateSummarizer = (
+    $i: {
+        readonly "log": bound.ILog
+    },
     $d: {
         readonly "increment": ($: number) => number
     },
 ) => bound.FSummarize
 
-export type FCreateTestRunner = (
+export type CCreateTestRunner = (
     $d: {
         readonly validateFile: bound.FValidateFile,
 
@@ -38,34 +45,59 @@ export type FCreateTestRunner = (
 ) => bound.FRunTests
 
 
-export type FCreateTester = (
+export type CCreateTester = (
+    $i: {
+        onTestErrors: ($: null) => void
+        readonly "serializeTestResult": bound.ISerializeTestResult
+        readonly "serializeSummary": bound.ISerializeSummary
+    },
     $d: {
         readonly "runTests": bound.FRunTests
         readonly "isZero": ($: number) => boolean,
         readonly "summarize": bound.FSummarize
-        readonly "serializeTestResult": bound.FSerializeTestResult
-        readonly "serializeSummary": bound.FSerializeSummary
     },
     $a: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void
-) => bound.FTest
+) => bound.ITest
 
-export type FCreateFileValidator = (
-    $d: {
-        readonly "readFile": ($: bound.TPath) => pt.AsyncValue<string>
+export type CCreateFileValidator = (
+    $i: {
         readonly "writeFile": ($: {
             path: bound.TPath,
             data: string,
         }) => void
         readonly "unlink": ($: bound.TPath) => void
+    },
+    $d: {
+        readonly "readFile": ($: bound.TPath) => pt.AsyncValue<string>
         diffData: diff.FDiffData,
     },
 ) => bound.FValidateFile
 
 
-export type FCreateSummarySerializer = (
+export type CCreateSummarySerializer = (
+    $i: {
+        readonly "log": bound.ILog
+    },
     $d: {
         readonly "isZero": ($: number) => boolean
         readonly "add": arithmetic.FAdd
         readonly "negative": ($: number) => number
     }
-) => bound.FSerializeSummary
+) => bound.ISerializeSummary
+
+
+export type CCreateArgumentsParser = (
+    $i: {
+        onMissing: () => void
+        onTooMany: () => void
+        callback: ($: string) => void
+    }
+) => bound.IRunProgram
+
+
+
+export type CCreateTestProgram = (
+    $f: {
+        getTestSet: FGetTestSet
+    }
+) => bound.IRunProgram

@@ -3,7 +3,7 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
 
-export const f_createTestsRunner: api.FCreateTestRunner = ($d) => {
+export const f_createTestsRunner: api.CCreateTestRunner = ($d) => {
     return ($) => {
         function doTestSet($: api.TTestSet): pt.AsyncValue<api.TTestSetResult> {
             return $.elements.asyncMap(($): pt.AsyncValue<api.TTestElementResult> => {

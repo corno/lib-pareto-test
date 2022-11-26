@@ -2,12 +2,12 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
 
-export const f_createTestResultSerializer: api.FCreateTestResultSerializer = (
+export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
+    $i,
     $d,
 ) => {
     return (
         $,
-        $i,
     ) => {
         const red = "\x1b[31m"
         const green = "\x1b[32m"
@@ -89,7 +89,7 @@ export const f_createTestResultSerializer: api.FCreateTestResultSerializer = (
                 })
         }
         serializeTestSetImp({
-            result: $.testResult,
+            result: $,
             indentation: ``
         })
     }

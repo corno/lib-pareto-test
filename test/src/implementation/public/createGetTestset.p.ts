@@ -1,6 +1,7 @@
 
 import * as pl from "pareto-core-lib"
 import * as pm from "pareto-core-state"
+import * as pr from "pareto-core-raw"
 
 import * as test from "lib-pareto-test"
 
@@ -11,26 +12,18 @@ import * as pub from "../../../../pub"
 
 export const createGetTestset: api.FCreateGetTestset = ($, $d) => {
     return ($) => {
-
-
-
-
-        pub.$$.test(
-            $.testDirectory,
+        
+        pub.$b.createTestProgram(
             {
-                out: ($) => {
-
-                },
-                onTestErrors: () => {
-
+                getTestSet: ($) => {
+                    return pl.asyncValue({
+                        elements: pr.wrapRawDictionary({})
+                    })
                 }
-            },
-            {
-                getTestSet: () => {}
-            },
+            }
+        )(
+            pr.wrapRawArray(["foo"])
         )
-
-        pl.logDebugMessage("REENABLE TESTS!!!!!!")
 
         const builder = pm.createUnsafeDictionaryBuilder<test.TTestElement>()
         function createTest(name: string, actual: string, expected: string) {

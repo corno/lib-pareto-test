@@ -1,29 +1,26 @@
 #!/usr/bin/env node
 
 import * as pe from "pareto-core-exe"
+import * as pl from "pareto-core-lib"
 
 import * as test from "lib-pareto-test"
 
-import { createGetTestset } from "../implementation"
-import { dependencies } from "../dependencies/dependencies.p"
+import { $b, dependencies } from "../dependencies/dependencies.p"
 import { data } from "../data/data.p"
 
 
 pe.runProgram(
     ($, $i) => {
-        test.f_createTester(
-            null,
+        pl.logDebugMessage("???")
+        test.$b.createTestProgram(
             {
-                getTestSet: createGetTestset(
+                getTestSet: $b.createGetTestset(
                     data,
                     dependencies
                 ),
-                dependencies: test.dependencies,
             },
         )(
-            $,
-            $i,
-            ($, $i) => $._execute($i)
+           $.arguments
         )
     }
 )

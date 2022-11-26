@@ -1,18 +1,28 @@
-import { FTest } from "./types"
-import { FCreateFileValidator, FCreateSummarizer, FCreateSummarySerializer, FCreateTester, FCreateTestResultSerializer, FCreateTestRunner } from "./unboundFunctions.p"
+import { IRunProgram, ITest } from "./types"
+import { CCreateArgumentsParser, CCreateFileValidator, CCreateSummarizer, CCreateSummarySerializer, CCreateTester, CCreateTestProgram, CCreateTestResultSerializer, CCreateTestRunner } from "./creators"
 
-export * from "./unboundFunctions.p"
+export * from "./creators"
 export * from "./types"
 
-export type API = {
-    createFileValidator: FCreateFileValidator,
-    createTester: FCreateTester,
-    createTestsRunner: FCreateTestRunner,
-    createSummarySerializer: FCreateSummarySerializer,
-    createTestResultSerializer: FCreateTestResultSerializer,
-    createSummarizer: FCreateSummarizer,
+export type UnboundAPI = {
+    createFileValidator: CCreateFileValidator,
+    createTester: CCreateTester,
+    createTestsRunner: CCreateTestRunner,
+    createSummarySerializer: CCreateSummarySerializer,
+    createTestResultSerializer: CCreateTestResultSerializer,
+    createSummarizer: CCreateSummarizer,
+    createArgumentsParser: CCreateArgumentsParser,
 }
 
-export type API2 = {
-    test: FTest
+export type BoundAPI = {
+    createTester: ($i: {
+        onError: ($: string) => void
+        log: ($: string) => void
+        onTestErrors: () => void
+    }) => ITest
+    parseArguments: ($i: {
+        onError: ($: string) => void
+        callback: ($: string) => void
+    }) => IRunProgram
+    createTestProgram: CCreateTestProgram
 }
