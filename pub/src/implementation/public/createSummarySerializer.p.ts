@@ -1,7 +1,7 @@
 import * as api from "../../api"
 
 export const f_createSummarySerializer: api.CCreateSummarySerializer = (
-    $i, $d,
+    $i, $f,
 ) => {
     return (
         $,
@@ -12,7 +12,7 @@ export const f_createSummarySerializer: api.CCreateSummarySerializer = (
 
         $i.log(``)
         const summary = $
-        $i.log(`${$d.isZero(summary.numberOfErrors) ? green : ""}${$d.add([summary.numberOfTests, $d.negative(summary.numberOfErrors)])} successful tests${reset}`)
-        $i.log(`${$d.isZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
+        $i.log(`${$f.isZero(summary.numberOfErrors) ? green : ""}${$f.add([summary.numberOfTests, $f.negate(summary.numberOfErrors)])} successful tests${reset}`)
+        $i.log(`${$f.isZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
     }
 }

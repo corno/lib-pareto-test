@@ -3,21 +3,21 @@ import * as api from "../../api"
 
 export const f_createTester: api.CCreateTester = (
     $i,
-    $d,
+    $f,
     $a,
 ) => {
 
     pl.logDebugMessage("HIER3")
     return ($) => {
         $a(
-            $d.runTests($),
+            $f.runTests($),
             ($) => {
                 $i.serializeTestResult($)
-                const summary = $d.summarize(
+                const summary = $f.summarize(
                     $,
                 )
                 $i.serializeSummary(summary)
-                if ($d.isZero(summary.numberOfErrors)) {
+                if ($f.isZero(summary.numberOfErrors)) {
                     //
                 } else {
                     $i.onTestErrors(null)

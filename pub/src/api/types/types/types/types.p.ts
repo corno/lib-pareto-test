@@ -1,13 +1,11 @@
 import * as pt from "pareto-core-types"
 
-import { TMultilinePart } from "glo-pareto-diff"
-
-
-export type TPath = pt.Nested<string>
+import * as diff from "glo-pareto-diff"
+import * as fs from "api-pareto-filesystem"
 
 export type TValidateFileData = {
     readonly "expectedFile": {
-        readonly "path": TPath,
+        readonly "path": fs.TPath,
         readonly "fileName": string,
         readonly "extension": string,
     },
@@ -21,11 +19,11 @@ export type TTestType =
         readonly "actual": string,
     }]
     | ["large string", {
-        readonly "parts": pt.Array<TMultilinePart>,
+        readonly "parts": pt.Array<diff.TMultilinePart>,
     }]
     | ["file string", {
         readonly "fileLocation": string
-        readonly "parts": pt.Array<TMultilinePart>,
+        readonly "parts": pt.Array<diff.TMultilinePart>,
     }]
 
 
@@ -74,4 +72,8 @@ export type TTestElement = {
 export type TSummary = {
     readonly "numberOfErrors": number
     readonly "numberOfTests": number
+}
+
+export type TTestParameters = {
+    readonly "testDirectory": string
 }

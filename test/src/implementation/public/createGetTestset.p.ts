@@ -10,7 +10,7 @@ import * as api from "../../interface"
 
 import * as pub from "../../../../pub"
 
-export const createGetTestset: api.FCreateGetTestset = ($, $d) => {
+export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
     return ($) => {
         
         pub.$b.createTestProgram(

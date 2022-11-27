@@ -3,7 +3,7 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
 
-export const f_createTestsRunner: api.CCreateTestRunner = ($d) => {
+export const f_createTestsRunner: api.CCreateTestRunner = ($f) => {
     return ($) => {
         function doTestSet($: api.TTestSet): pt.AsyncValue<api.TTestSetResult> {
             return $.elements.asyncMap(($): pt.AsyncValue<api.TTestElementResult> => {
@@ -31,13 +31,13 @@ export const f_createTestsRunner: api.CCreateTestRunner = ($d) => {
                                     })
                                 case "file string":
                                     return pl.cc($.type[1], ($) => {
-                                        return $d.validateFile(
+                                        return $f.validateFile(
                                             $,
                                         )
                                     })
                                 case "large string":
                                     return pl.cc($.type[1], ($) => {
-                                        const res = $d.diffData(
+                                        const res = $f.diffData(
                                             {
                                                 originalData: $.expected,
                                                 changedData: $.actual,
@@ -70,7 +70,7 @@ export const f_createTestsRunner: api.CCreateTestRunner = ($d) => {
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
                                             type: ["test", {
-                                                success: $d.stringsAreEqual({
+                                                success: $f.stringsAreEqual({
                                                     a: $.actual,
                                                     b: $.expected,
                                                 }),

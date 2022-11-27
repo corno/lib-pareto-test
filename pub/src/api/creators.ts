@@ -1,19 +1,20 @@
 import * as pt from "pareto-core-types"
 
 import * as diff from "glo-pareto-diff"
-// import * as fs from "api-pareto-filesystem"
+import * as fs from "lib-pareto-filesystem"
 import * as arithmetic from "glo-pareto-arithmetic"
 // import * as collation from "api-pareto-collation"
 // import * as bool from "api-pareto-boolean"
 
 import * as bound from "./types"
-import { FGetTestSet, TTestSet } from "./types"
+
+export type ProcessAsyncValue = <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void
 
 export type CCreateTestResultSerializer = (
     $i: {
         readonly "log": bound.ILog
     },
-    $d: {
+    $f: {
         readonly "sortedForEach": <T>(
             $: pt.Dictionary<T>,
             $i: ($: {
@@ -28,16 +29,14 @@ export type CCreateSummarizer = (
     $i: {
         readonly "log": bound.ILog
     },
-    $d: {
-        readonly "increment": ($: number) => number
+    $f: {
+        readonly "increment": bound.FIncrement
     },
 ) => bound.FSummarize
 
 export type CCreateTestRunner = (
-    $d: {
-        readonly validateFile: bound.FValidateFile,
-
-
+    $f: {
+        readonly "validateFile": bound.FValidateFile,
         readonly "diffData": diff.FDiffData
         readonly "stringsAreEqual": diff.FStringsAreEqual
 
@@ -47,29 +46,26 @@ export type CCreateTestRunner = (
 
 export type CCreateTester = (
     $i: {
-        onTestErrors: ($: null) => void
+        readonly "onTestErrors": bound.IOnTestErrors
         readonly "serializeTestResult": bound.ISerializeTestResult
         readonly "serializeSummary": bound.ISerializeSummary
     },
-    $d: {
+    $f: {
         readonly "runTests": bound.FRunTests
-        readonly "isZero": ($: number) => boolean,
+        readonly "isZero": bound.FIsZero,
         readonly "summarize": bound.FSummarize
     },
-    $a: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void
+    $a: ProcessAsyncValue
 ) => bound.ITest
 
 export type CCreateFileValidator = (
     $i: {
-        readonly "writeFile": ($: {
-            path: bound.TPath,
-            data: string,
-        }) => void
-        readonly "unlink": ($: bound.TPath) => void
+        readonly "writeFile": bound.IWriteFile
+        readonly "unlink": fs.FUnlinkFireAndForget
     },
-    $d: {
-        readonly "readFile": ($: bound.TPath) => pt.AsyncValue<string>
-        diffData: diff.FDiffData,
+    $f: {
+        readonly "readFile": bound.FReadFile
+        readonly "diffData": diff.FDiffData,
     },
 ) => bound.FValidateFile
 
@@ -78,19 +74,18 @@ export type CCreateSummarySerializer = (
     $i: {
         readonly "log": bound.ILog
     },
-    $d: {
-        readonly "isZero": ($: number) => boolean
+    $f: {
+        readonly "isZero": bound.FIsZero
         readonly "add": arithmetic.FAdd
-        readonly "negative": ($: number) => number
+        readonly "negate": bound.FNegate
     }
 ) => bound.ISerializeSummary
 
 
-export type CCreateArgumentsParser = (
+export type CCreateTestParametersParser = (
     $i: {
-        onMissing: () => void
-        onTooMany: () => void
-        callback: ($: string) => void
+        readonly "onError": bound.IOnArgumentError
+        readonly "callback": bound.ITest2
     }
 ) => bound.IRunProgram
 
@@ -98,6 +93,6 @@ export type CCreateArgumentsParser = (
 
 export type CCreateTestProgram = (
     $f: {
-        getTestSet: FGetTestSet
+        readonly "getTestSet": bound.FGetTestSet
     }
 ) => bound.IRunProgram

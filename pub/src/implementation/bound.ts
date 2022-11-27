@@ -9,7 +9,10 @@ import * as fs from "res-pareto-filesystem"
 import * as fslib from "lib-pareto-filesystem"
 
 import * as api from "../api"
-import { $$ } from "../implementation"
+
+import * as $$ from "./unbound"
+
+const processAsync: api.ProcessAsyncValue = ($, $i) => $._execute($i)
 
 export const $b: api.BoundAPI = {
     parseArguments: ($i) => {
@@ -38,24 +41,20 @@ export const $b: api.BoundAPI = {
         //         }
         //     }
         // )
-        return $$.createArgumentsParser(
+        return $$.f_createTestParametersParser(
             {
-                onMissing: () =>/**/ {
-                    $i.onError(`missing argument`)
-                },
-                onTooMany: () =>/**/ {
-                    $i.onError(`too many arguments`)
-
+                onError: () =>/**/ {
+                    $i.onError(`arguments error`)
                 },
                 callback: $i.callback,
             }
         )
     },
     createTester: ($i) => {
-        return $$.createTester(
+        return $$.f_createTester(
             {
                 onTestErrors: $i.onTestErrors,
-                serializeTestResult: $$.createTestResultSerializer(
+                serializeTestResult: $$.f_createTestResultSerializer(
                     {
                         log: $i.log,
                     },
@@ -65,30 +64,30 @@ export const $b: api.BoundAPI = {
                         }),
                     }
                 ),
-                serializeSummary: $$.createSummarySerializer(
+                serializeSummary: $$.f_createSummarySerializer(
                     {
                         log: $i.log
                     },
                     {
                         isZero: bool.f_isZero,
                         add: arith.f_add,
-                        negative: arith.f_negative,
+                        negate: arith.f_negative,
 
                     }
                 )
             },
             {
-                runTests: $$.createTestsRunner(
+                runTests: $$.f_createTestsRunner(
                     {
                         diffData: diff.fDiffData,
                         stringsAreEqual: diff.fStringsAreEqual,
-                        validateFile: $$.createFileValidator(
+                        validateFile: $$.f_createFileValidator(
                             {
 
                                 writeFile: ($) =>/**/ {
                                     fslib.f_createWriteFileFireAndForget(
                                         fs.f_createWriteStream,
-                                        ($, $i) =>/**/ $._execute($i)
+                                        processAsync,
                                     )(
                                         {
                                             onError: ($) =>/**/ {
@@ -102,21 +101,17 @@ export const $b: api.BoundAPI = {
                                         createContainingDirectories: true,
                                     })
                                 },
-                                unlink: ($) =>/**/ {
-                                    fslib.f_createUnlinkFireAndForget(
-                                        fs.f_unlink,
-                                        ($, $i) =>/**/ $._execute($i)
-                                    )(
-                                        {
-                                            onError: ($) =>/**/ {
-                                                $i.onError(`${$.path}: ${fslib.l_createUnlinkErrorMessage($.error)}`)
-                                            }
-                                        },
+                                unlink: fslib.f_createUnlinkFireAndForget(
+                                    fs.f_unlink,
+                                    processAsync,
+                                )(
+                                    {
+                                        onError: ($) =>/**/ {
+                                            $i.onError(`${$.path}: ${fslib.l_createUnlinkErrorMessage($.error)}`)
+                                        }
+                                    },
 
-                                    )({
-                                        path: $
-                                    })
-                                },
+                                ),
                             },
                             {
                                 readFile: ($) =>/**/ {
@@ -149,17 +144,17 @@ export const $b: api.BoundAPI = {
                             }),
                     }
                 ),
-                summarize: $$.createSummarizer(
+                summarize: $$.f_createSummarizer(
                     {
                         log: $i.log,
                     },
                     {
-                        increment: ($) =>/**/ { return $ + 1 },
+                        increment: $$.increment,
                     }
                 ),
                 isZero: bool.f_isZero,
             },
-            ($, $i) =>/**/ $._execute($i)
+            processAsync,
 
         )
     },
@@ -167,22 +162,21 @@ export const $b: api.BoundAPI = {
         return $b.parseArguments({
             onError: pl.logDebugMessage,
             callback: ($) =>/**/ {
-                pl.logDebugMessage("HIER1")
-                $f.getTestSet({ testDirectory: $ })._execute(($) =>/**/ {
+                processAsync(
+                    $f.getTestSet($),
+                    ($) =>/**/ {
+                        $b.createTester(
+                            {
+                                onError: pl.logDebugMessage,
+                                onTestErrors: () =>/**/ {
+                                    pl.logDebugMessage("!TESTERRORS")
 
-                    pl.logDebugMessage("HIER2")
-                    $b.createTester(
-                        {
-                            onError: pl.logDebugMessage,
-                            onTestErrors: () =>/**/ {
-                                pl.logDebugMessage("!TESTERRORS")
-
-                            },
-                            log: pl.logDebugMessage
-                        }
-                    )($)
-                })
-
+                                },
+                                log: pl.logDebugMessage
+                            }
+                        )($)
+                    }
+                )
             }
         })
     }

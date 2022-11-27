@@ -8,6 +8,6 @@ import { DDependencies } from "../dependencies/dependencies.p"
 
 export type FCreateGetTestset = (
     $: null,
-    $d: DDependencies,
+    $f: DDependencies,
     //$a: pt.ProcessAsyncValue
 ) => pub.FGetTestSet

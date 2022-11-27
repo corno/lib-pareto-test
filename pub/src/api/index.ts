@@ -1,5 +1,5 @@
-import { IRunProgram, ITest } from "./types"
-import { CCreateArgumentsParser, CCreateFileValidator, CCreateSummarizer, CCreateSummarySerializer, CCreateTester, CCreateTestProgram, CCreateTestResultSerializer, CCreateTestRunner } from "./creators"
+import { IRunProgram, ITest, TTestParameters } from "./types"
+import { CCreateTestParametersParser, CCreateFileValidator, CCreateSummarizer, CCreateSummarySerializer, CCreateTester, CCreateTestProgram, CCreateTestResultSerializer, CCreateTestRunner } from "./creators"
 
 export * from "./creators"
 export * from "./types"
@@ -11,7 +11,7 @@ export type UnboundAPI = {
     createSummarySerializer: CCreateSummarySerializer,
     createTestResultSerializer: CCreateTestResultSerializer,
     createSummarizer: CCreateSummarizer,
-    createArgumentsParser: CCreateArgumentsParser,
+    createTestParametersParser: CCreateTestParametersParser,
 }
 
 export type BoundAPI = {
@@ -22,7 +22,7 @@ export type BoundAPI = {
     }) => ITest
     parseArguments: ($i: {
         onError: ($: string) => void
-        callback: ($: string) => void
+        callback: types.IRunTests
     }) => IRunProgram
     createTestProgram: CCreateTestProgram
 }

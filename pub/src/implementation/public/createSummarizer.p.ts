@@ -4,7 +4,7 @@ import * as api from "../../api"
 
 export const f_createSummarizer: api.CCreateSummarizer = (
     $i,
-    $d,
+    $f,
 ) => {
     return ($) => {
 
@@ -29,9 +29,9 @@ export const f_createSummarizer: api.CCreateSummarizer = (
                         break
                     case "test":
                         pl.cc($.type[1], ($) => {
-                            summary.numberOfTests = $d.increment(summary.numberOfTests)
+                            summary.numberOfTests = $f.increment(summary.numberOfTests)
                             if (!$.success) {
-                                summary.numberOfErrors = $d.increment(summary.numberOfErrors)
+                                summary.numberOfErrors = $f.increment(summary.numberOfErrors)
                             }
 
                         })

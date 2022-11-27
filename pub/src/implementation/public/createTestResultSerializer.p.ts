@@ -4,7 +4,7 @@ import * as api from "../../api"
 
 export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
     $i,
-    $d,
+    $f,
 ) => {
     return (
         $,
@@ -22,7 +22,7 @@ export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
             },
         ) {
             const indentation = $.indentation
-            $d.sortedForEach(
+            $f.sortedForEach(
                 $.result.elements,
                 ($) => {
                     const name = $.key

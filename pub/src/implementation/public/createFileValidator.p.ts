@@ -3,12 +3,12 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
 
-export const f_createFileValidator: api.CCreateFileValidator = ($i, $d) => {
+export const f_createFileValidator: api.CCreateFileValidator = ($i, $f) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
-        return $d.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
+        return $f.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
             const actualFileName = `${$.expectedFile.fileName}.actual.${$.expectedFile.extension}`
-            const parts = $d.diffData(
+            const parts = $f.diffData(
                 {
                     originalData: expectedData,
                     changedData: $.actual,
@@ -33,7 +33,9 @@ export const f_createFileValidator: api.CCreateFileValidator = ($i, $d) => {
                 })
 
             } else {
-                $i.unlink([$.expectedFile.path, actualFileName])
+                $i.unlink({
+                    path: [$.expectedFile.path, actualFileName]
+                })
                 return pl.asyncValue({
                     type: ["test", {
                         success: true,

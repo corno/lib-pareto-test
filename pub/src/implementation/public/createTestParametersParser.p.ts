@@ -2,7 +2,7 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
 
-export const f_createArgumentsParser: api.CCreateArgumentsParser = (
+export const f_createTestParametersParser: api.CCreateTestParametersParser = (
     $i,
 ) => {
     return ($) => {
@@ -10,13 +10,13 @@ export const f_createArgumentsParser: api.CCreateArgumentsParser = (
         let state: State = null
         $.forEach(($) => {
             if (state !== null) {
-                $i.onTooMany()
+                $i.onError(["too many", null])
             } else {
                 state = $
             }
         })
         if (state === null) {
-            $i.onMissing()
+            $i.onError(["missing", null])
         } else {
             $i.callback(state)
         }
