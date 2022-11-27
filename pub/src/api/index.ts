@@ -22,7 +22,7 @@ export type BoundAPI = {
     }) => ITest
     parseArguments: ($i: {
         onError: ($: string) => void
-        callback: types.IRunTests
+        callback: ($: TTestParameters) => void
     }) => IRunProgram
     createTestProgram: CCreateTestProgram
 }

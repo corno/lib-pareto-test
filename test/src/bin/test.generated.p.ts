@@ -5,16 +5,16 @@ import * as pl from "pareto-core-lib"
 
 import * as test from "lib-pareto-test"
 
-import { $b, dependencies } from "../dependencies/dependencies.p"
+import { dependencies } from "../dependencies/dependencies.p"
 import { data } from "../data/data.p"
+import { createGetTestset } from "../implementation"
 
 
 pe.runProgram(
     ($, $i) => {
-        pl.logDebugMessage("???")
         test.$b.createTestProgram(
             {
-                getTestSet: $b.createGetTestset(
+                getTestSet: createGetTestset(
                     data,
                     dependencies
                 ),
