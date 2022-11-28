@@ -1,6 +1,6 @@
 import * as pt from "pareto-core-types"
 
-import * as diff from "glo-pareto-diff"
+import * as diff from "res-pareto-diff"
 import * as fs from "api-pareto-filesystem"
 
 export type TValidateFileData = {

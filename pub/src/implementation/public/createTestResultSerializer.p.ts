@@ -1,10 +1,10 @@
 import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
+import * as types from "../types"
 
-export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
-    $i,
-    $f,
+export const f_createTestResultSerializer: types.CCreateTestResultSerializer = (
+    $d,
 ) => {
     return (
         $,
@@ -22,22 +22,22 @@ export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
             },
         ) {
             const indentation = $.indentation
-            $f.sortedForEach(
-                $.result.elements,
-                ($) => {
-                    const name = $.key
-                    switch ($.value.type[0]) {
+            $.result.elements.forEach(
+                (a, b) => $d.isABeforeB({a: a, b: b}),
+                ($, key) => {
+                    const name = key
+                    switch ($.type[0]) {
                         case "test":
-                            pl.cc($.value.type[1], ($) => {
+                            pl.cc($.type[1], ($) => {
                                 const success = $.success
-                                $i.log(`${indentation}${$.success ? green : red}${name}${reset}`)
+                                $d.log(`${indentation}${$.success ? green : red}${name}${reset}`)
                                 switch ($.type[0]) {
                                     case "simple string":
                                         pl.cc($.type[1], ($) => {
                                             if (success) {
                                             } else {
-                                                $i.log(`${indentation}  expected: '${$.expected}'`)
-                                                $i.log(`${indentation}  actual:   '${$.actual}'`)
+                                                $d.log(`${indentation}  expected: '${$.expected}'`)
+                                                $d.log(`${indentation}  actual:   '${$.actual}'`)
                                             }
                                         })
                                         break
@@ -46,9 +46,9 @@ export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
                                             $.parts.forEach(($) => {
                                                 const added = $.type[0] === "added"
 
-                                                $i.log(`${indentation}  line ${$.startLineInOriginal}|${$.startLineInChanged}`)
+                                                $d.log(`${indentation}  line ${$.startLineInOriginal}|${$.startLineInChanged}`)
                                                 $.lines.forEach(($) => {
-                                                    $i.log(`${indentation}    ${added ? "+" : "-"}${$}`)
+                                                    $d.log(`${indentation}    ${added ? "+" : "-"}${$}`)
                                                 })
                                             })
                                         })
@@ -58,9 +58,9 @@ export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
                                             const fileLocation = $.fileLocation
                                             $.parts.forEach(($) => {
                                                 const added = $.type[0] === "added"
-                                                $i.log(`${indentation}  ${cyan}${fileLocation}${reset}:${yellow}${$.startLineInOriginal}${reset}`)
+                                                $d.log(`${indentation}  ${cyan}${fileLocation}${reset}:${yellow}${$.startLineInOriginal}${reset}`)
                                                 $.lines.forEach(($) => {
-                                                    $i.log(`${indentation}    ${added ? "+" : "-"}${$}`)
+                                                    $d.log(`${indentation}    ${added ? "+" : "-"}${$}`)
                                                 })
                                             })
                                         })
@@ -75,8 +75,8 @@ export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
                             })
                             break
                         case "subset":
-                            pl.cc($.value.type[1], ($) => {
-                                $i.log(`${indentation}${name}`)
+                            pl.cc($.type[1], ($) => {
+                                $d.log(`${indentation}${name}`)
                                 serializeTestSetImp({
                                     result: $,
                                     indentation: `${indentation}  `,
@@ -84,9 +84,10 @@ export const f_createTestResultSerializer: api.CCreateTestResultSerializer = (
                             })
                             break
 
-                        default: pl.au($.value.type[0])
+                        default: pl.au($.type[0])
                     }
-                })
+                }
+            )
         }
         serializeTestSetImp({
             result: $,

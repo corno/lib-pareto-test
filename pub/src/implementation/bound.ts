@@ -1,3 +1,4 @@
+import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 
 import * as diff from "res-pareto-diff"
@@ -12,160 +13,169 @@ import * as api from "../api"
 
 import * as $$ from "./unbound"
 
-const processAsync: api.ProcessAsyncValue = ($, $i) => $._execute($i)
+const processAsync: <T>($: pt.AsyncValue<T>, $i: ($:T) => void) => void = ($, $i) => $._execute($i)
 
-export const $b: api.BoundAPI = {
-    parseArguments: ($i) => {
+export type CParseArguments = ($i: {
+        onError: ($: string) => void
+        callback: ($: api.TTestParameters) => void
+    }) => api.IRunProgram
 
-        // exeLib.p_getSingleArgument(
-        //     $.arguments,
-        //     {
-        //         error: ($) => {
-        //             // switch ($[0]) {
-        //             //     case "no arguments found":
-        //             //         pl.cc($[1], ($) => {
-        //             //             $i.out("missing test directory path")
-        //             //         })
-        //             //         break
-        //             //     case "too many arguments found":
-        //             //         pl.cc($[1], ($) => {
-        //             //             $i.out("too many arguments, only a test directory expected")
-        //             //         })
-        //             //         break
-        //             //     default: pl.au($[0])
-        //             // }
-        //             // $i.setExitCodeToFailed(null)
-        //         },
-        //         callback: ($) => {
+export type CCreateTester = ($i: {
+        onError: ($: string) => void
+        log: ($: string) => void
+        onTestErrors: () => void
+    }) => api.ITest
 
-        //         }
-        //     }
-        // )
-        return $$.f_createTestParametersParser(
-            {
-                onError: () =>/**/ {
-                    $i.onError(`arguments error`)
-                },
-                callback: $i.callback,
-            }
-        )
-    },
-    createTester: ($i) => {
-        return $$.f_createTester(
-            {
-                onTestErrors: $i.onTestErrors,
-                serializeTestResult: $$.f_createTestResultSerializer(
-                    {
-                        log: $i.log,
-                    },
-                    {
-                        sortedForEach: collation.fCreateSortedForEach({
-                            isYinBeforeYang: collation.fLocaleIsYinBeforeYang
-                        }),
-                    }
-                ),
-                serializeSummary: $$.f_createSummarySerializer(
-                    {
-                        log: $i.log
-                    },
-                    {
-                        isZero: bool.f_isZero,
-                        add: arith.f_add,
-                        negate: arith.f_negative,
+const parseArguments: CParseArguments = ($i) => {
 
-                    }
-                )
+    // exeLib.p_getSingleArgument(
+    //     $.arguments,
+    //     {
+    //         error: ($) => {
+    //             // switch ($[0]) {
+    //             //     case "no arguments found":
+    //             //         pl.cc($[1], ($) => {
+    //             //             $i.out("missing test directory path")
+    //             //         })
+    //             //         break
+    //             //     case "too many arguments found":
+    //             //         pl.cc($[1], ($) => {
+    //             //             $i.out("too many arguments, only a test directory expected")
+    //             //         })
+    //             //         break
+    //             //     default: pl.au($[0])
+    //             // }
+    //             // $i.setExitCodeToFailed(null)
+    //         },
+    //         callback: ($) => {
+
+    //         }
+    //     }
+    // )
+    return $$.f_createTestParametersParser(
+        {
+            onError: () =>/**/ {
+                $i.onError(`arguments error`)
             },
-            {
-                runTests: $$.f_createTestsRunner(
-                    {
-                        diffData: diff.fDiffData,
-                        stringsAreEqual: diff.fStringsAreEqual,
-                        validateFile: $$.f_createFileValidator(
-                            {
+            callback: $i.callback,
+        }
+    )
+}
 
-                                writeFile: ($) =>/**/ {
-                                    fslib.f_createWriteFileFireAndForget(
-                                        fs.f_createWriteStream,
-                                        processAsync,
-                                    )(
-                                        {
-                                            onError: ($) =>/**/ {
-                                                $i.onError(`${$.path}: ${fslib.l_createWriteFileErrorMessage($.error)}`)
-                                            }
-                                        },
+export const createTester: CCreateTester = ($i) => {
+    return $$.f_createTester(
+        {
+            onTestErrors: $i.onTestErrors,
+            serializeTestResult: $$.f_createTestResultSerializer(
+                {
+                    log: $i.log,
+                    isABeforeB: collation.fLocaleIsYinBeforeYang,
+                },
+            ),
+            serializeSummary: $$.f_createSummarySerializer(
+                {
+                    log: $i.log
+                },
+                {
+                    isZero: bool.f_isZero,
+                    add: arith.f_add,
+                    negate: arith.f_negative,
 
-                                    )({
-                                        path: $.path,
-                                        data: $.data,
-                                        createContainingDirectories: true,
-                                    })
-                                },
-                                unlink: fslib.f_createUnlinkFireAndForget(
-                                    fs.f_unlink,
+                }
+            )
+        },
+        {
+            runTests: $$.f_createTestsRunner(
+                {
+                    diffData: diff.fDiffData,
+                    stringsAreEqual: diff.fStringsAreEqual,
+                    validateFile: $$.f_createFileValidator(
+                        {
+
+                            writeFile: ($) =>/**/ {
+                                fslib.f_createWriteFileFireAndForget(
+                                    fs.f_createWriteStream,
                                     processAsync,
                                 )(
                                     {
                                         onError: ($) =>/**/ {
-                                            $i.onError(`${$.path}: ${fslib.l_createUnlinkErrorMessage($.error)}`)
+                                            $i.onError(`${$.path}: ${fslib.l_createWriteFileErrorMessage($.error)}`)
                                         }
                                     },
 
-                                ),
+                                )({
+                                    path: $.path,
+                                    data: $.data,
+                                    createContainingDirectories: true,
+                                })
                             },
-                            {
-                                readFile: ($) =>/**/ {
-                                    const x = $
-                                    return pl.toAsyncValue(($i2) =>/**/ {
-
-                                        fs.f_getFile(
-                                            x,
-                                            {
-                                                onError: ($) =>/**/ {
-                                                    $i.onError(`${$.path}: ${fslib.l_createReadFileErrorMessage($.error)}`)
-                                                },
-                                                init: ($c) =>/**/ {
-                                                    let out = ""
-                                                    $c({
-                                                        onData: ($) =>/**/ {
-                                                            out += $
-                                                        },
-                                                        onEnd: () =>/**/ {
-                                                            $i2(out)
-                                                        }
-                                                    })
-                                                }
-                                            },
-                                            ($, $i) =>/**/ $._execute($i)
-                                        )
-                                    })
+                            unlink: fslib.f_createUnlinkFireAndForget(
+                                fs.f_unlink,
+                                processAsync,
+                            )(
+                                {
+                                    onError: ($) =>/**/ {
+                                        $i.onError(`${$.path}: ${fslib.l_createUnlinkErrorMessage($.error)}`)
+                                    }
                                 },
-                                diffData: diff.fDiffData,
-                            }),
-                    }
-                ),
-                summarize: $$.f_createSummarizer(
-                    {
-                        log: $i.log,
-                    },
-                    {
-                        increment: $$.increment,
-                    }
-                ),
-                isZero: bool.f_isZero,
-            },
-            processAsync,
 
-        )
-    },
+                            ),
+                        },
+                        {
+                            readFile: ($) =>/**/ {
+                                const x = $
+                                return pl.toAsyncValue(($i2) =>/**/ {
+
+                                    fs.f_getFile(
+                                        x,
+                                        {
+                                            onError: ($) =>/**/ {
+                                                $i.onError(`${$.path}: ${fslib.l_createReadFileErrorMessage($.error)}`)
+                                            },
+                                            init: ($c) =>/**/ {
+                                                let out = ""
+                                                $c({
+                                                    onData: ($) =>/**/ {
+                                                        out += $
+                                                    },
+                                                    onEnd: () =>/**/ {
+                                                        $i2(out)
+                                                    }
+                                                })
+                                            }
+                                        },
+                                        ($, $i) =>/**/ $._execute($i)
+                                    )
+                                })
+                            },
+                            diffData: diff.fDiffData,
+                        }),
+                }
+            ),
+            summarize: $$.f_createSummarizer(
+                {
+                    log: $i.log,
+                },
+                {
+                    increment: $$.increment,
+                }
+            ),
+            isZero: bool.f_isZero,
+        },
+        processAsync,
+
+    )
+}
+
+export const $b: api.BoundAPI = {
     createTestProgram: ($f) => {
-        return $b.parseArguments({
+        return parseArguments({
             onError: pl.logDebugMessage,
             callback: ($) =>/**/ {
                 processAsync(
                     $f.getTestSet($),
                     ($) =>/**/ {
-                        $b.createTester(
+                        createTester(
                             {
                                 onError: pl.logDebugMessage,
                                 onTestErrors: () =>/**/ {

@@ -1,8 +1,9 @@
 import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
+import * as types from "../types"
 
-export const f_createSummarizer: api.CCreateSummarizer = (
+export const f_createSummarizer: types.CCreateSummarizer = (
     $i,
     $f,
 ) => {

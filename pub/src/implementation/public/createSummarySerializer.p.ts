@@ -1,6 +1,7 @@
 import * as api from "../../api"
+import * as types from "../types"
 
-export const f_createSummarySerializer: api.CCreateSummarySerializer = (
+export const f_createSummarySerializer: types.CCreateSummarySerializer = (
     $i, $f,
 ) => {
     return (

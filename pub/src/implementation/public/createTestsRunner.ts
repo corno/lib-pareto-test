@@ -2,8 +2,9 @@ import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
+import * as types from "../types"
 
-export const f_createTestsRunner: api.CCreateTestRunner = ($f) => {
+export const f_createTestsRunner: types.CCreateTestRunner = ($f) => {
     return ($) => {
         function doTestSet($: api.TTestSet): pt.AsyncValue<api.TTestSetResult> {
             return $.elements.asyncMap(($): pt.AsyncValue<api.TTestElementResult> => {

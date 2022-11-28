@@ -1,7 +1,8 @@
 import * as pl from "pareto-core-lib"
 import * as api from "../../api"
+import * as types from "../types"
 
-export const f_createTester: api.CCreateTester = (
+export const f_createTester: types.CCreateTester = (
     $i,
     $f,
     $a,
