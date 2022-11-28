@@ -23,7 +23,7 @@ export type CParseArguments = ($i: {
 export type CCreateTester = ($i: {
     onError: ($: string) => void
     log: ($: string) => void
-    onTestErrors: () => void
+    onTestErrors: ($: null) => void
 }) => api.ITest
 
 const parseArguments: CParseArguments = ($i) => {
@@ -74,9 +74,7 @@ export const createTester: CCreateTester = ($i) => {
             ),
             serializeSummary: $$.f_createSummarySerializer(
                 {
-                    log: $i.log
-                },
-                {
+                    log: $i.log,
                     isZero: bool.f_isZero,
                     add: arith.f_add,
                     negate: arith.f_negative,
@@ -166,22 +164,17 @@ export const createTester: CCreateTester = ($i) => {
 export const $b: api.BoundAPI = {
     createTestProgram: ($f) => {
         return parseArguments({
-            onError: pl.logDebugMessage,
+            onError: $f.logError,
             callback: ($) =>/**/ {
                 processAsync(
                     $f.getTestSet($),
-                    ($) =>/**/ {
-                        createTester(
-                            {
-                                onError: pl.logDebugMessage,
-                                onTestErrors: () =>/**/ {
-                                    pl.logDebugMessage("!TESTERRORS")
-
-                                },
-                                log: pl.logDebugMessage
-                            }
-                        )($)
-                    }
+                    createTester(
+                        {
+                            onError: $f.logError,
+                            onTestErrors: $f.onTestErrors,
+                            log: $f.log
+                        }
+                    )
                 )
             }
         })

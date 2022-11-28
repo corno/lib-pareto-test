@@ -13,17 +13,20 @@ import * as pub from "../../../../pub"
 export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
     return ($) => {
         
-        pub.$b.createTestProgram(
-            {
-                getTestSet: ($) => {
-                    return pl.asyncValue({
-                        elements: pr.wrapRawDictionary({})
-                    })
-                }
-            }
-        )(
-            pr.wrapRawArray(["foo"])
-        )
+        // pub.$b.createTestProgram(
+        //     {
+        //         getTestSet: ($) => {
+        //             return pl.asyncValue({
+        //                 elements: pr.wrapRawDictionary({})
+        //             })
+        //         },
+        //         log: ($) => {
+        //             pl.logDebugMessage($)
+        //         }
+        //     }
+        // )(
+        //     pr.wrapRawArray(["foo"])
+        // )
 
         const builder = pm.createUnsafeDictionaryBuilder<test.TTestElement>()
         function createTest(name: string, actual: string, expected: string) {

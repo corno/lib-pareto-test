@@ -2,7 +2,7 @@ import * as api from "../../api"
 import * as types from "../types"
 
 export const f_createSummarySerializer: types.CCreateSummarySerializer = (
-    $i, $f,
+    $d,
 ) => {
     return (
         $,
@@ -11,9 +11,9 @@ export const f_createSummarySerializer: types.CCreateSummarySerializer = (
         const green = "\x1b[32m"
         const reset = "\x1b[0m"
 
-        $i.log(``)
+        $d.log(``)
         const summary = $
-        $i.log(`${$f.isZero(summary.numberOfErrors) ? green : ""}${$f.add([summary.numberOfTests, $f.negate(summary.numberOfErrors)])} successful tests${reset}`)
-        $i.log(`${$f.isZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
+        $d.log(`${$d.isZero(summary.numberOfErrors) ? green : ""}${$d.add([summary.numberOfTests, $d.negate(summary.numberOfErrors)])} successful tests${reset}`)
+        $d.log(`${$d.isZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
     }
 }

@@ -12,14 +12,14 @@ export type ProcessAsyncValue = <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => 
 
 export type CCreateTestResultSerializer = (
     $d: {
-        readonly "log": api.ILog
+        readonly "log": api.PLog
         readonly "isABeforeB": collation.FIsABeforeB
     },
 ) => api.ISerializeTestResult
 
 export type CCreateSummarizer = (
     $i: {
-        readonly "log": api.ILog
+        readonly "log": api.PLog
     },
     $f: {
         readonly "increment": api.FIncrement
@@ -63,10 +63,8 @@ export type CCreateFileValidator = (
 
 
 export type CCreateSummarySerializer = (
-    $i: {
-        readonly "log": api.ILog
-    },
-    $f: {
+    $d: {
+        readonly "log": api.PLog
         readonly "isZero": api.FIsZero
         readonly "add": arithmetic.FAdd
         readonly "negate": api.FNegate

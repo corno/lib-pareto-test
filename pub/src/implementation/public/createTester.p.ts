@@ -7,8 +7,6 @@ export const f_createTester: types.CCreateTester = (
     $f,
     $a,
 ) => {
-
-    pl.logDebugMessage("HIER3")
     return ($) => {
         $a(
             $f.runTests($),

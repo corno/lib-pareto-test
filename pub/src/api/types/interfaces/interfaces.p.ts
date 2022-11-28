@@ -24,7 +24,7 @@ export type ITest2 = Interface<TTestParameters>
 
 export type IRunProgram = Interface<pt.Array<string>>
 
-export type ILog = Interface<string>
+export type PLog = Interface<string>
 
 export type IOnTestErrors = Interface<null>
 
