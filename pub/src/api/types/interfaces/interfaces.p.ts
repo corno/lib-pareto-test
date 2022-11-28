@@ -1,6 +1,6 @@
 import * as pt from "pareto-core-types"
 
-import * as fs from "api-pareto-filesystem"
+import * as fs from "res-pareto-filesystem"
 
 import { TSummary, TTestParameters, TTestSet, TTestSetResult } from "../types/types.p"
 

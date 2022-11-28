@@ -53,7 +53,7 @@ export type CCreateTester = (
 export type CCreateFileValidator = (
     $i: {
         readonly "writeFile": api.IWriteFile
-        readonly "unlink": fs.FUnlinkFireAndForget
+        readonly "unlink": fs.PUnlinkFireAndForget
     },
     $f: {
         readonly "readFile": api.FReadFile

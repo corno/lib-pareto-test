@@ -1,7 +1,7 @@
 {
   "author": "Corno",
   "dependencies": {
-    "lib-pareto-filesystem": "^0.6.0",
+    "lib-pareto-filesystem": "^0.6.3",
     "pareto-core-lib": "^0.17.0",
     "pareto-core-raw": "^0.7.0",
     "pareto-core-state": "^0.12.0",
@@ -22,6 +22,6 @@
     "url": "http://github.com/corno/lib-pareto-test.git"
   },
   "types": "dist/index.d.ts",
-  "version": "0.9.0",
-  "content-fingerprint": "69ced553df99941795b9204ef83c905db03ff370"
+  "version": "0.9.1",
+  "content-fingerprint": "80cb2dd6ca5956831513f0b5df01f81ca6ab3339"
 }

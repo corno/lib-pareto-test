@@ -13,18 +13,18 @@ import * as api from "../api"
 
 import * as $$ from "./unbound"
 
-const processAsync: <T>($: pt.AsyncValue<T>, $i: ($:T) => void) => void = ($, $i) => $._execute($i)
+const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
 export type CParseArguments = ($i: {
-        onError: ($: string) => void
-        callback: ($: api.TTestParameters) => void
-    }) => api.IRunProgram
+    onError: ($: string) => void
+    callback: ($: api.TTestParameters) => void
+}) => api.IRunProgram
 
 export type CCreateTester = ($i: {
-        onError: ($: string) => void
-        log: ($: string) => void
-        onTestErrors: () => void
-    }) => api.ITest
+    onError: ($: string) => void
+    log: ($: string) => void
+    onTestErrors: () => void
+}) => api.ITest
 
 const parseArguments: CParseArguments = ($i) => {
 
@@ -94,31 +94,27 @@ export const createTester: CCreateTester = ($i) => {
 
                             writeFile: ($) =>/**/ {
                                 fslib.f_createWriteFileFireAndForget(
-                                    fs.f_createWriteStream,
-                                    processAsync,
-                                )(
                                     {
+                                        createWriteStream: fs.f_createWriteStream,
                                         onError: ($) =>/**/ {
-                                            $i.onError(`${$.path}: ${fslib.l_createWriteFileErrorMessage($.error)}`)
+                                            $i.onError(`${$.path}: ${fslib.f_createWriteFileErrorMessage($.error)}`)
                                         }
                                     },
 
+                                    processAsync,
                                 )({
                                     path: $.path,
                                     data: $.data,
                                     createContainingDirectories: true,
                                 })
                             },
-                            unlink: fslib.f_createUnlinkFireAndForget(
-                                fs.f_unlink,
+                            unlink: fslib.f_createUnlinkFireAndForget({
+                                unlink: fs.f_unlink,
+                                onError: ($) =>/**/ {
+                                    $i.onError(`${$.path}: ${fslib.f_createUnlinkErrorMessage($.error)}`)
+                                }
+                            },
                                 processAsync,
-                            )(
-                                {
-                                    onError: ($) =>/**/ {
-                                        $i.onError(`${$.path}: ${fslib.l_createUnlinkErrorMessage($.error)}`)
-                                    }
-                                },
-
                             ),
                         },
                         {
@@ -130,7 +126,7 @@ export const createTester: CCreateTester = ($i) => {
                                         x,
                                         {
                                             onError: ($) =>/**/ {
-                                                $i.onError(`${$.path}: ${fslib.l_createReadFileErrorMessage($.error)}`)
+                                                $i.onError(`${$.path}: ${fslib.f_createReadFileErrorMessage($.error)}`)
                                             },
                                             init: ($c) =>/**/ {
                                                 let out = ""

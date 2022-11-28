@@ -1,7 +1,7 @@
 import * as pt from "pareto-core-types"
 
 import * as diff from "res-pareto-diff"
-import * as fs from "api-pareto-filesystem"
+import * as fs from "res-pareto-filesystem"
 
 export type TValidateFileData = {
     readonly "expectedFile": {
