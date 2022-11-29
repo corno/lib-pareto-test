@@ -4,31 +4,28 @@ import * as fs from "res-pareto-filesystem"
 
 import { TSummary, TTestParameters, TTestSet, TTestSetResult } from "../types/types.p"
 
-export type Interface<T> = ($: T) => void
-
-
-export type IWriteFile = Interface<{
+export type IWriteFile = pt.Procedure<{
     path: fs.TPath,
     data: string,
 }>
 
-export type IUnlink = Interface<fs.TPath>
+export type IUnlink = pt.Procedure<fs.TPath>
 
-export type ISerializeTestResult = Interface<TTestSetResult>
+export type ISerializeTestResult = pt.Procedure<TTestSetResult>
 
-export type ISerializeSummary = Interface<TSummary>
+export type ISerializeSummary = pt.Procedure<TSummary>
 
-export type ITest = Interface<TTestSet>
+export type ITest = pt.Procedure<TTestSet>
 
-export type ITest2 = Interface<TTestParameters>
+export type ITest2 = pt.Procedure<TTestParameters>
 
-export type IRunProgram = Interface<pt.Array<string>>
+export type IRunProgram = pt.Procedure<pt.Array<string>>
 
-export type PLog = Interface<string>
+export type PLog = pt.Procedure<string>
 
-export type IOnTestErrors = Interface<null>
+export type POnTestErrors = pt.Procedure<null>
 
-export type IOnArgumentError = Interface<
+export type IOnArgumentError = pt.Procedure<
     | ["missing", null]
     | ["too many", null]
 >

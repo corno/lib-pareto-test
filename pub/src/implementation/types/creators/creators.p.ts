@@ -38,7 +38,7 @@ export type CCreateTestRunner = (
 
 export type CCreateTester = (
     $i: {
-        readonly "onTestErrors": api.IOnTestErrors
+        readonly "onTestErrors": api.POnTestErrors
         readonly "serializeTestResult": api.ISerializeTestResult
         readonly "serializeSummary": api.ISerializeSummary
     },
