@@ -1,4 +1,4 @@
-
+import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 import * as pm from "pareto-core-state"
 import * as pr from "pareto-core-raw"
@@ -6,13 +6,54 @@ import * as pr from "pareto-core-raw"
 import * as test from "lib-pareto-test"
 
 import * as api from "../../interface"
+import * as us from "res-pareto-ugly-stuff"
 
 
 import * as pub from "../../../../pub"
 
 export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
+    
     return ($) => {
-        
+
+        type LogEntry = 
+        | ["error", pub.TArgumentError]
+        | ["callback", pub.TTestParameters]
+
+
+        function doIt($: pt.Array<string>) {
+            const log = pm.createArrayBuilder<LogEntry>()
+    
+            const tpp = pub.f_createTestParametersParser({
+                onError: ($) => {
+                    log.push(["error", $])
+                },
+                callback: ($) => {
+                    log.push(["callback", $])
+                }
+            })
+            tpp($)
+           pl.logDebugMessage( us.f_JSONStringify(log))
+        }
+
+        doIt(pr.wrapRawArray([]))
+        doIt(pr.wrapRawArray(["foo"]))
+        doIt(pr.wrapRawArray(["foo", "bar"]))
+
+        pub.$a.createTestProgram({
+            getTestSet: () => {
+                pl.panic("@@@")
+            },
+            log: () => {
+
+            },
+            logError: () => {
+
+            },
+            onTestErrors: () => {
+
+            },
+        })
+
         // pub.$b.createTestProgram(
         //     {
         //         getTestSet: ($) => {

@@ -1,5 +1,17 @@
 export { increment } from "./public/increment.p"
 
+import * as types from "./creators.p"
+
+export type UnboundAPI = {
+    createFileValidator: types.CCreateFileValidator,
+    createTester: types.CCreateTester,
+    createTestsRunner: types.CCreateTestRunner,
+    createSummarySerializer: types.CCreateSummarySerializer,
+    createTestResultSerializer: types.CCreateTestResultSerializer,
+    createSummarizer: types.CCreateSummarizer,
+    createTestParametersParser: types.CCreateTestParametersParser,
+}
+
 // export { UnboundAPI } from "../api"
 export { f_createFileValidator } from "./public/createFileValidator.p"
 export { f_createTester } from "./public/createTester.p"

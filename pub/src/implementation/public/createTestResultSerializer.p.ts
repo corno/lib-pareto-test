@@ -1,9 +1,9 @@
 import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
-import * as types from "../types"
+import { CCreateTestResultSerializer } from "../creators.p"
 
-export const f_createTestResultSerializer: types.CCreateTestResultSerializer = (
+export const f_createTestResultSerializer: CCreateTestResultSerializer = (
     $d,
 ) => {
     return (

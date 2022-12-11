@@ -12,21 +12,12 @@ import * as fslib from "lib-pareto-filesystem"
 import * as api from "../api"
 
 import * as $$ from "./unbound"
+import { CCreateArgumentsParser, CCreateTester2 } from "./creators.p"
 
 const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
-export type CParseArguments = ($i: {
-    onError: ($: string) => void
-    callback: ($: api.TTestParameters) => void
-}) => api.IRunProgram
 
-export type CCreateTester = ($i: {
-    onError: ($: string) => void
-    log: ($: string) => void
-    onTestErrors: ($: null) => void
-}) => api.ITest
-
-const parseArguments: CParseArguments = ($i) => {
+const createArgumentsParser: CCreateArgumentsParser = ($i) => {
 
     // exeLib.p_getSingleArgument(
     //     $.arguments,
@@ -57,32 +48,32 @@ const parseArguments: CParseArguments = ($i) => {
             onError: () =>/**/ {
                 $i.onError(`arguments error`)
             },
-            callback: $i.callback,
+            callback: ($) => {
+                $i.callback($)
+            },
         }
     )
 }
 
-export const createTester: CCreateTester = ($i) => {
+export const createTester: CCreateTester2 = ($i) => {
     return $$.f_createTester(
         {
             onTestErrors: $i.onTestErrors,
             serializeTestResult: $$.f_createTestResultSerializer(
                 {
                     log: $i.log,
-                    isABeforeB: collation.fLocaleIsYinBeforeYang,
+                    isABeforeB: collation.$a.localeIsABeforeB,
                 },
             ),
             serializeSummary: $$.f_createSummarySerializer(
                 {
                     log: $i.log,
-                    isZero: bool.f_isZero,
+                    isZero: bool.$a.isZero,
                     add: arith.f_add,
                     negate: arith.f_negative,
 
                 }
-            )
-        },
-        {
+            ),
             runTests: $$.f_createTestsRunner(
                 {
                     diffData: diff.fDiffData,
@@ -91,11 +82,10 @@ export const createTester: CCreateTester = ($i) => {
                         {
 
                             writeFile: ($) =>/**/ {
-                                fslib.f_createWriteFileFireAndForget(
+                                fslib.$b.createWriteFileFireAndForget(
                                     {
-                                        createWriteStream: fs.f_createWriteStream,
                                         onError: ($) =>/**/ {
-                                            $i.onError(`${$.path}: ${fslib.f_createWriteFileErrorMessage($.error)}`)
+                                            $i.onError(`${$.path}: ${fslib.$b.createWriteFileErrorMessage($.error)}`)
                                         }
                                     },
 
@@ -106,16 +96,13 @@ export const createTester: CCreateTester = ($i) => {
                                     createContainingDirectories: true,
                                 })
                             },
-                            unlink: fslib.f_createUnlinkFireAndForget({
-                                unlink: fs.f_unlink,
+                            unlink: fslib.$b.createUnlinkFireAndForget({
                                 onError: ($) =>/**/ {
-                                    $i.onError(`${$.path}: ${fslib.f_createUnlinkErrorMessage($.error)}`)
+                                    $i.onError(`${$.path}: ${fslib.$b.createUnlinkErrorMessage($.error)}`)
                                 }
                             },
                                 processAsync,
                             ),
-                        },
-                        {
                             readFile: ($) =>/**/ {
                                 const x = $
                                 return pl.toAsyncValue(($i2) =>/**/ {
@@ -124,7 +111,7 @@ export const createTester: CCreateTester = ($i) => {
                                         x,
                                         {
                                             onError: ($) =>/**/ {
-                                                $i.onError(`${$.path}: ${fslib.f_createReadFileErrorMessage($.error)}`)
+                                                $i.onError(`${$.path}: ${fslib.$b.createReadFileErrorMessage($.error)}`)
                                             },
                                             init: ($c) =>/**/ {
                                                 let out = ""
@@ -149,12 +136,10 @@ export const createTester: CCreateTester = ($i) => {
             summarize: $$.f_createSummarizer(
                 {
                     log: $i.log,
-                },
-                {
                     increment: $$.increment,
                 }
             ),
-            isZero: bool.f_isZero,
+            isZero: bool.$a.isZero,
         },
         processAsync,
 
@@ -163,7 +148,7 @@ export const createTester: CCreateTester = ($i) => {
 
 export const $a: api.API = {
     createTestProgram: ($f) => {
-        return parseArguments({
+        return createArgumentsParser({
             onError: $f.logError,
             callback: ($) =>/**/ {
                 processAsync(

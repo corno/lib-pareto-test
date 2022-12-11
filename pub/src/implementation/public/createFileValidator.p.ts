@@ -1,15 +1,14 @@
-import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
-import * as types from "../types"
+import { CCreateFileValidator } from "../creators.p"
 
-export const f_createFileValidator: types.CCreateFileValidator = ($i, $f) => {
+export const f_createFileValidator: CCreateFileValidator = ($d) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
-        return $f.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
+        return $d.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
             const actualFileName = `${$.expectedFile.fileName}.actual.${$.expectedFile.extension}`
-            const parts = $f.diffData(
+            const parts = $d.diffData(
                 {
                     originalData: expectedData,
                     changedData: $.actual,
@@ -17,7 +16,7 @@ export const f_createFileValidator: types.CCreateFileValidator = ($i, $f) => {
                 },
             )
             if (pl.isNotNull(parts)) {
-                $i.writeFile(
+                $d.writeFile(
                     {
                         path: [$.expectedFile.path, actualFileName],
                         data: $.actual,
@@ -34,7 +33,7 @@ export const f_createFileValidator: types.CCreateFileValidator = ($i, $f) => {
                 })
 
             } else {
-                $i.unlink({
+                $d.unlink({
                     path: [$.expectedFile.path, actualFileName]
                 })
                 return pl.asyncValue({

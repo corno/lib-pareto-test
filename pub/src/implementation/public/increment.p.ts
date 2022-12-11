@@ -1,3 +1,3 @@
-import * as api from "../../api"
+import * as glo from "../glossary/algorithms/algorithms.p"
 
-export const increment: api.FIncrement = ($) =>/**/ { return $ + 1 }
+export const increment: glo.FIncrement = ($) =>/**/ { return $ + 1 }

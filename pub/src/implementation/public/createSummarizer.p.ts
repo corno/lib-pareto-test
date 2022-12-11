@@ -1,14 +1,12 @@
 import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
-import * as types from "../types"
+import { CCreateSummarizer } from "../creators.p"
 
-export const f_createSummarizer: types.CCreateSummarizer = (
-    $i,
-    $f,
+export const f_createSummarizer: CCreateSummarizer = (
+    $d,
 ) => {
     return ($) => {
-
         type SSummary = {
             "numberOfErrors": number
             "numberOfTests": number
@@ -30,9 +28,9 @@ export const f_createSummarizer: types.CCreateSummarizer = (
                         break
                     case "test":
                         pl.cc($.type[1], ($) => {
-                            summary.numberOfTests = $f.increment(summary.numberOfTests)
+                            summary.numberOfTests = $d.increment(summary.numberOfTests)
                             if (!$.success) {
-                                summary.numberOfErrors = $f.increment(summary.numberOfErrors)
+                                summary.numberOfErrors = $d.increment(summary.numberOfErrors)
                             }
 
                         })

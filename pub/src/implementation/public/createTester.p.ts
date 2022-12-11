@@ -1,22 +1,20 @@
-import * as pl from "pareto-core-lib"
-import * as api from "../../api"
-import * as types from "../types"
+import { CCreateTester } from "../creators.p"
 
-export const f_createTester: types.CCreateTester = (
+
+export const f_createTester: CCreateTester = (
     $i,
-    $f,
     $a,
 ) => {
     return ($) => {
         $a(
-            $f.runTests($),
+            $i.runTests($),
             ($) => {
                 $i.serializeTestResult($)
-                const summary = $f.summarize(
+                const summary = $i.summarize(
                     $,
                 )
                 $i.serializeSummary(summary)
-                if ($f.isZero(summary.numberOfErrors)) {
+                if ($i.isZero(summary.numberOfErrors)) {
                     //
                 } else {
                     $i.onTestErrors(null)

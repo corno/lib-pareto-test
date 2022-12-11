@@ -1,14 +1,13 @@
 import * as pt from "pareto-core-types"
 
-import { FGetTestSet } from "../glossary/algorithms/algorithms.p"
-import { IRunProgram, PLog, POnTestErrors } from "../glossary"
+import * as glo from "../glossary"
 
 export type CCreateTestProgram = pt.Creator<
     {
-        readonly "getTestSet": FGetTestSet
-        readonly "log": PLog
-        readonly "logError": PLog
-        readonly "onTestErrors": POnTestErrors
+        readonly "getTestSet": glo.FGetTestSet
+        readonly "log": glo.PLog
+        readonly "logError": glo.PLog
+        readonly "onTestErrors": glo.POnTestErrors
     },
-    IRunProgram
+    glo.IRunProgram
 >

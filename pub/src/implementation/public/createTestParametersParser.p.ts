@@ -1,9 +1,9 @@
 import * as pl from "pareto-core-lib"
 
 import * as api from "../../api"
-import * as types from "../types"
+import { CCreateTestParametersParser } from "../creators.p"
 
-export const f_createTestParametersParser: types.CCreateTestParametersParser = (
+export const f_createTestParametersParser: CCreateTestParametersParser = (
     $i,
 ) => {
     return ($) => {
