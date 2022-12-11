@@ -3,13 +3,29 @@ import * as pt from "pareto-core-types"
 import * as diff from "res-pareto-diff"
 import * as fs from "res-pareto-filesystem"
 
-export type TValidateFileData = {
-    readonly "expectedFile": {
-        readonly "path": fs.TPath,
-        readonly "fileName": string,
-        readonly "extension": string,
-    },
-    readonly "actual": string,
+export type TArgumentError = 
+| ["missing", null]
+| ["too many", null]
+
+
+export type TTestElement = {
+    readonly "type":
+    | ["subset", TTestSet]
+    | ["test", {
+        readonly "type":
+        | ["boolean", {
+            readonly "test": boolean
+        }]
+        | ["simple string", {
+            readonly "expected": string,
+            readonly "actual": string,
+        }]
+        | ["large string", {
+            readonly "expected": string,
+            readonly "actual": string,
+        }]
+        | ["file string", TValidateFileData]
+    }]
 }
 
 export type TTestType =
@@ -42,31 +58,8 @@ export type TTestSetResult = {
 
 }
 
-
-
 export type TTestSet = {
     readonly "elements": pt.Dictionary<TTestElement>
-}
-
-
-export type TTestElement = {
-    readonly "type":
-    | ["subset", TTestSet]
-    | ["test", {
-        readonly "type":
-        | ["boolean", {
-            readonly "test": boolean
-        }]
-        | ["simple string", {
-            readonly "expected": string,
-            readonly "actual": string,
-        }]
-        | ["large string", {
-            readonly "expected": string,
-            readonly "actual": string,
-        }]
-        | ["file string", TValidateFileData]
-    }]
 }
 
 export type TSummary = {
@@ -76,4 +69,13 @@ export type TSummary = {
 
 export type TTestParameters = {
     readonly "testDirectory": string
+}
+
+export type TValidateFileData = {
+    readonly "expectedFile": {
+        readonly "path": fs.TPath,
+        readonly "fileName": string,
+        readonly "extension": string,
+    },
+    readonly "actual": string,
 }

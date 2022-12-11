@@ -1,9 +1,8 @@
-import { IRunProgram, ITest, TTestParameters } from "./types"
 
-import * as types from "./types"
+import { CCreateTestProgram } from "./creators/creators.p"
 
 
-export type BoundAPI = {
+export type API = {
     // createTester: ($i: {
     //     onError: ($: string) => void
     //     log: ($: string) => void
@@ -13,5 +12,5 @@ export type BoundAPI = {
     //     onError: ($: string) => void
     //     callback: ($: TTestParameters) => void
     // }) => IRunProgram
-    createTestProgram: types.CCreateTestProgram
+    createTestProgram: CCreateTestProgram
 }

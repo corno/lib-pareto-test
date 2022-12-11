@@ -7,6 +7,7 @@ import * as collation from "res-pareto-collation"
 // import * as bool from "api-pareto-boolean"
 
 import * as api from "../../../api"
+import { IWriteFile } from "../algorithms.p"
 
 export type ProcessAsyncValue = <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void
 
@@ -52,7 +53,7 @@ export type CCreateTester = (
 
 export type CCreateFileValidator = (
     $i: {
-        readonly "writeFile": api.IWriteFile
+        readonly "writeFile": IWriteFile
         readonly "unlink": fs.PUnlinkFireAndForget
     },
     $f: {
