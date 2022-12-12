@@ -1,7 +1,5 @@
 import * as pt from "pareto-core-types"
-
 import * as diff from "res-pareto-diff"
-
 import * as fs from "res-pareto-filesystem"
 
 export type TArgumentError = 
@@ -77,3 +75,11 @@ export type TValidateFileData = {
         readonly "path": fs.TPath,
     },
 }
+
+export type PLog = ($: string) => void
+
+export type POnTestErrors = ($: null) => void
+
+export type PRunProgram = ($: pt.Array<string>) => void
+
+export type FGetTestSet = ($: TTestParameters) => pt.AsyncValue<TTestSet>

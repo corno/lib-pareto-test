@@ -58,7 +58,7 @@ export type TTestSetResult = {
 export type TTestType = 
     | [ "boolean", null ]
     | [ "file string", {
-        readonly "fileLocation": string
+        readonly "fileLocation": string,
         readonly "parts": pt.Array<diff.TMultilinePart>,
     } ]
     | [ "long string", {

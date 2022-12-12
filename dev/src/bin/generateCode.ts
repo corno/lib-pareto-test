@@ -12,21 +12,23 @@ import * as out from "res-pareto-standard-outstream"
 
 
 function doIt($: Glossary) {
-    fp.f_createContext(
-        fp._defaultSettings,
-        ($i) => {
-            createSerializer({
-                block: $i,
-                isABeforeB: coll.$a.localeIsABeforeB,
-            })($)
-    
-        },
-        out.createLogger(null),
+    fp.$a.createWriter(
         {
-            joinNestedStrings: tostring.joinNestedStrings,
-            getArrayAsString: tostring.f_getArrayAsString,
-        }
-    )
+            path: [".", "TMPTMP"],
+            configuration: fp._defaultSettings,
+        },
+        {
+            onError: ($) => {
+                pl.logDebugMessage("ERROR!!!")
+            }
+        },
+    ).createFile("test.ts", ($i) => {
+        createSerializer({
+            block: $i,
+            isABeforeB: coll.$a.localeIsABeforeB,
+        })($)
+
+    })
 
 }
 

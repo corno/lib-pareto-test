@@ -1,18 +1,9 @@
 import * as pl from "pareto-core-lib"
-import * as pt from "pareto-core-types"
-import * as pe from "pareto-core-exe"
-
 import * as fp from "lib-fountain-pen"
 import * as coll from "res-pareto-collation"
-import * as tostring from "res-pareto-tostring"
 import { Glossary, Type } from "../../glossary/types.p"
-import { foo } from "../../data/data.p"
-
-
-// pl.logDebugMessage("@@@")
 
 const compare = (a: string, b: string) => coll.$a.localeIsABeforeB({ a: a, b: b })
-
 
 type Serialize = ($: Glossary) => void
 
@@ -20,7 +11,6 @@ export function createSerializer($d: {
     block: fp.IBlock,
     isABeforeB: coll.FIsABeforeB,
 }): Serialize {
-
     function serializeType($: Type, $i: fp.ILine) {
         switch ($[0]) {
             case "array":
@@ -98,7 +88,6 @@ export function createSerializer($d: {
         $i.line(($i) => {
             $i.snippet(`import * as pt from "pareto-core-types"`)
         })
-
         $.imports.forEach(compare, ($, key) => {
             $i.line(($i) => {
                 $i.snippet(`import * as ${key} from "${$}"`)
@@ -130,7 +119,6 @@ export function createSerializer($d: {
                 $i.snippet(`) => `)
                 if ($.async) {
                     serializeType($["return type"], $i)
-
                 } else {
                     $i.snippet(`pt.Async<`)
                     serializeType($["return type"], $i)
@@ -139,7 +127,5 @@ export function createSerializer($d: {
             })
         })
     }
-
 }
-
 
