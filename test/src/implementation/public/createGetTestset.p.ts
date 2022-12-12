@@ -12,17 +12,17 @@ import * as us from "res-pareto-ugly-stuff"
 import * as pub from "../../../../pub"
 
 export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
-    
+
     return ($) => {
 
-        type LogEntry = 
-        | ["error", pub.TArgumentError]
-        | ["callback", pub.TTestParameters]
+        type LogEntry =
+            | ["error", pub.TArgumentError]
+            | ["callback", pub.TTestParameters]
 
 
-        function doIt($: pt.Array<string>) {
+        function doIt(name: string, $: pt.Array<string>) {
             const log = pm.createArrayBuilder<LogEntry>()
-    
+
             const tpp = pub.f_createTestParametersParser({
                 onError: ($) => {
                     log.push(["error", $])
@@ -32,12 +32,16 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
                 }
             })
             tpp($)
-           pl.logDebugMessage( us.f_JSONStringify(log))
+            pl.logDebugMessage(name)
+            log.getArray().forEach(($) => {
+                pl.logDebugMessage($[0])
+            })
+            //pl.logDebugMessage(us.f_JSONStringify(log.getArray()))
         }
 
-        doIt(pr.wrapRawArray([]))
-        doIt(pr.wrapRawArray(["foo"]))
-        doIt(pr.wrapRawArray(["foo", "bar"]))
+        doIt("<", pr.wrapRawArray([]))
+        doIt(".", pr.wrapRawArray(["foo"]))
+        doIt(">", pr.wrapRawArray(["foo", "bar"]))
 
         pub.$a.createTestProgram({
             getTestSet: () => {

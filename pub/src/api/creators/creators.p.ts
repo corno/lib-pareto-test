@@ -9,5 +9,5 @@ export type CCreateTestProgram = pt.Creator<
         readonly "logError": glo.PLog
         readonly "onTestErrors": glo.POnTestErrors
     },
-    glo.IRunProgram
+    glo.PRunProgram
 >

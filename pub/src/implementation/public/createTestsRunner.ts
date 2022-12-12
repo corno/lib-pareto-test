@@ -25,7 +25,7 @@ export const f_createTestsRunner: CCreateTestRunner = ($f) => {
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
                                             type: ["test", {
-                                                success: $.test,
+                                                success: $,
                                                 type: ["boolean", null]
                                             }]
                                         })
@@ -36,7 +36,7 @@ export const f_createTestsRunner: CCreateTestRunner = ($f) => {
                                             $,
                                         )
                                     })
-                                case "large string":
+                                case "long string":
                                     return pl.cc($.type[1], ($) => {
                                         const res = $f.diffData(
                                             {
@@ -49,7 +49,7 @@ export const f_createTestsRunner: CCreateTestRunner = ($f) => {
                                             return pl.asyncValue({
                                                 type: ["test", {
                                                     success: false,
-                                                    type: ["large string", {
+                                                    type: ["long string", {
                                                         parts: res
                                                     }]
                                                 }]
@@ -59,7 +59,7 @@ export const f_createTestsRunner: CCreateTestRunner = ($f) => {
                                             return pl.asyncValue({
                                                 type: ["test", {
                                                     success: true,
-                                                    type: ["large string", {
+                                                    type: ["long string", {
                                                         parts: pl.createEmptyArray()
                                                     }]
                                                 }]
@@ -67,7 +67,7 @@ export const f_createTestsRunner: CCreateTestRunner = ($f) => {
 
                                         }
                                     })
-                                case "simple string":
+                                case "short string":
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
                                             type: ["test", {
@@ -75,7 +75,7 @@ export const f_createTestsRunner: CCreateTestRunner = ($f) => {
                                                     a: $.actual,
                                                     b: $.expected,
                                                 }),
-                                                type: ["simple string", {
+                                                type: ["short string", {
                                                     actual: $.actual,
                                                     expected: $.expected,
                                                 }]

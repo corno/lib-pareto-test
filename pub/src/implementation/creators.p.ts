@@ -79,7 +79,7 @@ export type CCreateTestParametersParser = pt.Creator<
         readonly "onError": glo.POnArgumentError
         readonly "callback": glo.PTest2
     },
-    api.IRunProgram
+    api.PRunProgram
 >
 
 
@@ -88,7 +88,7 @@ export type CCreateArgumentsParser = pt.Creator<
         onError: ($: string) => void
         callback: ($: api.TTestParameters) => void
     },
-    api.IRunProgram
+    api.PRunProgram
 >
 
 export type CCreateTester2 = pt.Creator<

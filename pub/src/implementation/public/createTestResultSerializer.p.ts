@@ -32,7 +32,7 @@ export const f_createTestResultSerializer: CCreateTestResultSerializer = (
                                 const success = $.success
                                 $d.log(`${indentation}${$.success ? green : red}${name}${reset}`)
                                 switch ($.type[0]) {
-                                    case "simple string":
+                                    case "short string":
                                         pl.cc($.type[1], ($) => {
                                             if (success) {
                                             } else {
@@ -41,7 +41,7 @@ export const f_createTestResultSerializer: CCreateTestResultSerializer = (
                                             }
                                         })
                                         break
-                                    case "large string":
+                                    case "long string":
                                         pl.cc($.type[1], ($) => {
                                             $.parts.forEach(($) => {
                                                 const added = $.type[0] === "added"

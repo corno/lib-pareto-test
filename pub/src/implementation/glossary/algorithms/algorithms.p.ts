@@ -2,7 +2,8 @@ import * as pt from "pareto-core-types"
 
 import * as common from "glo-pareto-common"
 
-import { TArgumentError, TSummary, TTestElementResult, TTestParameters, TTestSet, TTestSetResult, TValidateFileData } from "../../../api"
+import { TArgumentError, TTestElementResult, TTestParameters, TTestSet, TTestSetResult, TValidateFileData } from "../../../api"
+import { TSummary } from "../types.p"
 
 export type AValidateFile = pt.AsyncFunction<TValidateFileData, TTestElementResult>
 
