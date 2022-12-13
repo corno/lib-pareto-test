@@ -1,27 +1,31 @@
 import * as pt from "pareto-core-types"
 
-export type Type =
-    | ["array", Type]
+export type LeafType =
     | ["boolean", null]
-    | ["dictionary", Type]
-    | ["group", pt.Dictionary<Type>]
+    | ["string", null]
     | ["null", null]
     | ["number", null]
-    | ["reference", {
-        readonly "context"?: string,
+    | ["reference", string]
+
+export type Type =
+    | ["leaf", LeafType]
+    | ["array", Type]
+    | ["dictionary", Type]
+    | ["group", pt.Dictionary<Type>]
+    | ["taggedUnion", pt.Dictionary<Type>]
+    | ["external reference", {
+        readonly "context": string,
         readonly "type": string,
     }]
-    | ["string", null]
-    | ["taggedUnion", pt.Dictionary<Type>]
 
 export type Procedure = {
-    readonly "type": Type
+    readonly "data": LeafType
 }
 
 export type Function = {
     readonly "async": boolean
-    readonly "type": Type
-    readonly "return type": Type
+    readonly "data": LeafType
+    readonly "return value": LeafType
 }
 
 export type Glossary = {
@@ -31,3 +35,41 @@ export type Glossary = {
     "functions": pt.Dictionary<Function>
 }
 
+export type Depedency =
+    | ["function", string]
+    | ["procedure", string]
+
+export type Algorithm =
+    | ["constructor", {
+        data: LeafType
+        dependencies: pt.Dictionary<Depedency>
+        result:
+        | ["function", string]
+        | ["procedure", string]
+    }]
+    | ["function", string]
+    | ["procedure", string]
+
+export type API = {
+    glossary: Glossary,
+    api: pt.Dictionary<Algorithm>
+}
+
+export type Implementation = {
+    type:
+    | ["pure", null]
+    | ["binding", null]
+    definition:
+    | ["private", string]
+    | ["public", string]
+}
+
+
+export type Project = {
+    api: API
+    implementation: {
+        "internal api": API
+        "implementations": pt.Dictionary<Implementation>
+        "api mapping": pt.Dictionary<string>
+    }
+}

@@ -1,18 +1,14 @@
 import * as pl from "pareto-core-lib"
-import * as pt from "pareto-core-types"
-import * as pe from "pareto-core-exe"
 
 import * as fp from "lib-fountain-pen"
+import { Glossary, Project, Type } from "../glossary/types.p"
+import { data } from "../data/data.p"
+import { serializeProject } from "../implementation/public/createProjectSerializer"
+import { createGlossarySerializer } from "../implementation/public/createGlossarySerializer.p"
 import * as coll from "res-pareto-collation"
-import * as tostring from "res-pareto-tostring"
-import { Glossary, Type } from "../glossary/types.p"
-import { foo } from "../data/data.p"
-import { createSerializer } from "../implementation/public/createSerializer.p"
-import * as out from "res-pareto-standard-outstream"
 
-
-function doIt($: Glossary) {
-    fp.$a.createWriter(
+function doIt($: Project) {
+    const $i = fp.$a.createWriter(
         {
             path: [".", "TMPTMP"],
             configuration: fp._defaultSettings,
@@ -22,14 +18,14 @@ function doIt($: Glossary) {
                 pl.logDebugMessage("ERROR!!!")
             }
         },
-    ).createFile("test.ts", ($i) => {
-        createSerializer({
-            block: $i,
+    )
+    serializeProject($, $i, {
+        compare: coll.$a.localeIsABeforeB,
+        serializeGlossary: createGlossarySerializer({
             isABeforeB: coll.$a.localeIsABeforeB,
-        })($)
-
+    
+        })
     })
-
 }
 
-doIt(foo)
+doIt(data)

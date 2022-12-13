@@ -1,7 +1,7 @@
 import * as pr from "pareto-core-raw"
-import { array, boolean, dictionary, group, number, reference, string, taggedUnion, types, _null } from "../glossary/shorthands.p"
+import { array, boolean, dictionary, externalReference, group, number, reference, string, taggedUnion, types, _null } from "../glossary/shorthands.p"
 
-import { Glossary } from "../glossary/types.p"
+import { API, Glossary, Project } from "../glossary/types.p"
 
 
 const wd = pr.wrapRawDictionary
@@ -13,6 +13,7 @@ export const foo: Glossary = {
         "fs": "res-pareto-filesystem",
     }),
     'types': types({
+        "Arguments": array(string()),
         "ArgumentError": taggedUnion({
             "missing": _null(),
             "too many": _null(),
@@ -61,7 +62,7 @@ export const foo: Glossary = {
         "TestType": taggedUnion({
             "boolean": _null(),
             "long string": group({
-                "parts": array(reference("MultilinePart", "diff"))
+                "parts": array(externalReference("MultilinePart", "diff"))
             }),
             "short string": group({
                 "expected": string(),
@@ -69,12 +70,12 @@ export const foo: Glossary = {
             }),
             "file string": group({
                 "fileLocation": string(),
-                "parts": array(reference("MultilinePart", "diff"))
+                "parts": array(externalReference("MultilinePart", "diff"))
             }),
         }),
         "ValidateFileData": group({
             "expectedFile": group({
-                "path": reference("Path", "fs"),
+                "path": externalReference("Path", "fs"),
                 "fileName": string(),
                 "extension": string()
             }),
@@ -83,20 +84,64 @@ export const foo: Glossary = {
     }),
     'procedures': wd({
         "OnTestErrors": {
-            type: _null()
+            data: ["null", null]
         },
         "Log": {
-            type: string()
+            data: ["string", null]
         },
         "RunProgram": {
-            type: array(string())
+            data: ["reference", "Arguments"]
         },
     }),
     'functions': wd({
         "GetTestSet": {
             "async": false,
-            "type": reference("TestParameters"),
-            "return type": reference("TestSet"),
+            "data": ["reference", "TestParameters"],
+            "return value": ["reference", "TestSet"],
         }
     })
+}
+
+export const api: API = {
+    glossary: foo,
+    api: wd({
+        "createTestProgram": ["constructor", {
+            data: ["null", null],
+            dependencies: wd({
+                "getTestSet": ["function", "GetTestSet"],
+                "log": ["procedure", "Log"],
+                "logError": ["procedure", "Log"],
+                "onTestErrors": ["procedure", "OnTestErrors"],
+            }),
+            result: ["procedure", "RunProgram"]
+        }]
+    })
+}
+
+export const data: Project = {
+    api: api,
+    implementation: {
+        "internal api": {
+            glossary: {
+                'imports': wd({
+                }),
+                'types': types({
+                }),
+                'procedures': wd({
+                }),
+                'functions': wd({
+                })
+            },
+            api: wd({}),
+        },
+        "implementations": wd({
+            "createTestProgram": {
+                "type": ["pure", null],
+                "definition": ["public", "createTestProgram"]
+            }
+        }),
+        "api mapping": wd({
+            "createTestProgram": "createTestProgram"
+        }),
+    },
 }
