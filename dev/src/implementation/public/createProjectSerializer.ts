@@ -225,9 +225,9 @@ export function serializeProject(
                 $i.createDirectory("internal_glossary", ($i) => {
                     glossary($.implementation["internal glossary"], $i)
                 })
-                $i.createDirectory("public", ($i) => {
+                $i.createDirectory("pure", ($i) => {
                     $.implementation.implementations.filter(($, key) => $.type[0] === "pure" ? $ : undefined).forEach(compare, ($, key) => {
-                        $i.createFile(`${key}.ts`, ($i) => {
+                        $i.createFile(`${key}.p.ts`, ($i) => {
                             $i.literal(`import * as pt from "pareto-core-types"`)
                             $i.literal(``)
                             $i.line(($i) => {
@@ -247,27 +247,94 @@ export function serializeProject(
                                     default: pl.au($.scope[0])
                                 }
                             })
-                            $i.literal(`import * as pt from "pareto-core-types"`)
-
 
                             $i.literal(``)
                             $i.line(($i) => {
-                                $i.snippet(`export const ${key}: `)
+                                $i.snippet(`export const i${key}: `)
                                 switch ($.scope[0]) {
                                     case "private":
                                         pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`iapi.${$}`)
+                                            $i.snippet(`iapi.C${$}`)
                                         })
                                         break
                                     case "public":
                                         pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`api.${$}`)
+                                            $i.snippet(`api.C${$}`)
 
                                         })
                                         break
                                     default: pl.au($.scope[0])
                                 }
-                                $i.snippet(` = () => {}`)
+                                $i.snippet(` = ($c, $d) => {`)
+                                $i.indent(($i) => {
+                                    $i.line(($i) => {
+                                        $i.snippet(`return ($) => {`)
+                                        $i.indent(($i) => {
+                                            $i.line(($i) => {
+                                                $i.snippet(`//implement me`)
+                                            })
+                                        })
+                                        $i.snippet(`}`)
+                                    })
+                                })
+                                $i.snippet(`}`)
+                            })
+                        })
+                    })
+                })
+                $i.createDirectory("binding", ($i) => {
+                    $.implementation.implementations.filter(($, key) => $.type[0] === "binding" ? $ : undefined).forEach(compare, ($, key) => {
+                        $i.createFile(`${key}.p.ts`, ($i) => {
+                            $i.literal(`import * as pt from "pareto-core-types"`)
+                            $i.literal(``)
+                            $i.line(($i) => {
+                                $i.snippet(`import * as api from `)
+                                switch ($.scope[0]) {
+                                    case "private":
+                                        pl.cc($.scope[1], ($) => {
+                                            $i.snippet(`"../internal_api"`)
+                                        })
+                                        break
+                                    case "public":
+                                        pl.cc($.scope[1], ($) => {
+                                            $i.snippet(`"../../api"`)
+
+                                        })
+                                        break
+                                    default: pl.au($.scope[0])
+                                }
+                            })
+
+                            $i.literal(``)
+                            $i.line(($i) => {
+                                $i.snippet(`export const i${key}: `)
+                                switch ($.scope[0]) {
+                                    case "private":
+                                        pl.cc($.scope[1], ($) => {
+                                            $i.snippet(`iapi.C${$}`)
+                                        })
+                                        break
+                                    case "public":
+                                        pl.cc($.scope[1], ($) => {
+                                            $i.snippet(`api.C${$}`)
+
+                                        })
+                                        break
+                                    default: pl.au($.scope[0])
+                                }
+                                $i.snippet(` = ($c, $d) => {`)
+                                $i.indent(($i) => {
+                                    $i.line(($i) => {
+                                        $i.snippet(`return ($) => {`)
+                                        $i.indent(($i) => {
+                                            $i.line(($i) => {
+                                                $i.snippet(`//implement me`)
+                                            })
+                                        })
+                                        $i.snippet(`}`)
+                                    })
+                                })
+                                $i.snippet(`}`)
                             })
                         })
                     })
@@ -275,9 +342,35 @@ export function serializeProject(
                 $i.createFile("index.ts", ($i) => {
                     $i.literal(`import * as api from "../api"`)
 
+                    $i.literal(``)
+                    $.implementation.implementations.forEach(compare, ($, key) => {
+
+                        $i.line(($i) => {
+                            $i.snippet(`import { i${key} } from "./${$.type[0] === "binding" ? "binding" : "pure"}/${key}.p"`)
+ 
+                        })
+                    })
+                    $i.line(($i) => {
+                        $i.snippet(`export const $x = {`)
+                        $i.indent(($i) => {
+                            $.implementation.implementations.forEach(compare, ($, key) => {
+                                $i.line(($i) => {
+                                    $i.snippet(`"${key}": i${key},`)
+                                })
+                            })
+                            //$.implementation.i
+                        })
+                        $i.snippet(`}`)
+                    })
+
                     $i.line(($i) => {
                         $i.snippet(`export const $a: api.API = {`)
                         $i.indent(($i) => {
+                            $.implementation["api mapping"].forEach(compare, ($, key) => {
+                                $i.line(($i) => {
+                                    $i.snippet(`"${key}": i${$},`)
+                                })
+                            })
                             //$.implementation.i
                         })
                         $i.snippet(`}`)

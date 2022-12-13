@@ -133,7 +133,7 @@ export function createGlossarySerializer($d: {
                 if ($.async) {
                     serializeLeafType($["return value"], $i)
                 } else {
-                    $i.snippet(`pt.Async<`)
+                    $i.snippet(`pt.AsyncValue<`)
                     serializeLeafType($["return value"], $i)
                     $i.snippet(`>`)
                 }

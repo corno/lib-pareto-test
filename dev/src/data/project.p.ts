@@ -64,11 +64,50 @@ export const project: NProject.Project = {
             })
         },
         "implementations": wd({
-            // "createTestProgram": {
-            //     "type": ["pure", null],
-            //     "definition": ["public", null],
-            //     "def": "createTestProgram",
-            // }
+            "createArgumentsParser": {
+                "type": ["binding", null],
+                "scope": ["public", "XX"],
+            },
+            "createFileValidator": {
+                "type": ["pure", null],
+                "scope": ["public", "XX"],
+            },
+            "createSummarizer": {
+                "type": ["pure", null],
+                "scope": ["public", "XX"],
+            },
+            "createSummarySerializer": {
+                "type": ["pure", null],
+                "scope": ["public", "XX"],
+            },
+            "createTester": {
+                "type": ["pure", null],
+                "scope": ["public", "XX"],
+            },
+            "createTester2": {
+                "type": ["binding", null],
+                "scope": ["public", "XX"],
+            },
+            "createTestParametersParser": {
+                "type": ["pure", null],
+                "scope": ["public", "XX"],
+            },
+            "createTestProgram": {
+                "type": ["binding", null],
+                "scope": ["public", "createTestProgram"],
+            },
+            "createTestResultsSerializer": {
+                "type": ["pure", null],
+                "scope": ["public", "XX"],
+            },
+            "createTestsRunner": {
+                "type": ["pure", null],
+                "scope": ["public", "XX"],
+            },
+            "increment": {
+                "type": ["pure", null],
+                "scope": ["public", "XX"],
+            },
         }),
         "api mapping": wd({
             "createTestProgram": "createTestProgram"

@@ -3,7 +3,7 @@ import * as pl from "pareto-core-lib"
 import * as api from "../../api"
 import { CCreateFileValidator } from "../creators.p"
 
-export const f_createFileValidator: CCreateFileValidator = ($d) => {
+export const icreateFileValidator: CCreateFileValidator = ($d) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
         return $d.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {

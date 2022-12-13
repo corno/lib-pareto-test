@@ -3,7 +3,7 @@ import * as pl from "pareto-core-lib"
 import * as api from "../../api"
 import { CCreateTestResultSerializer } from "../creators.p"
 
-export const f_createTestResultSerializer: CCreateTestResultSerializer = (
+export const icreateTestResultSerializer: CCreateTestResultSerializer = (
     $d,
 ) => {
     return (

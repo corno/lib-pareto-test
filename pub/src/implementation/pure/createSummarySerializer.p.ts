@@ -1,6 +1,6 @@
 import { CCreateSummarySerializer } from "../creators.p"
 
-export const f_createSummarySerializer: CCreateSummarySerializer = (
+export const icreateSummarySerializer: CCreateSummarySerializer = (
     $d,
 ) => {
     return (

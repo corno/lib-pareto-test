@@ -3,7 +3,7 @@ import * as pl from "pareto-core-lib"
 import * as api from "../../api"
 import { CCreateTestParametersParser } from "../creators.p"
 
-export const f_createTestParametersParser: CCreateTestParametersParser = (
+export const icreateTestParametersParser: CCreateTestParametersParser = (
     $i,
 ) => {
     return ($) => {

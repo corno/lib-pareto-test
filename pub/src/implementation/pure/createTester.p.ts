@@ -1,7 +1,7 @@
 import { CCreateTester } from "../creators.p"
 
 
-export const f_createTester: CCreateTester = (
+export const icreateTester: CCreateTester = (
     $i,
     $a,
 ) => {
