@@ -43,7 +43,7 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
         doIt(".", pr.wrapRawArray(["foo"]))
         doIt(">", pr.wrapRawArray(["foo", "bar"]))
 
-        pub.$a.createTestProgram({
+        pub.$a.createTestProgram(null, {
             getTestSet: () => {
                 pl.panic("@@@")
             },

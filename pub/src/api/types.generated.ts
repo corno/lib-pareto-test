@@ -1,12 +1,12 @@
 import * as pt from "pareto-core-types"
-
 import * as diff from "res-pareto-diff"
-
 import * as fs from "res-pareto-filesystem"
 
 export type TArgumentError = 
     | [ "missing", null ]
     | [ "too many", null ]
+
+export type TArguments = pt.Array<string>
 
 export type TSummary = {
     readonly "numberOfErrors": number,
@@ -77,3 +77,11 @@ export type TValidateFileData = {
         readonly "path": fs.TPath,
     },
 }
+
+export type PLog = ($: string) => void
+
+export type POnTestErrors = ($: null) => void
+
+export type PRunProgram = ($: TArguments) => void
+
+export type FGetTestSet = ($: TTestParameters) => pt.AsyncValue<TTestSet>

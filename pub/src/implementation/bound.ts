@@ -147,7 +147,7 @@ export const createTester: CCreateTester2 = ($i) => {
 }
 
 export const $a: api.API = {
-    createTestProgram: ($f) => {
+    createTestProgram: ($, $f) => {
         return createArgumentsParser({
             onError: $f.logError,
             callback: ($) =>/**/ {
