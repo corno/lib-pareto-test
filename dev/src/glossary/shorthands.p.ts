@@ -1,7 +1,7 @@
 
 import * as pr from "pareto-core-raw"
 
-import { Glossary, Type } from "../glossary/types.p"
+import { Function, Glossary, LeafType, Type } from "../glossary/types.p"
 
 
 const wd = pr.wrapRawDictionary
@@ -11,13 +11,13 @@ export function boolean(): Type {
     return ["leaf", ["boolean", null]]
 }
 export function string(): Type {
-    return  ["leaf", ["string", null]]
+    return ["leaf", ["string", null]]
 }
 export function number(): Type {
-    return  ["leaf", ["number", null]]
+    return ["leaf", ["number", null]]
 }
 export function _null(): Type {
-    return ["leaf",  ["null", null]]
+    return ["leaf", ["null", null]]
 }
 
 export function types($: { [key: string]: Type }) {
@@ -44,4 +44,11 @@ export function externalReference(type: string, context: string): Type {
         type: type,
         context: context,
     }]
+}
+export function _function(data: LeafType, returnValue: LeafType, async?: boolean): Function {
+    return {
+        "async": async === undefined ? false : async,
+        "data": data,
+        "return value": returnValue,
+    }
 }

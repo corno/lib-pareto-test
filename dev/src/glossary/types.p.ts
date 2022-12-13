@@ -60,8 +60,9 @@ export type Implementation = {
     | ["pure", null]
     | ["binding", null]
     definition:
-    | ["private", string]
-    | ["public", string]
+    | ["private", null]
+    | ["public", null]
+    def: string
 }
 
 
