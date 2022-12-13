@@ -1,10 +1,10 @@
 import * as pl from "pareto-core-lib"
 import * as fp from "lib-fountain-pen"
 import * as coll from "res-pareto-collation"
-import { Glossary, LeafType, Type } from "../../glossary/types.p"
+import { NGlossary } from "../../glossary/glossary/types.p"
 
 export type FSerializeGlossary = (
-    $: Glossary,
+    $: NGlossary.Glossary,
     block: fp.IBlock,
 ) => void
 
@@ -13,7 +13,7 @@ export function createGlossarySerializer($d: {
 }): FSerializeGlossary {
     const compare = (a: string, b: string) => $d.isABeforeB({ a: a, b: b })
 
-    function serializeLeafType($: LeafType, $i: fp.ILine) {
+    function serializeLeafType($: NGlossary.LeafType, $i: fp.ILine) {
         switch ($[0]) {
             case "boolean":
                 pl.cc($[1], ($) => {
@@ -43,7 +43,7 @@ export function createGlossarySerializer($d: {
             default: pl.au($[0])
         }
     }
-    function serializeType($: Type, $i: fp.ILine) {
+    function serializeType($: NGlossary.Type, $i: fp.ILine) {
         switch ($[0]) {
             case "array":
                 pl.cc($[1], ($) => {
