@@ -23,7 +23,7 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
         function doIt(name: string, $: pt.Array<string>) {
             const log = pm.createArrayBuilder<LogEntry>()
 
-            const tpp = pub.f_createTestParametersParser({
+            const tpp = pub.$x.createTestParametersParser({
                 onError: ($) => {
                     log.push(["error", $])
                 },

@@ -96,7 +96,7 @@ export const project: NProject.Project = {
                 "type": ["binding", null],
                 "scope": ["public", "createTestProgram"],
             },
-            "createTestResultsSerializer": {
+            "createTestResultSerializer": {
                 "type": ["pure", null],
                 "scope": ["public", "XX"],
             },
