@@ -1,9 +1,6 @@
 import * as pt from "pareto-core-types"
 import { CCreateArgumentsParser } from "../creators.p"
-
-const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
-
-import * as $$ from "../unbound"
+import { icreateTestParametersParser } from "../pure/createTestParametersParser.p"
 
 export const icreateArgumentsParser: CCreateArgumentsParser = ($i) => {
 
@@ -31,7 +28,7 @@ export const icreateArgumentsParser: CCreateArgumentsParser = ($i) => {
     //         }
     //     }
     // )
-    return $$.f_createTestParametersParser(
+    return icreateTestParametersParser(
         {
             onError: () =>/**/ {
                 $i.onError(`arguments error`)

@@ -10,23 +10,29 @@ import * as fs from "res-pareto-filesystem"
 import * as fslib from "lib-pareto-filesystem"
 
 
-import * as $$ from "../unbound"
 import { CCreateTester2 } from "../creators.p"
+import { icreateTestResultSerializer } from "../pure/createTestResultSerializer.p"
+import { icreateSummarySerializer } from "../pure/createSummarySerializer.p"
+import { icreateTestsRunner } from "../pure/createTestsRunner.p"
+import { icreateFileValidator } from "../pure/createFileValidator.p"
+import { icreateSummarizer } from "../pure/createSummarizer.p"
+import { icreateTester } from "../pure/createTester.p"
+import { iincrement } from "../pure/increment.p"
 
 const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
 
 export const icreateTester2: CCreateTester2 = ($i) => {
-    return $$.f_createTester(
+    return icreateTester(
         {
             onTestErrors: $i.onTestErrors,
-            serializeTestResult: $$.f_createTestResultSerializer(
+            serializeTestResult: icreateTestResultSerializer(
                 {
                     log: $i.log,
                     isABeforeB: collation.$a.localeIsABeforeB,
                 },
             ),
-            serializeSummary: $$.f_createSummarySerializer(
+            serializeSummary: icreateSummarySerializer(
                 {
                     log: $i.log,
                     isZero: bool.$a.isZero,
@@ -35,11 +41,11 @@ export const icreateTester2: CCreateTester2 = ($i) => {
 
                 }
             ),
-            runTests: $$.f_createTestsRunner(
+            runTests: icreateTestsRunner(
                 {
                     diffData: diff.fDiffData,
                     stringsAreEqual: diff.fStringsAreEqual,
-                    validateFile: $$.f_createFileValidator(
+                    validateFile: icreateFileValidator(
                         {
 
                             writeFile: ($) =>/**/ {
@@ -94,10 +100,10 @@ export const icreateTester2: CCreateTester2 = ($i) => {
                         }),
                 }
             ),
-            summarize: $$.f_createSummarizer(
+            summarize: icreateSummarizer(
                 {
                     log: $i.log,
-                    increment: $$.increment,
+                    increment: iincrement,
                 }
             ),
             isZero: bool.$a.isZero,
