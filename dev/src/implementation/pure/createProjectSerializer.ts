@@ -199,24 +199,16 @@ export function serializeProject(
                             $i.snippet(`export type API = {`)
                             $i.indent(($i) => {
                                 $.api.forEach(compare, ($, key) => {
-                                    $i.line(($i) => {
-                                        $i.snippet(`${key}: C${key}`)
-                                    })
+                                    $i.literal(`${key}: C${key}`)
                                 })
                             })
                             $i.snippet(`}`)
                         })
                     })
                     $i.createFile("index.ts", ($i) => {
-                        $i.line(($i) => {
-                            $i.snippet(`export * from "./types.generated"`)
-                        })
-                        $i.line(($i) => {
-                            $i.snippet(`export * from "./creators.generated"`)
-                        })
-                        $i.line(($i) => {
-                            $i.snippet(`export * from "./api.generated"`)
-                        })
+                        $i.literal(`export * from "./types.generated"`)
+                        $i.literal(`export * from "./creators.generated"`)
+                        $i.literal(`export * from "./api.generated"`)
                     })
                 }
                 api($.api, $i)
@@ -224,6 +216,8 @@ export function serializeProject(
             $i.createDirectory("implementation", ($i) => {
                 $i.createDirectory("internal_glossary", ($i) => {
                     glossary($.implementation["internal glossary"], $i)
+                })
+                $i.createFile("implementationDeclarations.ts", ($i) => {
                 })
                 $i.createDirectory("pure", ($i) => {
                     $.implementation.implementations.filter(($, key) => $.type[0] === "pure" ? $ : undefined).forEach(compare, ($, key) => {
@@ -327,9 +321,7 @@ export function serializeProject(
                                     $i.line(($i) => {
                                         $i.snippet(`return ($) => {`)
                                         $i.indent(($i) => {
-                                            $i.line(($i) => {
-                                                $i.snippet(`//implement me`)
-                                            })
+                                            $i.literal(`//implement me`)
                                         })
                                         $i.snippet(`}`)
                                     })
@@ -345,18 +337,13 @@ export function serializeProject(
                     $i.literal(``)
                     $.implementation.implementations.forEach(compare, ($, key) => {
 
-                        $i.line(($i) => {
-                            $i.snippet(`import { i${key} } from "./${$.type[0] === "binding" ? "binding" : "pure"}/${key}.p"`)
- 
-                        })
+                        $i.literal(`import { i${key} } from "./${$.type[0] === "binding" ? "binding" : "pure"}/${key}.p"`)
                     })
                     $i.line(($i) => {
                         $i.snippet(`export const $x = {`)
                         $i.indent(($i) => {
                             $.implementation.implementations.forEach(compare, ($, key) => {
-                                $i.line(($i) => {
-                                    $i.snippet(`"${key}": i${key},`)
-                                })
+                                $i.literal(`"${key}": i${key},`)
                             })
                             //$.implementation.i
                         })
@@ -378,12 +365,8 @@ export function serializeProject(
                 })
             })
             $i.createFile("index.ts", ($i) => {
-                $i.line(($i) => {
-                    $i.snippet(`export * from "./api"`)
-                })
-                $i.line(($i) => {
-                    $i.snippet(`export * from "./implementation"`)
-                })
+                $i.literal(`export * from "./api"`)
+                $i.literal(`export * from "./implementation"`)
             })
         })
         tsConfig($i)
