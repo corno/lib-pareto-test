@@ -114,12 +114,27 @@ export const api: NAPI.API = {
         "createTestProgram": ["constructor", {
             data: ["null", null],
             dependencies: wd({
-                "getTestSet": ["function", "GetTestSet"],
-                "log": ["procedure", "Log"],
-                "logError": ["procedure", "Log"],
-                "onTestErrors": ["procedure", "OnTestErrors"],
+                "getTestSet": {
+                    type: ["function", null],
+                    algorithm: "GetTestSet"
+                },
+                "log": {
+                    type: ["procedure", null],
+                    algorithm: "Log"
+                },
+                "logError": {
+                    type: ["procedure", null],
+                    algorithm: "Log"
+                },
+                "onTestErrors": {
+                    type: ["procedure", null],
+                    algorithm: "OnTestErrors"
+                },
             }),
-            result: ["procedure", "RunProgram"]
+            result: {
+                type: ["procedure", null],
+                algorithm: "RunProgram"
+            }
         }]
     })
 }

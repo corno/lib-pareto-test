@@ -4,24 +4,18 @@ import { NGlossary } from "../glossary/types.p"
 
 export namespace NProject {
 
-    export type PrivateAlgorithm =
-        | ["constructor", NAPI.Constructor]
-        | ["function", string]
-        | ["procedure", string]
-
     export type Implementation = {
-        type:
+        readonly "type":
         | ["pure", null]
         | ["binding", null]
-        scope:
-        | ["private", PrivateAlgorithm]
-        | ["public", string]
+        readonly "definition":
+        | ["constructor", NAPI.Constructor]
+        | ["algorithm", NAPI.AlgorithmReference]
     }
 
-
     export type Project = {
-        api: NAPI.API
-        implementation: {
+        readonly "api": NAPI.API
+        readonly "implementation": {
             "internal glossary": NGlossary.Glossary
             "implementations": pt.Dictionary<Implementation>
             "api mapping": pt.Dictionary<string>

@@ -30,8 +30,6 @@ export type PSerializeSummary = pt.Procedure<TSummary>
 
 export type PTest = pt.Procedure<TTestSet>
 
-export type PTest2 = pt.Procedure<TTestParameters>
-
 export type POnArgumentError = pt.Procedure<TArgumentError>
 
 export type PRunTests = pt.Procedure<TTestParameters>

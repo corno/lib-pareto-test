@@ -16,6 +16,9 @@ export function boolean(): NGlossary.LeafType {
 export function string(): NGlossary.LeafType {
     return ["string", null]
 }
+export function reference(type: string): NGlossary.LeafType {
+    return ["reference", type]
+}
 
 export function number(): NGlossary.LeafType {
     return ["number", null]

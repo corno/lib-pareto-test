@@ -72,7 +72,6 @@ export function createGlossarySerializer($d: {
                             $i.line(($i) => {
                                 $i.snippet(`readonly "${key}": `)
                                 serializeType($, $i)
-                                $i.snippet(`,`)
                             })
                         })
                     })

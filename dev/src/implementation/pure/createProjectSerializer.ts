@@ -1,6 +1,6 @@
 import * as pl from "pareto-core-lib"
 
-import { IWriter } from "lib-fountain-pen"
+import { ILine, IWriter } from "lib-fountain-pen"
 import { FSerializeGlossary } from "./createGlossarySerializer.p"
 import { NAPI } from "../../glossary/api/types.p"
 import { NGlossary } from "../../glossary/glossary/types.p"
@@ -9,18 +9,141 @@ import * as coll from "res-pareto-collation"
 import * as fp from "lib-fountain-pen"
 
 
+function serializeAlgorithmReference($: NAPI.AlgorithmReference, $i: ILine) {
+
+    if ($.context !== undefined) {
+        pl.cc($.context, ($) => {
+            switch ($[0]) {
+                // case "api":
+                //     pl.cc($[1], ($) => {
+                //         $i.snippet(`api`)
+                //     })
+                //     break
+                case "import":
+                    pl.cc($[1], ($) => {
+                        $i.snippet(`m${$}`)
+                    })
+                    break
+                case "local":
+                    pl.cc($[1], ($) => {
+                        $i.snippet(`glo`)
+                    })
+                    break
+                default: pl.au($[0])
+            }
+
+        })
+    }
+    pl.cc($.type, ($) => {
+        switch ($[0]) {
+            case "function":
+                pl.cc($[1], ($) => {
+                    $i.snippet(`F`)
+                })
+                break
+            case "procedure":
+                pl.cc($[1], ($) => {
+                    $i.snippet(`P`)
+                })
+                break
+            default: pl.au($[0])
+        }
+    })
+    $i.snippet(`${$.algorithm}`)
+}
+
+export function serializeLeafType($: NGlossary.LeafType, $i: fp.ILine) {
+    switch ($[0]) {
+        case "boolean":
+            pl.cc($[1], ($) => {
+                $i.snippet(`boolean`)
+            })
+            break
+        case "null":
+            pl.cc($[1], ($) => {
+                $i.snippet(`null`)
+            })
+            break
+        case "number":
+            pl.cc($[1], ($) => {
+                $i.snippet(`number`)
+            })
+            break
+        case "reference":
+            pl.cc($[1], ($) => {
+                $i.snippet(`glo.T${$}`)
+            })
+            break
+        case "string":
+            pl.cc($[1], ($) => {
+                $i.snippet(`string`)
+            })
+            break
+        default: pl.au($[0])
+    }
+}
+
+export type PSerializeConstructor = ($: NAPI.Constructor, $i: ILine) => void
+export type CCreateConstructorSerializer = ($d: {
+    compare: coll.FIsABeforeB,
+}) => PSerializeConstructor
+
+export const createConstructorSerializer: CCreateConstructorSerializer = (
+    $d
+) => {
+    const compare = (a: string, b: string) => $d.compare({ a: a, b: b })
+
+    
+    return ($, $i) => {
+
+        $i.snippet(`($: `)
+        serializeLeafType($.data, $i)
+        $i.snippet(`, $d: {`)
+        $i.indent(($i) => {
+            $.dependencies.forEach(compare, ($, key) => {
+                $i.line(($i) => {
+                    $i.snippet(`"${key}": `)
+                    serializeAlgorithmReference($, $i)
+                })
+            })
+        })
+
+        $i.snippet(`}) => `)
+        serializeAlgorithmReference($.result, $i)
+    }
+}
+
 export function serializeProject(
     $: NProject.Project,
     $i: IWriter,
     $d: {
         serializeGlossary: FSerializeGlossary,
+        serializeConstructor: PSerializeConstructor
         compare: coll.FIsABeforeB,
     },
 ) {
 
+
     const compare = (a: string, b: string) => $d.compare({ a: a, b: b })
 
 
+    function serializeAlgorithmDefinition($: NAPI.AlgorithmDefinition, $i: ILine) {
+
+        switch ($[0]) {
+            case "constructor":
+                pl.cc($[1], ($) => {
+                    $d.serializeConstructor($, $i)
+                })
+                break
+            case "algorithm":
+                pl.cc($[1], ($) => {
+                    serializeAlgorithmReference($, $i)
+    
+                })
+                break
+            default: pl.au($[0])
+        }
+    }
     function tsConfig($i: IWriter) {
 
         $i.createFile("tsconfig.json", ($i) => {
@@ -91,36 +214,6 @@ export function serializeProject(
             $i.literal(`}`)
         })
     })
-    function serializeLeafType($: NGlossary.LeafType, $i: fp.ILine) {
-        switch ($[0]) {
-            case "boolean":
-                pl.cc($[1], ($) => {
-                    $i.snippet(`boolean`)
-                })
-                break
-            case "null":
-                pl.cc($[1], ($) => {
-                    $i.snippet(`null`)
-                })
-                break
-            case "number":
-                pl.cc($[1], ($) => {
-                    $i.snippet(`number`)
-                })
-                break
-            case "reference":
-                pl.cc($[1], ($) => {
-                    $i.snippet(`glo.T${$}`)
-                })
-                break
-            case "string":
-                pl.cc($[1], ($) => {
-                    $i.snippet(`string`)
-                })
-                break
-            default: pl.au($[0])
-        }
-    }
     $i.createDirectory("pub", ($i) => {
         $i.createDirectory("src", ($i) => {
             globals($i)
@@ -136,61 +229,7 @@ export function serializeProject(
                         $.api.forEach(compare, ($, key) => {
                             $i.line(($i) => {
                                 $i.snippet(`export type C${key} = `)
-                                switch ($[0]) {
-                                    case "constructor":
-                                        pl.cc($[1], ($) => {
-                                            $i.snippet(`($: `)
-                                            serializeLeafType($.data, $i)
-                                            $i.snippet(`, $d: {`)
-                                            $i.indent(($i) => {
-                                                $.dependencies.forEach(compare, ($, key) => {
-                                                    $i.line(($i) => {
-                                                        $i.snippet(`"${key}": `)
-                                                        switch ($[0]) {
-                                                            case "function":
-                                                                pl.cc($[1], ($) => {
-                                                                    $i.snippet(`glo.F${$}`)
-                                                                })
-                                                                break
-                                                            case "procedure":
-                                                                pl.cc($[1], ($) => {
-                                                                    $i.snippet(`glo.P${$}`)
-                                                                })
-                                                                break
-                                                            default: pl.au($[0])
-                                                        }
-                                                    })
-                                                })
-                                            })
-
-                                            $i.snippet(`}) => `)
-                                            switch ($.result[0]) {
-                                                case "function":
-                                                    pl.cc($.result[1], ($) => {
-                                                        $i.snippet(`glo.F${$}`)
-                                                    })
-                                                    break
-                                                case "procedure":
-                                                    pl.cc($.result[1], ($) => {
-                                                        $i.snippet(`glo.P${$}`)
-                                                    })
-                                                    break
-                                                default: pl.au($.result[0])
-                                            }
-                                        })
-                                        break
-                                    case "function":
-                                        pl.cc($[1], ($) => {
-                                            $i.snippet(`glo.F${$}`)
-                                        })
-                                        break
-                                    case "procedure":
-                                        pl.cc($[1], ($) => {
-                                            $i.snippet(`glo.P${$}`)
-                                        })
-                                        break
-                                    default: pl.au($[0])
-                                }
+                                serializeAlgorithmDefinition($, $i)
                             })
                         })
                         $i.literal(``)
@@ -214,51 +253,31 @@ export function serializeProject(
                 api($.api, $i)
             })
             $i.createDirectory("implementation", ($i) => {
-                $i.createDirectory("internal_glossary", ($i) => {
-                    glossary($.implementation["internal glossary"], $i)
+                $i.createFile("internal_glossary.ts", ($i) => {
+                    $d.serializeGlossary($.implementation["internal glossary"], $i)
                 })
                 $i.createFile("implementationDeclarations.ts", ($i) => {
+                    $i.literal(`import * as glo from "./internal_glossary"`)
+                    $i.literal(`import * as api from "../api"`)
+                    $i.literal(``)
+                    $.implementation.implementations.forEach(compare, ($, key) => {
+                        $i.line(($i) => {
+                            $i.snippet(`export type I${key} = `)
+                            serializeAlgorithmDefinition($.definition, $i)
+                        })
+                    })
                 })
                 $i.createDirectory("pure", ($i) => {
                     $.implementation.implementations.filter(($, key) => $.type[0] === "pure" ? $ : undefined).forEach(compare, ($, key) => {
                         $i.createFile(`${key}.p.ts`, ($i) => {
                             $i.literal(`import * as pt from "pareto-core-types"`)
                             $i.literal(``)
-                            $i.line(($i) => {
-                                $i.snippet(`import * as api from `)
-                                switch ($.scope[0]) {
-                                    case "private":
-                                        pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`"../internal_api"`)
-                                        })
-                                        break
-                                    case "public":
-                                        pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`"../../api"`)
-
-                                        })
-                                        break
-                                    default: pl.au($.scope[0])
-                                }
-                            })
-
+                            $i.literal(`import * as id from "./implementationDeclarations"`)
+                            $i.literal(``)
+                            
                             $i.literal(``)
                             $i.line(($i) => {
-                                $i.snippet(`export const i${key}: `)
-                                switch ($.scope[0]) {
-                                    case "private":
-                                        pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`iapi.C${$}`)
-                                        })
-                                        break
-                                    case "public":
-                                        pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`api.C${$}`)
-
-                                        })
-                                        break
-                                    default: pl.au($.scope[0])
-                                }
+                                $i.snippet(`export const i${key}: id.I${key}`)
                                 $i.snippet(` = ($c, $d) => {`)
                                 $i.indent(($i) => {
                                     $i.line(($i) => {
@@ -281,47 +300,20 @@ export function serializeProject(
                         $i.createFile(`${key}.p.ts`, ($i) => {
                             $i.literal(`import * as pt from "pareto-core-types"`)
                             $i.literal(``)
-                            $i.line(($i) => {
-                                $i.snippet(`import * as api from `)
-                                switch ($.scope[0]) {
-                                    case "private":
-                                        pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`"../internal_api"`)
-                                        })
-                                        break
-                                    case "public":
-                                        pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`"../../api"`)
-
-                                        })
-                                        break
-                                    default: pl.au($.scope[0])
-                                }
-                            })
-
+                            $i.literal(`import * as id from "./implementationDeclarations"`)
+                            $i.literal(``)
+                            
                             $i.literal(``)
                             $i.line(($i) => {
-                                $i.snippet(`export const i${key}: `)
-                                switch ($.scope[0]) {
-                                    case "private":
-                                        pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`iapi.C${$}`)
-                                        })
-                                        break
-                                    case "public":
-                                        pl.cc($.scope[1], ($) => {
-                                            $i.snippet(`api.C${$}`)
-
-                                        })
-                                        break
-                                    default: pl.au($.scope[0])
-                                }
+                                $i.snippet(`export const i${key}: id.I${key}`)
                                 $i.snippet(` = ($c, $d) => {`)
                                 $i.indent(($i) => {
                                     $i.line(($i) => {
                                         $i.snippet(`return ($) => {`)
                                         $i.indent(($i) => {
-                                            $i.literal(`//implement me`)
+                                            $i.line(($i) => {
+                                                $i.snippet(`//implement me`)
+                                            })
                                         })
                                         $i.snippet(`}`)
                                     })

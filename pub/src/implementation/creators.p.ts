@@ -77,7 +77,7 @@ export type CCreateSummarySerializer = pt.Creator<
 export type CCreateTestParametersParser = pt.Creator<
     {
         readonly "onError": glo.POnArgumentError
-        readonly "callback": glo.PTest2
+        readonly "callback": glo.PRunTests
     },
     api.PRunProgram
 >

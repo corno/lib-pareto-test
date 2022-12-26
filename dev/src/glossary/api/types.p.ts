@@ -3,26 +3,29 @@ import { NGlossary } from "../glossary/types.p"
 
 export namespace NAPI {
 
-export type Depedency =
-    | ["function", string]
-    | ["procedure", string]
+    export type AlgorithmReference = {
+        type:
+        | ["function", null]
+        | ["procedure", null]
+        context?:
+        | ["local", null]
+        | ["import", string]
+        algorithm: string
+    }
 
-export type Constructor = {
-    data: NGlossary. LeafType
-    dependencies: pt.Dictionary<Depedency>
-    result:
-    | ["function", string]
-    | ["procedure", string]
-}
+    export type Constructor = {
+        data: NGlossary.LeafType
+        dependencies: pt.Dictionary<AlgorithmReference>
+        result: AlgorithmReference
+    }
 
-export type PublicAlgorithm =
-    | ["constructor", Constructor]
-    | ["function", string]
-    | ["procedure", string]
+    export type AlgorithmDefinition =
+        | ["constructor", Constructor]
+        | ["algorithm", AlgorithmReference]
 
-export type API = {
-    glossary: NGlossary.Glossary,
-    api: pt.Dictionary<PublicAlgorithm>
-}
+    export type API = {
+        glossary: NGlossary.Glossary,
+        api: pt.Dictionary<AlgorithmDefinition>
+    }
 
 }

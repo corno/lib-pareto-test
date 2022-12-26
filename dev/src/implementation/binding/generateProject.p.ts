@@ -3,7 +3,7 @@ import * as pl from "pareto-core-lib"
 
 import * as fp from "lib-fountain-pen"
 import { NProject } from "../../glossary/project/types.p"
-import { serializeProject } from "../pure/createProjectSerializer"
+import { createConstructorSerializer, serializeProject } from "../pure/createProjectSerializer"
 import { createGlossarySerializer } from "../pure/createGlossarySerializer.p"
 import * as coll from "res-pareto-collation"
 
@@ -27,7 +27,9 @@ export function generateProject($: {
         compare: coll.$a.localeIsABeforeB,
         serializeGlossary: createGlossarySerializer({
             isABeforeB: coll.$a.localeIsABeforeB,
-
+        }),
+        serializeConstructor: createConstructorSerializer({
+            compare: coll.$a.localeIsABeforeB,
         })
     })
 }

@@ -22,13 +22,13 @@ export type TTestElement = {
                 | [ "file string", TValidateFileData ]
                 | [ "long string", {
                     readonly "actual": string,
-                    readonly "expected": string,
+                    readonly "expected": string
                 } ]
                 | [ "short string", {
-                    readonly "actual": string,
-                    readonly "expected": string,
+                    readonly "actual": string
+                    readonly "expected": string
                 } ]
-            ,
+            
         } ]
     ,
 }
