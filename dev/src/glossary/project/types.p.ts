@@ -4,7 +4,7 @@ import { NGlossary } from "../glossary/types.p"
 
 export namespace NProject {
 
-    export type Implementation = {
+    export type AlgorithmImplementation = {
         readonly "type":
         | ["pure", null]
         | ["binding", null]
@@ -13,12 +13,12 @@ export namespace NProject {
         | ["algorithm", NAPI.AlgorithmReference]
     }
 
+    export type Implementation = pt.Dictionary<AlgorithmImplementation>
+
     export type Project = {
-        readonly "api": NAPI.API
-        readonly "implementation": {
-            "internal glossary": NGlossary.Glossary
-            "implementations": pt.Dictionary<Implementation>
-            "api mapping": pt.Dictionary<string>
-        }
+        readonly "api": NAPI.ModuleDefinition
+        readonly "private definitions": NAPI.ModuleDefinition
+        readonly "public implementations": Implementation
+        readonly "private implementations": Implementation
     }
 }

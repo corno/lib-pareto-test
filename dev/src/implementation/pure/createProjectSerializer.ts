@@ -74,6 +74,11 @@ export function serializeLeafType($: NGlossary.LeafType, $i: fp.ILine) {
                 $i.snippet(`glo.T${$}`)
             })
             break
+        case "external reference":
+            pl.cc($[1], ($) => {
+                $i.snippet(`${$.context}.T${$}`)
+            })
+            break
         case "string":
             pl.cc($[1], ($) => {
                 $i.snippet(`string`)
@@ -93,7 +98,7 @@ export const createConstructorSerializer: CCreateConstructorSerializer = (
 ) => {
     const compare = (a: string, b: string) => $d.compare({ a: a, b: b })
 
-    
+
     return ($, $i) => {
 
         $i.snippet(`($: `)
@@ -138,7 +143,7 @@ export function serializeProject(
             case "algorithm":
                 pl.cc($[1], ($) => {
                     serializeAlgorithmReference($, $i)
-    
+
                 })
                 break
             default: pl.au($[0])
@@ -217,143 +222,169 @@ export function serializeProject(
     $i.createDirectory("pub", ($i) => {
         $i.createDirectory("src", ($i) => {
             globals($i)
-            $i.createDirectory("api", ($i) => {
+            function moduleDefintion($: NAPI.ModuleDefinition, $i: IWriter) {
+                glossary($.glossary, $i)
+                $i.createFile("api.generated.ts", ($i) => {
+                    $i.literal(`import * as pt from "pareto-core-types"`)
+                    $i.literal(``)
+                    $i.literal(`import * as glo from "./types.generated"`)
+                    $i.literal(``)
+                    $.api.forEach(compare, ($, key) => {
+                        $i.line(($i) => {
+                            $i.snippet(`export type C${key} = `)
+                            serializeAlgorithmDefinition($, $i)
+                        })
+                    })
+                    $i.literal(``)
 
-                function api($: NAPI.API, $i: IWriter) {
-                    glossary($.glossary, $i)
-                    $i.createFile("api.generated.ts", ($i) => {
-                        $i.literal(`import * as pt from "pareto-core-types"`)
-                        $i.literal(``)
-                        $i.literal(`import * as glo from "./types.generated"`)
-                        $i.literal(``)
-                        $.api.forEach(compare, ($, key) => {
-                            $i.line(($i) => {
-                                $i.snippet(`export type C${key} = `)
-                                serializeAlgorithmDefinition($, $i)
+                    $i.line(($i) => {
+                        $i.snippet(`export type API = {`)
+                        $i.indent(($i) => {
+                            $.api.forEach(compare, ($, key) => {
+                                $i.literal(`${key}: C${key}`)
                             })
                         })
-                        $i.literal(``)
+                        $i.snippet(`}`)
+                    })
+                })
+                $i.createFile("index.ts", ($i) => {
+                    $i.literal(`export * from "./types.generated"`)
+                    $i.literal(`export * from "./api.generated"`)
+                })
+            }
+            $i.createDirectory("api", ($i) => {
 
+                moduleDefintion($.api, $i)
+            })
+            $i.createDirectory("implementation", ($i) => {
+
+                $i.createDirectory("private_definitions", ($i) => {
+                    moduleDefintion($["private definitions"], $i)
+                })
+                function implementations($: NProject.Implementation, $i: IWriter) {
+                    $i.createDirectory("pure", ($i) => {
+                        $.filter(($, key) => $.type[0] === "pure" ? $ : undefined).forEach(compare, ($, key) => {
+                            $i.createFile(`${key}.p.ts`, ($i) => {
+                                $i.literal(`import * as pt from "pareto-core-types"`)
+                                $i.literal(``)
+                                $i.literal(`import * as id from "./implementationDeclarations"`)
+                                $i.literal(``)
+
+                                $i.literal(``)
+                                $i.line(($i) => {
+                                    $i.snippet(`export const i${key}: id.I${key}`)
+                                    $i.snippet(` = ($c, $d) => {`)
+                                    $i.indent(($i) => {
+                                        $i.line(($i) => {
+                                            $i.snippet(`return ($) => {`)
+                                            $i.indent(($i) => {
+                                                $i.line(($i) => {
+                                                    $i.snippet(`//implement me`)
+                                                })
+                                            })
+                                            $i.snippet(`}`)
+                                        })
+                                    })
+                                    $i.snippet(`}`)
+                                })
+                            })
+                        })
+                    })
+                    $i.createDirectory("binding", ($i) => {
+                        $.filter(($, key) => $.type[0] === "binding" ? $ : undefined).forEach(compare, ($, key) => {
+                            $i.createFile(`${key}.p.ts`, ($i) => {
+                                $i.literal(`import * as pt from "pareto-core-types"`)
+                                $i.literal(``)
+                                $i.literal(`import * as id from "./implementationDeclarations"`)
+                                $i.literal(``)
+
+                                $i.literal(``)
+                                $i.line(($i) => {
+                                    $i.snippet(`export const i${key}: id.I${key}`)
+                                    $i.snippet(` = ($c, $d) => {`)
+                                    $i.indent(($i) => {
+                                        $i.line(($i) => {
+                                            $i.snippet(`return ($) => {`)
+                                            $i.indent(($i) => {
+                                                $i.line(($i) => {
+                                                    $i.snippet(`//implement me`)
+                                                })
+                                            })
+                                            $i.snippet(`}`)
+                                        })
+                                    })
+                                    $i.snippet(`}`)
+                                })
+                            })
+                        })
+                    })
+                    $i.createFile("index.ts", ($i) => {
+                        $.forEach(compare, ($, key) => {
+                            $i.literal(`import { i${key} } from "./${$.type[0] === "binding" ? "binding" : "pure"}/${key}.p"`)
+                        })
+                        $i.literal(``)
                         $i.line(($i) => {
-                            $i.snippet(`export type API = {`)
+                            $i.snippet(`export const $a = {`)
                             $i.indent(($i) => {
-                                $.api.forEach(compare, ($, key) => {
-                                    $i.literal(`${key}: C${key}`)
+                                $.forEach(compare, ($, key) => {
+                                    $i.literal(`"${key}": i${key},`)
                                 })
                             })
                             $i.snippet(`}`)
                         })
                     })
-                    $i.createFile("index.ts", ($i) => {
-                        $i.literal(`export * from "./types.generated"`)
-                        $i.literal(`export * from "./creators.generated"`)
-                        $i.literal(`export * from "./api.generated"`)
-                    })
+
                 }
-                api($.api, $i)
-            })
-            $i.createDirectory("implementation", ($i) => {
-                $i.createFile("internal_glossary.ts", ($i) => {
-                    $d.serializeGlossary($.implementation["internal glossary"], $i)
+                $i.createDirectory("private", ($i) => {
+                    implementations($["private implementations"], $i)
                 })
-                $i.createFile("implementationDeclarations.ts", ($i) => {
-                    $i.literal(`import * as glo from "./internal_glossary"`)
-                    $i.literal(`import * as api from "../api"`)
-                    $i.literal(``)
-                    $.implementation.implementations.forEach(compare, ($, key) => {
-                        $i.line(($i) => {
-                            $i.snippet(`export type I${key} = `)
-                            serializeAlgorithmDefinition($.definition, $i)
-                        })
-                    })
+                $i.createDirectory("public", ($i) => {
+                    implementations($["public implementations"], $i)
                 })
-                $i.createDirectory("pure", ($i) => {
-                    $.implementation.implementations.filter(($, key) => $.type[0] === "pure" ? $ : undefined).forEach(compare, ($, key) => {
-                        $i.createFile(`${key}.p.ts`, ($i) => {
-                            $i.literal(`import * as pt from "pareto-core-types"`)
-                            $i.literal(``)
-                            $i.literal(`import * as id from "./implementationDeclarations"`)
-                            $i.literal(``)
-                            
-                            $i.literal(``)
-                            $i.line(($i) => {
-                                $i.snippet(`export const i${key}: id.I${key}`)
-                                $i.snippet(` = ($c, $d) => {`)
-                                $i.indent(($i) => {
-                                    $i.line(($i) => {
-                                        $i.snippet(`return ($) => {`)
-                                        $i.indent(($i) => {
-                                            $i.line(($i) => {
-                                                $i.snippet(`//implement me`)
-                                            })
-                                        })
-                                        $i.snippet(`}`)
-                                    })
-                                })
-                                $i.snippet(`}`)
-                            })
-                        })
-                    })
-                })
-                $i.createDirectory("binding", ($i) => {
-                    $.implementation.implementations.filter(($, key) => $.type[0] === "binding" ? $ : undefined).forEach(compare, ($, key) => {
-                        $i.createFile(`${key}.p.ts`, ($i) => {
-                            $i.literal(`import * as pt from "pareto-core-types"`)
-                            $i.literal(``)
-                            $i.literal(`import * as id from "./implementationDeclarations"`)
-                            $i.literal(``)
-                            
-                            $i.literal(``)
-                            $i.line(($i) => {
-                                $i.snippet(`export const i${key}: id.I${key}`)
-                                $i.snippet(` = ($c, $d) => {`)
-                                $i.indent(($i) => {
-                                    $i.line(($i) => {
-                                        $i.snippet(`return ($) => {`)
-                                        $i.indent(($i) => {
-                                            $i.line(($i) => {
-                                                $i.snippet(`//implement me`)
-                                            })
-                                        })
-                                        $i.snippet(`}`)
-                                    })
-                                })
-                                $i.snippet(`}`)
-                            })
-                        })
-                    })
-                })
+                // $i.createFile("implementationDeclarations.ts", ($i) => {
+                //     $i.literal(`import * as glo from "./internal_glossary"`)
+                //     $i.literal(`import * as api from "../api"`)
+                //     $i.literal(``)
+                //     $.implementation.implementations.forEach(compare, ($, key) => {
+                //         $i.line(($i) => {
+                //             $i.snippet(`export type I${key} = `)
+                //             serializeAlgorithmDefinition($.definition, $i)
+                //         })
+                //     })
+                // })
                 $i.createFile("index.ts", ($i) => {
-                    $i.literal(`import * as api from "../api"`)
+                    $i.literal(`export * from "./private_definitions"`)
+                    $i.literal(`export { $a as $x } from "./private"`)
+                    $i.literal(`export * from "./public"`)
 
                     $i.literal(``)
-                    $.implementation.implementations.forEach(compare, ($, key) => {
+                    // $.implementation.implementations.forEach(compare, ($, key) => {
 
-                        $i.literal(`import { i${key} } from "./${$.type[0] === "binding" ? "binding" : "pure"}/${key}.p"`)
-                    })
-                    $i.line(($i) => {
-                        $i.snippet(`export const $x = {`)
-                        $i.indent(($i) => {
-                            $.implementation.implementations.forEach(compare, ($, key) => {
-                                $i.literal(`"${key}": i${key},`)
-                            })
-                            //$.implementation.i
-                        })
-                        $i.snippet(`}`)
-                    })
+                    //     $i.literal(`import { i${key} } from "./${$.type[0] === "binding" ? "binding" : "pure"}/${key}.p"`)
+                    // })
+                    // $i.line(($i) => {
+                    //     $i.snippet(`export const $x = {`)
+                    //     $i.indent(($i) => {
+                    //         $.implementation.implementations.forEach(compare, ($, key) => {
+                    //             $i.literal(`"${key}": i${key},`)
+                    //         })
+                    //         //$.implementation.i
+                    //     })
+                    //     $i.snippet(`}`)
+                    // })
 
-                    $i.line(($i) => {
-                        $i.snippet(`export const $a: api.API = {`)
-                        $i.indent(($i) => {
-                            $.implementation["api mapping"].forEach(compare, ($, key) => {
-                                $i.line(($i) => {
-                                    $i.snippet(`"${key}": i${$},`)
-                                })
-                            })
-                            //$.implementation.i
-                        })
-                        $i.snippet(`}`)
-                    })
+                    // $i.line(($i) => {
+                    //     $i.snippet(`export const $a: api.API = {`)
+                    //     $i.indent(($i) => {
+                    //         $.implementation["api mapping"].forEach(compare, ($, key) => {
+                    //             $i.line(($i) => {
+                    //                 $i.snippet(`"${key}": i${$},`)
+                    //             })
+                    //         })
+                    //         //$.implementation.i
+                    //     })
+                    //     $i.snippet(`}`)
+                    // })
                 })
             })
             $i.createFile("index.ts", ($i) => {

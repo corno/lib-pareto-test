@@ -43,11 +43,12 @@ export function reference(type: string): Type {
 }
 
 export function externalReference(type: string, context: string): Type {
-    return ["external reference", {
+    return ["leaf", ["external reference", {
         type: type,
         context: context,
-    }]
+    }]]
 }
+
 export function _function(data: LeafType, returnValue: LeafType, async?: boolean): NGlossary.Function {
     return {
         "async": async === undefined ? false : async,

@@ -20,6 +20,11 @@ export function createGlossarySerializer($d: {
                     $i.snippet(`boolean`)
                 })
                 break
+            case "external reference":
+                pl.cc($[1], ($) => {
+                    $i.snippet(`${$.context}.T${$.type}`)
+                })
+                break
             case "null":
                 pl.cc($[1], ($) => {
                     $i.snippet(`null`)
@@ -76,11 +81,6 @@ export function createGlossarySerializer($d: {
                         })
                     })
                     $i.snippet(`}`)
-                })
-                break
-            case "external reference":
-                pl.cc($[1], ($) => {
-                    $i.snippet(`${$.context}.T${$.type}`)
                 })
                 break
             case "taggedUnion":

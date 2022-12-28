@@ -19,6 +19,12 @@ export function string(): NGlossary.LeafType {
 export function reference(type: string): NGlossary.LeafType {
     return ["reference", type]
 }
+export function externalReference(context: string, type: string): NGlossary.LeafType {
+    return ["external reference", {
+        type: type,
+        context: context,
+    }]
+}
 
 export function number(): NGlossary.LeafType {
     return ["number", null]

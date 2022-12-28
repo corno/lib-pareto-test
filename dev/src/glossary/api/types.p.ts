@@ -23,7 +23,7 @@ export namespace NAPI {
         | ["constructor", Constructor]
         | ["algorithm", AlgorithmReference]
 
-    export type API = {
+    export type ModuleDefinition = {
         glossary: NGlossary.Glossary,
         api: pt.Dictionary<AlgorithmDefinition>
     }

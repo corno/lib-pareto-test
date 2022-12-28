@@ -8,6 +8,10 @@ export namespace NGlossary {
         | ["null", null]
         | ["number", null]
         | ["reference", string]
+        | ["external reference", {
+            readonly "context": string,
+            readonly "type": string,
+        }]
 
     export type Type =
         | ["leaf", LeafType]
@@ -15,10 +19,6 @@ export namespace NGlossary {
         | ["dictionary", Type]
         | ["group", pt.Dictionary<Type>]
         | ["taggedUnion", pt.Dictionary<Type>]
-        | ["external reference", {
-            readonly "context": string,
-            readonly "type": string,
-        }]
 
     export type Procedure = {
         readonly "data": LeafType

@@ -19,7 +19,7 @@ import { NAPI } from "../glossary/api/types.p"
 
 const wd = pr.wrapRawDictionary
 
-export const api: NAPI.API = {
+export const api: NAPI.ModuleDefinition = {
     glossary: {
         'imports': wd({
             "diff": "res-pareto-diff",
@@ -75,7 +75,7 @@ export const api: NAPI.API = {
             "TestType": taggedUnion({
                 "boolean": _null(),
                 "long string": group({
-                    "parts": array(externalReference("MultilinePart", "diff"))
+                    "parts": array(externalReference("diff", "MultilinePart"))
                 }),
                 "short string": group({
                     "expected": string(),
@@ -83,12 +83,12 @@ export const api: NAPI.API = {
                 }),
                 "file string": group({
                     "fileLocation": string(),
-                    "parts": array(externalReference("MultilinePart", "diff"))
+                    "parts": array(externalReference("diff", "MultilinePart"))
                 }),
             }),
             "ValidateFileData": group({
                 "expectedFile": group({
-                    "path": externalReference("Path", "fs"),
+                    "path": externalReference("common", "Path"),
                     "fileName": string(),
                     "extension": string()
                 }),

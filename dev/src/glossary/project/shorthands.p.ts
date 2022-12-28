@@ -39,7 +39,7 @@ const wd = pr.wrapRawDictionary
 //     return ["leaf", ["reference", type]]
 // }
 
-// export function externalReference(type: string, context: string): Type {
+// export function externalReference( context: string, type: string): Type {
 //     return ["external reference", {
 //         type: type,
 //         context: context,
