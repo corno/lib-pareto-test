@@ -358,33 +358,6 @@ export function serializeProject(
                     $i.literal(`export * from "./public"`)
 
                     $i.literal(``)
-                    // $.implementation.implementations.forEach(compare, ($, key) => {
-
-                    //     $i.literal(`import { i${key} } from "./${$.type[0] === "binding" ? "binding" : "pure"}/${key}.p"`)
-                    // })
-                    // $i.line(($i) => {
-                    //     $i.snippet(`export const $x = {`)
-                    //     $i.indent(($i) => {
-                    //         $.implementation.implementations.forEach(compare, ($, key) => {
-                    //             $i.literal(`"${key}": i${key},`)
-                    //         })
-                    //         //$.implementation.i
-                    //     })
-                    //     $i.snippet(`}`)
-                    // })
-
-                    // $i.line(($i) => {
-                    //     $i.snippet(`export const $a: api.API = {`)
-                    //     $i.indent(($i) => {
-                    //         $.implementation["api mapping"].forEach(compare, ($, key) => {
-                    //             $i.line(($i) => {
-                    //                 $i.snippet(`"${key}": i${$},`)
-                    //             })
-                    //         })
-                    //         //$.implementation.i
-                    //     })
-                    //     $i.snippet(`}`)
-                    // })
                 })
             })
             $i.createFile("index.ts", ($i) => {
@@ -393,36 +366,6 @@ export function serializeProject(
             })
         })
         tsConfig($i)
-        $i.createFile("package.json", ($i) => {
-            $i.literal(`{`)
-            $i.literal(`  "author": "Corno",`)
-            $i.literal(`  "dependencies": {`)
-            // $i.literal(`    "glo-pareto-common": "^0.1.0",`)
-            // $i.literal(`    "lib-pareto-filesystem": "^0.7.0",`)
-            $i.literal(`    "pareto-core-lib": "^0.17.0",`)
-            $i.literal(`    "pareto-core-raw": "^0.7.0",`)
-            $i.literal(`    "pareto-core-state": "^0.12.0",`)
-            // $i.literal(`    "res-pareto-arithmetic": "^0.5.0",`)
-            // $i.literal(`    "res-pareto-boolean": "^0.7.0",`)
-            // $i.literal(`    "res-pareto-collation": "^0.10.0",`)
-            // $i.literal(`    "res-pareto-diff": "^0.13.2"`)
-            $i.literal(`  },`)
-            $i.literal(`  "description": "test functions for pareto",`)
-            $i.literal(`  "files": [`)
-            $i.literal(`    "dist"`)
-            $i.literal(`  ],`)
-            $i.literal(`  "license": "ISC",`)
-            $i.literal(`  "main": "dist/index.js",`)
-            $i.literal(`  "name": "lib-pareto-test",`)
-            $i.literal(`  "repository": {`)
-            $i.literal(`    "type": "git",`)
-            $i.literal(`    "url": "http://github.com/corno/lib-pareto-test.git"`)
-            $i.literal(`  },`)
-            $i.literal(`  "types": "dist/index.d.ts",`)
-            $i.literal(`  "version": "0.11.0",`)
-            $i.literal(`  "content-fingerprint": "1309fef786ca077562927878b318fbaf88db3409"`)
-            $i.literal(`}`)
-        })
     })
     $i.createDirectory("test", ($i) => {
 
@@ -436,20 +379,6 @@ export function serializeProject(
             })
         })
         tsConfig($i)
-        $i.createFile("package.json", ($i) => {
-            $i.literal(`{`)
-            $i.literal(`  "dependencies": {`)
-            // $i.literal(`    "glo-pareto-common": "^0.1.0",`)
-            // $i.literal(`    "lib-pareto-filesystem": "^0.7.0",`)
-            $i.literal(`    "pareto-core-lib": "^0.17.0",`)
-            $i.literal(`    "pareto-core-raw": "^0.7.0",`)
-            $i.literal(`    "pareto-core-state": "^0.12.0",`)
-            // $i.literal(`    "res-pareto-arithmetic": "^0.5.0",`)
-            // $i.literal(`    "res-pareto-boolean": "^0.7.0",`)
-            // $i.literal(`    "res-pareto-collation": "^0.10.0",`)
-            // $i.literal(`    "res-pareto-diff": "^0.13.2"`)
-            $i.literal(`}`)
-        })
     })
 
 }

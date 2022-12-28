@@ -3,14 +3,15 @@ import * as pl from "pareto-core-lib"
 
 import * as fp from "lib-fountain-pen"
 import { NProject } from "../../glossary/project/types.p"
-import { createConstructorSerializer, serializeProject } from "../pure/createProjectSerializer"
+import { createConstructorSerializer, serializeProject } from "../pure/createProjectSerializer.p"
 import { createGlossarySerializer } from "../pure/createGlossarySerializer.p"
 import * as coll from "res-pareto-collation"
+import { serializeTemplate } from "../pure/createTemplateSerializer.p"
 
 export function generateProject($: {
     project: NProject.Project,
     path: pt.Nested<string>
-    
+
 }) {
     const $i = fp.$a.createWriter(
         {
@@ -23,13 +24,24 @@ export function generateProject($: {
             }
         },
     )
-    serializeProject($.project, $i, {
-        compare: coll.$a.localeIsABeforeB,
-        serializeGlossary: createGlossarySerializer({
-            isABeforeB: coll.$a.localeIsABeforeB,
-        }),
-        serializeConstructor: createConstructorSerializer({
+    serializeProject(
+        $.project,
+        $i,
+        {
             compare: coll.$a.localeIsABeforeB,
-        })
-    })
+            serializeGlossary: createGlossarySerializer({
+                isABeforeB: coll.$a.localeIsABeforeB,
+            }),
+            serializeConstructor: createConstructorSerializer({
+                compare: coll.$a.localeIsABeforeB,
+            })
+        }
+    )
+    serializeTemplate(
+        $.project,
+        $i,
+        {
+            compare: coll.$a.localeIsABeforeB,
+        }
+    )
 }
