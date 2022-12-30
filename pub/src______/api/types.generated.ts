@@ -1,7 +1,6 @@
 import * as pt from "pareto-core-types"
-
 import * as diff from "res-pareto-diff"
-import * as common from "glo-pareto-common"
+import * as fs from "res-pareto-filesystem"
 
 export type TArgumentError = 
     | [ "missing", null ]
@@ -10,8 +9,8 @@ export type TArgumentError =
 export type TArguments = pt.Array<string>
 
 export type TSummary = {
-    readonly "numberOfErrors": number
-    readonly "numberOfTests": number
+    readonly "numberOfErrors": number,
+    readonly "numberOfTests": number,
 }
 
 export type TTestElement = {
@@ -22,58 +21,61 @@ export type TTestElement = {
                 | [ "boolean", boolean ]
                 | [ "file string", TValidateFileData ]
                 | [ "long string", {
-                    readonly "actual": string
+                    readonly "actual": string,
                     readonly "expected": string
                 } ]
                 | [ "short string", {
                     readonly "actual": string
                     readonly "expected": string
                 } ]
+            
         } ]
+    ,
 }
 
 export type TTestElementResult = {
     readonly "type": 
         | [ "subset", TTestSetResult ]
         | [ "test", {
-            readonly "success": boolean
-            readonly "type": TTestType
+            readonly "success": boolean,
+            readonly "type": TTestType,
         } ]
+    ,
 }
 
 export type TTestParameters = {
-    readonly "testDirectory": string
+    readonly "testDirectory": string,
 }
 
 export type TTestSet = {
-    readonly "elements": pt.Dictionary<TTestElement>
+    readonly "elements": pt.Dictionary<TTestElement>,
 }
 
 export type TTestSetResult = {
-    readonly "elements": pt.Dictionary<TTestElementResult>
+    readonly "elements": pt.Dictionary<TTestElementResult>,
 }
 
 export type TTestType = 
     | [ "boolean", null ]
     | [ "file string", {
-        readonly "fileLocation": string
-        readonly "parts": pt.Array<diff.TMultilinePart>
+        readonly "fileLocation": string,
+        readonly "parts": pt.Array<diff.TMultilinePart>,
     } ]
     | [ "long string", {
-        readonly "parts": pt.Array<diff.TMultilinePart>
+        readonly "parts": pt.Array<diff.TMultilinePart>,
     } ]
     | [ "short string", {
-        readonly "actual": string
-        readonly "expected": string
+        readonly "actual": string,
+        readonly "expected": string,
     } ]
 
 export type TValidateFileData = {
-    readonly "actual": string
+    readonly "actual": string,
     readonly "expectedFile": {
-        readonly "extension": string
-        readonly "fileName": string
-        readonly "path": common.TPath
-    }
+        readonly "extension": string,
+        readonly "fileName": string,
+        readonly "path": fs.TPath,
+    },
 }
 
 export type PLog = ($: string) => void
@@ -83,3 +85,4 @@ export type POnTestErrors = ($: null) => void
 export type PRunProgram = ($: TArguments) => void
 
 export type FGetTestSet = ($: TTestParameters) => pt.AsyncValue<TTestSet>
+
