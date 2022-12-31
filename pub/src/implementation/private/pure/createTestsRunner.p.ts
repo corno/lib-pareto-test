@@ -4,7 +4,7 @@ import * as pl from "pareto-core-lib"
 import * as api from "../../../api"
 import * as pd from "../../private_definitions"
 
-export const icreateTestsRunner: pd.CCreateTestRunner = ($f) => {
+export const icreateTestsRunner: pd.CCreateTestRunner = ($c, $d) => {
     return ($) => {
         function doTestSet($: api.TTestSet): pt.AsyncValue<api.TTestSetResult> {
             return $.elements.asyncMap(($): pt.AsyncValue<api.TTestElementResult> => {
@@ -32,13 +32,13 @@ export const icreateTestsRunner: pd.CCreateTestRunner = ($f) => {
                                     })
                                 case "file string":
                                     return pl.cc($.type[1], ($) => {
-                                        return $f.validateFile(
+                                        return $d.validateFile(
                                             $,
                                         )
                                     })
                                 case "long string":
                                     return pl.cc($.type[1], ($) => {
-                                        const res = $f.diffData(
+                                        const res = $d.diffData(
                                             {
                                                 originalData: $.expected,
                                                 changedData: $.actual,
@@ -71,7 +71,7 @@ export const icreateTestsRunner: pd.CCreateTestRunner = ($f) => {
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
                                             type: ["test", {
-                                                success: $f.stringsAreEqual({
+                                                success: $d.stringsAreEqual({
                                                     a: $.actual,
                                                     b: $.expected,
                                                 }),

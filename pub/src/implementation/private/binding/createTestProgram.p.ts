@@ -5,7 +5,7 @@ import * as api from "../../../api"
 import * as pd from "../../private_definitions"
 
 import { icreateArgumentsParser } from "./createArgumentsParser.p"
-import { icreateTester2 } from "./createTester2.p"
+import { icreateBoundTester } from "./createBoundTester.p"
 
 const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
@@ -15,7 +15,8 @@ export const icreateTestProgram: api.CcreateTestProgram = ($, $f) => {
         callback: ($) =>/**/ {
             processAsync(
                 $f.getTestSet($),
-                icreateTester2(
+                icreateBoundTester(
+                    null,
                     {
                         onError: $f.logError,
                         onTestErrors: $f.onTestErrors,

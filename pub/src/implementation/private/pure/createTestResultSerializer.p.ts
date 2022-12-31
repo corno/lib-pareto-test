@@ -5,6 +5,7 @@ import * as api from "../../../api"
 import * as pd from "../../private_definitions"
 
 export const icreateTestResultSerializer: pd.CCreateTestResultSerializer = (
+    $,
     $d,
 ) => {
     return (

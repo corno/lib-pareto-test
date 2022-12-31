@@ -30,6 +30,7 @@ export const icreateArgumentsParser: pd.CCreateArgumentsParser = ($c, $d) => {
     //     }
     // )
     return icreateTestParametersParser(
+        null,
         {
             onError: () =>/**/ {
                 $d.onError(`arguments error`)

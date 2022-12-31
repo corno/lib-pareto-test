@@ -1,23 +1,26 @@
-
+import * as pt from "pareto-core-types"
 import * as pd from "../../private_definitions"
 
+const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
+
+
 export const icreateTester: pd.CCreateTester = (
-    $i,
-    $a,
+    $,
+    $d,
 ) => {
     return ($) => {
-        $a(
-            $i.runTests($),
+        processAsync(
+            $d.runTests($),
             ($) => {
-                $i.serializeTestResult($)
-                const summary = $i.summarize(
+                $d.serializeTestResult($)
+                const summary = $d.summarize(
                     $,
                 )
-                $i.serializeSummary(summary)
-                if ($i.isZero(summary.numberOfErrors)) {
+                $d.serializeSummary(summary)
+                if ($d.isZero(summary.numberOfErrors)) {
                     //
                 } else {
-                    $i.onTestErrors(null)
+                    $d.onTestErrors(null)
                 }
             }
         )

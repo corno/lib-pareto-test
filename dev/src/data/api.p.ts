@@ -102,17 +102,6 @@ export const api: NAPI.ModuleDefinition = {
                 "actual": string()
             }),
         }),
-        // 'procedures': wd({
-        //     "OnTestErrors": {
-        //         data: ["null", null]
-        //     },
-        //     "Log": {
-        //         data: ["string", null]
-        //     },
-        //     "RunProgram": {
-        //         data: ["reference", "Arguments"]
-        //     },
-        // }),
         'functions': wd({
            "GetTestSet": _function(["reference", "TestParameters"], ["reference", "TestSet"], true)
         })

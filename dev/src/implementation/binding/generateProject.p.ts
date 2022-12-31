@@ -8,11 +8,12 @@ import { createGlossarySerializer } from "../pure/createGlossarySerializer.p"
 import * as coll from "res-pareto-collation"
 import { serializeTemplate } from "../pure/createTemplateSerializer.p"
 
-export function generateProject($: {
+export type TProjectSettings = {
     project: NProject.Project,
     path: pt.Nested<string>
+}
 
-}) {
+export function generateProject($: TProjectSettings): void {
     const $i = fp.$a.createWriter(
         {
             path: $.path,

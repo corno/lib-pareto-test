@@ -25,26 +25,6 @@ export const project: NProject.Project = {
                     "data": str(),
                 })
             }),
-            // 'procedures': wd({
-            //     "OnArgumentError": {
-            //         data: externalReference("api", "ArgumentError")
-            //     },
-            //     "RunTests": {
-            //         data: externalReference("api", "TestParameters")
-            //     },
-            //     "SerializeSummary": {
-            //         data: externalReference("api", "Summary")
-            //     },
-            //     "SerializeTestResult": {
-            //         data: externalReference("api", "TestSetResult")
-            //     },
-            //     "Test": {
-            //         data: externalReference("api", "TestSet")
-            //     },
-            //     "WriteFile": {
-            //         data: reference("WriteFileData")
-            //     },
-            // }),
             'functions': wd({
                 "Increment": _function(number(), number()),
                 "IsZero": _function(number(), boolean()),
@@ -61,6 +41,7 @@ export const project: NProject.Project = {
             "imports": wd({
                 "api": "../../api",
                 "arithmetic": "res-pareto-arithmetic",
+                "collation": "res-pareto-collation",
                 "diff": "res-pareto-diff",
                 "fs": "res-pareto-filesystem",
             }),
@@ -80,15 +61,29 @@ export const project: NProject.Project = {
                         type: ["procedure", externalReference("api", "Arguments")],
                     }
                 }],
+                "CreateBoundTester": ["constructor", {
+                    data: ["null", null],
+                    dependencies: wd({
+                        "onTestErrors": {
+                            type: ["procedure", _null()],
+
+                        },
+                        "log": {
+                            type: ["procedure", string()],
+
+                        },
+                        "onError": {
+                            type: ["procedure", string()],
+
+                        },
+                    }),
+                    result: {
+                        type: ["procedure", externalReference("api", "TestSet")],
+                    }
+                }],
                 "CreateFileValidator": ["constructor", {
                     data: ["null", null],
                     dependencies: wd({
-                        // readonly "writeFile": PWriteFile
-                        // readonly "unlink": fs.PUnlinkFireAndForget
-                        // readonly "readFile": glo.AReadFile
-                        // readonly "diffData": diff.FDiffData,
-
-                        
                         "writeFile": {
                             type: ["procedure", reference("WriteFileData")],
 
@@ -163,134 +158,117 @@ export const project: NProject.Project = {
                                 function: "Negate",
                             }],
                         },
-
-                    //     export type CCreateSummarySerializer = pt.Creator<
-                    //     {
-                    //         readonly "log": pt.Procedure<string>
-                    //         readonly "isZero": glo.FIsZero
-                    //         readonly "add": arithmetic.FAdd
-                    //         readonly "negate": glo.FNegate
-                    //     },
-                    //     PSerializeSummary
-                    // >
                     }),
                     result: {
                         type: ["procedure", externalReference("api", "Summary")],
                     }
                 }],
-                "CreateTestRunner": ["constructor", {
+                "CreateTester": ["constructor", {
                     data: ["null", null],
                     dependencies: wd({
+                        "onTestErrors": {
+                            type: ["procedure", _null()],
 
+                        },
+                        "serializeTestResult": {
+                            type: ["procedure", externalReference("api", "TestSetResult")],
+
+                        },
+                        "serializeSummary": {
+                            type: ["procedure", externalReference("api", "Summary")],
+
+                        },
+                        "runTests": {
+                            type: ["function", {
+                                function: "RunTests",
+                                async: true,
+                            }],
+                        },
+                        "isZero": {
+                            type: ["function", {
+                                function: "IsZero",
+                            }],
+                        },
+                        "summarize": {
+                            type: ["function", {
+                                function: "Summarize",
+                            }],
+
+                        },
                     }),
                     result: {
-                        type: ["procedure", reference("TestSet")],
+                        type: ["procedure", externalReference("api", "TestSet")],
                     }
                 }],
                 "CreateTestParametersParser": ["constructor", {
                     data: ["null", null],
                     dependencies: wd({
 
-                    }),
-                    result: {
-                        type: ["procedure", reference("TestSet")],
-                    }
-                }],
-                "CreateTester": ["constructor", {
-                    data: ["null", null],
-                    dependencies: wd({
+                        "callback": {
+                            type: ["procedure", externalReference("api", "TestParameters")],
+                        },
+                        "onError": {
+                            type: ["procedure", externalReference("api", "ArgumentError")],
+
+                        },
+
 
                     }),
                     result: {
-                        type: ["procedure", reference("TestSet")],
+                        type: ["procedure", externalReference("api", "Arguments")],
                     }
                 }],
-                "CreateTester2": ["constructor", {
+                "CreateTestRunner": ["constructor", {
                     data: ["null", null],
                     dependencies: wd({
-
+                        "diffData": {
+                            type: ["function", {
+                                context: ["import", "diff"],
+                                function: "DiffData",
+                            }],
+                        },
+                        "stringsAreEqual": {
+                            type: ["function", {
+                                context: ["import", "diff"],
+                                function: "StringsAreEqual",
+                            }],
+                        },
+                        "validateFile": {
+                            type: ["function", {
+                                function: "ValidateFile",
+                                async: true,
+                            }],
+                        },
                     }),
                     result: {
-                        type: ["procedure", reference("TestSet")],
+                        type: ["function", {
+                            function: "RunTests",
+                            async: true,
+                        }],
                     }
                 }],
                 "CreateTestResultSerializer": ["constructor", {
                     data: ["null", null],
                     dependencies: wd({
+                        "isABeforeB": {
+                            type: ["function", {
+                                context: ["import", "collation"],
+                                function: "IsABeforeB",
+                            }],
+                        },
+                        "log": {
+                            type: ["procedure", string()],
 
+                        },
                     }),
                     result: {
-                        type: ["procedure", reference("TestSet")],
+                        type: ["procedure", externalReference("api", "TestSetResult")],
                     }
                 }],
             })
         },
     },
     "private implementations": wd({
-        // "createArgumentsParser": {
-        //     "type": ["binding", null],
-        //     "definition": ["constructor", {
-        //         data: ["null", null],
-        //         dependencies: wd({
-        //             // onError: ["procedure", "OnArgumentError"],
-        //             // callback: ["procedure", "RunTests"],
-        //         }),
-        //         result: {
-        //             type: ["procedure", null],
-        //             algorithm: "RunProgram"
-        //         }
-        //     }],
-        // },
-        // "createFileValidator": {
-        //     "type": ["pure", null],
-        //     "definition": ["constructor", {
-        //         data: ["null", null],
-        //         dependencies: wd({
-        //             // onError: ["procedure", "OnArgumentError"],
-        //             // callback: ["procedure", "RunTests"],
-        //         }),
-        //         result: {
-        //             type: ["procedure", null],
-        //             algorithm: "XX"
-        //         }
-        //     }],
-        // },
-        // "createTestParametersParser": {
-        //     "type": ["pure", null],
-        //     "scope": ["public", "XX"],
-        // },
-        // "createSummarizer": {
-        //     "type": ["pure", null],
-        //     "scope": ["public", "XX"],
-        // },
-        // "createSummarySerializer": {
-        //     "type": ["pure", null],
-        //     "scope": ["public", "XX"],
-        // },
-        // "createTester": {
-        //     "type": ["pure", null],
-        //     "scope": ["public", "XX"],
-        // },
-        // "createTester2": {
-        //     "type": ["binding", null],
-        //     "scope": ["public", "XX"],
-        // },
-        // "createTestProgram": {
-        //     "type": ["binding", null],
-        //     "scope": ["public", "createTestProgram"],
-        // },
-        // "createTestResultSerializer": {
-        //     "type": ["pure", null],
-        //     "scope": ["public", "XX"],
-        // },
-        // "createTestsRunner": {
-        //     "type": ["pure", null],
-        //     "scope": ["public", "XX"],
-        // },
-        // "increment": {
-        //     "type": ["pure", null],
-        //     "scope": ["public", "XX"],
-        // },
     }),
     "public implementations": wd({}),
 

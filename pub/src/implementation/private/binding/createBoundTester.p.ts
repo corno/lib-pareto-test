@@ -3,7 +3,6 @@ import * as pl from "pareto-core-lib"
 
 import * as pd from "../../private_definitions"
 
-
 import * as diff from "res-pareto-diff"
 import * as arith from "res-pareto-arithmetic"
 import * as collation from "res-pareto-collation"
@@ -22,20 +21,22 @@ import { iincrement } from "../pure/increment.p"
 const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
 
-export const icreateTester2: pd.CCreateTester2 = ($i) => {
+export const icreateBoundTester: pd.CCreateBoundTester = ($, $d) => {
     return icreateTester(
+        null,
         {
-            onTestErrors: $i.onTestErrors,
+            onTestErrors: $d.onTestErrors,
             serializeTestResult: icreateTestResultSerializer(
+                null,
                 {
-                    log: $i.log,
+                    log: $d.log,
                     isABeforeB: collation.$a.localeIsABeforeB,
                 },
             ),
             serializeSummary: icreateSummarySerializer(
                 null,
                 {
-                    log: $i.log,
+                    log: $d.log,
                     isZero: bool.$a.isZero,
                     add: arith.f_add,
                     negate: arith.f_negative,
@@ -43,18 +44,18 @@ export const icreateTester2: pd.CCreateTester2 = ($i) => {
                 }
             ),
             runTests: icreateTestsRunner(
+                null,
                 {
                     diffData: diff.fDiffData,
                     stringsAreEqual: diff.fStringsAreEqual,
                     validateFile: icreateFileValidator(
                         null,
                         {
-
                             writeFile: ($) =>/**/ {
                                 fslib.$b.createWriteFileFireAndForget(
                                     {
                                         onError: ($) =>/**/ {
-                                            $i.onError(`${$.path}: ${fslib.$b.createWriteFileErrorMessage($.error)}`)
+                                            $d.onError(`${$.path}: ${fslib.$b.createWriteFileErrorMessage($.error)}`)
                                         }
                                     },
 
@@ -65,11 +66,12 @@ export const icreateTester2: pd.CCreateTester2 = ($i) => {
                                     createContainingDirectories: true,
                                 })
                             },
-                            unlink: fslib.$b.createUnlinkFireAndForget({
-                                onError: ($) =>/**/ {
-                                    $i.onError(`${$.path}: ${fslib.$b.createUnlinkErrorMessage($.error)}`)
-                                }
-                            },
+                            unlink: fslib.$b.createUnlinkFireAndForget(
+                                {
+                                    onError: ($) =>/**/ {
+                                        $d.onError(`${$.path}: ${fslib.$b.createUnlinkErrorMessage($.error)}`)
+                                    }
+                                },
                                 processAsync,
                             ),
                             readFile: ($) =>/**/ {
@@ -80,7 +82,7 @@ export const icreateTester2: pd.CCreateTester2 = ($i) => {
                                         x,
                                         {
                                             onError: ($) =>/**/ {
-                                                $i.onError(`${$.path}: ${fslib.$b.createReadFileErrorMessage($.error)}`)
+                                                $d.onError(`${$.path}: ${fslib.$b.createReadFileErrorMessage($.error)}`)
                                             },
                                             init: ($c) =>/**/ {
                                                 let out = ""
@@ -105,13 +107,11 @@ export const icreateTester2: pd.CCreateTester2 = ($i) => {
             summarize: icreateSummarizer(
                 null,
                 {
-                    log: $i.log,
+                    log: $d.log,
                     increment: iincrement,
                 }
             ),
             isZero: bool.$a.isZero,
         },
-        processAsync,
-
     )
 }
