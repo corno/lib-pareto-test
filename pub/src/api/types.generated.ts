@@ -1,7 +1,6 @@
 import * as pt from "pareto-core-types"
-
-import * as diff from "res-pareto-diff"
-import * as common from "glo-pareto-common"
+import * as mcommon from "glo-pareto-common"
+import * as mdiff from "res-pareto-diff"
 
 export type TArgumentError = 
     | [ "missing", null ]
@@ -57,10 +56,10 @@ export type TTestType =
     | [ "boolean", null ]
     | [ "file string", {
         readonly "fileLocation": string
-        readonly "parts": pt.Array<diff.TMultilinePart>
+        readonly "parts": pt.Array<mdiff.TMultilinePart>
     } ]
     | [ "long string", {
-        readonly "parts": pt.Array<diff.TMultilinePart>
+        readonly "parts": pt.Array<mdiff.TMultilinePart>
     } ]
     | [ "short string", {
         readonly "actual": string
@@ -72,14 +71,8 @@ export type TValidateFileData = {
     readonly "expectedFile": {
         readonly "extension": string
         readonly "fileName": string
-        readonly "path": common.TPath
+        readonly "path": mcommon.TPath
     }
 }
 
-export type PLog = ($: string) => void
-
-export type POnTestErrors = ($: null) => void
-
-export type PRunProgram = ($: TArguments) => void
-
-export type FGetTestSet = ($: TTestParameters) => pt.AsyncValue<TTestSet>
+export type AGetTestSet = ($: TTestParameters) => pt.AsyncValue<TTestSet>

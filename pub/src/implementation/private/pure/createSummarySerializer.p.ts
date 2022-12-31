@@ -1,7 +1,7 @@
 import * as pd from "../../private_definitions"
 
 export const icreateSummarySerializer: pd.CCreateSummarySerializer = (
-    $d,
+    $c, $d,
 ) => {
     return (
         $,

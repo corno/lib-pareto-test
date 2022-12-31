@@ -1,11 +1,6 @@
 {
   "dependencies": {
-    "lib-fountain-pen": "^0.11.0",
-    "pareto-core-exe": "^0.15.1",
     "pareto-core-lib": "^0.17.0",
     "pareto-core-raw": "^0.7.0",
     "pareto-core-state": "^0.12.0",
-    "res-pareto-collation": "^0.10.0",
-    "res-pareto-standard-outstream": "^0.8.0"
-  }
 }

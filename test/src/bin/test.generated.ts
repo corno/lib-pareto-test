@@ -9,7 +9,6 @@ import { dependencies } from "../dependencies/dependencies.p"
 import { data } from "../data/data.p"
 import { createGetTestset } from "../implementation"
 
-
 pe.runProgram(
     ($) => {
         test.$b.createTestProgram(
@@ -33,3 +32,6 @@ pe.runProgram(
         )
     }
 )
+
+
+import * as pt from "pareto-core-types"

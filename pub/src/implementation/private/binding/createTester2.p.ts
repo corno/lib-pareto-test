@@ -11,13 +11,13 @@ import * as bool from "res-pareto-boolean"
 import * as fs from "res-pareto-filesystem"
 import * as fslib from "lib-pareto-filesystem"
 
-import { icreateTestResultSerializer } from "../../public/pure/createTestResultSerializer.p"
-import { icreateTester } from "../../public/pure/createTester.p"
+import { icreateTestResultSerializer } from "../pure/createTestResultSerializer.p"
+import { icreateTester } from "../pure/createTester.p"
 import { icreateSummarySerializer } from "../pure/createSummarySerializer.p"
 import { icreateTestsRunner } from "../pure/createTestsRunner.p"
 import { icreateFileValidator } from "../pure/createFileValidator.p"
 import { icreateSummarizer } from "../pure/createSummarizer.p"
-import { iincrement } from "../../public/pure/increment.p"
+import { iincrement } from "../pure/increment.p"
 
 const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
@@ -33,6 +33,7 @@ export const icreateTester2: pd.CCreateTester2 = ($i) => {
                 },
             ),
             serializeSummary: icreateSummarySerializer(
+                null,
                 {
                     log: $i.log,
                     isZero: bool.$a.isZero,
@@ -46,6 +47,7 @@ export const icreateTester2: pd.CCreateTester2 = ($i) => {
                     diffData: diff.fDiffData,
                     stringsAreEqual: diff.fStringsAreEqual,
                     validateFile: icreateFileValidator(
+                        null,
                         {
 
                             writeFile: ($) =>/**/ {
@@ -101,6 +103,7 @@ export const icreateTester2: pd.CCreateTester2 = ($i) => {
                 }
             ),
             summarize: icreateSummarizer(
+                null,
                 {
                     log: $i.log,
                     increment: iincrement,

@@ -14,6 +14,12 @@ import {
     _null,
 } from "../glossary/glossary/shorthands.p"
 
+import {
+    reference as ref,
+    string as str,
+    _null as nll,
+} from "../glossary/api/shorthands.p"
+
 import { NAPI } from "../glossary/api/types.p"
 
 
@@ -23,7 +29,8 @@ export const api: NAPI.ModuleDefinition = {
     glossary: {
         'imports': wd({
             "diff": "res-pareto-diff",
-            "fs": "res-pareto-filesystem",
+            //"fs": "res-pareto-filesystem",
+            "common": "glo-pareto-common",
         }),
         'types': types({
             "Arguments": array(string()),
@@ -95,46 +102,47 @@ export const api: NAPI.ModuleDefinition = {
                 "actual": string()
             }),
         }),
-        'procedures': wd({
-            "OnTestErrors": {
-                data: ["null", null]
-            },
-            "Log": {
-                data: ["string", null]
-            },
-            "RunProgram": {
-                data: ["reference", "Arguments"]
-            },
-        }),
+        // 'procedures': wd({
+        //     "OnTestErrors": {
+        //         data: ["null", null]
+        //     },
+        //     "Log": {
+        //         data: ["string", null]
+        //     },
+        //     "RunProgram": {
+        //         data: ["reference", "Arguments"]
+        //     },
+        // }),
         'functions': wd({
-           "GetTestSet": _function(["reference", "TestParameters"], ["reference", "TestSet"])
+           "GetTestSet": _function(["reference", "TestParameters"], ["reference", "TestSet"], true)
         })
     },
-    api: wd({
-        "createTestProgram": ["constructor", {
-            data: ["null", null],
-            dependencies: wd({
-                "getTestSet": {
-                    type: ["function", null],
-                    algorithm: "GetTestSet"
-                },
-                "log": {
-                    type: ["procedure", null],
-                    algorithm: "Log"
-                },
-                "logError": {
-                    type: ["procedure", null],
-                    algorithm: "Log"
-                },
-                "onTestErrors": {
-                    type: ["procedure", null],
-                    algorithm: "OnTestErrors"
-                },
-            }),
-            result: {
-                type: ["procedure", null],
-                algorithm: "RunProgram"
-            }
-        }]
-    })
+    api: {
+        imports: wd({}),
+        algorithms: wd({
+            "createTestProgram": ["constructor", {
+                data: ["null", null],
+                dependencies: wd({
+                    "getTestSet": {
+                        type: ["function", {
+                            function: "GetTestSet",
+                            async: true,
+                        }],
+                    },
+                    "log": {
+                        type: ["procedure", str()],
+                    },
+                    "logError": {
+                        type: ["procedure", str()],
+                    },
+                    "onTestErrors": {
+                        type: ["procedure", nll()],
+                    },
+                }),
+                result: {
+                    type: ["procedure", ref("Arguments")],
+                }
+            }]
+        })
+    }
 }

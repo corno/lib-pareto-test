@@ -1,10 +1,60 @@
 import * as pt from "pareto-core-types"
 
 import * as glo from "./types.generated"
-import * as fs from "lib-pareto-filesystem"
-import * as diff from "res-pareto-diff"
-import * as arithmetic from "res-pareto-arithmetic"
-import * as collation from "res-pareto-collation"
+
+import * as mapi from "../../api"
+import * as marithmetic from "res-pareto-arithmetic"
+import * as mdiff from "res-pareto-diff"
+import * as mfs from "res-pareto-filesystem"
+
+export type CCreateArgumentsParser = ($: null, $d: {
+    readonly "callback": pt.Procedure<mapi.TTestParameters>
+    readonly "onError": pt.Procedure<string>
+}) => pt.Procedure<mapi.TArguments>
+
+export type CCreateFileValidator = ($: null, $d: {
+    readonly "diffData": mdiff.FDiffData
+    readonly "readFile": glo.AReadFile
+    readonly "unlink": pt.Procedure<mfs.TUnlink_Data>
+    readonly "writeFile": pt.Procedure<glo.TWriteFileData>
+}) => glo.AValidateFile
+
+export type CCreateSummarizer = ($: null, $d: {
+    readonly "increment": glo.FIncrement
+    readonly "log": pt.Procedure<string>
+}) => glo.FSummarize
+
+export type CCreateSummarySerializer = ($: null, $d: {
+    readonly "add": marithmetic.FAdd
+    readonly "isZero": glo.FIsZero
+    readonly "log": pt.Procedure<string>
+    readonly "negate": glo.FNegate
+}) => pt.Procedure<mapi.TSummary>
+
+
+///////////////////////////////////
+
+export type CCreateTestParametersParser = pt.Creator<
+    {
+        readonly "onError": POnArgumentError
+        readonly "callback": PRunTests
+    },
+    pt.Procedure<api.TArguments>
+>
+
+
+
+export type POnArgumentError = ($: api.TArgumentError) => void
+
+export type PRunTests = ($: api.TTestParameters) => void
+
+export type PSerializeSummary = ($: api.TSummary) => void
+
+export type PSerializeTestResult = ($: api.TTestSetResult) => void
+
+export type PTest = ($: api.TTestSet) => void
+
+export type PWriteFile = ($: glo.TWriteFileData) => void
 
 export type AsyncProcessingCreator<Dependencies, Algorithm> = (
     $d: Dependencies,
@@ -12,26 +62,6 @@ export type AsyncProcessingCreator<Dependencies, Algorithm> = (
 ) => Algorithm
 
 import * as api from "../../api"
-
-
-export type CCreateArgumentsParser = pt.Creator<
-    {
-        onError: ($: string) => void
-        callback: ($: api.TTestParameters) => void
-    },
-    api.PRunProgram
->
-
-export type CCreateFileValidator = pt.Creator<
-    {
-        readonly "writeFile": glo.PWriteFile
-        readonly "unlink": fs.PUnlinkFireAndForget
-        readonly "readFile": glo.AReadFile
-        readonly "diffData": diff.FDiffData,
-    },
-    glo.AValidateFile
->
-
 
 export type CCreateTestRunner = pt.Creator<
     {
@@ -43,32 +73,8 @@ export type CCreateTestRunner = pt.Creator<
     glo.ARunTests
 >
 
-export type CCreateTestParametersParser = pt.Creator<
-    {
-        readonly "onError": glo.POnArgumentError
-        readonly "callback": glo.PRunTests
-    },
-    api.PRunProgram
->
-
-
-export type CCreateSummarizer = pt.Creator<
-    {
-        readonly "log": api.PLog
-        readonly "increment": glo.FIncrement
-    },
-    glo.FSummarize
->
-
-export type CCreateSummarySerializer = pt.Creator<
-    {
-        readonly "log": api.PLog
-        readonly "isZero": glo.FIsZero
-        readonly "add": arithmetic.FAdd
-        readonly "negate": glo.FNegate
-    },
-    glo.PSerializeSummary
->
+import * as diff from "res-pareto-diff"
+import * as collation from "res-pareto-collation"
 
 export type CCreateTester2 = pt.Creator<
     {
@@ -76,28 +82,28 @@ export type CCreateTester2 = pt.Creator<
         log: ($: string) => void
         onTestErrors: ($: null) => void
     },
-    glo.PTest
+    PTest
 >
 
 
 export type CCreateTestResultSerializer = pt.Creator<
     {
-        readonly "log": api.PLog
+        readonly "log": pt.Procedure<string>
         readonly "isABeforeB": collation.FIsABeforeB
     },
-    glo.PSerializeTestResult
+    PSerializeTestResult
 >
 
 
 export type CCreateTester = AsyncProcessingCreator<
     {
-        readonly "onTestErrors": api.POnTestErrors
-        readonly "serializeTestResult": glo.PSerializeTestResult
-        readonly "serializeSummary": glo.PSerializeSummary
+        readonly "onTestErrors": pt.Procedure<null>
+        readonly "serializeTestResult": PSerializeTestResult
+        readonly "serializeSummary": PSerializeSummary
         readonly "runTests": glo.ARunTests
         readonly "isZero": glo.FIsZero,
         readonly "summarize": glo.FSummarize
     },
-    glo.PTest
+    PTest
 >
 export type API2 = {}

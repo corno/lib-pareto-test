@@ -5,12 +5,14 @@ export namespace NAPI {
 
     export type AlgorithmReference = {
         type:
-        | ["function", null]
-        | ["procedure", null]
-        context?:
-        | ["local", null]
-        | ["import", string]
-        algorithm: string
+        | ["function", {
+            context?:
+            | ["local", null]
+            | ["import", string]
+            "function": string
+            "async"?: boolean
+        }]
+        | ["procedure", NGlossary.LeafType]
     }
 
     export type Constructor = {
@@ -25,7 +27,10 @@ export namespace NAPI {
 
     export type ModuleDefinition = {
         glossary: NGlossary.Glossary,
-        api: pt.Dictionary<AlgorithmDefinition>
+        api: {
+            imports: pt.Dictionary<string>
+            algorithms: pt.Dictionary<AlgorithmDefinition>
+        }
     }
 
 }

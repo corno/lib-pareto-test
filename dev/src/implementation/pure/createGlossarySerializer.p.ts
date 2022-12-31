@@ -22,7 +22,7 @@ export function createGlossarySerializer($d: {
                 break
             case "external reference":
                 pl.cc($[1], ($) => {
-                    $i.snippet(`${$.context}.T${$.type}`)
+                    $i.snippet(`m${$.context}.T${$.type}`)
                 })
                 break
             case "null":
@@ -105,7 +105,7 @@ export function createGlossarySerializer($d: {
         })
         $.imports.forEach(compare, ($, key) => {
             $i.line(($i) => {
-                $i.snippet(`import * as ${key} from "${$}"`)
+                $i.snippet(`import * as m${key} from "${$}"`)
             })
         })
         $.types.forEach(compare, ($, key) => {
@@ -115,14 +115,14 @@ export function createGlossarySerializer($d: {
                 serializeType($, $i)
             })
         })
-        $.procedures.forEach(compare, ($, key) => {
-            $i.literal(``)
-            $i.line(($i) => {
-                $i.snippet(`export type P${key} = ($: `)
-                serializeLeafType($.data, $i)
-                $i.snippet(`) => void`)
-            })
-        })
+        // $.procedures.forEach(compare, ($, key) => {
+        //     $i.literal(``)
+        //     $i.line(($i) => {
+        //         $i.snippet(`export type P${key} = ($: `)
+        //         serializeLeafType($.data, $i)
+        //         $i.snippet(`) => void`)
+        //     })
+        // })
         $.functions.forEach(compare, ($, key) => {
             $i.literal(``)
             $i.line(($i) => {
@@ -130,11 +130,11 @@ export function createGlossarySerializer($d: {
                 serializeLeafType($.data, $i)
                 $i.snippet(`) => `)
                 if ($.async) {
-                    serializeLeafType($["return value"], $i)
-                } else {
                     $i.snippet(`pt.AsyncValue<`)
                     serializeLeafType($["return value"], $i)
                     $i.snippet(`>`)
+                } else {
+                    serializeLeafType($["return value"], $i)
                 }
             })
         })

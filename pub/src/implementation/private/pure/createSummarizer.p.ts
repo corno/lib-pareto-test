@@ -4,7 +4,7 @@ import * as api from "../../../api"
 import * as pd from "../../private_definitions"
 
 export const icreateSummarizer: pd.CCreateSummarizer = (
-    $d,
+   $c, $d,
 ) => {
     return ($) => {
         type SSummary = {

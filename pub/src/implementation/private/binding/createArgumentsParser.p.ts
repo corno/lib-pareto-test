@@ -3,7 +3,7 @@ import * as pd from "../../private_definitions"
 
 import { icreateTestParametersParser } from "../pure/createTestParametersParser.p"
 
-export const icreateArgumentsParser: pd.CCreateArgumentsParser = ($i) => {
+export const icreateArgumentsParser: pd.CCreateArgumentsParser = ($c, $d) => {
 
     // exeLib.p_getSingleArgument(
     //     $.arguments,
@@ -32,10 +32,10 @@ export const icreateArgumentsParser: pd.CCreateArgumentsParser = ($i) => {
     return icreateTestParametersParser(
         {
             onError: () =>/**/ {
-                $i.onError(`arguments error`)
+                $d.onError(`arguments error`)
             },
             callback: ($) => {
-                $i.callback($)
+                $d.callback($)
             },
         }
     )

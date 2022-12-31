@@ -11,45 +11,51 @@ import * as fp from "lib-fountain-pen"
 
 function serializeAlgorithmReference($: NAPI.AlgorithmReference, $i: ILine) {
 
-    if ($.context !== undefined) {
-        pl.cc($.context, ($) => {
-            switch ($[0]) {
-                // case "api":
-                //     pl.cc($[1], ($) => {
-                //         $i.snippet(`api`)
-                //     })
-                //     break
-                case "import":
-                    pl.cc($[1], ($) => {
-                        $i.snippet(`m${$}`)
-                    })
-                    break
-                case "local":
-                    pl.cc($[1], ($) => {
-                        $i.snippet(`glo`)
-                    })
-                    break
-                default: pl.au($[0])
-            }
-
-        })
-    }
     pl.cc($.type, ($) => {
         switch ($[0]) {
             case "function":
                 pl.cc($[1], ($) => {
-                    $i.snippet(`F`)
+                    if ($.context !== undefined) {
+                        pl.cc($.context, ($) => {
+                            switch ($[0]) {
+                                // case "api":
+                                //     pl.cc($[1], ($) => {
+                                //         $i.snippet(`api`)
+                                //     })
+                                //     break
+                                case "import":
+                                    pl.cc($[1], ($) => {
+                                        $i.snippet(`m${$}.`)
+                                    })
+                                    break
+                                case "local":
+                                    pl.cc($[1], ($) => {
+                                        $i.snippet(`glo.`)
+                                    })
+                                    break
+                                default: pl.au($[0])
+                            }
+            
+                        })
+                    } else {
+                        $i.snippet(`glo.`)
+                    }
+
+                    $i.snippet(`${$.async ? "A": "F"}`)
+                    $i.snippet(`${$.function}`)
+
                 })
                 break
             case "procedure":
                 pl.cc($[1], ($) => {
-                    $i.snippet(`P`)
+                    $i.snippet(`pt.Procedure<`)
+                    serializeLeafType($, $i)
+                    $i.snippet(`>`)
                 })
                 break
             default: pl.au($[0])
         }
     })
-    $i.snippet(`${$.algorithm}`)
 }
 
 export function serializeLeafType($: NGlossary.LeafType, $i: fp.ILine) {
@@ -76,7 +82,7 @@ export function serializeLeafType($: NGlossary.LeafType, $i: fp.ILine) {
             break
         case "external reference":
             pl.cc($[1], ($) => {
-                $i.snippet(`${$.context}.T${$}`)
+                $i.snippet(`m${$.context}.T${$.type}`)
             })
             break
         case "string":
@@ -107,7 +113,7 @@ export const createConstructorSerializer: CCreateConstructorSerializer = (
         $i.indent(($i) => {
             $.dependencies.forEach(compare, ($, key) => {
                 $i.line(($i) => {
-                    $i.snippet(`"${key}": `)
+                    $i.snippet(`readonly "${key}": `)
                     serializeAlgorithmReference($, $i)
                 })
             })
@@ -200,24 +206,15 @@ export function serializeProject(
 
                 $i.createFile("generateCode.generated.ts", ($i) => {
                     $i.literal(`import * as pt from "pareto-core-types"`)
+                    $i.literal(`import  { generate } from "../tbd"`)
+                    $i.literal(``)
+                    $i.literal(`generate()`)
+
+
                 })
             })
         })
         tsConfig($i)
-        $i.createFile("package.json", ($i) => {
-            $i.literal(`{`)
-            $i.literal(`  "dependencies": {`)
-            // $i.literal(`    "glo-pareto-common": "^0.1.0",`)
-            // $i.literal(`    "lib-pareto-filesystem": "^0.7.0",`)
-            $i.literal(`    "pareto-core-lib": "^0.17.0",`)
-            $i.literal(`    "pareto-core-raw": "^0.7.0",`)
-            $i.literal(`    "pareto-core-state": "^0.12.0",`)
-            // $i.literal(`    "res-pareto-arithmetic": "^0.5.0",`)
-            // $i.literal(`    "res-pareto-boolean": "^0.7.0",`)
-            // $i.literal(`    "res-pareto-collation": "^0.10.0",`)
-            // $i.literal(`    "res-pareto-diff": "^0.13.2"`)
-            $i.literal(`}`)
-        })
     })
     $i.createDirectory("pub", ($i) => {
         $i.createDirectory("src", ($i) => {
@@ -229,18 +226,23 @@ export function serializeProject(
                     $i.literal(``)
                     $i.literal(`import * as glo from "./types.generated"`)
                     $i.literal(``)
-                    $.api.forEach(compare, ($, key) => {
+                    $.api.imports.forEach(compare, ($, key) => {
+                        $i.line(($i) => {
+                            $i.snippet(`import * as m${key} from "${$}"`)
+                        })
+                    })
+                    $.api.algorithms.forEach(compare, ($, key) => {
+                        $i.literal(``)
                         $i.line(($i) => {
                             $i.snippet(`export type C${key} = `)
                             serializeAlgorithmDefinition($, $i)
                         })
                     })
                     $i.literal(``)
-
                     $i.line(($i) => {
                         $i.snippet(`export type API = {`)
                         $i.indent(($i) => {
-                            $.api.forEach(compare, ($, key) => {
+                            $.api.algorithms.forEach(compare, ($, key) => {
                                 $i.literal(`${key}: C${key}`)
                             })
                         })
@@ -262,62 +264,6 @@ export function serializeProject(
                     moduleDefintion($["private definitions"], $i)
                 })
                 function implementations($: NProject.Implementation, $i: IWriter) {
-                    $i.createDirectory("pure", ($i) => {
-                        $.filter(($, key) => $.type[0] === "pure" ? $ : undefined).forEach(compare, ($, key) => {
-                            $i.createFile(`${key}.p.ts`, ($i) => {
-                                $i.literal(`import * as pt from "pareto-core-types"`)
-                                $i.literal(``)
-                                $i.literal(`import * as id from "./implementationDeclarations"`)
-                                $i.literal(``)
-
-                                $i.literal(``)
-                                $i.line(($i) => {
-                                    $i.snippet(`export const i${key}: id.I${key}`)
-                                    $i.snippet(` = ($c, $d) => {`)
-                                    $i.indent(($i) => {
-                                        $i.line(($i) => {
-                                            $i.snippet(`return ($) => {`)
-                                            $i.indent(($i) => {
-                                                $i.line(($i) => {
-                                                    $i.snippet(`//implement me`)
-                                                })
-                                            })
-                                            $i.snippet(`}`)
-                                        })
-                                    })
-                                    $i.snippet(`}`)
-                                })
-                            })
-                        })
-                    })
-                    $i.createDirectory("binding", ($i) => {
-                        $.filter(($, key) => $.type[0] === "binding" ? $ : undefined).forEach(compare, ($, key) => {
-                            $i.createFile(`${key}.p.ts`, ($i) => {
-                                $i.literal(`import * as pt from "pareto-core-types"`)
-                                $i.literal(``)
-                                $i.literal(`import * as id from "./implementationDeclarations"`)
-                                $i.literal(``)
-
-                                $i.literal(``)
-                                $i.line(($i) => {
-                                    $i.snippet(`export const i${key}: id.I${key}`)
-                                    $i.snippet(` = ($c, $d) => {`)
-                                    $i.indent(($i) => {
-                                        $i.line(($i) => {
-                                            $i.snippet(`return ($) => {`)
-                                            $i.indent(($i) => {
-                                                $i.line(($i) => {
-                                                    $i.snippet(`//implement me`)
-                                                })
-                                            })
-                                            $i.snippet(`}`)
-                                        })
-                                    })
-                                    $i.snippet(`}`)
-                                })
-                            })
-                        })
-                    })
                     $i.createFile("index.ts", ($i) => {
                         $.forEach(compare, ($, key) => {
                             $i.literal(`import { i${key} } from "./${$.type[0] === "binding" ? "binding" : "pure"}/${key}.p"`)
@@ -374,6 +320,44 @@ export function serializeProject(
             $i.createDirectory("bin", ($i) => {
 
                 $i.createFile("test.generated.ts", ($i) => {
+
+
+                    $i.literal(`#!/usr/bin/env node`)
+                    $i.literal(``)
+                    $i.literal(`import * as pe from "pareto-core-exe"`)
+                    $i.literal(`import * as pl from "pareto-core-lib"`)
+                    $i.literal(``)
+                    $i.literal(`import * as test from "lib-pareto-test"`)
+                    $i.literal(``)
+                    $i.literal(`import { dependencies } from "../dependencies/dependencies.p"`)
+                    $i.literal(`import { data } from "../data/data.p"`)
+                    $i.literal(`import { createGetTestset } from "../implementation"`)
+                    $i.literal(``)
+                    $i.literal(`pe.runProgram(`)
+                    $i.literal(`    ($) => {`)
+                    $i.literal(`        test.$b.createTestProgram(`)
+                    $i.literal(`            {`)
+                    $i.literal(`                getTestSet: createGetTestset(`)
+                    $i.literal(`                    data,`)
+                    $i.literal(`                    dependencies`)
+                    $i.literal(`                ),`)
+                    $i.literal(`                log: ($) => {`)
+                    $i.literal(`                    pl.logDebugMessage($)`)
+                    $i.literal(`                },`)
+                    $i.literal(`                logError: ($) => {`)
+                    $i.literal(`                    pl.logDebugMessage($)`)
+                    $i.literal(`                },`)
+                    $i.literal(`                onTestErrors: ($) => {`)
+                    $i.literal(`                    pl.logDebugMessage("TEST ERROR")`)
+                    $i.literal(`                },`)
+                    $i.literal(`            },`)
+                    $i.literal(`        )(`)
+                    $i.literal(`           $.arguments`)
+                    $i.literal(`        )`)
+                    $i.literal(`    }`)
+                    $i.literal(`)`)
+                    $i.literal(``)
+                    $i.literal(``)
                     $i.literal(`import * as pt from "pareto-core-types"`)
                 })
             })

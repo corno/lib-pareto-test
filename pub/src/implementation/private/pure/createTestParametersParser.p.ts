@@ -1,7 +1,7 @@
+import { CCreateTestParametersParser } from "../../private_definitions"
 
-import * as pd from "../../private_definitions"
 
-export const icreateTestParametersParser: pd.CCreateTestParametersParser = (
+export const icreateTestParametersParser: CCreateTestParametersParser = (
     $i,
 ) => {
     return ($) => {

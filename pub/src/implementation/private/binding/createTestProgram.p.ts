@@ -10,7 +10,7 @@ import { icreateTester2 } from "./createTester2.p"
 const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
 export const icreateTestProgram: api.CcreateTestProgram = ($, $f) => {
-    return icreateArgumentsParser({
+    return icreateArgumentsParser(null, {
         onError: $f.logError,
         callback: ($) =>/**/ {
             processAsync(

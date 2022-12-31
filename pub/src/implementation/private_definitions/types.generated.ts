@@ -1,35 +1,22 @@
 import * as pt from "pareto-core-types"
-import * as api from "../../api"
+import * as mapi from "../../api"
+import * as mcommon from "glo-pareto-common"
 
-import * as common from "glo-pareto-common"
-import { TSummary, TTestSet, TTestSetResult } from "../../api"
-
-
-export type POnArgumentError = ($: api.TArgumentError) => void
-
-export type PRunTests = ($: api.TTestParameters) => void
+export type TWriteFileData = {
+    readonly "data": string
+    readonly "path": mcommon.TPath
+}
 
 export type FIncrement = ($: number) => number
 
-export type AReadFile = pt.AsyncFunction<common.TPath, string>
+export type FIsZero = ($: number) => boolean
 
-export type ARunTests = ($: api.TTestSet) => pt.AsyncValue<api.TTestSetResult>
+export type FNegate = ($: number) => number
 
-export type AValidateFile = ($: api.TValidateFileData) => pt.AsyncValue<api.TTestElementResult>
+export type AReadFile = ($: mcommon.TPath) => pt.AsyncValue<string>
 
+export type ARunTests = ($: mapi.TTestSet) => pt.AsyncValue<mapi.TTestSetResult>
 
-export type FSummarize = pt.Function<TTestSetResult, TSummary>
+export type FSummarize = ($: mapi.TTestSetResult) => mapi.TSummary
 
-export type FIsZero = pt.Function<number, boolean>
-
-export type PWriteFile = pt.Procedure<{
-    path: common.TPath,
-    data: string,
-}>
-
-export type FNegate = pt.Function<number, number>
-
-export type PSerializeSummary = pt.Procedure<TSummary>
-export type PTest = pt.Procedure<TTestSet>
-
-export type PSerializeTestResult = pt.Procedure<TTestSetResult>
+export type AValidateFile = ($: mapi.TValidateFileData) => pt.AsyncValue<mapi.TTestElementResult>

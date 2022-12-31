@@ -20,10 +20,6 @@ export namespace NGlossary {
         | ["group", pt.Dictionary<Type>]
         | ["taggedUnion", pt.Dictionary<Type>]
 
-    export type Procedure = {
-        readonly "data": LeafType
-    }
-
     export type Function = {
         readonly "async": boolean
         readonly "data": LeafType
@@ -33,7 +29,6 @@ export namespace NGlossary {
     export type Glossary = {
         "imports": pt.Dictionary<string>
         "types": pt.Dictionary<Type>
-        "procedures": pt.Dictionary<Procedure>
         "functions": pt.Dictionary<Function>
     }
 
