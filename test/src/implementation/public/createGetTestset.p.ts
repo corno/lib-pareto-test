@@ -10,20 +10,24 @@ import * as us from "res-pareto-ugly-stuff"
 
 
 import * as pub from "../../../../pub"
+import * as pubTypes from "../../../../pub/dist/modules/public"
+import * as pubPrivate from "../../../../pub/dist/modules/private"
 
 export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
 
     return ($) => {
 
         type LogEntry =
-            | ["error", pub.TArgumentError]
-            | ["callback", pub.TTestParameters]
+            | ["error", pubTypes.TArgumentError]
+            | ["callback", pubTypes.TTestParameters]
 
 
         function doIt(name: string, $: pt.Array<string>) {
             const log = pm.createArrayBuilder<LogEntry>()
 
-            const tpp = pub.$x.createTestParametersParser({
+            const tpp = pubPrivate.$a.createTestParametersParser(
+                null,
+                {
                 onError: ($) => {
                     log.push(["error", $])
                 },

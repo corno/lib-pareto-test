@@ -1,4 +1,4 @@
-import * as pt from "pareto-core-types"
-import  { generate } from "../tbd"
+import * as exe from "pareto-core-exe"
+import { main } from "../modules/main/implementations/main"
 
-generate()
+exe.runProgram(main)

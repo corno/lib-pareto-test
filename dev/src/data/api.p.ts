@@ -12,15 +12,15 @@ import {
     types,
     _function,
     _null,
-} from "../glossary/glossary/shorthands.p"
+} from "../modules/glossary/api/shorthands.p"
 
 import {
     reference as ref,
     string as str,
     _null as nll,
-} from "../glossary/api/shorthands.p"
+} from "../modules/api/api/shorthands.p"
 
-import { NAPI } from "../glossary/api/types.p"
+import* as NAPI from "../modules/api/api/types.p"
 
 
 const wd = pr.wrapRawDictionary
