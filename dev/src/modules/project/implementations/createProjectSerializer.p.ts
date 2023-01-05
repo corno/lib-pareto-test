@@ -35,13 +35,13 @@ function serializeAlgorithmReference($: NAPI.AlgorithmReference, $i: ILine) {
                                     break
                                 default: pl.au($[0])
                             }
-            
+
                         })
                     } else {
                         $i.snippet(`glo.`)
                     }
 
-                    $i.snippet(`${$.async ? "A": "F"}`)
+                    $i.snippet(`${$.async ? "A" : "F"}`)
                     $i.snippet(`${$.function}`)
 
                 })
@@ -209,10 +209,10 @@ export function serializeProject(
                     $i.literal(`import { main } from "../modules/main/implementations/main"`)
                     $i.literal(``)
                     $i.literal(`exe.runProgram(main)`)
-                    
-                    
-                    
-                   
+
+
+
+
 
                 })
             })
@@ -362,7 +362,6 @@ export function serializeProject(
                     $i.literal(``)
                     $i.literal(`import * as pe from "pareto-core-exe"`)
                     $i.literal(`import * as pl from "pareto-core-lib"`)
-                    $i.literal(``)
                     $i.literal(`import * as test from "lib-pareto-test"`)
                     $i.literal(``)
                     $i.literal(`import { dependencies } from "../dependencies/dependencies.p"`)
@@ -392,9 +391,68 @@ export function serializeProject(
                     $i.literal(`        )`)
                     $i.literal(`    }`)
                     $i.literal(`)`)
-                    $i.literal(``)
-                    $i.literal(``)
+                })
+                $i.createFile("testXXXXX.generated.ts", ($i) => {
                     $i.literal(`import * as pt from "pareto-core-types"`)
+                    $i.literal(`import * as pr from "pareto-core-raw"`)
+                    $i.literal(`import * as pl from "pareto-core-lib"`)
+                    $i.literal(``)
+
+                    $.modules.forEach(compare, ($, key) => {
+                        const moduleName = key
+                        $.definition.api.algorithms.forEach(compare, ($, key) => {
+                            $i.line(($i) => {
+                                $i.snippet(`import { test as ${moduleName}_${key} } from "../modules/${moduleName}/${key}.p"`)
+                            })
+                        })
+                    })
+                    $i.literal(``)
+                    $i.line(($i) => {
+                        $i.snippet(`const x = pr.wrapRawDictionary({`)
+                        $i.indent(($i) => {
+                            $.modules.forEach(compare, ($, key) => {
+                                const moduleName = key
+                                $i.line(($i) => {
+                                    $i.snippet(`"${key}": pr.wrapRawDictionary({`)
+                                    $i.indent(($i) => {
+                                        $.definition.api.algorithms.forEach(compare, ($, key) => {
+                                            $i.line(($i) => {
+                                                $i.snippet(`"${key}": ${moduleName}_${key},`)
+                                            })
+                                        })
+                                    })
+                                    $i.snippet(`}),`)
+                                })
+                            })
+                        })
+                        $i.snippet(`}).asyncMap(($, key) => $.asyncMap(($, key) => $()))`)
+                    })
+                })
+            })
+            $i.createDirectory("modules", ($i) => {
+
+                $.modules.forEach(compare, ($, key) => {
+                    const moduleName = key
+
+                    $i.createDirectory(key, ($i) => {
+                        $.definition.api.algorithms.forEach(compare, ($, key) => {
+                            $i.createFile(`${key}.p.ts`, ($i) => {
+                                $i.literal(`import * as pt from "pareto-core-types"`)
+                                $i.literal(`import * as pl from "pareto-core-lib"`)
+                                $i.literal(``)
+                                $i.literal(`import * as tst from "lib-pareto-test"`)
+
+                                $i.literal(``)
+                                $i.line(($i) => {
+                                    $i.snippet(`export function test(): pt.AsyncValue<tst.TTestElement> {`)
+                                    $i.indent(($i) => {
+                                        $i.literal(`pl.implementMe("${moduleName}:${key}")`)
+                                    })
+                                    $i.snippet(`}`)
+                                })
+                            })
+                        })
+                    })
                 })
             })
         })

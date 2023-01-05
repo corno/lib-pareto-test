@@ -2,7 +2,6 @@
 
 import * as pe from "pareto-core-exe"
 import * as pl from "pareto-core-lib"
-
 import * as test from "lib-pareto-test"
 
 import { dependencies } from "../dependencies/dependencies.p"
@@ -32,6 +31,3 @@ pe.runProgram(
         )
     }
 )
-
-
-import * as pt from "pareto-core-types"

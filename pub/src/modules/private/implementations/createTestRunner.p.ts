@@ -1,24 +1,25 @@
 import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 
-import * as api from "../../public"
-import * as pd from "../api"
+import * as api from "../api"
 
-export const icreateTestRunner: pd.CcreateTestRunner = ($c, $d) => {
+import * as mpublic from "../../public"
+
+export const icreateTestRunner: api.CcreateTestRunner = ($c, $d) => {
     return ($) => {
-        function doTestSet($: api.TTestSet): pt.AsyncValue<api.TTestSetResult> {
-            return $.elements.asyncMap(($): pt.AsyncValue<api.TTestElementResult> => {
+        function doTestSet($: mpublic.TTestSet): pt.AsyncValue<mpublic.TTestSetResult> {
+            return $.elements.asyncMap(($): pt.AsyncValue<mpublic.TTestElementResult> => {
                 switch ($.type[0]) {
                     case "subset":
                         return pl.cc($.type[1], ($) => {
                             return doTestSet($).map(($) => {
-                                return pl.asyncValue<api.TTestElementResult>({
+                                return pl.asyncValue<mpublic.TTestElementResult>({
                                     type: ["subset", $]
                                 })
                             })
                         })
                     case "test":
-                        return pl.cc($.type[1], ($): pt.AsyncValue<api.TTestElementResult> => {
+                        return pl.cc($.type[1], ($): pt.AsyncValue<mpublic.TTestElementResult> => {
 
                             switch ($.type[0]) {
                                 case "boolean":

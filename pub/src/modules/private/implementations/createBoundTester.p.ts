@@ -1,7 +1,7 @@
 import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 
-import * as pd from "../api"
+import * as api from "../api"
 
 import * as diff from "res-pareto-diff"
 import * as arith from "res-pareto-arithmetic"
@@ -21,7 +21,7 @@ import { iincrement } from "./increment.p"
 const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
 
-export const icreateBoundTester: pd.CcreateBoundTester = ($, $d) => {
+export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
     return icreateTester(
         null,
         {

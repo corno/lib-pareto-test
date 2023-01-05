@@ -1,19 +1,17 @@
 import * as pt from "pareto-core-types"
 
-import * as api from "../../public"
-import { icreateArgumentsParser } from "../../private/implementations/createArgumentsParser.p"
-import { icreateBoundTester } from "../../private/implementations/createBoundTester.p"
+import * as api from "../api"
 
-
-const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
+import * as mprivate from "../../private"
 
 export const icreateTestProgram: api.CcreateTestProgram = ($, $f) => {
-    return icreateArgumentsParser(null, {
+    const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
+    return mprivate.$a.createArgumentsParser(null, {
         onError: $f.logError,
         callback: ($) =>/**/ {
             processAsync(
                 $f.getTestSet($),
-                icreateBoundTester(
+                mprivate.$a.createBoundTester(
                     null,
                     {
                         onError: $f.logError,

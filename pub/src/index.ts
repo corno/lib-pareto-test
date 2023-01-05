@@ -1,1 +1,1 @@
-export { $a } from "./modules/public"
+export { $a } from "./modules/project"

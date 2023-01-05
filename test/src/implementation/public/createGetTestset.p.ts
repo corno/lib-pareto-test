@@ -28,13 +28,13 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
             const tpp = pubPrivate.$a.createTestParametersParser(
                 null,
                 {
-                onError: ($) => {
-                    log.push(["error", $])
-                },
-                callback: ($) => {
-                    log.push(["callback", $])
-                }
-            })
+                    onError: ($) => {
+                        log.push(["error", $])
+                    },
+                    callback: ($) => {
+                        log.push(["callback", $])
+                    }
+                })
             tpp($)
             pl.logDebugMessage(name)
             log.getArray().forEach(($) => {
@@ -98,8 +98,10 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
             "TODO: ACTUALLY TEST THE TEST LIB",
         )
 
-        return pl.asyncValue({
-            elements: builder.getDictionary()
+        return pl.asyncValue(null).map(() => {
+            return pl.asyncValue({
+                elements: builder.getDictionary()
+            })
         })
     }
 }

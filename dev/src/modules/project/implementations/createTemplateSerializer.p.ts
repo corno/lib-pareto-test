@@ -44,7 +44,7 @@ export function serializeTemplate(
                                         $i.createFile(`${key}.p.ts`, ($i) => {
                                             $i.literal(`import * as pl from "pareto-core-lib"`)
                                             $i.literal(``)
-                                            $i.literal(`import * as api from "../api"`)    
+                                            $i.literal(`import * as api from "../api"`)
                                             $i.literal(``)
                                             $i.line(($i) => {
                                                 $i.snippet(`export const i${key}: api.C${key}`)
@@ -115,6 +115,29 @@ export function serializeTemplate(
                     // $i.literal(`    "res-pareto-collation": "^0.10.0",`)
                     // $i.literal(`    "res-pareto-diff": "^0.13.2"`)
                     $i.literal(`}`)
+                })
+                $i.createDirectory("src", ($i) => {
+                    $i.createDirectory("modules", ($i) => {
+
+                        $.modules.forEach(compare, ($, key) => {
+                            const moduleName = key
+
+                            $i.createDirectory(key, ($i) => {
+                                $.definition.api.algorithms.forEach(compare, ($, key) => {
+                                    $i.createFile(`${key}.p.ts`, ($i) => {
+                                        $i.literal(`import * as pl from "pareto-core-lib"`)
+                                        $i.literal(``)
+                                        $i.literal(`import * as api from "../api"`)
+                                        $i.literal(``)
+                                        $i.line(($i) => {
+                                            $i.snippet(`export function test() {`)
+                                            $i.snippet(`}`)
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
                 })
             })
 

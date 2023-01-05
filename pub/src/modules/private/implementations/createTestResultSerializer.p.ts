@@ -1,10 +1,10 @@
 import * as pl from "pareto-core-lib"
 
-import * as api from "../../public"
+import * as api from "../api"
 
-import * as pd from "../api"
+import * as mpublic from "../../public"
 
-export const icreateTestResultSerializer: pd.CcreateTestResultSerializer = (
+export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
     $,
     $d,
 ) => {
@@ -19,7 +19,7 @@ export const icreateTestResultSerializer: pd.CcreateTestResultSerializer = (
 
         function serializeTestSetImp(
             $: {
-                result: api.TTestSetResult,
+                result: mpublic.TTestSetResult,
                 indentation: string,
             },
         ) {

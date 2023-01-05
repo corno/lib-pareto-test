@@ -1,6 +1,6 @@
-import * as pd from "../api"
+import * as api from "../api"
 
-export const icreateSummarySerializer: pd.CcreateSummarySerializer = (
+export const icreateSummarySerializer: api.CcreateSummarySerializer = (
     $c, $d,
 ) => {
     return (

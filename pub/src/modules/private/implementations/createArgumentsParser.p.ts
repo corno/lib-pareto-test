@@ -1,9 +1,9 @@
 
-import * as pd from "../api"
+import * as api from "../api"
 import { icreateTestParametersParser } from "./createTestParametersParser.p"
 
 
-export const icreateArgumentsParser: pd.CcreateArgumentsParser = ($c, $d) => {
+export const icreateArgumentsParser: api.CcreateArgumentsParser = ($c, $d) => {
 
     // exeLib.p_getSingleArgument(
     //     $.arguments,
@@ -40,13 +40,4 @@ export const icreateArgumentsParser: pd.CcreateArgumentsParser = ($c, $d) => {
             },
         }
     )
-}
-import * as pl from "pareto-core-lib"
-
-import * as api from "../api"
-
-export const iCreateArgumentsParser: api.CcreateArgumentsParser = ($c, $d) => {
-    return ($) => {
-        pl.implementMe("IMPLEMENT CreateArgumentsParser:CreateArgumentsParser")
-    }
 }

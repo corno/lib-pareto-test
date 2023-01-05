@@ -2,7 +2,7 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../api"
 
-import * as mpub from "../../public"
+import * as mpublic from "../../public"
 
 export const icreateSummarizer: api.CcreateSummarizer = (
    $c, $d,
@@ -17,7 +17,7 @@ export const icreateSummarizer: api.CcreateSummarizer = (
             numberOfTests: 0,
         }
         function summarizeTestSetImp(
-            $: mpub.TTestSetResult
+            $: mpublic.TTestSetResult
         ): void {
             //this should be a reduce function!!!
             $.elements.map(($, key) => {

@@ -1,13 +1,12 @@
-import * as pt from "pareto-core-types/"
-import * as pd from "../api"
+import * as pt from "pareto-core-types"
 
-const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
+import * as api from "../api"
 
-
-export const icreateTester: pd.CcreateTester = (
+export const icreateTester: api.CcreateTester = (
     $,
     $d,
 ) => {
+    const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
     return ($) => {
         processAsync(
             $d.runTests($),

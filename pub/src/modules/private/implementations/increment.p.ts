@@ -1,3 +1,3 @@
-import { FIncrement } from "../api"
+import * as api from "../api"
 
-export const iincrement: FIncrement = ($) =>/**/ { return $ + 1 }
+export const iincrement: api.FIncrement = ($) =>/**/ { return $ + 1 }

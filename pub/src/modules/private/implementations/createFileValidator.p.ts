@@ -1,9 +1,10 @@
 import * as pl from "pareto-core-lib"
 
-import * as api from "../../public"
-import * as pd from "../api"
+import * as api from "../api"
 
-export const icreateFileValidator: pd.CcreateFileValidator = ($c, $d) => {
+import * as mpublic from "../../public"
+
+export const icreateFileValidator: api.CcreateFileValidator = ($c, $d) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
         return $d.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
@@ -22,7 +23,7 @@ export const icreateFileValidator: pd.CcreateFileValidator = ($c, $d) => {
                         data: $.actual,
                     },
                 )
-                return pl.asyncValue<api.TTestElementResult>({
+                return pl.asyncValue<mpublic.TTestElementResult>({
                     type: ["test", {
                         success: false,
                         type: ["file string", {
