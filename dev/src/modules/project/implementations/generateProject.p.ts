@@ -2,7 +2,7 @@ import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 
 import * as fp from "lib-fountain-pen"
-import { NProject } from "../api/types.p"
+import * as NProject from "../api"
 import { createConstructorSerializer, serializeProject } from "./createProjectSerializer.p"
 import { createGlossarySerializer } from "../../glossary/implementations/createGlossarySerializer.p"
 import * as coll from "res-pareto-collation"

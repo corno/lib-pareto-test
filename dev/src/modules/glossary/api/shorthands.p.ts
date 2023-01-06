@@ -1,10 +1,10 @@
 
 import * as pr from "pareto-core-raw"
 
-import * as NGlossary from "./types.p"
+import * as NGlossary from "./types.generated"
 
-type Type = NGlossary.Type
-type LeafType = NGlossary.LeafType
+type Type = NGlossary.TType
+type LeafType = NGlossary.TLeafType
 
 
 const wd = pr.wrapRawDictionary
@@ -49,7 +49,7 @@ export function externalReference(context: string, type: string): Type {
     }]]
 }
 
-export function _function(data: LeafType, returnValue: LeafType, async?: boolean): NGlossary.Function {
+export function _function(data: LeafType, returnValue: LeafType, async?: boolean): NGlossary.TFunction {
     return {
         "async": async === undefined ? false : async,
         "data": data,

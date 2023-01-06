@@ -1,12 +1,12 @@
 
-import { IWriter } from "lib-fountain-pen"
-import { NProject } from "../api/types.p"
+import * as fp from "lib-fountain-pen"
+import * as NProject from "../api"
 import * as coll from "res-pareto-collation"
 
 
 export function serializeTemplate(
-    $: NProject.Project,
-    $i: IWriter,
+    $: NProject.TProject,
+    $i: fp.IWriter,
     $d: {
         compare: coll.FIsABeforeB,
     },

@@ -20,12 +20,12 @@ import {
     _null as nll,
 } from "../modules/api/api/shorthands.p"
 
-import* as NAPI from "../modules/api/api/types.p"
+import* as NAPI from "../modules/api"
 
 
 const wd = pr.wrapRawDictionary
 
-export const api: NAPI.ModuleDefinition = {
+export const api: NAPI.TModuleDefinition = {
     glossary: {
         'imports': wd({
             "diff": "res-pareto-diff",

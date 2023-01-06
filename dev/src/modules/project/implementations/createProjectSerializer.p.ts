@@ -1,15 +1,16 @@
 import * as pl from "pareto-core-lib"
 
-import { ILine, IWriter } from "lib-fountain-pen"
+import * as api from "../api"
+
 import { FSerializeGlossary } from "../../glossary/implementations/createGlossarySerializer.p"
-import * as NAPI from "../../api/api/types.p"
-import * as NGlossary from "../../glossary/api/types.p"
-import { NProject } from "../api/types.p"
-import * as coll from "res-pareto-collation"
+import * as mapi from "../../api"
+import * as mglossary from "../../glossary"
+
 import * as fp from "lib-fountain-pen"
+import * as coll from "res-pareto-collation"
 
 
-function serializeAlgorithmReference($: NAPI.AlgorithmReference, $i: ILine) {
+function serializeAlgorithmReference($: mapi.TAlgorithmReference, $i: fp.ILine) {
 
     pl.cc($.type, ($) => {
         switch ($[0]) {
@@ -58,7 +59,7 @@ function serializeAlgorithmReference($: NAPI.AlgorithmReference, $i: ILine) {
     })
 }
 
-export function serializeLeafType($: NGlossary.LeafType, $i: fp.ILine) {
+export function serializeLeafType($: mglossary.TLeafType, $i: fp.ILine) {
     switch ($[0]) {
         case "boolean":
             pl.cc($[1], ($) => {
@@ -94,7 +95,7 @@ export function serializeLeafType($: NGlossary.LeafType, $i: fp.ILine) {
     }
 }
 
-export type PSerializeConstructor = ($: NAPI.Constructor, $i: ILine) => void
+export type PSerializeConstructor = ($: mapi.TConstructor, $i: fp.ILine) => void
 export type CcreateConstructorSerializer = ($d: {
     compare: coll.FIsABeforeB,
 }) => PSerializeConstructor
@@ -125,8 +126,8 @@ export const createConstructorSerializer: CcreateConstructorSerializer = (
 }
 
 export function serializeProject(
-    $: NProject.Project,
-    $i: IWriter,
+    $: api.TProject,
+    $i: fp.IWriter,
     $d: {
         serializeGlossary: FSerializeGlossary,
         serializeConstructor: PSerializeConstructor
@@ -138,7 +139,7 @@ export function serializeProject(
     const compare = (a: string, b: string) => $d.compare({ a: a, b: b })
 
 
-    function serializeAlgorithmDefinition($: NAPI.AlgorithmDefinition, $i: ILine) {
+    function serializeAlgorithmDefinition($: mapi.TAlgorithmDefinition, $i: fp.ILine) {
 
         switch ($[0]) {
             case "constructor":
@@ -155,7 +156,7 @@ export function serializeProject(
             default: pl.au($[0])
         }
     }
-    function tsConfig($i: IWriter) {
+    function tsConfig($i: fp.IWriter) {
 
         $i.createFile("tsconfig.json", ($i) => {
             $i.literal(`{`)
@@ -176,7 +177,7 @@ export function serializeProject(
             $i.literal(`}`)
         })
     }
-    function globals($i: IWriter) {
+    function globals($i: fp.IWriter) {
         $i.createFile("_globals.ts", ($i) => {
             $i.literal(`interface Array<T> {`)
             $i.literal(`    [n: number]: T`)
@@ -193,7 +194,7 @@ export function serializeProject(
             $i.literal(``)
         })
     }
-    function glossary($: NGlossary.Glossary, $i: IWriter) {
+    function glossary($: mglossary.TGlossary, $i: fp.IWriter) {
         $i.createFile("types.generated.ts", ($i) => {
             $d.serializeGlossary($, $i)
         })
@@ -222,7 +223,7 @@ export function serializeProject(
     $i.createDirectory("pub", ($i) => {
         $i.createDirectory("src", ($i) => {
             globals($i)
-            function moduleDefintion($: NAPI.ModuleDefinition, $i: IWriter) {
+            function moduleDefintion($: mapi.TModuleDefinition, $i: fp.IWriter) {
                 glossary($.glossary, $i)
                 $i.createFile("api.generated.ts", ($i) => {
                     $i.literal(`import * as pt from "pareto-core-types"`)

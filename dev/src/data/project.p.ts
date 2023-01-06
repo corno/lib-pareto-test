@@ -4,13 +4,13 @@ import { group, types, _function } from "../modules/glossary/api/shorthands.p"
 import { externalReference as er, string as str } from "../modules/glossary/api/shorthands.p"
 import { string, _null, reference, externalReference, number, boolean } from "../modules/api/api/shorthands.p"
 
-import { NProject } from "../modules/project/api/types.p"
+import * as mproject from "../modules/project"
 import { api } from "./api.p"
 
 
 const wd = pr.wrapRawDictionary
 
-export const project: NProject.Project = {
+export const project: mproject.TProject = {
     modules: wd({
         "public": {
             definition: api,
