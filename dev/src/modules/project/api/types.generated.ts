@@ -1,6 +1,7 @@
 import * as pt from "pareto-core-types"
 import * as mapi from "../../api"
 import * as mcommon from "glo-pareto-common"
+import * as mfp from "lib-fountain-pen"
 
 export type TAlgorithmImplementation = {}
 
@@ -17,3 +18,13 @@ export type TProjectSettings = {
     readonly "path": mcommon.TPath
     readonly "project": TProject
 }
+
+
+///////////
+
+
+
+export type XSerializeProject = (
+    $: TProject,
+    $i: mfp.IWriter,
+) => void

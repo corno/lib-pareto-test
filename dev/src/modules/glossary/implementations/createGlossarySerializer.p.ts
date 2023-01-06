@@ -3,16 +3,8 @@ import * as pl from "pareto-core-lib"
 import * as api from "../api"
 
 import * as fp from "lib-fountain-pen"
-import * as coll from "res-pareto-collation"
 
-export type FSerializeGlossary = (
-    $: api.TGlossary,
-    block: fp.IBlock,
-) => void
-
-export function createGlossarySerializer($d: {
-    isABeforeB: coll.FIsABeforeB,
-}): FSerializeGlossary {
+export const createGlossarySerializer: api.CCreateGlossarySerializer = ($, $d) => {
     const compare = (a: string, b: string) => $d.isABeforeB({ a: a, b: b })
 
     function serializeLeafType($: api.TLeafType, $i: fp.ILine) {

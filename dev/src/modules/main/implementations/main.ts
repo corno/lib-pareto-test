@@ -5,7 +5,7 @@ import * as mainTypes from "glo-pareto-main"
 
 
 import { project } from "../../../data/project.p"
-import { generateProject } from "../../project/implementations/generateProject.p"
+import { generateProject } from "./generateProject.p"
 
 export const main: mainTypes.PProgramMain = ($) => {
     exe.p_getSingleArgument($.arguments, {
