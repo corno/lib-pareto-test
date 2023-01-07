@@ -2,7 +2,7 @@
 
 import * as api from "../api"
 
-export const createConstructorSerializer: api.CcreateConstructorSerializer = (
+export const icreateConstructorSerializer: api.CcreateConstructorSerializer = (
     $, $d
 ) => {
     const compare = (a: string, b: string) => $d.compare({ a: a, b: b })

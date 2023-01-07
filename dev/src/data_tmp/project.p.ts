@@ -173,7 +173,7 @@ export const project: NProject.TProject = {
                         "glossary": "../../glossary",
                     }),
                     "algorithms": wd({
-                        "createAlgorithmSerializer": ["constructor", {
+                        "createAlgorithmReferenceSerializer": ["constructor", {
                             data: ["null", null],
                             dependencies: wd({
                                 serializeLeafType: {

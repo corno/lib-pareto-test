@@ -2,7 +2,7 @@
 import * as api from "../api"
 
 
-export const createTemplateSerializer: api.CcreateTemplateSerializer = (
+export const icreateTemplateSerializer: api.CcreateTemplateSerializer = (
     $,
     $d
 ) => {

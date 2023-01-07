@@ -5,14 +5,14 @@ import * as mfp from "lib-fountain-pen"
 import * as mcoll from "res-pareto-collation"
 
 import { createGlossarySerializer } from "../../glossary/implementations/createGlossarySerializer.p"
-import { serializeLeafType } from "../../glossary/implementations/serializeLeafType.p"
+import { iserializeLeafType } from "../../glossary/implementations/serializeLeafType.p"
 
-import { createProjectSerializer } from "../../project/implementations/createProjectSerializer.p"
-import { createTemplateSerializer } from "../../project/implementations/createTemplateSerializer.p"
+import { icreateProjectSerializer } from "../../project/implementations/createProjectSerializer.p"
+import { icreateTemplateSerializer } from "../../project/implementations/createTemplateSerializer.p"
 
-import { createConstructorSerializer } from "../../api/implementations/createConstructorSerializer.p"
-import { createAlgorithmReferenceSerializer } from "../../api/implementations/createAlgorithmReferenceSerializer.p"
-import { createModuleDefinitionSerializer } from "../../api/implementations/createModuleDefinitionSerializer.p"
+import { icreateConstructorSerializer } from "../../api/implementations/createConstructorSerializer.p"
+import { icreateAlgorithmReferenceSerializer } from "../../api/implementations/createAlgorithmReferenceSerializer.p"
+import { icreateModuleDefinitionSerializer } from "../../api/implementations/createModuleDefinitionSerializer.p"
 
 
 
@@ -30,40 +30,40 @@ export function generateProject($: mproject.TProjectSettings): void {
         },
     )
 
-    const sar = createAlgorithmReferenceSerializer(
+    const sar = icreateAlgorithmReferenceSerializer(
         null,
         {
-            serializeLeafType: serializeLeafType,
+            serializeLeafType: iserializeLeafType,
         }
     )
 
-    createProjectSerializer(
+    icreateProjectSerializer(
         null,
         {
             compare: mcoll.$a.localeIsABeforeB,
-            serializeModuleDefinition: createModuleDefinitionSerializer(
+            serializeModuleDefinition: icreateModuleDefinitionSerializer(
                 null,
                 {
                     compare: mcoll.$a.localeIsABeforeB,
                     serializeGlossary: createGlossarySerializer(null, {
                         isABeforeB: mcoll.$a.localeIsABeforeB,
                     }),
-                    serializeConstructor: createConstructorSerializer(null, {
+                    serializeConstructor: icreateConstructorSerializer(null, {
                         compare: mcoll.$a.localeIsABeforeB,
                         serializeAlgorithmReference: sar,
-                        serializeLeafType: serializeLeafType,
+                        serializeLeafType: iserializeLeafType,
                     }),
                     serializeAlgorithmReference: sar,
 
                 }
             ),
-            serializeLeafType: serializeLeafType,
+            serializeLeafType: iserializeLeafType,
         }
     )(
         $.project,
         $i,
     )
-    createTemplateSerializer(
+    icreateTemplateSerializer(
         null,
         {
             compare: mcoll.$a.localeIsABeforeB,
