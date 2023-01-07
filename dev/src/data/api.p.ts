@@ -104,7 +104,9 @@ export const api: NAPI.TModuleDefinition = {
         }),
         'functions': wd({
            "GetTestSet": _function(["reference", "TestParameters"], ["reference", "TestSet"], true)
-        })
+        }),
+        'callbacks': wd({}),
+        'interfaces': wd({}),
     },
     api: {
         imports: wd({}),
@@ -114,6 +116,7 @@ export const api: NAPI.TModuleDefinition = {
                 dependencies: wd({
                     "getTestSet": {
                         type: ["function", {
+                            context: ["local", null],
                             function: "GetTestSet",
                             async: true,
                         }],

@@ -2,7 +2,7 @@ import * as pl from "pareto-core-lib"
 
 import * as api from "../api"
 
-export const serializeLeafType: api.XSerializeLeafType = ($, $i) => {
+export const serializeLeafType: api.XserializeLeafType = ($, $i) => {
     switch ($[0]) {
         case "boolean":
             pl.cc($[1], ($) => {

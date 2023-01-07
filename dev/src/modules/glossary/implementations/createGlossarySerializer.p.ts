@@ -132,6 +132,61 @@ export const createGlossarySerializer: api.CCreateGlossarySerializer = ($, $d) =
                 }
             })
         })
+        function serializeInterface($: api.TInterface, $i: fp.ILine) {
+
+            $i.snippet(`{`)
+            $i.indent(($i) => {
+                $.members.forEach(compare, ($, key) => {
+                    $i.line(($i) => {
+                        $i.snippet(`"${key}": `)
+                        switch ($[0]) {
+                            case "interface":
+                                pl.cc($[1], ($) => {
+                                    $i.snippet(`FIXME INTERFACE`)
+                                    //serializeInterface($.interface, $i)
+                                })
+                                break
+                            case "procedure":
+                                pl.cc($[1], ($) => {
+                                    $i.snippet(`FIXME PROC`)
+                                })
+                                break
+                            default: pl.au($[0])
+                        }
+                    })
+                })
+            })
+            $i.snippet(`}`)
+        }
+        $.interfaces.forEach(compare, ($, key) => {
+            $i.literal(``)
+            $i.line(($i) => {
+                $i.snippet(`export type I${key} = `)
+                serializeInterface($, $i)
+            })
+        })
+        $.callbacks.forEach(compare, ($, key) => {
+            $i.literal(``)
+            $i.line(($i) => {
+                $i.snippet(`export type X${key} = ($: `)
+                serializeLeafType($.data, $i)
+                $i.snippet(`, $i: `)
+                switch ($.context[0]) {
+                    case "import":
+                        pl.cc($.context[1], ($) => {
+                            $i.snippet(`m${$}.`)
+                        })
+                        break
+                    case "local":
+                        pl.cc($.context[1], ($) => {
+
+                        })
+                        break
+                    default: pl.au($.context[0])
+                }
+                $i.snippet(`I${$.interface}) => void`)
+            })
+        })
     }
 }
 

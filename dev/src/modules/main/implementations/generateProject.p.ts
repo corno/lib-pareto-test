@@ -12,6 +12,7 @@ import { createTemplateSerializer } from "../../project/implementations/createTe
 
 import { createConstructorSerializer } from "../../api/implementations/createConstructorSerializer.p"
 import { createAlgorithmReferenceSerializer } from "../../api/implementations/createAlgorithmReferenceSerializer.p"
+import { createModuleDefinitionSerializer } from "../../api/implementations/createModuleDefinitionSerializer.p"
 
 
 
@@ -40,15 +41,22 @@ export function generateProject($: mproject.TProjectSettings): void {
         null,
         {
             compare: mcoll.$a.localeIsABeforeB,
-            serializeGlossary: createGlossarySerializer(null, {
-                isABeforeB: mcoll.$a.localeIsABeforeB,
-            }),
-            serializeConstructor: createConstructorSerializer(null, {
-                compare: mcoll.$a.localeIsABeforeB,
-                serializeAlgorithmReference: sar,
-                serializeLeafType: serializeLeafType,
-            }),
-            serializeAlgorithmReference: sar,
+            serializeModuleDefinition: createModuleDefinitionSerializer(
+                null,
+                {
+                    compare: mcoll.$a.localeIsABeforeB,
+                    serializeGlossary: createGlossarySerializer(null, {
+                        isABeforeB: mcoll.$a.localeIsABeforeB,
+                    }),
+                    serializeConstructor: createConstructorSerializer(null, {
+                        compare: mcoll.$a.localeIsABeforeB,
+                        serializeAlgorithmReference: sar,
+                        serializeLeafType: serializeLeafType,
+                    }),
+                    serializeAlgorithmReference: sar,
+
+                }
+            ),
             serializeLeafType: serializeLeafType,
         }
     )(

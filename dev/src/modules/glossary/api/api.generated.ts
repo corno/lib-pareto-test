@@ -10,7 +10,7 @@ export type CCreateGlossarySerializer = (
     $d: {
         isABeforeB: coll.FIsABeforeB,
     }
-) => glo.FSerializeGlossary
+) => glo.XserializeGlossary
 
 
 export type API = {

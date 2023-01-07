@@ -40,7 +40,9 @@ export const project: mproject.TProject = {
                         "Summarize": _function(externalReference("api", "TestSetResult"), externalReference("api", "Summary")),
         
         
-                    })
+                    }),
+                    'callbacks': wd({}),
+                    'interfaces': wd({}),
                 },
                 "api": {
                     "imports": wd({

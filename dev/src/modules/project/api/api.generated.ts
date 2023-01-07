@@ -9,10 +9,8 @@ import * as mcoll from "res-pareto-collation"
 export type CcreateProjectSerializer = (
     $: null,
     $d: {
-        serializeLeafType: mglossary.XSerializeLeafType
-        serializeAlgorithmReference: mapi.XSerializeAlgorithmReference
-        serializeGlossary: mglossary.FSerializeGlossary
-        serializeConstructor: mapi.XSerializeConstructor
+        serializeLeafType: mglossary.XserializeLeafType
+        serializeModuleDefinition: mapi.XserializeModuleDefinition
         compare: mcoll.FIsABeforeB
     },
 ) => glo.XSerializeProject

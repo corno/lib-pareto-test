@@ -11,11 +11,6 @@ export const createAlgorithmReferenceSerializer: api.CcreateAlgorithmReferenceSe
                         if ($.context !== undefined) {
                             pl.cc($.context, ($) => {
                                 switch ($[0]) {
-                                    // case "api":
-                                    //     pl.cc($[1], ($) => {
-                                    //         $i.snippet(`api`)
-                                    //     })
-                                    //     break
                                     case "import":
                                         pl.cc($[1], ($) => {
                                             $i.snippet(`m${$}.`)
@@ -44,6 +39,39 @@ export const createAlgorithmReferenceSerializer: api.CcreateAlgorithmReferenceSe
                         $i.snippet(`pt.Procedure<`)
                         $d.serializeLeafType($, $i)
                         $i.snippet(`>`)
+                    })
+                    break
+                case "callback":
+                    pl.cc($[1], ($) => {
+                        if ($.context !== undefined) {
+                            pl.cc($.context, ($) => {
+                                switch ($[0]) {
+                                    // case "api":
+                                    //     pl.cc($[1], ($) => {
+                                    //         $i.snippet(`api`)
+                                    //     })
+                                    //     break
+                                    case "import":
+                                        pl.cc($[1], ($) => {
+                                            $i.snippet(`m${$}.`)
+                                        })
+                                        break
+                                    case "local":
+                                        pl.cc($[1], ($) => {
+                                            $i.snippet(`glo????.`)
+                                        })
+                                        break
+                                    default: pl.au($[0])
+                                }
+
+                            })
+                        } else {
+                            $i.snippet(`glo.`)
+                        }
+
+                        $i.snippet(`X`)
+                        $i.snippet(`${$.callback}`)
+
                     })
                     break
                 default: pl.au($[0])

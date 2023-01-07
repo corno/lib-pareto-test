@@ -24,6 +24,38 @@ export const project: NProject.TProject = {
                     'imports': wd({
                     }),
                     'types': types({
+                        "Function": group({
+                            "async": bln(),
+                            "data": ref("LeafType"),
+                            "return value": ref("LeafType")
+                        }),
+                        "Callback": group({
+                            "data": ref("LeafType"),
+                            "context": taggedUnion({
+                                "local": nll(),
+                                "import": str(),
+                            }),
+                            "interface": str()
+                        }),
+                        "Glossary": group({
+                            "imports": dictionary(str()),
+                            "types": dictionary(ref("Type")),
+                            "functions": dictionary(ref("Function")),
+                            "interfaces": dictionary(ref("Interface")),
+                            "callbacks": dictionary(ref("Callback")),
+                        }),
+                        "Interface": group({
+                            "members": dictionary(taggedUnion({
+                                "interface": group({
+                                    "context": taggedUnion({
+                                        "local": nll(),
+                                        "import": str(),
+                                    }),
+                                    "interface": str(),
+                                }),
+                                "procedure": ref("LeafType")
+                            }))
+                        }),
                         "LeafType": taggedUnion({
                             "boolean": nll(),
                             "string": nll(),
@@ -41,18 +73,7 @@ export const project: NProject.TProject = {
                             "dictionary": ref("Type"),
                             "group": dictionary(ref("Type")),
                             "taggedUnion": dictionary(ref("Type")),
-
                         }),
-                        "Function": group({
-                            "async": bln(),
-                            "data": ref("LeafType"),
-                            "return value": ref("LeafType")
-                        }),
-                        "Glossary": group({
-                            "imports": dictionary(str()),
-                            "types": dictionary(ref("Type")),
-                            "functions": dictionary(ref("Function")),
-                        })
 
 
 
@@ -60,7 +81,9 @@ export const project: NProject.TProject = {
                     'functions': wd({
 
 
-                    })
+                    }),
+                    'callbacks': wd({}),
+                    'interfaces': wd({}),
                 },
                 "api": {
                     "imports": wd({
@@ -76,7 +99,7 @@ export const project: NProject.TProject = {
 
                 "glossary": {
                     'imports': wd({
-                        // "api": "../../public",
+                        "fp": "lib-fountain-pen",
                         "glossary": "../../glossary"
                     }),
                     'types': types({
@@ -95,7 +118,15 @@ export const project: NProject.TProject = {
                                     "function": str(),
                                     "async": bln(),
                                 }),
-                                "procedure": er("glossary", "LeafType")
+                                "procedure": er("glossary", "LeafType"),
+                                "callback": group({
+                                    "context": taggedUnion({
+                                        "local": nll(),
+                                        "import": str(),
+                                    }),
+
+                                    "callback": str(),
+                                })
                             }),
                         }),
                         "Constructor": group({
@@ -113,12 +144,112 @@ export const project: NProject.TProject = {
                     }),
                     'functions': wd({
 
-                    })
+                    }),
+                    'callbacks': wd({
+                        "serializeConstructor": {
+                            data: reference("Constructor"),
+                            context: ["import", "fp"],
+                            interface: "Line",
+
+                        },
+                        "serializeAlgorithmReference": {
+                            data: reference("AlgorithmReference"),
+                            context: ["import", "fp"],
+                            interface: "Line",
+
+                        },
+                        "serializeModuleDefinition": {
+                            data: reference("ModuleDefinition"),
+                            context: ["import", "fp"],
+                            interface: "Writer",
+
+                        },
+                    }),
+                    'interfaces': wd({}),
                 },
                 "api": {
                     "imports": wd({
+                        "coll": "res-pareto-collation",
+                        "glossary": "../../glossary",
                     }),
                     "algorithms": wd({
+                        "createAlgorithmSerializer": ["constructor", {
+                            data: ["null", null],
+                            dependencies: wd({
+                                serializeLeafType: {
+                                    type: ["callback", {
+                                        context: ["import", "glossary"],
+                                        "callback": "serializeLeafType"
+                                    }],
+                                },
+                            }),
+                            result: {
+                                type: ["callback", {
+                                    "callback": "serializeAlgorithmReference"
+                                }],
+                            }
+                        }],
+                        "createModuleDefinitionSerializer": ["constructor", {
+                            data: ["null", null],
+                            dependencies: wd({
+                                "compare": {
+                                    type: ["function", {
+                                        context: ["import", "coll"],
+                                        function: "IsABeforeB",
+                                    }],
+
+                                },
+                                serializeGlossary: {
+                                    type: ["callback", {
+                                        context: ["import", "glossary"],
+                                        "callback": "serializeGlossary"
+                                    }],
+                                },
+                                serializeAlgorithmReference: {
+                                    type: ["callback", {
+                                        "callback": "serializeAlgorithmReference"
+                                    }],
+                                },
+                                serializeConstructor: {
+                                    type: ["callback", {
+                                        "callback": "serializeConstructor"
+                                    }],
+                                },
+                            }),
+                            result: {
+                                type: ["callback", {
+                                    "callback": "serializeModuleDefinition"
+                                }],
+                            }
+                        }],
+                        "createConstructorSerializer": ["constructor", {
+                            data: ["null", null],
+                            dependencies: wd({
+                                "compare": {
+                                    type: ["function", {
+                                        context: ["import", "coll"],
+                                        function: "IsABeforeB",
+                                    }],
+
+                                },
+                                serializeLeafType: {
+                                    type: ["callback", {
+                                        context: ["import", "glossary"],
+                                        "callback": "serializeLeafType"
+                                    }],
+                                },
+                                serializeAlgorithmReference: {
+                                    type: ["callback", {
+                                        "callback": "serializeAlgorithmReference"
+                                    }],
+                                },
+                            }),
+                            result: {
+                                type: ["callback", {
+                                    "callback": "serializeConstructor"
+                                }],
+                            }
+                        }],
                     })
                 },
             },
@@ -141,7 +272,7 @@ export const project: NProject.TProject = {
                             })),
                             "main": str(),
                         }),
-                        "ProjectSettings":group({
+                        "ProjectSettings": group({
                             "project": ref("Project"),
                             "path": er("common", "Path"),
                         })
@@ -173,7 +304,9 @@ export const project: NProject.TProject = {
                     'functions': wd({
 
 
-                    })
+                    }),
+                    'callbacks': wd({}),
+                    'interfaces': wd({}),
                 },
                 "api": {
                     "imports": wd({

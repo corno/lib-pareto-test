@@ -1,6 +1,6 @@
 import * as pt from "pareto-core-types"
-import * as mglossary from "../../glossary"
 import * as mfp from "lib-fountain-pen"
+import * as mglossary from "../../glossary"
 
 export type TAlgorithmDefinition = 
     | [ "algorithm", TAlgorithmReference ]
@@ -8,6 +8,12 @@ export type TAlgorithmDefinition =
 
 export type TAlgorithmReference = {
     readonly "type": 
+        | [ "callback", {
+            readonly "callback": string
+            readonly "context"?: 
+                | [ "import", string ]
+                | [ "local", null ]
+        } ]
         | [ "function", {
             readonly "async"?: boolean
             readonly "context"?: 
@@ -32,11 +38,7 @@ export type TModuleDefinition = {
     readonly "glossary": mglossary.TGlossary
 }
 
+export type XserializeAlgorithmReference = ($: TAlgorithmReference, $i: mfp.ILine) => void
+export type XserializeModuleDefinition = ($: TModuleDefinition, $i: mfp.IWriter) => void
 
-
-//////////////
-
-
-export type XSerializeConstructor = ($: TConstructor, $i: mfp.ILine) => void
-
-export type XSerializeAlgorithmReference = ($: TAlgorithmReference, $i: mfp.ILine) => void
+export type XserializeConstructor = ($: TConstructor, $i: mfp.ILine) => void

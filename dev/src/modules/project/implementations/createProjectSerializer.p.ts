@@ -1,9 +1,5 @@
-import * as pl from "pareto-core-lib"
-
 import * as api from "../api"
 
-import * as mapi from "../../api"
-import * as mglossary from "../../glossary"
 import * as mfp from "lib-fountain-pen"
 
 
@@ -16,23 +12,6 @@ export const createProjectSerializer: api.CcreateProjectSerializer = (
         const compare = (a: string, b: string) => $d.compare({ a: a, b: b })
 
 
-        function serializeAlgorithmDefinition($: mapi.TAlgorithmDefinition, $i: mfp.ILine) {
-
-            switch ($[0]) {
-                case "constructor":
-                    pl.cc($[1], ($) => {
-                        $d.serializeConstructor($, $i)
-                    })
-                    break
-                case "algorithm":
-                    pl.cc($[1], ($) => {
-                        $d.serializeAlgorithmReference($, $i)
-
-                    })
-                    break
-                default: pl.au($[0])
-            }
-        }
         function tsConfig($i: mfp.IWriter) {
 
             $i.createFile("tsconfig.json", ($i) => {
@@ -71,11 +50,6 @@ export const createProjectSerializer: api.CcreateProjectSerializer = (
                 $i.literal(``)
             })
         }
-        function glossary($: mglossary.TGlossary, $i: mfp.IWriter) {
-            $i.createFile("types.generated.ts", ($i) => {
-                $d.serializeGlossary($, $i)
-            })
-        }
         $i.createDirectory("dev", ($i) => {
 
             $i.createDirectory("src", ($i) => {
@@ -100,46 +74,11 @@ export const createProjectSerializer: api.CcreateProjectSerializer = (
         $i.createDirectory("pub", ($i) => {
             $i.createDirectory("src", ($i) => {
                 globals($i)
-                function moduleDefintion($: mapi.TModuleDefinition, $i: mfp.IWriter) {
-                    glossary($.glossary, $i)
-                    $i.createFile("api.generated.ts", ($i) => {
-                        $i.literal(`import * as pt from "pareto-core-types"`)
-                        $i.literal(``)
-                        $i.literal(`import * as glo from "./types.generated"`)
-                        $i.literal(``)
-                        $.api.imports.forEach(compare, ($, key) => {
-                            $i.line(($i) => {
-                                $i.snippet(`import * as m${key} from "${$}"`)
-                            })
-                        })
-                        $.api.algorithms.forEach(compare, ($, key) => {
-                            $i.literal(``)
-                            $i.line(($i) => {
-                                $i.snippet(`export type C${key} = `)
-                                serializeAlgorithmDefinition($, $i)
-                            })
-                        })
-                        $i.literal(``)
-                        $i.line(($i) => {
-                            $i.snippet(`export type API = {`)
-                            $i.indent(($i) => {
-                                $.api.algorithms.forEach(compare, ($, key) => {
-                                    $i.literal(`${key}: C${key}`)
-                                })
-                            })
-                            $i.snippet(`}`)
-                        })
-                    })
-                    $i.createFile("index.ts", ($i) => {
-                        $i.literal(`export * from "./types.generated"`)
-                        $i.literal(`export * from "./api.generated"`)
-                    })
-                }
                 $i.createDirectory("modules", ($i) => {
                     $.modules.forEach(compare, ($, key) => {
                         $i.createDirectory(`${key}`, ($i) => {
                             $i.createDirectory(`api`, ($i) => {
-                                moduleDefintion($.definition, $i)
+                                $d.serializeModuleDefinition($.definition, $i)
                             })
 
                             // $.definition.api.algorithms.forEach(compare, ($, key) => {

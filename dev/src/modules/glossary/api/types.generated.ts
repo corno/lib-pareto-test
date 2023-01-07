@@ -2,6 +2,14 @@ import * as pt from "pareto-core-types"
 
 import * as fp from "lib-fountain-pen"
 
+export type TCallback = {
+    readonly "context": 
+        | [ "import", string ]
+        | [ "local", null ]
+    readonly "data": TLeafType
+    readonly "interface": string
+}
+
 export type TFunction = {
     readonly "async": boolean
     readonly "data": TLeafType
@@ -9,38 +17,52 @@ export type TFunction = {
 }
 
 export type TGlossary = {
+    readonly "callbacks": pt.Dictionary<TCallback>
     readonly "functions": pt.Dictionary<TFunction>
     readonly "imports": pt.Dictionary<string>
+    readonly "interfaces": pt.Dictionary<TInterface>
     readonly "types": pt.Dictionary<TType>
 }
 
-export type TLeafType =
-    | ["boolean", null]
-    | ["external reference", {
+export type TInterface = {
+    readonly "members": pt.Dictionary<
+        | [ "interface", {
+            readonly "context": 
+                | [ "import", string ]
+                | [ "local", null ]
+            readonly "interface": string
+        } ]
+        | [ "procedure", TLeafType ]
+    >
+}
+
+export type TLeafType = 
+    | [ "boolean", null ]
+    | [ "external reference", {
         readonly "context": string
         readonly "type": string
-    }]
-    | ["null", null]
-    | ["number", null]
-    | ["reference", string]
-    | ["string", null]
+    } ]
+    | [ "null", null ]
+    | [ "number", null ]
+    | [ "reference", string ]
+    | [ "string", null ]
 
-export type TType =
-    | ["array", TType]
-    | ["dictionary", TType]
-    | ["group", pt.Dictionary<TType>]
-    | ["leaf", TLeafType]
-    | ["taggedUnion", pt.Dictionary<TType>]
+export type TType = 
+    | [ "array", TType ]
+    | [ "dictionary", TType ]
+    | [ "group", pt.Dictionary<TType> ]
+    | [ "leaf", TLeafType ]
+    | [ "taggedUnion", pt.Dictionary<TType> ]
 
 
 ////////////////
 
 
 
-export type FSerializeGlossary = (
+export type XserializeGlossary = (
     $: TGlossary,
-    block: fp.IBlock,
+    $i: fp.IBlock,
 ) => void
 
 
-export type XSerializeLeafType = ($: TLeafType, $i: fp.ILine) => void
+export type XserializeLeafType = ($: TLeafType, $i: fp.ILine) => void
