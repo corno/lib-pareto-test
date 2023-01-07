@@ -1,6 +1,6 @@
 import * as pr from "pareto-core-raw"
 
-import { group, types, _function } from "../modules/glossary/api/shorthands.p"
+import { group, member, types, _function } from "../modules/glossary/api/shorthands.p"
 import { externalReference as er, string as str } from "../modules/glossary/api/shorthands.p"
 import { string, _null, reference, externalReference, number, boolean } from "../modules/api/api/shorthands.p"
 
@@ -26,8 +26,8 @@ export const project: mproject.TProject = {
                     }),
                     'types': types({
                         "WriteFileData": group({
-                            "path": er("common", "Path"),
-                            "data": str(),
+                            "path": member(er("common", "Path")),
+                            "data": member(str()),
                         })
                     }),
                     'functions': wd({

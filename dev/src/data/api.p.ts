@@ -5,6 +5,7 @@ import {
     dictionary,
     externalReference,
     group,
+    member,
     number,
     reference,
     string,
@@ -20,7 +21,7 @@ import {
     _null as nll,
 } from "../modules/api/api/shorthands.p"
 
-import* as NAPI from "../modules/api"
+import * as NAPI from "../modules/api"
 
 
 const wd = pr.wrapRawDictionary
@@ -39,71 +40,71 @@ export const api: NAPI.TModuleDefinition = {
                 "too many": _null(),
             }),
             "Summary": group({
-                "numberOfTests": number(),
-                "numberOfErrors": number(),
+                "numberOfTests": member(number()),
+                "numberOfErrors": member(number()),
             }),
             "TestElement": group({
-                "type": taggedUnion({
+                "type": member(taggedUnion({
                     "subset": reference("TestSet"),
                     "test": group({
-                        "type": taggedUnion({
+                        "type": member(taggedUnion({
                             "boolean": boolean(),
                             "short string": group({
-                                "expected": string(),
-                                "actual": string(),
+                                "expected": member(string()),
+                                "actual": member(string()),
                             }),
                             "long string": group({
-                                "expected": string(),
-                                "actual": string(),
+                                "expected": member(string()),
+                                "actual": member(string()),
                             }),
                             "file string": reference("ValidateFileData"),
-                        }),
+                        })),
                     }),
-                }),
+                })),
             }),
             "TestElementResult": group({
-                "type": taggedUnion({
+                "type": member(taggedUnion({
                     "subset": reference("TestSetResult"),
                     "test": group({
-                        "success": boolean(),
-                        "type": reference("TestType"),
+                        "success": member(boolean()),
+                        "type": member(reference("TestType")),
                     })
-                })
+                }))
             }),
             "TestParameters": group({
-                "testDirectory": string(),
+                "testDirectory": member(string()),
             }),
             "TestSet": group({
-                "elements": dictionary(reference("TestElement"))
+                "elements": member(dictionary(reference("TestElement")))
             }),
             "TestSetResult": group({
-                "elements": dictionary(reference("TestElementResult"))
+                "elements": member(dictionary(reference("TestElementResult")))
             }),
             "TestType": taggedUnion({
                 "boolean": _null(),
                 "long string": group({
-                    "parts": array(externalReference("diff", "MultilinePart"))
+                    "parts": member(array(externalReference("diff", "MultilinePart")))
                 }),
                 "short string": group({
-                    "expected": string(),
-                    "actual": string(),
+                    "expected": member(string()),
+                    "actual": member(string()),
                 }),
                 "file string": group({
-                    "fileLocation": string(),
-                    "parts": array(externalReference("diff", "MultilinePart"))
+                    "fileLocation": member(string()),
+                    "parts": member(array(externalReference("diff", "MultilinePart")))
                 }),
             }),
             "ValidateFileData": group({
-                "expectedFile": group({
-                    "path": externalReference("common", "Path"),
-                    "fileName": string(),
-                    "extension": string()
-                }),
-                "actual": string()
+                "expectedFile": member(group({
+                    "path": member(externalReference("common", "Path")),
+                    "fileName": member(string()),
+                    "extension": member(string())
+                })),
+                "actual": member(string())
             }),
         }),
         'functions': wd({
-           "GetTestSet": _function(["reference", "TestParameters"], ["reference", "TestSet"], true)
+            "GetTestSet": _function(["reference", "TestParameters"], ["reference", "TestSet"], true)
         }),
         'callbacks': wd({}),
         'interfaces': wd({}),

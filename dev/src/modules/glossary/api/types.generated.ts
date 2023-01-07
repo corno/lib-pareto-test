@@ -2,7 +2,7 @@ import * as pt from "pareto-core-types"
 import * as mfp from "lib-fountain-pen"
 
 export type TCallback = {
-    readonly "context": 
+    readonly "context"?: 
         | [ "import", string ]
         | [ "local", null ]
     readonly "data": TLeafType
@@ -10,7 +10,7 @@ export type TCallback = {
 }
 
 export type TFunction = {
-    readonly "async": boolean
+    readonly "async"?: boolean
     readonly "data": TLeafType
     readonly "return value": TLeafType
 }
@@ -26,7 +26,7 @@ export type TGlossary = {
 export type TInterface = {
     readonly "members": pt.Dictionary<
         | [ "interface", {
-            readonly "context": 
+            readonly "context"?: 
                 | [ "import", string ]
                 | [ "local", null ]
             readonly "interface": string
@@ -49,7 +49,10 @@ export type TLeafType =
 export type TType = 
     | [ "array", TType ]
     | [ "dictionary", TType ]
-    | [ "group", pt.Dictionary<TType> ]
+    | [ "group", pt.Dictionary<{
+        readonly "optional"?: boolean
+        readonly "type": TType
+    }> ]
     | [ "leaf", TLeafType ]
     | [ "taggedUnion", pt.Dictionary<TType> ]
 

@@ -69,8 +69,8 @@ export const icreateGlossarySerializer: api.CcreateGlossarySerializer = ($, $d) 
                     $i.indent(($i) => {
                         $.forEach(compare, ($, key) => {
                             $i.line(($i) => {
-                                $i.snippet(`readonly "${key}": `)
-                                serializeType($, $i)
+                                $i.snippet(`readonly "${key}"${$.optional === undefined || false ? "" : "?"}: `)
+                                serializeType($.type, $i)
                             })
                         })
                     })
@@ -171,18 +171,20 @@ export const icreateGlossarySerializer: api.CcreateGlossarySerializer = ($, $d) 
                 $i.snippet(`export type X${key} = ($: `)
                 serializeLeafType($.data, $i)
                 $i.snippet(`, $i: `)
-                switch ($.context[0]) {
-                    case "import":
-                        pl.cc($.context[1], ($) => {
-                            $i.snippet(`m${$}.`)
-                        })
-                        break
-                    case "local":
-                        pl.cc($.context[1], ($) => {
+                if ($.context !== undefined) {
+                    switch ($.context[0]) {
+                        case "import":
+                            pl.cc($.context[1], ($) => {
+                                $i.snippet(`m${$}.`)
+                            })
+                            break
+                        case "local":
+                            pl.cc($.context[1], ($) => {
 
-                        })
-                        break
-                    default: pl.au($.context[0])
+                            })
+                            break
+                        default: pl.au($.context[0])
+                    }
                 }
                 $i.snippet(`I${$.interface}) => void`)
             })

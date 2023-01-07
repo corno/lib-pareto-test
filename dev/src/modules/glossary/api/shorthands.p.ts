@@ -35,9 +35,22 @@ export function dictionary($: Type): Type {
 export function array($: Type): Type {
     return ["array", $]
 }
-export function group($: { [key: string]: Type }): Type {
+export function group($: {
+    [key: string]: {
+        type: Type
+        optional?: boolean
+    }
+}): Type {
     return ["group", wd($)]
 }
+
+export function member($: Type, optional?: boolean): { type: Type, optional?: boolean } {
+    return {
+        optional: optional,
+        type: $
+    }
+}
+
 export function reference(type: string): Type {
     return ["leaf", ["reference", type]]
 }

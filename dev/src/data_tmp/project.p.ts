@@ -1,5 +1,5 @@
 import * as pr from "pareto-core-raw"
-import { dictionary, group, taggedUnion, types, _function } from "../modules/glossary/api/shorthands.p"
+import { dictionary, group, member, taggedUnion, types, _function } from "../modules/glossary/api/shorthands.p"
 import {
     externalReference as er,
     string as str,
@@ -20,36 +20,36 @@ export const project: NProject.TProject = {
                     }),
                     'types': types({
                         "Function": group({
-                            "async": bln(),
-                            "data": ref("LeafType"),
-                            "return value": ref("LeafType")
+                            "async": member(bln(), true),
+                            "data": member(ref("LeafType")),
+                            "return value": member(ref("LeafType"))
                         }),
                         "Callback": group({
-                            "data": ref("LeafType"),
-                            "context": taggedUnion({
+                            "data": member(ref("LeafType")),
+                            "context": member(taggedUnion({
                                 "local": nll(),
                                 "import": str(),
-                            }),
-                            "interface": str()
+                            }), true),
+                            "interface": member(str())
                         }),
                         "Glossary": group({
-                            "imports": dictionary(str()),
-                            "types": dictionary(ref("Type")),
-                            "functions": dictionary(ref("Function")),
-                            "interfaces": dictionary(ref("Interface")),
-                            "callbacks": dictionary(ref("Callback")),
+                            "imports": member(dictionary(str())),
+                            "types": member(dictionary(ref("Type"))),
+                            "functions": member(dictionary(ref("Function"))),
+                            "interfaces": member(dictionary(ref("Interface"))),
+                            "callbacks": member(dictionary(ref("Callback"))),
                         }),
                         "Interface": group({
-                            "members": dictionary(taggedUnion({
+                            "members": member(dictionary(taggedUnion({
                                 "interface": group({
-                                    "context": taggedUnion({
+                                    "context": member(taggedUnion({
                                         "local": nll(),
                                         "import": str(),
-                                    }),
-                                    "interface": str(),
+                                    }), true),
+                                    "interface": member(str()),
                                 }),
                                 "procedure": ref("LeafType")
-                            }))
+                            })))
                         }),
                         "LeafType": taggedUnion({
                             "boolean": nll(),
@@ -58,15 +58,18 @@ export const project: NProject.TProject = {
                             "number": nll(),
                             "reference": str(),
                             "external reference": group({
-                                "context": str(),
-                                "type": str(),
+                                "context": member(str()),
+                                "type": member(str()),
                             }),
                         }),
                         "Type": taggedUnion({
                             "leaf": ref("LeafType"),
                             "array": ref("Type"),
                             "dictionary": ref("Type"),
-                            "group": dictionary(ref("Type")),
+                            "group": dictionary(group({
+                                "type": member(ref("Type")),
+                                "optional": member(bln(), true)
+                            })),
                             "taggedUnion": dictionary(ref("Type")),
                         }),
                     }),
@@ -125,36 +128,36 @@ export const project: NProject.TProject = {
                             "algorithm": ref("AlgorithmReference"),
                         }),
                         "AlgorithmReference": group({
-                            "type": taggedUnion({
+                            "type": member(taggedUnion({
                                 "function": group({
-                                    "context": taggedUnion({
+                                    "context": member(taggedUnion({
                                         "local": nll(),
                                         "import": str(),
-                                    }),
-                                    "function": str(),
-                                    "async": bln(),
+                                    }), true),
+                                    "function": member(str()),
+                                    "async": member(bln(), true),
                                 }),
                                 "procedure": er("glossary", "LeafType"),
                                 "callback": group({
-                                    "context": taggedUnion({
+                                    "context": member(taggedUnion({
                                         "local": nll(),
                                         "import": str(),
-                                    }),
-                                    "callback": str(),
+                                    }), true),
+                                    "callback": member(str()),
                                 })
-                            }),
+                            })),
                         }),
                         "Constructor": group({
-                            "data": er("glossary", "LeafType"),
-                            "dependencies": dictionary(ref("AlgorithmReference")),
-                            "result": ref("AlgorithmReference"),
+                            "data": member(er("glossary", "LeafType")),
+                            "dependencies": member(dictionary(ref("AlgorithmReference"))),
+                            "result": member(ref("AlgorithmReference")),
                         }),
                         "ModuleDefinition": group({
-                            "glossary": er("glossary", "Glossary"),
-                            "api": group({
-                                "imports": dictionary(str()),
-                                "algorithms": dictionary(ref("AlgorithmDefinition")),
-                            }),
+                            "glossary": member(er("glossary", "Glossary")),
+                            "api": member(group({
+                                "imports": member(dictionary(str())),
+                                "algorithms": member(dictionary(ref("AlgorithmDefinition"))),
+                            })),
                         })
                     }),
                     'functions': wd({
@@ -276,14 +279,14 @@ export const project: NProject.TProject = {
                         "AlgorithmImplementation": group({}),
                         "Implementation": dictionary(ref("AlgorithmImplementation")),
                         "Project": group({
-                            "modules": dictionary(group({
-                                "definition": er("api", "ModuleDefinition"),
-                            })),
-                            "main": str(),
+                            "modules": member(dictionary(group({
+                                "definition": member(er("api", "ModuleDefinition")),
+                            }))),
+                            "main": member(str()),
                         }),
                         "ProjectSettings": group({
-                            "project": ref("Project"),
-                            "path": er("common", "Path"),
+                            "project": member(ref("Project")),
+                            "path": member(er("common", "Path")),
                         })
                     }),
                     'functions': wd({
