@@ -1,23 +1,17 @@
 import * as pl from "pareto-core-lib"
 
+import * as api from "../api"
+
 import * as mproject from "../../project"
+import * as mapi from "../../api"
+import * as mglossary from "../../glossary"
 import * as mfp from "lib-fountain-pen"
 import * as mcoll from "res-pareto-collation"
 
-import { icreateGlossarySerializer } from "../../glossary/implementations/createGlossarySerializer.p"
-import { iserializeLeafType } from "../../glossary/implementations/serializeLeafType.p"
-
-import { icreateProjectSerializer } from "../../project/implementations/createProjectSerializer.p"
-import { icreateTemplateSerializer } from "../../project/implementations/createTemplateSerializer.p"
-
-import { icreateConstructorSerializer } from "../../api/implementations/createConstructorSerializer.p"
-import { icreateAlgorithmReferenceSerializer } from "../../api/implementations/createAlgorithmReferenceSerializer.p"
-import { icreateModuleDefinitionSerializer } from "../../api/implementations/createModuleDefinitionSerializer.p"
 
 
 
-
-export function generateProject($: mproject.TProjectSettings): void {
+export function igenerateProject($: api.TProjectSettings): void {
     const $i = mfp.$a.createWriter(
         {
             path: $.path,
@@ -30,40 +24,40 @@ export function generateProject($: mproject.TProjectSettings): void {
         },
     )
 
-    const sar = icreateAlgorithmReferenceSerializer(
+    const sar = mapi.$a.createAlgorithmReferenceSerializer(
         null,
         {
-            serializeLeafType: iserializeLeafType,
+            serializeLeafType: mglossary.$a.serializeLeafType,
         }
     )
 
-    icreateProjectSerializer(
+    mproject.$a.createProjectSerializer(
         null,
         {
             compare: mcoll.$a.localeIsABeforeB,
-            serializeModuleDefinition: icreateModuleDefinitionSerializer(
+            serializeModuleDefinition: mapi.$a.createModuleDefinitionSerializer(
                 null,
                 {
                     compare: mcoll.$a.localeIsABeforeB,
-                    serializeGlossary: icreateGlossarySerializer(null, {
+                    serializeGlossary:  mglossary.$a.createGlossarySerializer(null, {
                         compare: mcoll.$a.localeIsABeforeB,
                     }),
-                    serializeConstructor: icreateConstructorSerializer(null, {
+                    serializeConstructor: mapi.$a.createConstructorSerializer(null, {
                         compare: mcoll.$a.localeIsABeforeB,
                         serializeAlgorithmReference: sar,
-                        serializeLeafType: iserializeLeafType,
+                        serializeLeafType: mglossary.$a.serializeLeafType,
                     }),
                     serializeAlgorithmReference: sar,
 
                 }
             ),
-            serializeLeafType: iserializeLeafType,
+            serializeLeafType: mglossary.$a.serializeLeafType,
         }
     )(
         $.project,
         $i,
     )
-    icreateTemplateSerializer(
+    mproject.$a.createTemplateSerializer(
         null,
         {
             compare: mcoll.$a.localeIsABeforeB,

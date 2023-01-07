@@ -12,6 +12,38 @@ import * as NProject from "../modules/project"
 const wd = pr.wrapRawDictionary
 export const project: NProject.TProject = {
     modules: wd({
+        "main": {
+            definition: {
+                "glossary": {
+                    'imports': wd({
+                        "project": "../../project",
+                        "common": "glo-pareto-common",
+                    }),
+                    'types': types({
+                        "ProjectSettings": group({
+                            "project": member(er("project", "Project")),
+                            "path": member(er("common", "Path")),
+                        })
+                    }),
+                    'functions': wd({
+                    }),
+                    'callbacks': wd({
+                    }),
+                    'interfaces': wd({}),
+                },
+                "api": {
+                    "imports": wd({
+                    }),
+                    "algorithms": wd({
+                        "generateProject": ["algorithm", {
+                            type: ["procedure", reference("ProjectSettings")],
+                        }],
+                    })
+                },
+            },
+            implementation: {}
+
+        },
         "glossary": {
             definition: {
                 "glossary": {
@@ -94,6 +126,11 @@ export const project: NProject.TProject = {
                         "collation": "res-pareto-collation"
                     }),
                     "algorithms": wd({
+                        "serializeLeafType": ["algorithm", {
+                            type: ["callback", {
+                                "callback": "serializeLeafType"
+                            }],
+                        }],
                         "createGlossarySerializer": ["constructor", {
                             data: ["null", null],
                             dependencies: wd({
@@ -272,7 +309,6 @@ export const project: NProject.TProject = {
                 "glossary": {
                     'imports': wd({
                         "api": "../../api",
-                        "common": "glo-pareto-common",
                         "fp": "lib-fountain-pen",
                     }),
                     'types': types({
@@ -284,10 +320,6 @@ export const project: NProject.TProject = {
                             }))),
                             "main": member(str()),
                         }),
-                        "ProjectSettings": group({
-                            "project": member(ref("Project")),
-                            "path": member(er("common", "Path")),
-                        })
                     }),
                     'functions': wd({
                     }),

@@ -87,6 +87,8 @@ export const icreateProjectSerializer: api.CcreateProjectSerializer = (
                             //     })
                             // })
                             $i.createFile("index.ts", ($i) => {
+                                $i.literal(`import { API } from "./api"`)
+                                
                                 $.definition.api.algorithms.forEach(compare, ($, key) => {
                                     $i.literal(`import { i${key} } from "./implementations/${key}.p"`)
                                 })
@@ -95,7 +97,7 @@ export const icreateProjectSerializer: api.CcreateProjectSerializer = (
                                 $i.literal(``)
                                 $i.line(($i) => {
 
-                                    $i.snippet(`export const $a = {`)
+                                    $i.snippet(`export const $a: API = {`)
                                     $i.indent(($i) => {
 
                                         $.definition.api.algorithms.forEach(compare, ($, key) => {

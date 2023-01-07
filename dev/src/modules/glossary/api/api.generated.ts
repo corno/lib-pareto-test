@@ -8,6 +8,9 @@ export type CcreateGlossarySerializer = ($: null, $d: {
     readonly "compare": mcollation.FIsABeforeB
 }) => glo.XserializeGlossary
 
+export type CserializeLeafType = glo.XserializeLeafType
+
 export type API = {
     createGlossarySerializer: CcreateGlossarySerializer
+    serializeLeafType: CserializeLeafType
 }

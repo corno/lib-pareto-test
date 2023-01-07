@@ -5,12 +5,12 @@ import * as mainTypes from "glo-pareto-main"
 
 
 import { project } from "../../../data/project.p"
-import { generateProject } from "./generateProject.p"
+import { igenerateProject } from "./generateProject.p"
 
 export const main: mainTypes.PProgramMain = ($) => {
     exe.p_getSingleArgument($.arguments, {
         callback: ($) => {
-            generateProject({
+            igenerateProject({
                 project: project,
                 path: $,
             })
