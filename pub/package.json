@@ -23,6 +23,6 @@
     "url": "http://github.com/corno/lib-pareto-test.git"
   },
   "types": "dist/index.d.ts",
-  "version": "0.11.0",
-  "content-fingerprint": "87a18e6f479e5154b0d4da7f94c7fb94dcb94ab6"
+  "version": "0.12.0",
+  "content-fingerprint": "d5db6a64db75a4ad325853d26e679f6a62d7a02b"
 }

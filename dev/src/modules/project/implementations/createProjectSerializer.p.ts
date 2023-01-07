@@ -9,7 +9,7 @@ import * as mfp from "lib-fountain-pen"
 
 export const createProjectSerializer: api.CcreateProjectSerializer = (
     $,
-    $d
+    $d,
 ) => {
     return ($, $i) => {
 
@@ -313,13 +313,80 @@ export const createProjectSerializer: api.CcreateProjectSerializer = (
                         const moduleName = key
 
                         $i.createDirectory(key, ($i) => {
+                            const def = $.definition
                             $.definition.api.algorithms.forEach(compare, ($, key) => {
+                                // $i.createFile(`${key}_tmp.p.ts`, ($i) => {
+                                //     $i.literal(`import * as pt from "pareto-core-types"`)
+                                //     $i.literal(`import * as pl from "pareto-core-lib"`)
+                                //     $i.literal(``)
+                                //     $i.literal(`import * as tst from "lib-pareto-test"`)
+
+                                //     $i.literal(``)
+                                //     def.api.imports.forEach(compare, ($, key) => {
+                                //         $i.literal(`import * as m${key} from "${$}"`)
+                                //     })
+                                //     $i.line(($i) => {
+                                //         $i.snippet(`export type XX = `)
+                                //         $i.indent(($i) => {
+                                //             switch ($[0]) {
+                                //                 case "algorithm":
+                                //                     pl.cc($[1], ($) => {
+
+                                //                     })
+                                //                     break
+                                //                 case "constructor":
+                                //                     pl.cc($[1], ($) => {
+                                //                         $.dependencies.forEach(compare, ($, key) => {
+                                //                             $i.line(($i) => {
+                                //                                 $i.snippet(`| [ "${key}", `)
+                                //                                 switch ($.type[0]) {
+                                //                                     case "function":
+                                //                                         pl.cc($.type[1], ($) => {
+                                //                                             if ($.context !== undefined) {
+                                //                                                 switch ($.context[0]) {
+                                //                                                     case "import":
+                                //                                                         pl.cc($.context[1], ($) => {
+
+                                //                                                         })
+                                //                                                         break
+                                //                                                     case "local":
+                                //                                                         pl.cc($.context[1], ($) => {
+
+                                //                                                         })
+                                //                                                         break
+                                //                                                     default: pl.au($.context[0])
+                                //                                                 }
+                                //                                             } else {
+                                                                                
+                                //                                             }
+                                //                                             $i.snippet(`string/*FIXME*/`)
+                                //                                         })
+                                //                                         break
+                                //                                     case "procedure":
+                                //                                         pl.cc($.type[1], ($) => {
+                                //                                             $d.serializeLeafType($, $i)
+                                //                                         })
+                                //                                         break
+                                //                                     default: pl.au($.type[0])
+                                //                                 }
+                                //                                 $i.snippet(` ]`)
+                                //                             })
+                                //                         })
+                                //                     })
+                                //                     break
+                                //                 default: pl.au($[0])
+                                //             }
+                                //         })
+                                //         $i.snippet(`}`)
+                                //     })
+                                //     $i.literal(``)
+
+                                // })
                                 $i.createFile(`${key}.p.ts`, ($i) => {
                                     $i.literal(`import * as pt from "pareto-core-types"`)
                                     $i.literal(`import * as pl from "pareto-core-lib"`)
                                     $i.literal(``)
                                     $i.literal(`import * as tst from "lib-pareto-test"`)
-
                                     $i.literal(``)
                                     $i.line(($i) => {
                                         $i.snippet(`export function test(): pt.AsyncValue<tst.TTestElement> {`)

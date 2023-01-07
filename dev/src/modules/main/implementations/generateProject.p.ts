@@ -48,7 +48,8 @@ export function generateProject($: mproject.TProjectSettings): void {
                 serializeAlgorithmReference: sar,
                 serializeLeafType: serializeLeafType,
             }),
-            serializeAlgorithmReference: sar
+            serializeAlgorithmReference: sar,
+            serializeLeafType: serializeLeafType,
         }
     )(
         $.project,
