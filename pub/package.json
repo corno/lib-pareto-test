@@ -9,7 +9,7 @@
     "res-pareto-arithmetic": "^0.5.0",
     "res-pareto-boolean": "^0.7.0",
     "res-pareto-collation": "^0.10.0",
-    "res-pareto-diff": "^0.13.2"
+    "res-pareto-diff": "^0.15.0"
   },
   "description": "test functions for pareto",
   "files": [
@@ -23,6 +23,6 @@
     "url": "http://github.com/corno/lib-pareto-test.git"
   },
   "types": "dist/index.d.ts",
-  "version": "0.13.1",
-  "content-fingerprint": "ac19a05834916bb640f68078a6b345558f60324e"
+  "version": "0.13.4",
+  "content-fingerprint": "40d63def3cd02ee2e1f12b69b304be2bd07c4e60"
 }

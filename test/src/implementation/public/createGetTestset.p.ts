@@ -81,7 +81,7 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
         function createTest(name: string, actual: string, expected: string) {
             builder.add(name, {
                 type: ["test", {
-                    type: ["simple string", {
+                    type: ["short string", {
                         actual: actual,
                         expected: expected
                     }]

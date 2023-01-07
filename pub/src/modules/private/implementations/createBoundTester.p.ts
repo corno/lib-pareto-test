@@ -46,8 +46,8 @@ export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
             runTests: icreateTestRunner(
                 null,
                 {
-                    diffData: diff.fDiffData,
-                    stringsAreEqual: diff.fStringsAreEqual,
+                    diffData: diff.$a.diffData,
+                    stringsAreEqual: diff.$a.stringsAreEqual,
                     validateFile: icreateFileValidator(
                         null,
                         {
@@ -100,7 +100,7 @@ export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
                                     )
                                 })
                             },
-                            diffData: diff.fDiffData,
+                            diffData: diff.$a.diffData,
                         }),
                 }
             ),
