@@ -4,8 +4,8 @@ import * as api from "../api"
 
 import * as fp from "lib-fountain-pen"
 
-export const createGlossarySerializer: api.CCreateGlossarySerializer = ($, $d) => {
-    const compare = (a: string, b: string) => $d.isABeforeB({ a: a, b: b })
+export const icreateGlossarySerializer: api.CcreateGlossarySerializer = ($, $d) => {
+    const compare = (a: string, b: string) => $d.compare({ a: a, b: b })
 
     function serializeLeafType($: api.TLeafType, $i: fp.ILine) {
         switch ($[0]) {

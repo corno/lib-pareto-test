@@ -19,12 +19,4 @@ export type TProjectSettings = {
     readonly "project": TProject
 }
 
-
-///////////
-
-
-
-export type XSerializeProject = (
-    $: TProject,
-    $i: mfp.IWriter,
-) => void
+export type XserializeProject = ($: TProject, $i: mfp.IWriter) => void

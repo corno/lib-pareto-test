@@ -1,6 +1,5 @@
 import * as pt from "pareto-core-types"
-
-import * as fp from "lib-fountain-pen"
+import * as mfp from "lib-fountain-pen"
 
 export type TCallback = {
     readonly "context": 
@@ -54,15 +53,6 @@ export type TType =
     | [ "leaf", TLeafType ]
     | [ "taggedUnion", pt.Dictionary<TType> ]
 
+export type XserializeGlossary = ($: TGlossary, $i: mfp.IBlock) => void
 
-////////////////
-
-
-
-export type XserializeGlossary = (
-    $: TGlossary,
-    $i: fp.IBlock,
-) => void
-
-
-export type XserializeLeafType = ($: TLeafType, $i: fp.ILine) => void
+export type XserializeLeafType = ($: TLeafType, $i: mfp.ILine) => void

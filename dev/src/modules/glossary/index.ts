@@ -1,4 +1,7 @@
+import { icreateGlossarySerializer } from "./implementations/createGlossarySerializer.p"
 
 export * from "./api"
 
-export const $a = {}
+export const $a = {
+    "createGlossarySerializer": icreateGlossarySerializer,
+}

@@ -4,7 +4,7 @@ import * as mproject from "../../project"
 import * as mfp from "lib-fountain-pen"
 import * as mcoll from "res-pareto-collation"
 
-import { createGlossarySerializer } from "../../glossary/implementations/createGlossarySerializer.p"
+import { icreateGlossarySerializer } from "../../glossary/implementations/createGlossarySerializer.p"
 import { iserializeLeafType } from "../../glossary/implementations/serializeLeafType.p"
 
 import { icreateProjectSerializer } from "../../project/implementations/createProjectSerializer.p"
@@ -45,8 +45,8 @@ export function generateProject($: mproject.TProjectSettings): void {
                 null,
                 {
                     compare: mcoll.$a.localeIsABeforeB,
-                    serializeGlossary: createGlossarySerializer(null, {
-                        isABeforeB: mcoll.$a.localeIsABeforeB,
+                    serializeGlossary: icreateGlossarySerializer(null, {
+                        compare: mcoll.$a.localeIsABeforeB,
                     }),
                     serializeConstructor: icreateConstructorSerializer(null, {
                         compare: mcoll.$a.localeIsABeforeB,

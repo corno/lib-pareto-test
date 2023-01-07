@@ -39,6 +39,7 @@ export type TModuleDefinition = {
 }
 
 export type XserializeAlgorithmReference = ($: TAlgorithmReference, $i: mfp.ILine) => void
-export type XserializeModuleDefinition = ($: TModuleDefinition, $i: mfp.IWriter) => void
 
 export type XserializeConstructor = ($: TConstructor, $i: mfp.ILine) => void
+
+export type XserializeModuleDefinition = ($: TModuleDefinition, $i: mfp.IWriter) => void
