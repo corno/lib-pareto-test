@@ -13,15 +13,15 @@ import {
     types,
     _function,
     _null,
-} from "../modules/glossary/api/shorthands.p"
+} from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
 import {
     reference as ref,
     string as str,
     _null as nll,
-} from "../modules/api/api/shorthands.p"
+} from "lib-pareto-typescript-project/dist/modules//api/api/shorthands.p"
 
-import * as NAPI from "../modules/api"
+import * as NAPI from "lib-pareto-typescript-project/dist/modules//api"
 
 
 const wd = pr.wrapRawDictionary

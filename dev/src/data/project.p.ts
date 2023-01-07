@@ -1,10 +1,10 @@
 import * as pr from "pareto-core-raw"
 
-import { group, member, types, _function } from "../modules/glossary/api/shorthands.p"
-import { externalReference as er, string as str } from "../modules/glossary/api/shorthands.p"
-import { string, _null, reference, externalReference, number, boolean } from "../modules/api/api/shorthands.p"
+import { group, member, types, _function } from "lib-pareto-typescript-project/dist/modules//glossary/api/shorthands.p"
+import { externalReference as er, string as str } from "lib-pareto-typescript-project/dist/modules//glossary/api/shorthands.p"
+import { string, _null, reference, externalReference, number, boolean } from "lib-pareto-typescript-project/dist/modules/api/api/shorthands.p"
 
-import * as mproject from "../modules/project"
+import * as mproject from "lib-pareto-typescript-project/dist/modules//project"
 import { api } from "./api.p"
 
 
