@@ -1,3 +1,4 @@
+import { API } from "./api"
 import { icreateArgumentsParser } from "./implementations/createArgumentsParser.p"
 import { icreateBoundTester } from "./implementations/createBoundTester.p"
 import { icreateFileValidator } from "./implementations/createFileValidator.p"
@@ -10,7 +11,7 @@ import { icreateTestRunner } from "./implementations/createTestRunner.p"
 
 export * from "./api"
 
-export const $a = {
+export const $a: API = {
     "createArgumentsParser": icreateArgumentsParser,
     "createBoundTester": icreateBoundTester,
     "createFileValidator": icreateFileValidator,
