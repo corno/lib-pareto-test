@@ -48,7 +48,6 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                         {
                             writeFile: ($) =>/**/ {
                                 fslib.$a.createWriteFileFireAndForget(
-                                    null,
                                     {
                                         onError: ($) =>/**/ {
                                             $d.onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
@@ -62,7 +61,6 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                                 })
                             },
                             unlink: fslib.$a.createUnlinkFireAndForget(
-                                null,
                                 {
                                     onError: ($) =>/**/ {
                                         $d.onError(`${$.path}: ${fslib.$a.createUnlinkErrorMessage($.error)}`)
