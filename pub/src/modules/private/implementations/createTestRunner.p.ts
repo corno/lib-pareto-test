@@ -5,7 +5,7 @@ import * as api from "../api"
 
 import * as mpublic from "../../public"
 
-export const icreateTestRunner: api.CcreateTestRunner = ($c, $d) => {
+export const icreateTestRunner: api.CcreateTestRunner = ($d) => {
     return ($) => {
         function doTestSet($: mpublic.TTestSet): pt.AsyncValue<mpublic.TTestSetResult> {
             return $.elements.asyncMap(($): pt.AsyncValue<mpublic.TTestElementResult> => {
@@ -14,7 +14,7 @@ export const icreateTestRunner: api.CcreateTestRunner = ($c, $d) => {
                         return pl.cc($.type[1], ($) => {
                             return doTestSet($).map(($) => {
                                 return pl.asyncValue<mpublic.TTestElementResult>({
-                                    type: ["subset", $]
+                                    type: ['subset', $]
                                 })
                             })
                         })
@@ -25,9 +25,9 @@ export const icreateTestRunner: api.CcreateTestRunner = ($c, $d) => {
                                 case "boolean":
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
-                                            type: ["test", {
+                                            type: ['test', {
                                                 success: $,
-                                                type: ["boolean", null]
+                                                type: ['boolean', null]
                                             }]
                                         })
                                     })
@@ -48,9 +48,9 @@ export const icreateTestRunner: api.CcreateTestRunner = ($c, $d) => {
                                         )
                                         if (pl.isNotNull(res)) {
                                             return pl.asyncValue({
-                                                type: ["test", {
+                                                type: ['test', {
                                                     success: false,
-                                                    type: ["long string", {
+                                                    type: ['long string', {
                                                         parts: res
                                                     }]
                                                 }]
@@ -58,9 +58,9 @@ export const icreateTestRunner: api.CcreateTestRunner = ($c, $d) => {
 
                                         } else {
                                             return pl.asyncValue({
-                                                type: ["test", {
+                                                type: ['test', {
                                                     success: true,
-                                                    type: ["long string", {
+                                                    type: ['long string', {
                                                         parts: pl.createEmptyArray()
                                                     }]
                                                 }]
@@ -71,12 +71,12 @@ export const icreateTestRunner: api.CcreateTestRunner = ($c, $d) => {
                                 case "short string":
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
-                                            type: ["test", {
+                                            type: ['test', {
                                                 success: $d.stringsAreEqual({
                                                     a: $.actual,
                                                     b: $.expected,
                                                 }),
-                                                type: ["short string", {
+                                                type: ['short string', {
                                                     actual: $.actual,
                                                     expected: $.expected,
                                                 }]

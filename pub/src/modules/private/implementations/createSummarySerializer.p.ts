@@ -1,7 +1,7 @@
 import * as api from "../api"
 
 export const icreateSummarySerializer: api.CcreateSummarySerializer = (
-    $c, $d,
+    $d,
 ) => {
     return (
         $,

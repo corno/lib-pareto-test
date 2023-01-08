@@ -18,21 +18,20 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
     return ($) => {
 
         type LogEntry =
-            | ["error", pubTypes.TArgumentError]
-            | ["callback", pubTypes.TTestParameters]
+            | ['error', pubTypes.TArgumentError]
+            | ['callback', pubTypes.TTestParameters]
 
 
         function doIt(name: string, $: pt.Array<string>) {
             const log = pm.createArrayBuilder<LogEntry>()
 
             const tpp = pubPrivate.$a.createTestParametersParser(
-                null,
                 {
                     onError: ($) => {
-                        log.push(["error", $])
+                        log.push(['error', $])
                     },
                     callback: ($) => {
-                        log.push(["callback", $])
+                        log.push(['callback', $])
                     }
                 })
             tpp($)
@@ -45,22 +44,22 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
 
         doIt("<", pr.wrapRawArray([]))
         doIt(".", pr.wrapRawArray(["foo"]))
-        doIt(">", pr.wrapRawArray(["foo", "bar"]))
+        doIt(">", pr.wrapRawArray(['foo', "bar"]))
 
-        pub.$a.createTestProgram(null, {
-            getTestSet: () => {
-                pl.panic("@@@")
-            },
-            log: () => {
+        // pub.$a.createTestProgram({
+        //     getTestSet: () => {
+        //         pl.panic("@@@")
+        //     },
+        //     log: () => {
 
-            },
-            logError: () => {
+        //     },
+        //     logError: () => {
 
-            },
-            onTestErrors: () => {
+        //     },
+        //     onTestErrors: () => {
 
-            },
-        })
+        //     },
+        // })
 
         // pub.$b.createTestProgram(
         //     {
@@ -80,8 +79,8 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
         const builder = pm.createUnsafeDictionaryBuilder<test.TTestElement>()
         function createTest(name: string, actual: string, expected: string) {
             builder.add(name, {
-                type: ["test", {
-                    type: ["short string", {
+                type: ['test', {
+                    type: ['short string', {
                         actual: actual,
                         expected: expected
                     }]

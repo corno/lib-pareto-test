@@ -5,7 +5,7 @@ import * as api from "../api"
 import * as mpublic from "../../public"
 
 export const icreateSummarizer: api.CcreateSummarizer = (
-   $c, $d,
+   $d,
 ) => {
     return ($) => {
         type SSummary = {

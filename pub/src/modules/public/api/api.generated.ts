@@ -3,7 +3,7 @@ import * as pt from "pareto-core-types"
 import * as glo from "./types.generated"
 
 
-export type CcreateTestProgram = ($: null, $d: {
+export type CcreateTestProgram = ($d: {
     readonly "getTestSet": glo.AGetTestSet
     readonly "log": pt.Procedure<string>
     readonly "logError": pt.Procedure<string>

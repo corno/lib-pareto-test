@@ -21,20 +21,17 @@ import { iincrement } from "./increment.p"
 const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
 
 
-export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
+export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
     return icreateTester(
-        null,
         {
             onTestErrors: $d.onTestErrors,
             serializeTestResult: icreateTestResultSerializer(
-                null,
                 {
                     log: $d.log,
                     isABeforeB: collation.$a.localeIsABeforeB,
                 },
             ),
             serializeSummary: icreateSummarySerializer(
-                null,
                 {
                     log: $d.log,
                     isZero: bool.$a.isZero,
@@ -44,12 +41,10 @@ export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
                 }
             ),
             runTests: icreateTestRunner(
-                null,
                 {
                     diffData: diff.$a.diffData,
                     stringsAreEqual: diff.$a.stringsAreEqual,
                     validateFile: icreateFileValidator(
-                        null,
                         {
                             writeFile: ($) =>/**/ {
                                 fslib.$a.createWriteFileFireAndForget(
@@ -106,7 +101,6 @@ export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
                 }
             ),
             summarize: icreateSummarizer(
-                null,
                 {
                     log: $d.log,
                     increment: iincrement,

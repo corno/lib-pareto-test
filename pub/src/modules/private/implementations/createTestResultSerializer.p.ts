@@ -5,7 +5,6 @@ import * as api from "../api"
 import * as mpublic from "../../public"
 
 export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
-    $,
     $d,
 ) => {
     return (

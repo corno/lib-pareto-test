@@ -4,7 +4,7 @@ import * as api from "../api"
 
 import * as mpublic from "../../public"
 
-export const icreateFileValidator: api.CcreateFileValidator = ($c, $d) => {
+export const icreateFileValidator: api.CcreateFileValidator = ($d) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
         return $d.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
@@ -24,9 +24,9 @@ export const icreateFileValidator: api.CcreateFileValidator = ($c, $d) => {
                     },
                 )
                 return pl.asyncValue<mpublic.TTestElementResult>({
-                    type: ["test", {
+                    type: ['test', {
                         success: false,
-                        type: ["file string", {
+                        type: ['file string', {
                             fileLocation: `${$.expectedFile.path}/${expectedFileName}`,
                             parts: parts
                         }]
@@ -38,9 +38,9 @@ export const icreateFileValidator: api.CcreateFileValidator = ($c, $d) => {
                     path: [$.expectedFile.path, actualFileName]
                 })
                 return pl.asyncValue({
-                    type: ["test", {
+                    type: ['test', {
                         success: true,
-                        type: ["file string", {
+                        type: ['file string', {
                             fileLocation: `${$.expectedFile.path}/${expectedFileName}`,
                             parts: pl.createEmptyArray()
                         }]

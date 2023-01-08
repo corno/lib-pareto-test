@@ -6,19 +6,19 @@ import {
     externalReference,
     group,
     member,
+    nullType,
+    type,
     number,
     reference,
     string,
     taggedUnion,
     types,
     _function,
-    _null,
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
 import {
     reference as ref,
     string as str,
-    _null as nll,
 } from "lib-pareto-typescript-project/dist/modules//api/api/shorthands.p"
 
 import * as NAPI from "lib-pareto-typescript-project/dist/modules//api"
@@ -27,7 +27,7 @@ import * as NAPI from "lib-pareto-typescript-project/dist/modules//api"
 const wd = pr.wrapRawDictionary
 
 export const api: NAPI.TModuleDefinition = {
-    glossary: {
+    'glossary': {
         'imports': wd({
             "diff": "res-pareto-diff",
             //"fs": "res-pareto-filesystem",
@@ -36,8 +36,8 @@ export const api: NAPI.TModuleDefinition = {
         'types': types({
             "Arguments": array(string()),
             "ArgumentError": taggedUnion({
-                "missing": _null(),
-                "too many": _null(),
+                "missing": nullType(),
+                "too many": nullType(),
             }),
             "Summary": group({
                 "numberOfTests": member(number()),
@@ -45,30 +45,30 @@ export const api: NAPI.TModuleDefinition = {
             }),
             "TestElement": group({
                 "type": member(taggedUnion({
-                    "subset": reference("TestSet"),
-                    "test": group({
+                    "subset": type(reference("TestSet")),
+                    "test": type(group({
                         "type": member(taggedUnion({
-                            "boolean": boolean(),
-                            "short string": group({
+                            "boolean": type(boolean()),
+                            "short string": type(group({
                                 "expected": member(string()),
                                 "actual": member(string()),
-                            }),
-                            "long string": group({
+                            })),
+                            "long string": type(group({
                                 "expected": member(string()),
                                 "actual": member(string()),
-                            }),
-                            "file string": reference("ValidateFileData"),
+                            })),
+                            "file string": type(reference("ValidateFileData")),
                         })),
-                    }),
+                    })),
                 })),
             }),
             "TestElementResult": group({
                 "type": member(taggedUnion({
-                    "subset": reference("TestSetResult"),
-                    "test": group({
+                    "subset": type(reference("TestSetResult")),
+                    "test": type(group({
                         "success": member(boolean()),
                         "type": member(reference("TestType")),
-                    })
+                    })),
                 }))
             }),
             "TestParameters": group({
@@ -81,18 +81,18 @@ export const api: NAPI.TModuleDefinition = {
                 "elements": member(dictionary(reference("TestElementResult")))
             }),
             "TestType": taggedUnion({
-                "boolean": _null(),
-                "long string": group({
+                "boolean": nullType(),
+                "long string": type(group({
                     "parts": member(array(externalReference("diff", "MultilinePart")))
-                }),
-                "short string": group({
+                })),
+                "short string": type(group({
                     "expected": member(string()),
                     "actual": member(string()),
-                }),
-                "file string": group({
+                })),
+                "file string": type(group({
                     "fileLocation": member(string()),
                     "parts": member(array(externalReference("diff", "MultilinePart")))
-                }),
+                })),
             }),
             "ValidateFileData": group({
                 "expectedFile": member(group({
@@ -104,36 +104,36 @@ export const api: NAPI.TModuleDefinition = {
             }),
         }),
         'functions': wd({
-            "GetTestSet": _function(["reference", "TestParameters"], ["reference", "TestSet"], true)
+            "GetTestSet": _function(['reference', "TestParameters"], ['reference', "TestSet"], true)
         }),
         'callbacks': wd({}),
         'interfaces': wd({}),
     },
-    api: {
-        imports: wd({}),
-        algorithms: wd({
-            "createTestProgram": ["constructor", {
-                data: ["null", null],
-                dependencies: wd({
+    'api': {
+        'imports': wd({}),
+        'algorithms': wd({
+            "createTestProgram": ['constructor', {
+                'data': ['null', null],
+                'dependencies': wd({
                     "getTestSet": {
-                        type: ["function", {
-                            context: ["local", null],
-                            function: "GetTestSet",
-                            async: true,
+                        'type': ['function', {
+                            'context': ['local', null],
+                            'function': "GetTestSet",
+                            'async': true,
                         }],
                     },
                     "log": {
-                        type: ["procedure", str()],
+                        'type': ['procedure', ['type', str()]],
                     },
                     "logError": {
-                        type: ["procedure", str()],
+                        'type': ['procedure', ['type', str()]],
                     },
                     "onTestErrors": {
-                        type: ["procedure", nll()],
+                        'type': ['procedure', ['null', null]],
                     },
                 }),
-                result: {
-                    type: ["procedure", ref("Arguments")],
+                'result': {
+                    'type': ['procedure', ['type', ref("Arguments")]],
                 }
             }]
         })
