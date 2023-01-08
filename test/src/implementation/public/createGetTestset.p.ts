@@ -27,10 +27,10 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
 
             const tpp = pubPrivate.$a.createTestParametersParser(
                 {
-                    onError: ($) => {
+                    donError: ($) => {
                         log.push(['error', $])
                     },
-                    callback: ($) => {
+                    dcallback: ($) => {
                         log.push(['callback', $])
                     }
                 })

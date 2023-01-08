@@ -8,15 +8,15 @@ export const icreateTestParametersParser: api.CcreateTestParametersParser = (
         let state: State = null
         $.forEach(($) => {
             if (state !== null) {
-                $d.onError(['too many', null])
+                $d.donError(['too many', null])
             } else {
                 state = $
             }
         })
         if (state === null) {
-            $d.onError(['missing', null])
+            $d.donError(['missing', null])
         } else {
-            $d.callback(state)
+            $d.dcallback(state)
         }
     }
 }

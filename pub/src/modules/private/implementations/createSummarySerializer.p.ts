@@ -10,9 +10,9 @@ export const icreateSummarySerializer: api.CcreateSummarySerializer = (
         const green = "\x1b[32m"
         const reset = "\x1b[0m"
 
-        $d.log(``)
+        $d.dlog(``)
         const summary = $
-        $d.log(`${$d.isZero(summary.numberOfErrors) ? green : ""}${$d.add([summary.numberOfTests, $d.negate(summary.numberOfErrors)])} successful tests${reset}`)
-        $d.log(`${$d.isZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
+        $d.dlog(`${$d.fisZero(summary.numberOfErrors) ? green : ""}${$d.fadd([summary.numberOfTests, $d.fnegate(summary.numberOfErrors)])} successful tests${reset}`)
+        $d.dlog(`${$d.fisZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
     }
 }

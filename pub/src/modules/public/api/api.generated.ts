@@ -4,10 +4,10 @@ import * as glo from "./types.generated"
 
 
 export type CcreateTestProgram = ($d: {
-    readonly "getTestSet": glo.AGetTestSet
-    readonly "log": pt.Procedure<string>
-    readonly "logError": pt.Procedure<string>
-    readonly "onTestErrors": pt.Procedure<null>
+    readonly "fgetTestSet": glo.AGetTestSet
+    readonly "dlog": pt.Procedure<string>
+    readonly "dlogError": pt.Procedure<string>
+    readonly "donTestErrors": pt.Procedure<null>
 }) => pt.Procedure<glo.TArguments>
 
 export type API = {

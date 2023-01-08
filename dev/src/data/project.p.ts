@@ -32,8 +32,8 @@ export const project: mproject.TProject = {
                     }),
                     'functions': wd({
                         "Increment": _function(number(), number()),
-                        "IsZero": _function(number(), boolean()),
-                        "Negate": _function(number(), number()),
+                        // "IsZero": _function(number(), boolean()),
+                        // "Negate": _function(number(), number()),
                         "ReadFile": _function(externalReference("common", "Path"), string(), true),
                         "RunTests": _function(externalReference("api", "TestSet"), externalReference("api", "TestSetResult"), true),
                         "ValidateFile": _function(externalReference("api", "ValidateFileData"), externalReference("api", "TestElementResult"), true),
@@ -49,224 +49,177 @@ export const project: mproject.TProject = {
                         "api": "../../public",
                         "arithmetic": "res-pareto-arithmetic",
                         "collation": "res-pareto-collation",
+                        "boolean": "res-pareto-boolean",
                         "diff": "res-pareto-diff",
                         "fs": "res-pareto-filesystem",
                     }),
                     'algorithms': wd({
-                        "createArgumentsParser": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "callback": {
-                                    'type': ['procedure', ['type', externalReference("api", "TestParameters")]],
-                                },
-                                "onError": {
-                                    'type': ['procedure', ['type', string()]],
-
-                                },
-                            }),
-                            'result': {
-                                'type': ['procedure', ['type', externalReference("api", "Arguments")]],
-                            }
+                        "createArgumentsParser": ['procedure constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({}),
+                                'downstreams': wd({
+                                    "callback": ['type', externalReference("api", "TestParameters")],
+                                    "onError": ['type', string()],
+                                }),
+                            },
+                            'type': ['type', externalReference("api", "Arguments")],
                         }],
-                        "createBoundTester": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "onTestErrors": {
-                                    'type': ['procedure', ['null', null]],
-
-                                },
-                                "log": {
-                                    'type': ['procedure', ['type', string()]],
-
-                                },
-                                "onError": {
-                                    'type': ['procedure', ['type', string()]],
-
-                                },
-                            }),
-                            'result': {
-                                'type': ['procedure', ['type', externalReference("api", "TestSet")]],
-                            }
+                        "createBoundTester": ['procedure constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({}),
+                                'downstreams': wd({
+                                    "onTestErrors": ['null', null],
+                                    "log": ['type', string()],
+                                    "onError": ['type', string()],
+                                }),
+                            },
+                            'type': ['type', externalReference("api", "TestSet")],
                         }],
-                        "createFileValidator": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "writeFile": {
-                                    'type': ['procedure', ['type', reference("WriteFileData")]],
-
-                                },
-                                "unlink": {
-                                    'type': ['procedure', ['type', externalReference("fs", "Unlink_Data")]],
-
-                                },
-                                "readFile": {
-                                    'type': ['function', {
+                        "createFileValidator": ['function constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({
+                                    "readFile": {
                                         'function': "ReadFile",
                                         'async': true,
-                                    }],
-
-                                },
-                                "diffData": {
-                                    'type': ['function', {
+                                    },
+                                    "diffData": {
                                         'context': ['import', "diff"],
                                         'function': "DiffData",
-                                    }],
-
-                                },
-                            }),
-                            'result': {
-                                'type': ['function', {
-                                    'function': "ValidateFile",
-                                    'async': true,
-                                }],
-                            }
+                                    },
+                                }),
+                                'side effects': wd({
+                                    "writeFile": ['type', reference("WriteFileData")],
+                                    "unlink": ['type', externalReference("fs", "Unlink_Data")],
+                                }),
+                            },
+                            'function': {
+                                'function': "ValidateFile",
+                                'async': true,
+                            },
                         }],
-                        "createSummarizer": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "log": {
-                                    'type': ['procedure', ['type', string()]],
-
-                                },
-                                "increment": {
-                                    'type': ['function', {
+                        "createSummarizer": ['function constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({
+                                    "increment": {
                                         'function': "Increment",
-                                    }],
+                                    },
+                                }),
+                                'side effects': wd({
+                                    //     "log": {
+                                    //         'type': ['procedure', ['type', string()]],
 
-                                },
-
-                            }),
-                            'result': {
-                                'type': ['function', {
-                                    'function': "Summarize",
-                                }],
-                            }
+                                    //     },
+                                }),
+                            },
+                            'function': {
+                                'function': "Summarize",
+                            },
                         }],
-                        "createSummarySerializer": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "add": {
-                                    'type': ['function', {
+                        "createSummarySerializer": ['procedure constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({
+                                    "add": {
                                         'context': ['import', "arithmetic"],
                                         'function': "Add",
-                                    }],
-                                },
-                                "isZero": {
-                                    'type': ['function', {
+                                    },
+                                    "isZero": {
+                                        'context': ['import', "boolean"],
                                         'function': "IsZero",
-                                    }],
-                                },
-                                "log": {
-                                    'type': ['procedure', ['type', string()]],
-
-                                },
-                                "negate": {
-                                    'type': ['function', {
+                                    },
+                                    "negate": {
+                                        'context': ['import', "arithmetic"],
                                         'function': "Negate",
-                                    }],
-                                },
-                            }),
-                            'result': {
-                                'type': ['procedure', ['type', externalReference("api", "Summary")]],
-                            }
+                                    },
+
+                                }),
+                                'downstreams': wd({
+                                    "log": ['type', string()],
+                                }),
+                            },
+                            // 'dependencies': wd({
+                            // }),
+                            'type': ['type', externalReference("api", "Summary")],
                         }],
-                        "createTester": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "onTestErrors": {
-                                    'type': ['procedure', ['null', null]],
+                        "createTester": ['procedure constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({
 
-                                },
-                                "serializeTestResult": {
-                                    'type': ['procedure', ['type', externalReference("api", "TestSetResult")]],
-
-                                },
-                                "serializeSummary": {
-                                    'type': ['procedure', ['type', externalReference("api", "Summary")]],
-
-                                },
-                                "runTests": {
-                                    'type': ['function', {
+                                    "runTests": {
                                         'function': "RunTests",
                                         'async': true,
-                                    }],
-                                },
-                                "isZero": {
-                                    'type': ['function', {
+                                    },
+                                    "isZero": {
+                                        'context': ['import', "boolean"],
                                         'function': "IsZero",
-                                    }],
-                                },
-                                "summarize": {
-                                    'type': ['function', {
+                                    },
+                                    "summarize": {
                                         'function': "Summarize",
-                                    }],
+                                    },
+                                }),
+                                'downstreams': wd({
+                                    "onTestErrors": ['null', null],
+                                    "serializeTestResult": ['type', externalReference("api", "TestSetResult")],
+                                    "serializeSummary": ['type', externalReference("api", "Summary")],
+                                }),
+                            },
+                            'type': ['type', externalReference("api", "TestSet")],
+                        }],
+                        "createTestParametersParser": ['procedure constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({}),
+                                'downstreams': wd({
+                                    "callback": ['type', externalReference("api", "TestParameters")],
+                                    "onError": ['type', externalReference("api", "ArgumentError")],
+                                }),
+                            },
+                            'type': ['type', externalReference("api", "Arguments")],
 
-                                },
-                            }),
-                            'result': {
-                                'type': ['procedure', ['type', externalReference("api", "TestSet")]],
-                            }
                         }],
-                        "createTestParametersParser": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "callback": {
-                                    'type': ['procedure', ['type', externalReference("api", "TestParameters")]],
-                                },
-                                "onError": {
-                                    'type': ['procedure', ['type', externalReference("api", "ArgumentError")]],
-                                },
-                            }),
-                            'result': {
-                                'type': ['procedure', ['type', externalReference("api", "Arguments")]],
-                            }
-                        }],
-                        "createTestRunner": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "diffData": {
-                                    'type':['function', {
+                        "createTestRunner": ['function constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({
+                                    "diffData": {
                                         'context': ['import', "diff"],
                                         'function': "DiffData",
-                                    }],
-                                },
-                                "stringsAreEqual": {
-                                    'type':['function', {
+                                    },
+                                    "stringsAreEqual": {
                                         'context': ['import', "diff"],
                                         'function': "StringsAreEqual",
-                                    }],
-                                },
-                                "validateFile": {
-                                    'type':['function', {
+                                    },
+                                    "validateFile": {
                                         'function': "ValidateFile",
                                         'async': true,
-                                    }],
-                                },
-                            }),
-                            'result': {
-                                'type':['function', {
-                                    'function': "RunTests",
-                                    'async': true,
-                                }],
+                                    },
+
+                                }),
+                            },
+                            'function': {
+                                'function': "RunTests",
+                                'async': true,
                             }
                         }],
-                        "createTestResultSerializer": ['constructor', {
-                            'data': ['null', null],
-                            'dependencies': wd({
-                                "isABeforeB": {
-                                    'type':['function', {
+                        "createTestResultSerializer": ['procedure constructor', {
+                            'configuration data': ['null', null],
+                            'dependencies': {
+                                'functions': wd({
+                                    "isABeforeB": {
                                         'context': ['import', "collation"],
                                         'function': "IsABeforeB",
-                                    }],
-                                },
-                                "log": {
-                                    'type':['procedure',  ['type',string()]],
-
-                                },
-                            }),
-                            'result': {
-                                'type':['procedure',  ['type',externalReference("api", "TestSetResult")]],
-                            }
+                                    },
+                                }),
+                                'downstreams': wd({
+                                    "log": ['type', string()],
+                                }),
+                            },
+                            'type': ['type', externalReference("api", "TestSetResult")],
                         }],
                     })
                 },

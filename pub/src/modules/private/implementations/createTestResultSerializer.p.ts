@@ -24,21 +24,21 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
         ) {
             const indentation = $.indentation
             $.result.elements.forEach(
-                (a, b) => $d.isABeforeB({a: a, b: b}),
+                (a, b) => $d.fisABeforeB({a: a, b: b}),
                 ($, key) => {
                     const name = key
                     switch ($.type[0]) {
                         case "test":
                             pl.cc($.type[1], ($) => {
                                 const success = $.success
-                                $d.log(`${indentation}${$.success ? green : red}${name}${reset}`)
+                                $d.dlog(`${indentation}${$.success ? green : red}${name}${reset}`)
                                 switch ($.type[0]) {
                                     case "short string":
                                         pl.cc($.type[1], ($) => {
                                             if (success) {
                                             } else {
-                                                $d.log(`${indentation}  expected: '${$.expected}'`)
-                                                $d.log(`${indentation}  actual:   '${$.actual}'`)
+                                                $d.dlog(`${indentation}  expected: '${$.expected}'`)
+                                                $d.dlog(`${indentation}  actual:   '${$.actual}'`)
                                             }
                                         })
                                         break
@@ -47,9 +47,9 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
                                             $.parts.forEach(($) => {
                                                 const added = $.type[0] === "added"
 
-                                                $d.log(`${indentation}  line ${$.startLineInOriginal}|${$.startLineInChanged}`)
+                                                $d.dlog(`${indentation}  line ${$.startLineInOriginal}|${$.startLineInChanged}`)
                                                 $.lines.forEach(($) => {
-                                                    $d.log(`${indentation}    ${added ? "+" : "-"}${$}`)
+                                                    $d.dlog(`${indentation}    ${added ? "+" : "-"}${$}`)
                                                 })
                                             })
                                         })
@@ -59,9 +59,9 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
                                             const fileLocation = $.fileLocation
                                             $.parts.forEach(($) => {
                                                 const added = $.type[0] === "added"
-                                                $d.log(`${indentation}  ${cyan}${fileLocation}${reset}:${yellow}${$.startLineInOriginal}${reset}`)
+                                                $d.dlog(`${indentation}  ${cyan}${fileLocation}${reset}:${yellow}${$.startLineInOriginal}${reset}`)
                                                 $.lines.forEach(($) => {
-                                                    $d.log(`${indentation}    ${added ? "+" : "-"}${$}`)
+                                                    $d.dlog(`${indentation}    ${added ? "+" : "-"}${$}`)
                                                 })
                                             })
                                         })
@@ -77,7 +77,7 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
                             break
                         case "subset":
                             pl.cc($.type[1], ($) => {
-                                $d.log(`${indentation}${name}`)
+                                $d.dlog(`${indentation}${name}`)
                                 serializeTestSetImp({
                                     result: $,
                                     indentation: `${indentation}  `,

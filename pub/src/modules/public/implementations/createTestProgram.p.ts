@@ -7,15 +7,15 @@ import * as mprivate from "../../private"
 export const icreateTestProgram: api.CcreateTestProgram = ($d) => {
     const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
     return mprivate.$a.createArgumentsParser({
-        onError: $d.logError,
-        callback: ($) =>/**/ {
+        donError: $d.dlogError,
+        dcallback: ($) =>/**/ {
             processAsync(
-                $d.getTestSet($),
+                $d.fgetTestSet($),
                 mprivate.$a.createBoundTester(
                     {
-                        onError: $d.logError,
-                        onTestErrors: $d.onTestErrors,
-                        log: $d.log
+                        donError: $d.dlogError,
+                        donTestErrors: $d.donTestErrors,
+                        dlog: $d.dlog
                     }
                 )
             )

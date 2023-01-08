@@ -9,10 +9,6 @@ export type TWriteFileData = {
 
 export type FIncrement = ($: number) => number
 
-export type FIsZero = ($: number) => boolean
-
-export type FNegate = ($: number) => number
-
 export type AReadFile = ($: mcommon.TPath) => pt.AsyncValue<string>
 
 export type ARunTests = ($: mapi.TTestSet) => pt.AsyncValue<mapi.TTestSetResult>

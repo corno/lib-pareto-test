@@ -33,13 +33,13 @@ export const icreateTestRunner: api.CcreateTestRunner = ($d) => {
                                     })
                                 case "file string":
                                     return pl.cc($.type[1], ($) => {
-                                        return $d.validateFile(
+                                        return $d.fvalidateFile(
                                             $,
                                         )
                                     })
                                 case "long string":
                                     return pl.cc($.type[1], ($) => {
-                                        const res = $d.diffData(
+                                        const res = $d.fdiffData(
                                             {
                                                 originalData: $.expected,
                                                 changedData: $.actual,
@@ -72,7 +72,7 @@ export const icreateTestRunner: api.CcreateTestRunner = ($d) => {
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
                                             type: ['test', {
-                                                success: $d.stringsAreEqual({
+                                                success: $d.fstringsAreEqual({
                                                     a: $.actual,
                                                     b: $.expected,
                                                 }),

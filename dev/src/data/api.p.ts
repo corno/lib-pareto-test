@@ -112,29 +112,23 @@ export const api: NAPI.TModuleDefinition = {
     'api': {
         'imports': wd({}),
         'algorithms': wd({
-            "createTestProgram": ['constructor', {
-                'data': ['null', null],
-                'dependencies': wd({
-                    "getTestSet": {
-                        'type': ['function', {
+            "createTestProgram": ['procedure constructor', {
+                'configuration data': ['null', null],
+                'dependencies': {
+                    'functions': wd({
+                        "getTestSet": {
                             'context': ['local', null],
                             'function': "GetTestSet",
                             'async': true,
-                        }],
-                    },
-                    "log": {
-                        'type': ['procedure', ['type', str()]],
-                    },
-                    "logError": {
-                        'type': ['procedure', ['type', str()]],
-                    },
-                    "onTestErrors": {
-                        'type': ['procedure', ['null', null]],
-                    },
-                }),
-                'result': {
-                    'type': ['procedure', ['type', ref("Arguments")]],
-                }
+                        },
+                    }),
+                    'downstreams': wd({
+                        "log": ['type', str()],
+                        "logError": ['type', str()],
+                        "onTestErrors": ['null', null],
+                    }),
+                },
+                'type': ['type', ref("Arguments")],
             }]
         })
     }
