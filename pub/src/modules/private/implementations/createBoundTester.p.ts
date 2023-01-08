@@ -38,8 +38,8 @@ export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
                 {
                     log: $d.log,
                     isZero: bool.$a.isZero,
-                    add: arith.f_add,
-                    negate: arith.f_negative,
+                    add: arith.$a.add,
+                    negate: arith.$a.negate,
 
                 }
             ),
@@ -52,27 +52,28 @@ export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
                         null,
                         {
                             writeFile: ($) =>/**/ {
-                                fslib.$b.createWriteFileFireAndForget(
+                                fslib.$a.createWriteFileFireAndForget(
+                                    null,
                                     {
                                         onError: ($) =>/**/ {
-                                            $d.onError(`${$.path}: ${fslib.$b.createWriteFileErrorMessage($.error)}`)
-                                        }
+                                            $d.onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
+                                        },
+                                        createWriteStream: fs.f_createWriteStream,
                                     },
-
-                                    processAsync,
                                 )({
                                     path: $.path,
                                     data: $.data,
                                     createContainingDirectories: true,
                                 })
                             },
-                            unlink: fslib.$b.createUnlinkFireAndForget(
+                            unlink: fslib.$a.createUnlinkFireAndForget(
+                                null,
                                 {
                                     onError: ($) =>/**/ {
-                                        $d.onError(`${$.path}: ${fslib.$b.createUnlinkErrorMessage($.error)}`)
-                                    }
+                                        $d.onError(`${$.path}: ${fslib.$a.createUnlinkErrorMessage($.error)}`)
+                                    },
+                                    unlink: fs.f_unlink,
                                 },
-                                processAsync,
                             ),
                             readFile: ($) =>/**/ {
                                 const x = $
@@ -82,7 +83,7 @@ export const icreateBoundTester: api.CcreateBoundTester = ($, $d) => {
                                         x,
                                         {
                                             onError: ($) =>/**/ {
-                                                $d.onError(`${$.path}: ${fslib.$b.createReadFileErrorMessage($.error)}`)
+                                                $d.onError(`${$.path}: ${fslib.$a.createReadFileErrorMessage($.error)}`)
                                             },
                                             init: ($c) =>/**/ {
                                                 let out = ""
