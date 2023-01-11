@@ -29,9 +29,9 @@ export const icreateSummarizer: api.CcreateSummarizer = (
                         break
                     case "test":
                         pl.cc($.type[1], ($) => {
-                            summary.numberOfTests = $d.fincrement(summary.numberOfTests)
+                            summary.numberOfTests = $d.sf_increment(summary.numberOfTests)
                             if (!$.success) {
-                                summary.numberOfErrors = $d.fincrement(summary.numberOfErrors)
+                                summary.numberOfErrors = $d.sf_increment(summary.numberOfErrors)
                             }
 
                         })

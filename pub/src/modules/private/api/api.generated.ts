@@ -10,57 +10,57 @@ import * as mdiff from "res-pareto-diff"
 import * as mfs from "res-pareto-filesystem"
 
 export type CcreateArgumentsParser = ($d: {
-    readonly "dcallback": pt.Procedure<mapi.TTestParameters>
-    readonly "donError": pt.Procedure<string>
+    readonly "pr_callback": pt.Procedure<mapi.TTestParameters>
+    readonly "pr_onError": pt.Procedure<string>
 }) => pt.Procedure<mapi.TArguments>
 
 export type CcreateBoundTester = ($d: {
-    readonly "dlog": pt.Procedure<string>
-    readonly "donError": pt.Procedure<string>
-    readonly "donTestErrors": pt.Procedure<null>
+    readonly "pr_log": pt.Procedure<string>
+    readonly "pr_onError": pt.Procedure<string>
+    readonly "pr_onTestErrors": pt.Procedure<null>
 }) => pt.Procedure<mapi.TTestSet>
 
 export type CcreateFileValidator = ($d: {
-    readonly "fdiffData": mdiff.FDiffData
-    readonly "freadFile": glo.AReadFile
-    readonly "seunlink": pt.Procedure<mfs.TUnlink_Data>
-    readonly "sewriteFile": pt.Procedure<glo.TWriteFileData>
+    readonly "sf_diffData": mdiff.FDiffData
+    readonly "af_readFile": glo.AReadFile
+    readonly "pr_unlink": pt.Procedure<mfs.TUnlink_Data>
+    readonly "pr_writeFile": pt.Procedure<glo.TWriteFileData>
 }) => glo.AValidateFile
 
 export type CcreateSummarizer = ($d: {
-    readonly "fincrement": glo.FIncrement
+    readonly "sf_increment": glo.FIncrement
 }) => glo.FSummarize
 
 export type CcreateSummarySerializer = ($d: {
-    readonly "fadd": marithmetic.FAdd
-    readonly "fisZero": mboolean.FIsZero
-    readonly "fnegate": marithmetic.FNegate
-    readonly "dlog": pt.Procedure<string>
+    readonly "sf_add": marithmetic.FAdd
+    readonly "sf_isZero": mboolean.FIsZero
+    readonly "pr_log": pt.Procedure<string>
+    readonly "sf_negate": marithmetic.FNegate
 }) => pt.Procedure<mapi.TSummary>
 
 export type CcreateTester = ($d: {
-    readonly "fisZero": mboolean.FIsZero
-    readonly "frunTests": glo.ARunTests
-    readonly "fsummarize": glo.FSummarize
-    readonly "donTestErrors": pt.Procedure<null>
-    readonly "dserializeSummary": pt.Procedure<mapi.TSummary>
-    readonly "dserializeTestResult": pt.Procedure<mapi.TTestSetResult>
+    readonly "sf_isZero": mboolean.FIsZero
+    readonly "pr_onTestErrors": pt.Procedure<null>
+    readonly "af_runTests": glo.ARunTests
+    readonly "pr_serializeSummary": pt.Procedure<mapi.TSummary>
+    readonly "pr_serializeTestResult": pt.Procedure<mapi.TTestSetResult>
+    readonly "sf_summarize": glo.FSummarize
 }) => pt.Procedure<mapi.TTestSet>
 
 export type CcreateTestParametersParser = ($d: {
-    readonly "dcallback": pt.Procedure<mapi.TTestParameters>
-    readonly "donError": pt.Procedure<mapi.TArgumentError>
+    readonly "pr_callback": pt.Procedure<mapi.TTestParameters>
+    readonly "pr_onError": pt.Procedure<mapi.TArgumentError>
 }) => pt.Procedure<mapi.TArguments>
 
 export type CcreateTestResultSerializer = ($d: {
-    readonly "fisABeforeB": mcollation.FIsABeforeB
-    readonly "dlog": pt.Procedure<string>
+    readonly "sf_isABeforeB": mcollation.FIsABeforeB
+    readonly "pr_log": pt.Procedure<string>
 }) => pt.Procedure<mapi.TTestSetResult>
 
 export type CcreateTestRunner = ($d: {
-    readonly "fdiffData": mdiff.FDiffData
-    readonly "fstringsAreEqual": mdiff.FStringsAreEqual
-    readonly "fvalidateFile": glo.AValidateFile
+    readonly "sf_diffData": mdiff.FDiffData
+    readonly "sf_stringsAreEqual": mdiff.FStringsAreEqual
+    readonly "af_validateFile": glo.AValidateFile
 }) => glo.ARunTests
 
 export type API = {

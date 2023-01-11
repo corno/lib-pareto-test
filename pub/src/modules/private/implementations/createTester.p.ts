@@ -8,17 +8,17 @@ export const icreateTester: api.CcreateTester = (
     const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
     return ($) => {
         processAsync(
-            $d.frunTests($),
+            $d.af_runTests($),
             ($) => {
-                $d.dserializeTestResult($)
-                const summary = $d.fsummarize(
+                $d.pr_serializeTestResult($)
+                const summary = $d.sf_summarize(
                     $,
                 )
-                $d.dserializeSummary(summary)
-                if ($d.fisZero(summary.numberOfErrors)) {
+                $d.pr_serializeSummary(summary)
+                if ($d.sf_isZero(summary.numberOfErrors)) {
                     //
                 } else {
-                    $d.donTestErrors(null)
+                    $d.pr_onTestErrors(null)
                 }
             }
         )

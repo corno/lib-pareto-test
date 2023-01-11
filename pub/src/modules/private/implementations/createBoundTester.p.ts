@@ -24,33 +24,33 @@ const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $
 export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
     return icreateTester(
         {
-            donTestErrors: $d.donTestErrors,
-            dserializeTestResult: icreateTestResultSerializer(
+            pr_onTestErrors: $d.pr_onTestErrors,
+            pr_serializeTestResult: icreateTestResultSerializer(
                 {
-                    dlog: $d.dlog,
-                    fisABeforeB: collation.$a.localeIsABeforeB,
+                    pr_log: $d.pr_log,
+                    sf_isABeforeB: collation.$a.localeIsABeforeB,
                 },
             ),
-            dserializeSummary: icreateSummarySerializer(
+            pr_serializeSummary: icreateSummarySerializer(
                 {
-                    dlog: $d.dlog,
-                    fisZero: bool.$a.isZero,
-                    fadd: arith.$a.add,
-                    fnegate: arith.$a.negate,
+                    pr_log: $d.pr_log,
+                    sf_isZero: bool.$a.isZero,
+                    sf_add: arith.$a.add,
+                    sf_negate: arith.$a.negate,
 
                 }
             ),
-            frunTests: icreateTestRunner(
+            af_runTests: icreateTestRunner(
                 {
-                    fdiffData: diff.$a.diffData,
-                    fstringsAreEqual: diff.$a.stringsAreEqual,
-                    fvalidateFile: icreateFileValidator(
+                    sf_diffData: diff.$a.diffData,
+                    sf_stringsAreEqual: diff.$a.stringsAreEqual,
+                    af_validateFile: icreateFileValidator(
                         {
-                            sewriteFile: ($) =>/**/ {
+                            pr_writeFile: ($) =>/**/ {
                                 fslib.$a.createWriteFileFireAndForget(
                                     {
                                         donError: ($) =>/**/ {
-                                            $d.donError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
+                                            $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
                                         },
                                         fcreateWriteStream: fs.f_createWriteStream,
                                     },
@@ -60,15 +60,15 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                                     createContainingDirectories: true,
                                 })
                             },
-                            seunlink: fslib.$a.createUnlinkFireAndForget(
+                            pr_unlink: fslib.$a.createUnlinkFireAndForget(
                                 {
                                     donError: ($) =>/**/ {
-                                        $d.donError(`${$.path}: ${fslib.$a.createUnlinkErrorMessage($.error)}`)
+                                        $d.pr_onError(`${$.path}: ${fslib.$a.createUnlinkErrorMessage($.error)}`)
                                     },
                                     funlink: fs.f_unlink,
                                 },
                             ),
-                            freadFile: ($) =>/**/ {
+                            af_readFile: ($) =>/**/ {
                                 const x = $
                                 return pl.toAsyncValue(($i2) =>/**/ {
 
@@ -76,7 +76,7 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                                         x,
                                         {
                                             onError: ($) =>/**/ {
-                                                $d.donError(`${$.path}: ${fslib.$a.createReadFileErrorMessage($.error)}`)
+                                                $d.pr_onError(`${$.path}: ${fslib.$a.createReadFileErrorMessage($.error)}`)
                                             },
                                             init: ($c) =>/**/ {
                                                 let out = ""
@@ -94,17 +94,17 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                                     )
                                 })
                             },
-                            fdiffData: diff.$a.diffData,
+                            sf_diffData: diff.$a.diffData,
                         }),
                 }
             ),
-            fsummarize: icreateSummarizer(
+            sf_summarize: icreateSummarizer(
                 {
-                   //log: $d.dlog,
-                    fincrement: iincrement,
+                   //log: $d.pr_log,
+                    sf_increment: iincrement,
                 }
             ),
-            fisZero: bool.$a.isZero,
+            sf_isZero: bool.$a.isZero,
         },
     )
 }

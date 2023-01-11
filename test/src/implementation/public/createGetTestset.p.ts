@@ -6,7 +6,6 @@ import * as pr from "pareto-core-raw"
 import * as test from "lib-pareto-test"
 
 import * as api from "../../interface"
-import * as us from "res-pareto-ugly-stuff"
 
 
 import * as pub from "../../../../pub"
@@ -27,10 +26,10 @@ export const createGetTestset: api.FCreateGetTestset = ($, $f) => {
 
             const tpp = pubPrivate.$a.createTestParametersParser(
                 {
-                    donError: ($) => {
+                    pr_onError: ($) => {
                         log.push(['error', $])
                     },
-                    dcallback: ($) => {
+                    pr_callback: ($) => {
                         log.push(['callback', $])
                     }
                 })

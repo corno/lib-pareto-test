@@ -31,11 +31,11 @@ export const icreateArgumentsParser: api.CcreateArgumentsParser = ($d) => {
     // )
     return icreateTestParametersParser(
         {
-            donError: () =>/**/ {
-                $d.donError(`arguments error`)
+            pr_onError: () =>/**/ {
+                $d.pr_onError(`arguments error`)
             },
-            dcallback: ($) => {
-                $d.dcallback($)
+            pr_callback: ($) => {
+                $d.pr_callback($)
             },
         }
     )
