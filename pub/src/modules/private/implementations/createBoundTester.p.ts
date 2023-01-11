@@ -49,10 +49,10 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                             pr_writeFile: ($) =>/**/ {
                                 fslib.$a.createWriteFileFireAndForget(
                                     {
-                                        donError: ($) =>/**/ {
+                                        pr_onError: ($) =>/**/ {
                                             $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
                                         },
-                                        fcreateWriteStream: fs.f_createWriteStream,
+                                        sf_createWriteStream: fs.f_createWriteStream,
                                     },
                                 )({
                                     path: $.path,
@@ -62,10 +62,10 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                             },
                             pr_unlink: fslib.$a.createUnlinkFireAndForget(
                                 {
-                                    donError: ($) =>/**/ {
+                                    pr_onError: ($) =>/**/ {
                                         $d.pr_onError(`${$.path}: ${fslib.$a.createUnlinkErrorMessage($.error)}`)
                                     },
-                                    funlink: fs.f_unlink,
+                                    sf_unlink: fs.f_unlink,
                                 },
                             ),
                             af_readFile: ($) =>/**/ {
