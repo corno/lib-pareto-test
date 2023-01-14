@@ -52,7 +52,11 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                                         pr_onError: ($) =>/**/ {
                                             $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
                                         },
-                                        sf_createWriteStream: fs.f_createWriteStream,
+                                        if_createWriteStream: fs.$a.createWriteStream({
+                                            pr_onError: ($) => {
+                                                $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
+                                            }
+                                        }),
                                     },
                                 )({
                                     path: $.path,
@@ -65,14 +69,14 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                                     pr_onError: ($) =>/**/ {
                                         $d.pr_onError(`${$.path}: ${fslib.$a.createUnlinkErrorMessage($.error)}`)
                                     },
-                                    sf_unlink: fs.f_unlink,
+                                    af_unlink: fs.$a.unlink,
                                 },
                             ),
                             af_readFile: ($) =>/**/ {
                                 const x = $
                                 return pl.toAsyncValue(($i2) =>/**/ {
 
-                                    fs.f_getFile(
+                                    fs.$a.getFile(
                                         x,
                                         {
                                             onError: ($) =>/**/ {
@@ -90,7 +94,6 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                                                 })
                                             }
                                         },
-                                        ($, $i) =>/**/ $._execute($i)
                                     )
                                 })
                             },

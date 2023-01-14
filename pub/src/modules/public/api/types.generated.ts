@@ -3,8 +3,8 @@ import * as mcommon from "glo-pareto-common"
 import * as mdiff from "res-pareto-diff"
 
 export type TArgumentError = 
-    | [ "missing", null ]
-    | [ "too many", null ]
+    | ["missing", null]
+    | ["too many", null]
 
 export type TArguments = pt.Array<string>
 
@@ -15,29 +15,29 @@ export type TSummary = {
 
 export type TTestElement = {
     readonly "type": 
-        | [ "subset", TTestSet ]
-        | [ "test", {
+        | ["subset", TTestSet]
+        | ["test", {
             readonly "type": 
-                | [ "boolean", boolean ]
-                | [ "file string", TValidateFileData ]
-                | [ "long string", {
+                | ["boolean", boolean]
+                | ["file string", TValidateFileData]
+                | ["long string", {
                     readonly "actual": string
                     readonly "expected": string
-                } ]
-                | [ "short string", {
+                }]
+                | ["short string", {
                     readonly "actual": string
                     readonly "expected": string
-                } ]
-        } ]
+                }]
+        }]
 }
 
 export type TTestElementResult = {
     readonly "type": 
-        | [ "subset", TTestSetResult ]
-        | [ "test", {
+        | ["subset", TTestSetResult]
+        | ["test", {
             readonly "success": boolean
             readonly "type": TTestType
-        } ]
+        }]
 }
 
 export type TTestParameters = {
@@ -53,18 +53,18 @@ export type TTestSetResult = {
 }
 
 export type TTestType = 
-    | [ "boolean", null ]
-    | [ "file string", {
+    | ["boolean", null]
+    | ["file string", {
         readonly "fileLocation": string
         readonly "parts": pt.Array<mdiff.TMultilinePart>
-    } ]
-    | [ "long string", {
+    }]
+    | ["long string", {
         readonly "parts": pt.Array<mdiff.TMultilinePart>
-    } ]
-    | [ "short string", {
+    }]
+    | ["short string", {
         readonly "actual": string
         readonly "expected": string
-    } ]
+    }]
 
 export type TValidateFileData = {
     readonly "actual": string
