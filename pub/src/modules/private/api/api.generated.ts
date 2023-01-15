@@ -63,6 +63,8 @@ export type CcreateTestRunner = ($d: {
     readonly "af_validateFile": glo.AValidateFile
 }) => glo.ARunTests
 
+export type Cincrement = glo.FIncrement
+
 export type API = {
     createArgumentsParser: CcreateArgumentsParser
     createBoundTester: CcreateBoundTester
@@ -73,4 +75,5 @@ export type API = {
     createTestParametersParser: CcreateTestParametersParser
     createTestResultSerializer: CcreateTestResultSerializer
     createTestRunner: CcreateTestRunner
+    increment: Cincrement
 }

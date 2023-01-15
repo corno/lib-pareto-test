@@ -205,6 +205,13 @@ export const project: mproject.TProject = {
                                 }),
                             }],
                         },
+                        "increment": {
+
+                            'definition': ['function', {
+                                'function': "Increment"
+                            }],
+                            'type': ['reference', null],
+                        }
                     })
                 },
             },

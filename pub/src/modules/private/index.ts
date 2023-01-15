@@ -8,6 +8,7 @@ import { icreateTester } from "./implementations/createTester.p"
 import { icreateTestParametersParser } from "./implementations/createTestParametersParser.p"
 import { icreateTestResultSerializer } from "./implementations/createTestResultSerializer.p"
 import { icreateTestRunner } from "./implementations/createTestRunner.p"
+import { iincrement } from "./implementations/increment.p"
 
 export * from "./api"
 
@@ -21,4 +22,5 @@ export const $a: API = {
     "createTestParametersParser": icreateTestParametersParser,
     "createTestResultSerializer": icreateTestResultSerializer,
     "createTestRunner": icreateTestRunner,
+    "increment": iincrement,
 }

@@ -11,6 +11,7 @@ import { test as private_createTester } from "../modules/private/createTester.p"
 import { test as private_createTestParametersParser } from "../modules/private/createTestParametersParser.p"
 import { test as private_createTestResultSerializer } from "../modules/private/createTestResultSerializer.p"
 import { test as private_createTestRunner } from "../modules/private/createTestRunner.p"
+import { test as private_increment } from "../modules/private/increment.p"
 import { test as public_createTestProgram } from "../modules/public/createTestProgram.p"
 
 const x = pr.wrapRawDictionary({
@@ -24,6 +25,7 @@ const x = pr.wrapRawDictionary({
         "createTestParametersParser": private_createTestParametersParser,
         "createTestResultSerializer": private_createTestResultSerializer,
         "createTestRunner": private_createTestRunner,
+        "increment": private_increment,
     }),
     "public": pr.wrapRawDictionary({
         "createTestProgram": public_createTestProgram,
