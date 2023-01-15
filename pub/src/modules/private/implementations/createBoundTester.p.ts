@@ -18,8 +18,6 @@ import { icreateFileValidator } from "./createFileValidator.p"
 import { icreateSummarizer } from "./createSummarizer.p"
 import { iincrement } from "./increment.p"
 
-const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
-
 
 export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
     return icreateTester(
@@ -49,9 +47,9 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                             pr_writeFile: ($) =>/**/ {
                                 fslib.$a.createWriteFileFireAndForget(
                                     {
-                                        pr_onError: ($) =>/**/ {
-                                            $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
-                                        },
+                                        // pr_onError: ($) =>/**/ {
+                                        //     $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
+                                        // },
                                         if_createWriteStream: fs.$a.createWriteStream({
                                             pr_onError: ($) => {
                                                 $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
