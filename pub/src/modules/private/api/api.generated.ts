@@ -2,23 +2,23 @@ import * as pt from "pareto-core-types"
 
 import * as glo from "./types.generated"
 
-import * as mapi from "../../public"
 import * as marithmetic from "res-pareto-arithmetic"
 import * as mboolean from "res-pareto-boolean"
 import * as mcollation from "res-pareto-collation"
 import * as mdiff from "res-pareto-diff"
 import * as mfs from "res-pareto-filesystem"
+import * as mpublic from "../../public"
 
 export type CcreateArgumentsParser = ($d: {
-    readonly "pr_callback": pt.Procedure<mapi.TTestParameters>
+    readonly "pr_callback": pt.Procedure<mpublic.TTestParameters>
     readonly "pr_onError": pt.Procedure<string>
-}) => pt.Procedure<mapi.TArguments>
+}) => pt.Procedure<mpublic.TArguments>
 
 export type CcreateBoundTester = ($d: {
     readonly "pr_log": pt.Procedure<string>
     readonly "pr_onError": pt.Procedure<string>
     readonly "pr_onTestErrors": pt.Procedure<null>
-}) => pt.Procedure<mapi.TTestSet>
+}) => pt.Procedure<mpublic.TTestSet>
 
 export type CcreateFileValidator = ($d: {
     readonly "sf_diffData": mdiff.FDiffData
@@ -36,26 +36,26 @@ export type CcreateSummarySerializer = ($d: {
     readonly "sf_isZero": mboolean.FIsZero
     readonly "pr_log": pt.Procedure<string>
     readonly "sf_negate": marithmetic.FNegate
-}) => pt.Procedure<mapi.TSummary>
+}) => pt.Procedure<mpublic.TSummary>
 
 export type CcreateTester = ($d: {
     readonly "sf_isZero": mboolean.FIsZero
     readonly "pr_onTestErrors": pt.Procedure<null>
     readonly "af_runTests": glo.ARunTests
-    readonly "pr_serializeSummary": pt.Procedure<mapi.TSummary>
-    readonly "pr_serializeTestResult": pt.Procedure<mapi.TTestSetResult>
+    readonly "pr_serializeSummary": pt.Procedure<mpublic.TSummary>
+    readonly "pr_serializeTestResult": pt.Procedure<mpublic.TTestSetResult>
     readonly "sf_summarize": glo.FSummarize
-}) => pt.Procedure<mapi.TTestSet>
+}) => pt.Procedure<mpublic.TTestSet>
 
 export type CcreateTestParametersParser = ($d: {
-    readonly "pr_callback": pt.Procedure<mapi.TTestParameters>
-    readonly "pr_onError": pt.Procedure<mapi.TArgumentError>
-}) => pt.Procedure<mapi.TArguments>
+    readonly "pr_callback": pt.Procedure<mpublic.TTestParameters>
+    readonly "pr_onError": pt.Procedure<mpublic.TArgumentError>
+}) => pt.Procedure<mpublic.TArguments>
 
 export type CcreateTestResultSerializer = ($d: {
     readonly "sf_isABeforeB": mcollation.FIsABeforeB
     readonly "pr_log": pt.Procedure<string>
-}) => pt.Procedure<mapi.TTestSetResult>
+}) => pt.Procedure<mpublic.TTestSetResult>
 
 export type CcreateTestRunner = ($d: {
     readonly "sf_diffData": mdiff.FDiffData

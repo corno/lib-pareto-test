@@ -9,7 +9,7 @@
     "res-pareto-arithmetic": "^0.6.0",
     "res-pareto-boolean": "^0.8.0",
     "res-pareto-collation": "^0.11.0",
-    "res-pareto-diff": "^0.16.0"
+    "res-pareto-diff": "^0.17.0"
   },
   "description": "test functions for pareto",
   "files": [
@@ -24,5 +24,5 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.18.0",
-  "content-fingerprint": "697835a5887eff9b0314ac5f513c35f14dc7870b"
+  "content-fingerprint": "9c86f8a3627c5e90b4d2165be93616f730c1bdd2"
 }

@@ -1,6 +1,7 @@
 import * as pt from "pareto-core-types"
 import * as pr from "pareto-core-raw"
 import * as pl from "pareto-core-lib"
+import * as tst from "lib-pareto-test"
 
 import { test as private_createArgumentsParser } from "../modules/private/createArgumentsParser.p"
 import { test as private_createBoundTester } from "../modules/private/createBoundTester.p"
@@ -14,7 +15,7 @@ import { test as private_createTestRunner } from "../modules/private/createTestR
 import { test as private_increment } from "../modules/private/increment.p"
 import { test as public_createTestProgram } from "../modules/public/createTestProgram.p"
 
-const x = pr.wrapRawDictionary({
+const x = pr.wrapRawDictionary<pt.Dictionary<() => pt.AsyncValue<tst.TTestElement>>>({
     "private": pr.wrapRawDictionary({
         "createArgumentsParser": private_createArgumentsParser,
         "createBoundTester": private_createBoundTester,
