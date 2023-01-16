@@ -7,9 +7,9 @@ export type TWriteFileData = {
     readonly "path": mcommon.TPath
 }
 
-export type FIncrement = ($: number) => number
+export type FIncrement = ($: mcommon.TNumber) => mcommon.TNumber
 
-export type AReadFile = ($: mcommon.TPath) => pt.AsyncValue<string>
+export type AReadFile = ($: mcommon.TPath) => pt.AsyncValue<mcommon.TString>
 
 export type ARunTests = ($: mpublic.TTestSet) => pt.AsyncValue<mpublic.TTestSetResult>
 

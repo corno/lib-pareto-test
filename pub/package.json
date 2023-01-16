@@ -1,7 +1,7 @@
 {
   "author": "Corno",
   "dependencies": {
-    "glo-pareto-common": "^0.2.0",
+    "glo-pareto-common": "^0.4.0",
     "lib-pareto-filesystem": "^0.13.0",
     "pareto-core-lib": "^0.17.0",
     "pareto-core-raw": "^0.7.0",
@@ -24,5 +24,5 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.18.0",
-  "content-fingerprint": "9c86f8a3627c5e90b4d2165be93616f730c1bdd2"
+  "content-fingerprint": "d40ed20aed02044f1ec2ecf25b0b34b7368dd0e1"
 }

@@ -5,19 +5,20 @@ import * as glo from "./types.generated"
 import * as marithmetic from "res-pareto-arithmetic"
 import * as mboolean from "res-pareto-boolean"
 import * as mcollation from "res-pareto-collation"
+import * as mcommon from "glo-pareto-common"
 import * as mdiff from "res-pareto-diff"
 import * as mfs from "res-pareto-filesystem"
 import * as mpublic from "../../public"
 
 export type CcreateArgumentsParser = ($d: {
     readonly "pr_callback": pt.Procedure<mpublic.TTestParameters>
-    readonly "pr_onError": pt.Procedure<string>
+    readonly "pr_onError": pt.Procedure<mcommon.TString>
 }) => pt.Procedure<mpublic.TArguments>
 
 export type CcreateBoundTester = ($d: {
-    readonly "pr_log": pt.Procedure<string>
-    readonly "pr_onError": pt.Procedure<string>
-    readonly "pr_onTestErrors": pt.Procedure<null>
+    readonly "pr_log": pt.Procedure<mcommon.TString>
+    readonly "pr_onError": pt.Procedure<mcommon.TString>
+    readonly "pr_onTestErrors": pt.Procedure<mcommon.TNull>
 }) => pt.Procedure<mpublic.TTestSet>
 
 export type CcreateFileValidator = ($d: {
@@ -34,13 +35,13 @@ export type CcreateSummarizer = ($d: {
 export type CcreateSummarySerializer = ($d: {
     readonly "sf_add": marithmetic.FAdd
     readonly "sf_isZero": mboolean.FIsZero
-    readonly "pr_log": pt.Procedure<string>
+    readonly "pr_log": pt.Procedure<mcommon.TString>
     readonly "sf_negate": marithmetic.FNegate
 }) => pt.Procedure<mpublic.TSummary>
 
 export type CcreateTester = ($d: {
     readonly "sf_isZero": mboolean.FIsZero
-    readonly "pr_onTestErrors": pt.Procedure<null>
+    readonly "pr_onTestErrors": pt.Procedure<mcommon.TNull>
     readonly "af_runTests": glo.ARunTests
     readonly "pr_serializeSummary": pt.Procedure<mpublic.TSummary>
     readonly "pr_serializeTestResult": pt.Procedure<mpublic.TTestSetResult>
@@ -54,7 +55,7 @@ export type CcreateTestParametersParser = ($d: {
 
 export type CcreateTestResultSerializer = ($d: {
     readonly "sf_isABeforeB": mcollation.FIsABeforeB
-    readonly "pr_log": pt.Procedure<string>
+    readonly "pr_log": pt.Procedure<mcommon.TString>
 }) => pt.Procedure<mpublic.TTestSetResult>
 
 export type CcreateTestRunner = ($d: {

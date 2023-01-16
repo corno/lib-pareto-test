@@ -2,14 +2,14 @@ import * as pr from "pareto-core-raw"
 import {
     externalReference as er,
     string as str,
-    nullType,
-    type,
     reference as ref,
     boolean as bln,
     number as nr,
     nested,
     optional,
     array,
+    externalTypeReference,
+    typeReference,
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 import { dictionary, group, member, taggedUnion, types, _function } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
@@ -38,13 +38,13 @@ export const $: mmoduleDefinition.TModuleDefinition = {
 
         },
         'functions': d({
-            "Increment": _function(number(), number()),
+            "Increment": _function(externalTypeReference("common", "Number"), externalTypeReference("common", "Number")),
             // "IsZero": _function(number(), boolean()),
             // "Negate": _function(number(), number()),
-            "ReadFile": _function(externalReference("common", "Path"), string(), true),
-            "RunTests": _function(externalReference("public", "TestSet"), externalReference("public", "TestSetResult"), true),
-            "ValidateFile": _function(externalReference("public", "ValidateFileData"), externalReference("public", "TestElementResult"), true),
-            "Summarize": _function(externalReference("public", "TestSetResult"), externalReference("public", "Summary")),
+            "ReadFile": _function(externalTypeReference("common", "Path"), externalTypeReference("common", "String"), true),
+            "RunTests": _function(externalTypeReference("public", "TestSet"), externalTypeReference("public", "TestSetResult"), true),
+            "ValidateFile": _function(externalTypeReference("public", "ValidateFileData"), externalTypeReference("public", "TestElementResult"), true),
+            "Summarize": _function(externalTypeReference("public", "TestSetResult"), externalTypeReference("public", "Summary")),
 
 
         }),
@@ -53,6 +53,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
     },
     'api': {
         'imports': d({
+            "common": "glo-pareto-common",
             "public": "../../public",
             "arithmetic": "res-pareto-arithmetic",
             "collation": "res-pareto-collation",
@@ -62,24 +63,24 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         }),
         'algorithms': d({
             "createArgumentsParser": {
-                'definition': ['procedure', ['type', externalReference("public", "Arguments")]],
+                'definition': ['procedure', externalTypeReference("public", "Arguments")],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
-                        "callback": ['procedure', ['type', externalReference("public", "TestParameters")]],
-                        "onError": ['procedure', ['type', string()]],
+                        "callback": ['procedure', externalTypeReference("public", "TestParameters")],
+                        "onError": ['procedure', externalTypeReference("common", "String")],
                     }),
                 }]
             },
             "createBoundTester": {
-                'definition': ['procedure', ['type', externalReference("public", "TestSet")]],
+                'definition': ['procedure', externalTypeReference("public", "TestSet")],
 
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
-                        "onTestErrors": ['procedure', ['null', null]],
-                        "log": ['procedure', ['type', string()]],
-                        "onError": ['procedure', ['type', string()]],
+                        "onTestErrors": ['procedure', externalTypeReference("common", "Null")],
+                        "log": ['procedure', externalTypeReference("common", "String")],
+                        "onError": ['procedure', externalTypeReference("common", "String")],
                     }),
                 }]
             },
@@ -89,7 +90,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                     'async': true,
                 }],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
                         "readFile": ['function', {
                             'function': "ReadFile",
@@ -100,8 +101,8 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                             'function': "DiffData",
                         }],
 
-                        "writeFile": ['procedure', ['type', reference("WriteFileData")]],
-                        "unlink": ['procedure', ['type', externalReference("fs", "Unlink_Data")]],
+                        "writeFile": ['procedure', typeReference("WriteFileData")],
+                        "unlink": ['procedure', externalTypeReference("fs", "Unlink_Data")],
                     }),
                 }]
             },
@@ -111,7 +112,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                     'function': "Summarize",
                 }],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
                         "increment": ['function', {
                             'function': "Increment",
@@ -120,9 +121,9 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 }],
             },
             "createSummarySerializer": {
-                'definition': ['procedure', ['type', externalReference("public", "Summary")]],
+                'definition': ['procedure', externalTypeReference("public", "Summary")],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
                         "add": ['function', {
                             'context': ['import', "arithmetic"],
@@ -138,14 +139,14 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                         }],
 
 
-                        "log": ['procedure', ['type', string()]],
+                        "log": ['procedure', externalTypeReference("common", "String")],
                     }),
                 }],
             },
             "createTester": {
-                'definition': ['procedure', ['type', externalReference("public", "TestSet")]],
+                'definition': ['procedure', externalTypeReference("public", "TestSet")],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
                         "runTests": ['function', {
                             'function': "RunTests",
@@ -158,19 +159,19 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                         "summarize": ['function', {
                             'function': "Summarize",
                         }],
-                        "onTestErrors": ['procedure', ['null', null]],
-                        "serializeTestResult": ['procedure', ['type', externalReference("public", "TestSetResult")]],
-                        "serializeSummary": ['procedure', ['type', externalReference("public", "Summary")]],
+                        "onTestErrors": ['procedure', externalTypeReference("common", "Null")],
+                        "serializeTestResult": ['procedure', externalTypeReference("public", "TestSetResult")],
+                        "serializeSummary": ['procedure', externalTypeReference("public", "Summary")],
                     }),
                 }],
             },
             "createTestParametersParser": {
-                'definition': ['procedure', ['type', externalReference("public", "Arguments")]],
+                'definition': ['procedure', externalTypeReference("public", "Arguments")],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
-                        "callback": ['procedure', ['type', externalReference("public", "TestParameters")]],
-                        "onError": ['procedure', ['type', externalReference("public", "ArgumentError")]],
+                        "callback": ['procedure', externalTypeReference("public", "TestParameters")],
+                        "onError": ['procedure', externalTypeReference("public", "ArgumentError")],
 
                     }),
                 }],
@@ -181,7 +182,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                     'async': true,
                 }],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
                         "diffData": ['function', {
                             'context': ['import', "diff"],
@@ -199,15 +200,15 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 }],
             },
             "createTestResultSerializer": {
-                'definition': ['procedure', ['type', externalReference("public", "TestSetResult")]],
+                'definition': ['procedure', externalTypeReference("public", "TestSetResult")],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
                         "isABeforeB": ['function', {
                             'context': ['import', "collation"],
                             'function': "IsABeforeB",
                         }],
-                        "log": ['procedure', ['type', string()]],
+                        "log": ['procedure', externalTypeReference("common", "String")],
                     }),
                 }],
             },

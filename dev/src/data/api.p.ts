@@ -4,14 +4,15 @@ import {
     boolean,
     dictionary,
     externalReference,
+    externalTypeReference,
     group,
     member,
-    nullType,
-    type,
+    null_,
     number,
     reference,
     string,
     taggedUnion,
+    typeReference,
     types,
     _function,
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
@@ -37,8 +38,8 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             'types': types({
                 "Arguments": array(string()),
                 "ArgumentError": taggedUnion({
-                    "missing": nullType(),
-                    "too many": nullType(),
+                    "missing": null_(),
+                    "too many": null_(),
                 }),
                 "Summary": group({
                     "numberOfTests": member(number()),
@@ -46,30 +47,30 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 }),
                 "TestElement": group({
                     "type": member(taggedUnion({
-                        "subset": type(reference("TestSet")),
-                        "test": type(group({
+                        "subset": reference("TestSet"),
+                        "test": group({
                             "type": member(taggedUnion({
-                                "boolean": type(boolean()),
-                                "short string": type(group({
+                                "boolean": boolean(),
+                                "short string": group({
                                     "expected": member(string()),
                                     "actual": member(string()),
-                                })),
-                                "long string": type(group({
+                                }),
+                                "long string": group({
                                     "expected": member(string()),
                                     "actual": member(string()),
-                                })),
-                                "file string": type(reference("ValidateFileData")),
+                                }),
+                                "file string": reference("ValidateFileData"),
                             })),
-                        })),
+                        }),
                     })),
                 }),
                 "TestElementResult": group({
                     "type": member(taggedUnion({
-                        "subset": type(reference("TestSetResult")),
-                        "test": type(group({
+                        "subset": reference("TestSetResult"),
+                        "test": group({
                             "success": member(boolean()),
                             "type": member(reference("TestType")),
-                        })),
+                        }),
                     }))
                 }),
                 "TestParameters": group({
@@ -82,18 +83,18 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                     "elements": member(dictionary(reference("TestElementResult")))
                 }),
                 "TestType": taggedUnion({
-                    "boolean": nullType(),
-                    "long string": type(group({
+                    "boolean": null_(),
+                    "long string": group({
                         "parts": member(array(externalReference("diff", "MultilinePart")))
-                    })),
-                    "short string": type(group({
+                    }),
+                    "short string": group({
                         "expected": member(string()),
                         "actual": member(string()),
-                    })),
-                    "file string": type(group({
+                    }),
+                    "file string": group({
                         "fileLocation": member(string()),
                         "parts": member(array(externalReference("diff", "MultilinePart")))
-                    })),
+                    }),
                 }),
                 "ValidateFileData": group({
                     "expectedFile": member(group({
@@ -107,26 +108,28 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             'interfaces': d({}),
         },
         'functions': d({
-            "GetTestSet": _function(ref("TestParameters"), ref("TestSet"), true)
+            "GetTestSet": _function(typeReference("TestParameters"), typeReference("TestSet"), true)
         }),
         'callbacks': d({}),
         'pipes': d({}),
     },
     'api': {
-        'imports': d({}),
+        'imports': d({
+            "common": "glo-pareto-common",
+        }),
         'algorithms': d({
             "createTestProgram": {
-                'definition': ['procedure', ['type', ref("Arguments")]],
+                'definition': ['procedure', typeReference("Arguments")],
                 'type': ['constructor', {
-                    'configuration data': ['null', null],
+                    'configuration data': null,
                     'dependencies': d({
                         "getTestSet": ['function', {
                             'function': "GetTestSet",
                             'async': true,
                         }],
-                        "log": ['procedure', ['type', str()]],
-                        "logError": ['procedure', ['type', str()]],
-                        "onTestErrors": ['procedure', ['null', null]],
+                        "log": ['procedure', externalTypeReference("common", "String")],
+                        "logError": ['procedure', externalTypeReference("common", "String")],
+                        "onTestErrors": ['procedure', externalTypeReference("common", "Null")],
                     }),
                 }]
             },
