@@ -21,12 +21,12 @@ import {
     string as str,
 } from "lib-pareto-typescript-project/dist/modules//moduleDefinition/api/shorthands.p"
 
-import * as NAPI from "lib-pareto-typescript-project/dist/modules/moduleDefinition"
+import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/modules/moduleDefinition"
 
 
 const d = pr.wrapRawDictionary
 
-export const api: NAPI.TModuleDefinition = {
+export const $: mmoduleDefinition.TModuleDefinition = {
     'glossary': {
         'imports': d({
             "diff": "res-pareto-diff",
