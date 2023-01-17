@@ -5,7 +5,7 @@ import * as api from "../api"
 
 import * as mpublic from "../../public"
 
-export const icreateTestRunner: api.CcreateTestRunner = ($d) => {
+export const $$: api.CcreateTestRunner = ($d) => {
     return ($) => {
         function doTestSet($: mpublic.TTestSet): pt.AsyncValue<mpublic.TTestSetResult> {
             return $.elements.asyncMap(($): pt.AsyncValue<mpublic.TTestElementResult> => {

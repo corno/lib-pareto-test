@@ -4,7 +4,7 @@ import * as api from "../api"
 
 import * as mpublic from "../../public"
 
-export const icreateFileValidator: api.CcreateFileValidator = ($d) => {
+export const $$: api.CcreateFileValidator = ($d) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
         return $d.af_readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {

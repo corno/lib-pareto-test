@@ -4,7 +4,7 @@ import * as api from "../api"
 
 import * as mprivate from "../../private"
 
-export const icreateTestProgram: api.CcreateTestProgram = ($d) => {
+export const $$: api.CcreateTestProgram = ($d) => {
     const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
     return mprivate.$a.createArgumentsParser({
         pr_onError: $d.pr_logError,

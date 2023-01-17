@@ -1,10 +1,10 @@
-import * as pt from "pareto-core-types"
+import * as pt from 'pareto-core-types'
 import * as mcommon from "glo-pareto-common"
 import * as mpublic from "../../public"
 
 export type TWriteFileData = {
-    readonly "data": string
-    readonly "path": mcommon.TPath
+    readonly 'data': string
+    readonly 'path': mcommon.TPath
 }
 
 export type FIncrement = ($: mcommon.TNumber) => mcommon.TNumber

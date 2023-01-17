@@ -11,7 +11,6 @@ export const $: mproject.TProject = {
     'modules': d({
         "public": {
             'definition': api,
-            'implementation': {}
         },
         "private": {
             'definition': private_,

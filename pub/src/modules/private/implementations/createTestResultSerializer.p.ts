@@ -4,7 +4,7 @@ import * as api from "../api"
 
 import * as mpublic from "../../public"
 
-export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
+export const $$: api.CcreateTestResultSerializer = (
     $d,
 ) => {
     return (

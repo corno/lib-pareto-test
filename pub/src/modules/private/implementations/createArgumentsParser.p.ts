@@ -1,9 +1,10 @@
 
 import * as api from "../api"
-import { icreateTestParametersParser } from "./createTestParametersParser.p"
+
+import { $a } from "../index"
 
 
-export const icreateArgumentsParser: api.CcreateArgumentsParser = ($d) => {
+export const $$: api.CcreateArgumentsParser = ($d) => {
 
     // exeLib.p_getSingleArgument(
     //     $.arguments,
@@ -29,7 +30,7 @@ export const icreateArgumentsParser: api.CcreateArgumentsParser = ($d) => {
     //         }
     //     }
     // )
-    return icreateTestParametersParser(
+    return $a.createTestParametersParser(
         {
             pr_onError: () =>/**/ {
                 $d.pr_onError(`arguments error`)

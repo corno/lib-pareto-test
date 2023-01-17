@@ -1,6 +1,6 @@
 import * as api from "../api"
 
-export const icreateSummarySerializer: api.CcreateSummarySerializer = (
+export const $$: api.CcreateSummarySerializer = (
     $d,
 ) => {
     return (

@@ -4,7 +4,7 @@ import * as api from "../api"
 
 import * as mpublic from "../../public"
 
-export const icreateSummarizer: api.CcreateSummarizer = (
+export const $$: api.CcreateSummarizer = (
    $d,
 ) => {
     return ($) => {

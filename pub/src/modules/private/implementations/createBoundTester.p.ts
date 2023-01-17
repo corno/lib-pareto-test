@@ -10,26 +10,21 @@ import * as bool from "res-pareto-boolean"
 import * as fs from "res-pareto-filesystem"
 import * as fslib from "lib-pareto-filesystem"
 
-import { icreateTestResultSerializer } from "./createTestResultSerializer.p"
-import { icreateTester } from "./createTester.p"
-import { icreateSummarySerializer } from "./createSummarySerializer.p"
-import { icreateTestRunner } from "./createTestRunner.p"
-import { icreateFileValidator } from "./createFileValidator.p"
-import { icreateSummarizer } from "./createSummarizer.p"
-import { iincrement } from "./increment.p"
+import { $a } from "../index"
 
 
-export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
-    return icreateTester(
+
+export const $$: api.CcreateBoundTester = ($d) => {
+    return $a.createTester(
         {
             pr_onTestErrors: $d.pr_onTestErrors,
-            pr_serializeTestResult: icreateTestResultSerializer(
+            pr_serializeTestResult: $a.createTestResultSerializer(
                 {
                     pr_log: $d.pr_log,
                     sf_isABeforeB: collation.$a.localeIsABeforeB,
                 },
             ),
-            pr_serializeSummary: icreateSummarySerializer(
+            pr_serializeSummary: $a.createSummarySerializer(
                 {
                     pr_log: $d.pr_log,
                     sf_isZero: bool.$a.isZero,
@@ -38,11 +33,11 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
 
                 }
             ),
-            af_runTests: icreateTestRunner(
+            af_runTests: $a.createTestRunner(
                 {
                     sf_diffData: diff.$a.diffData,
                     sf_stringsAreEqual: diff.$a.stringsAreEqual,
-                    af_validateFile: icreateFileValidator(
+                    af_validateFile: $a.createFileValidator(
                         {
                             pr_writeFile: ($) =>/**/ {
                                 fslib.$a.createWriteFileFireAndForget(
@@ -99,10 +94,10 @@ export const icreateBoundTester: api.CcreateBoundTester = ($d) => {
                         }),
                 }
             ),
-            sf_summarize: icreateSummarizer(
+            sf_summarize: $a.createSummarizer(
                 {
                    //log: $d.pr_log,
-                    sf_increment: iincrement,
+                    sf_increment: $a.increment,
                 }
             ),
             sf_isZero: bool.$a.isZero,
