@@ -1,4 +1,4 @@
-import * as pl from "pareto-core-lib"
+import * as pl from 'pareto-core-lib'
 
 import * as api from "../api"
 
@@ -22,12 +22,12 @@ export const icreateSummarizer: api.CcreateSummarizer = (
             //this should be a reduce function!!!
             $.elements.map(($, key) => {
                 switch ($.type[0]) {
-                    case "subset":
+                    case 'subset':
                         pl.cc($.type[1], ($) => {
                             summarizeTestSetImp($)
                         })
                         break
-                    case "test":
+                    case 'test':
                         pl.cc($.type[1], ($) => {
                             summary.numberOfTests = $d.sf_increment(summary.numberOfTests)
                             if (!$.success) {

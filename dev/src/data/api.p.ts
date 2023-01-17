@@ -1,4 +1,4 @@
-import * as pr from "pareto-core-raw"
+import * as pr from 'pareto-core-raw'
 import {
     array,
     boolean,

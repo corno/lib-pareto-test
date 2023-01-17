@@ -10,12 +10,12 @@ export const icreateArgumentsParser: api.CcreateArgumentsParser = ($d) => {
     //     {
     //         error: ($) => {
     //             // switch ($[0]) {
-    //             //     case "no arguments found":
+    //             //     case 'no arguments found':
     //             //         pl.cc($[1], ($) => {
     //             //             $i.out("missing test directory path")
     //             //         })
     //             //         break
-    //             //     case "too many arguments found":
+    //             //     case 'too many arguments found':
     //             //         pl.cc($[1], ($) => {
     //             //             $i.out("too many arguments, only a test directory expected")
     //             //         })

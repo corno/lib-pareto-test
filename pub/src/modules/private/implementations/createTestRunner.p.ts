@@ -1,5 +1,5 @@
-import * as pt from "pareto-core-types"
-import * as pl from "pareto-core-lib"
+import * as pt from 'pareto-core-types'
+import * as pl from 'pareto-core-lib'
 
 import * as api from "../api"
 
@@ -10,7 +10,7 @@ export const icreateTestRunner: api.CcreateTestRunner = ($d) => {
         function doTestSet($: mpublic.TTestSet): pt.AsyncValue<mpublic.TTestSetResult> {
             return $.elements.asyncMap(($): pt.AsyncValue<mpublic.TTestElementResult> => {
                 switch ($.type[0]) {
-                    case "subset":
+                    case 'subset':
                         return pl.cc($.type[1], ($) => {
                             return doTestSet($).map(($) => {
                                 return pl.asyncValue<mpublic.TTestElementResult>({
@@ -18,11 +18,11 @@ export const icreateTestRunner: api.CcreateTestRunner = ($d) => {
                                 })
                             })
                         })
-                    case "test":
+                    case 'test':
                         return pl.cc($.type[1], ($): pt.AsyncValue<mpublic.TTestElementResult> => {
 
                             switch ($.type[0]) {
-                                case "boolean":
+                                case 'boolean':
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
                                             type: ['test', {
@@ -31,13 +31,13 @@ export const icreateTestRunner: api.CcreateTestRunner = ($d) => {
                                             }]
                                         })
                                     })
-                                case "file string":
+                                case 'file string':
                                     return pl.cc($.type[1], ($) => {
                                         return $d.af_validateFile(
                                             $,
                                         )
                                     })
-                                case "long string":
+                                case 'long string':
                                     return pl.cc($.type[1], ($) => {
                                         const res = $d.sf_diffData(
                                             {
@@ -68,7 +68,7 @@ export const icreateTestRunner: api.CcreateTestRunner = ($d) => {
 
                                         }
                                     })
-                                case "short string":
+                                case 'short string':
                                     return pl.cc($.type[1], ($) => {
                                         return pl.asyncValue({
                                             type: ['test', {

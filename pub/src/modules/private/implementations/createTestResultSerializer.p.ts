@@ -1,4 +1,4 @@
-import * as pl from "pareto-core-lib"
+import * as pl from 'pareto-core-lib'
 
 import * as api from "../api"
 
@@ -28,12 +28,12 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
                 ($, key) => {
                     const name = key
                     switch ($.type[0]) {
-                        case "test":
+                        case 'test':
                             pl.cc($.type[1], ($) => {
                                 const success = $.success
                                 $d.pr_log(`${indentation}${$.success ? green : red}${name}${reset}`)
                                 switch ($.type[0]) {
-                                    case "short string":
+                                    case 'short string':
                                         pl.cc($.type[1], ($) => {
                                             if (success) {
                                             } else {
@@ -42,7 +42,7 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
                                             }
                                         })
                                         break
-                                    case "long string":
+                                    case 'long string':
                                         pl.cc($.type[1], ($) => {
                                             $.parts.forEach(($) => {
                                                 const added = $.type[0] === "added"
@@ -54,7 +54,7 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
                                             })
                                         })
                                         break
-                                    case "file string":
+                                    case 'file string':
                                         pl.cc($.type[1], ($) => {
                                             const fileLocation = $.fileLocation
                                             $.parts.forEach(($) => {
@@ -66,7 +66,7 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
                                             })
                                         })
                                         break
-                                    case "boolean":
+                                    case 'boolean':
                                         pl.cc($.type[1], ($) => {
                                         })
                                         break
@@ -75,7 +75,7 @@ export const icreateTestResultSerializer: api.CcreateTestResultSerializer = (
                                 }
                             })
                             break
-                        case "subset":
+                        case 'subset':
                             pl.cc($.type[1], ($) => {
                                 $d.pr_log(`${indentation}${name}`)
                                 serializeTestSetImp({
