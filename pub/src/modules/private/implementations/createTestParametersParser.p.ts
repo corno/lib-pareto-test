@@ -16,7 +16,9 @@ export const $$: api.CcreateTestParametersParser = (
         if (state === null) {
             $d.pr_onError(['missing', null])
         } else {
-            $d.pr_callback(state)
+            $d.pr_callback({
+                testDirectory: state,
+            })
         }
     }
 }
