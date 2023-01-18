@@ -1,13 +1,13 @@
 import * as pt from 'pareto-core-types'
 import * as pl from 'pareto-core-lib'
-import * as pm from 'pareto-core-state'
+import * as ps from 'pareto-core-state'
 import * as pr from 'pareto-core-raw'
 
 import * as mtest from "lib-pareto-test"
 
 import * as api from "../api"
 
-import * as pub from "../../../../../pub/dist"
+import * as pub from "../../../../../pub"
 
 import * as pubTypes from "../../../../../pub/dist/modules/public"
 import * as pubPrivate from "../../../../../pub/dist/modules/private"
@@ -20,7 +20,7 @@ export const $$: api.CgetTestSet = ($) => {
 
 
     function doIt(name: string, $: pt.Array<string>) {
-        const log = pm.createArrayBuilder<LogEntry>()
+        const log = ps.createArrayBuilder<LogEntry>()
 
         const tpp = pubPrivate.$a.createTestParametersParser(
             {
@@ -73,7 +73,7 @@ export const $$: api.CgetTestSet = ($) => {
     //     pr.wrapRawArray(["foo"])
     // )
 
-    const builder = pm.createUnsafeDictionaryBuilder<mtest.TTestElement>()
+    const builder = ps.createUnsafeDictionaryBuilder<mtest.TTestElement>()
     function createTest(name: string, actual: string, expected: string) {
         builder.add(name, {
             type: ['test', {

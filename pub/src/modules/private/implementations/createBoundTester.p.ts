@@ -3,12 +3,12 @@ import * as pl from 'pareto-core-lib'
 
 import * as api from "../api"
 
-import * as diff from "res-pareto-diff"
-import * as arith from "res-pareto-arithmetic"
-import * as collation from "res-pareto-collation"
-import * as bool from "res-pareto-boolean"
-import * as fs from "res-pareto-filesystem"
-import * as fslib from "lib-pareto-filesystem"
+import * as mdiff from "res-pareto-diff"
+import * as marith from "res-pareto-arithmetic"
+import * as mcollation from "res-pareto-collation"
+import * as mbool from "res-pareto-boolean"
+import * as mfs from "res-pareto-filesystem"
+import * as mfslib from "lib-pareto-filesystem"
 
 import { $a } from "../index"
 
@@ -21,33 +21,33 @@ export const $$: api.CcreateBoundTester = ($d) => {
             pr_serializeTestResult: $a.createTestResultSerializer(
                 {
                     pr_log: $d.pr_log,
-                    sf_isABeforeB: collation.$a.localeIsABeforeB,
+                    sf_isABeforeB: mcollation.$a.localeIsABeforeB,
                 },
             ),
             pr_serializeSummary: $a.createSummarySerializer(
                 {
                     pr_log: $d.pr_log,
-                    sf_isZero: bool.$a.isZero,
-                    sf_add: arith.$a.add,
-                    sf_negate: arith.$a.negate,
+                    sf_isZero: mbool.$a.isZero,
+                    sf_add: marith.$a.add,
+                    sf_negate: marith.$a.negate,
 
                 }
             ),
             af_runTests: $a.createTestRunner(
                 {
-                    sf_diffData: diff.$a.diffData,
-                    sf_stringsAreEqual: diff.$a.stringsAreEqual,
+                    sf_diffData: mdiff.$a.diffData,
+                    sf_stringsAreEqual: mdiff.$a.stringsAreEqual,
                     af_validateFile: $a.createFileValidator(
                         {
                             pr_writeFile: ($) =>/**/ {
-                                fslib.$a.createWriteFileFireAndForget(
+                                mfslib.$a.createWriteFileFireAndForget(
                                     {
                                         // pr_onError: ($) =>/**/ {
                                         //     $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
                                         // },
-                                        if_createWriteStream: fs.$a.createWriteStream({
+                                        if_createWriteStream: mfs.$a.createWriteStream({
                                             pr_onError: ($) => {
-                                                $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
+                                                $d.pr_onError(`${$.path}: ${mfslib.$a.createWriteFileErrorMessage($.error)}`)
                                             }
                                         }),
                                     },
@@ -57,23 +57,23 @@ export const $$: api.CcreateBoundTester = ($d) => {
                                     createContainingDirectories: true,
                                 })
                             },
-                            pr_unlink: fslib.$a.createUnlinkFireAndForget(
+                            pr_unlink: mfslib.$a.createUnlinkFireAndForget(
                                 {
                                     pr_onError: ($) =>/**/ {
-                                        $d.pr_onError(`${$.path}: ${fslib.$a.createUnlinkErrorMessage($.error)}`)
+                                        $d.pr_onError(`${$.path}: ${mfslib.$a.createUnlinkErrorMessage($.error)}`)
                                     },
-                                    af_unlink: fs.$a.unlink,
+                                    af_unlink: mfs.$a.unlink,
                                 },
                             ),
                             af_readFile: ($) =>/**/ {
                                 const x = $
                                 return pl.toAsyncValue(($i2) =>/**/ {
 
-                                    fs.$a.getFile(
+                                    mfs.$a.getFile(
                                         x,
                                         {
                                             onError: ($) =>/**/ {
-                                                $d.pr_onError(`${$.path}: ${fslib.$a.createReadFileErrorMessage($.error)}`)
+                                                $d.pr_onError(`${$.path}: ${mfslib.$a.createReadFileErrorMessage($.error)}`)
                                             },
                                             init: ($c) =>/**/ {
                                                 let out = ""
@@ -90,7 +90,7 @@ export const $$: api.CcreateBoundTester = ($d) => {
                                     )
                                 })
                             },
-                            sf_diffData: diff.$a.diffData,
+                            sf_diffData: mdiff.$a.diffData,
                         }),
                 }
             ),
@@ -100,7 +100,7 @@ export const $$: api.CcreateBoundTester = ($d) => {
                     sf_increment: $a.increment,
                 }
             ),
-            sf_isZero: bool.$a.isZero,
+            sf_isZero: mbool.$a.isZero,
         },
     )
 }
