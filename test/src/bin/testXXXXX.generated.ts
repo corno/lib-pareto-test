@@ -3,17 +3,17 @@ import * as pr from 'pareto-core-raw'
 import * as pl from 'pareto-core-lib'
 import * as tst from "lib-pareto-test"
 
-import { test as private_createArgumentsParser } from "../modules/private/createArgumentsParser.p"
-import { test as private_createBoundTester } from "../modules/private/createBoundTester.p"
-import { test as private_createFileValidator } from "../modules/private/createFileValidator.p"
-import { test as private_createSummarizer } from "../modules/private/createSummarizer.p"
-import { test as private_createSummarySerializer } from "../modules/private/createSummarySerializer.p"
-import { test as private_createTester } from "../modules/private/createTester.p"
-import { test as private_createTestParametersParser } from "../modules/private/createTestParametersParser.p"
-import { test as private_createTestResultSerializer } from "../modules/private/createTestResultSerializer.p"
-import { test as private_createTestRunner } from "../modules/private/createTestRunner.p"
-import { test as private_increment } from "../modules/private/increment.p"
-import { test as public_createTestProgram } from "../modules/public/createTestProgram.p"
+import { test as private_createArgumentsParser } from "../modules/private/createArgumentsParser.generated"
+import { test as private_createBoundTester } from "../modules/private/createBoundTester.generated"
+import { test as private_createFileValidator } from "../modules/private/createFileValidator.generated"
+import { test as private_createSummarizer } from "../modules/private/createSummarizer.generated"
+import { test as private_createSummarySerializer } from "../modules/private/createSummarySerializer.generated"
+import { test as private_createTester } from "../modules/private/createTester.generated"
+import { test as private_createTestParametersParser } from "../modules/private/createTestParametersParser.generated"
+import { test as private_createTestResultSerializer } from "../modules/private/createTestResultSerializer.generated"
+import { test as private_createTestRunner } from "../modules/private/createTestRunner.generated"
+import { test as private_increment } from "../modules/private/increment.generated"
+import { test as public_createTestProgram } from "../modules/public/createTestProgram.generated"
 
 const x = pr.wrapRawDictionary<pt.Dictionary<() => pt.AsyncValue<tst.TTestElement>>>({
     'private': pr.wrapRawDictionary({
