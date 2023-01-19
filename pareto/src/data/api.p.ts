@@ -20,7 +20,7 @@ import {
 import {
     reference as ref,
     string as str,
-} from "lib-pareto-typescript-project/dist/modules//moduleDefinition/api/shorthands.p"
+} from "lib-pareto-typescript-project/dist/modules/moduleDefinition/api/shorthands.p"
 
 import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/modules/moduleDefinition"
 
