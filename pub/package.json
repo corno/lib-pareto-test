@@ -6,10 +6,10 @@
     "pareto-core-lib": "^0.17.0",
     "pareto-core-raw": "^0.7.0",
     "pareto-core-state": "^0.12.0",
-    "res-pareto-arithmetic": "^0.7.0",
-    "res-pareto-boolean": "^0.9.0",
+    "res-pareto-arithmetic": "^0.8.0",
+    "res-pareto-boolean": "^0.10.0",
     "res-pareto-collation": "^0.11.0",
-    "res-pareto-diff": "^0.18.0"
+    "res-pareto-diff": "^0.19.0"
   },
   "description": "test functions for pareto",
   "files": [
@@ -24,5 +24,5 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.20.0",
-  "content-fingerprint": "baeaa22fb3002b01e6d496759ebf62c1e1a431b4"
+  "content-fingerprint": "c194b648464a7da8128c5e6f877640e8836c2683"
 }
