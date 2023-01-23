@@ -4,7 +4,7 @@
     "glo-pareto-common": "^0.5.0",
     "lib-pareto-filesystem": "^0.16.0",
     "pareto-core-lib": "^0.17.0",
-    "pareto-core-raw": "^0.7.0",
+    "pareto-core-raw": "^0.7.4",
     "pareto-core-state": "^0.12.0",
     "res-pareto-arithmetic": "^0.8.0",
     "res-pareto-boolean": "^0.10.0",
@@ -24,5 +24,5 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.21.0",
-  "content-fingerprint": "cfa9dd3ca38c0d79c011dce0b3384b883900993a"
+  "content-fingerprint": "13bbb2f7964728a8569eb1a017be583c6c053fbf"
 }
