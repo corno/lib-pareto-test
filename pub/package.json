@@ -8,9 +8,9 @@
     "pareto-core-raw": "^0.7.4",
     "pareto-core-state": "^0.12.0",
     "res-pareto-arithmetic": "^0.9.0",
-    "res-pareto-boolean": "^0.11.0",
-    "res-pareto-collation": "^0.11.0",
-    "res-pareto-diff": "^0.20.0"
+    "res-pareto-boolean": "^0.12.0",
+    "res-pareto-collation": "^0.12.0",
+    "res-pareto-diff": "^0.21.0"
   },
   "description": "test functions for pareto",
   "files": [
@@ -25,5 +25,5 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.24.0",
-  "content-fingerprint": "60c230adae9135b52488b18434cc23254da99a08"
+  "content-fingerprint": "2b3a1af16b515a9ab1146fcace92d43e0e2fef6c"
 }

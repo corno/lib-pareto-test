@@ -32,6 +32,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "common": "glo-pareto-common",
             "main": "lib-pareto-main"
         }),
+        'parameters': d({}),
         'namespace': {
             'types': types({
                 // "WriteFileData": group({
