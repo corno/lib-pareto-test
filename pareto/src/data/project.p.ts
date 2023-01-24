@@ -8,6 +8,7 @@ import { $ as private_ } from "./modules/private.p"
 const d = pr.wrapRawDictionary
 
 export const $: mproject.TProject = {
+    'type': ['library', null],
     'modules': d({
         "public": {
             'definition': api,
