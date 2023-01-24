@@ -18,10 +18,7 @@ import {
     _function,
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
-import {
-    reference as ref,
-    string as str,
-} from "lib-pareto-typescript-project/dist/modules/moduleDefinition/api/shorthands.p"
+import { definitionReference, externalDefinitionReference, constructor } from "lib-pareto-typescript-project/dist/modules/moduleDefinition/api/shorthands.p"
 
 import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/modules/moduleDefinition"
 
@@ -126,7 +123,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "getTestSet":  {
+                        "getTestSet": {
                             'function': "GetTestSet",
                         },
                         "log": {
