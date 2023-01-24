@@ -37,10 +37,6 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         'parameters': d({}),
         'namespace': {
             'types': types({
-                // "WriteFileData": group({
-                //     "path": member(er("common", "Path")),
-                //     "data": member(str()),
-                // })
             }),
             'interfaces': d({
                 "HandleTestParameters": method(externalNamespacedTypeReference("public", "TestParameters")),
@@ -50,8 +46,6 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         'functions': d({
             "HandleArgumentError": procedure(externalTypeReference("public", "ArgumentError")),
             "Increment": _function(externalTypeReference("common", "Number"), externalTypeReference("common", "Number")),
-            // "IsZero": _function(number(), boolean()),
-            // "Negate": _function(number(), number()),
             "ParseTestParameters": callback(externalTypeReference("main", "Arguments"), interfaceReference("HandleTestParameters")),
             "ReadFile": _function(externalTypeReference("common", "Path"), externalTypeReference("common", "String"), true),
             "RunTests": _function(externalTypeReference("public", "TestSet"), externalTypeReference("public", "TestSetResult"), true),
@@ -74,10 +68,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         }),
         'algorithms': d({
             "createBoundTester": {
-                'definition': {
-                    'function': "TestTestSet",
-                },
-
+                'definition': definitionReference("TestTestSet"),
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
@@ -97,15 +88,11 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 }]
             },
             "createFileValidator": {
-                'definition': {
-                    'function': "ValidateFile",
-                },
+                'definition': definitionReference("ValidateFile"),
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "readFile": {
-                            'function': "ReadFile",
-                        },
+                        "readFile": definitionReference("ReadFile"),
                         "diffData": {
                             'context': ['import', "diff"],
                             'function': "DiffData",
@@ -122,20 +109,13 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 }]
             },
             "createSummarizer": {
-
-                'definition': {
-                    'function': "Summarize",
-                },
+                'definition': definitionReference("Summarize"),
                 'type': constructor(null, {
-                    "increment": {
-                        'function': "Increment",
-                    },
+                    "increment": definitionReference("Increment"),
                 }),
             },
             "createSummarySerializer": {
-                'definition': {
-                    'function': "SerializeSummary",
-                },
+                'definition': definitionReference("SerializeSummary"),
                 'type': constructor(null, {
                     "add": {
                         'context': ['import', "arithmetic"],
@@ -149,8 +129,6 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                         'context': ['import', "arithmetic"],
                         'function': "Negate",
                     },
-
-
                     "log": {
                         'context': ['import', "common"],
                         'function': "Log",
@@ -158,93 +136,51 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 }),
             },
             "createTester": {
-                'definition': {
-                    'function': "TestTestSet",
-                },
+                'definition': definitionReference("TestTestSet"),
                 'type': constructor(null, {
-                    "runTests": {
-                        'function': "RunTests",
-                    },
+                    "runTests": definitionReference("RunTests"),
                     "isZero": {
                         'context': ['import', "boolean"],
                         'function': "IsZero",
                     },
-                    "summarize": {
-                        'function': "Summarize",
-                    },
+                    "summarize": definitionReference("Summarize"),
                     "onTestErrors": {
                         'context': ['import', "common"],
                         'function': "Signal"
                     },
-                    "serializeTestResult": {
-                        'function': "SerializeTestResult"
-                    },
-                    "serializeSummary": {
-                        'function': "SerializeSummary"
-                    },
+                    "serializeTestResult": definitionReference("SerializeTestResult"),
+                    "serializeSummary": definitionReference("SerializeSummary"),
                 }),
             },
             "createTestParametersParser": {
-                'definition': {
-
-
-                    'function': "ParseTestParameters"
-                },
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "onError": {
-                            'function': "HandleArgumentError"
-                        },
-
-                    }),
-                }],
+                'definition': definitionReference("ParseTestParameters"),
+                'type': constructor(null, {
+                    "onError": definitionReference("HandleArgumentError"),
+                }),
             },
             "createTestRunner": {
-                'definition': {
-                    'function': "RunTests",
-                },
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "diffData": {
-                            'context': ['import', "diff"],
-                            'function': "DiffData",
-                        },
-                        "stringsAreEqual": {
-                            'context': ['import', "diff"],
-                            'function': "StringsAreEqual",
-                        },
-                        "validateFile": {
-                            'function': "ValidateFile",
-                            'async': true,
-                        },
-                    }),
-                }],
+                'definition': definitionReference("RunTests"),
+                'type': constructor(null, {
+                    "diffData": {
+                        'context': ['import', "diff"],
+                        'function': "DiffData",
+                    },
+                    "stringsAreEqual": {
+                        'context': ['import', "diff"],
+                        'function': "StringsAreEqual",
+                    },
+                    "validateFile": definitionReference("ValidateFile"),
+                }),
             },
             "createTestResultSerializer": {
-                'definition': {
-                    'function': "SerializeTestResult",
-                },
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "isABeforeB": {
-                            'context': ['import', "collation"],
-                            'function': "IsABeforeB",
-                        },
-                        "log": {
-                            'context': ['import', "common"],
-                            'function': "Log",
-                        },
-                    }),
-                }],
+                'definition': definitionReference("SerializeTestResult"),
+                'type': constructor(null, {
+                    "isABeforeB": externalDefinitionReference("collation", "IsABeforeB"),
+                    "log": externalDefinitionReference("common", "Log"),
+                }),
             },
             "increment": {
-
-                'definition': {
-                    'function': "Increment"
-                },
+                'definition': definitionReference("Increment"),
                 'type': ['reference', null],
             }
         })
