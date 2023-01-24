@@ -13,6 +13,8 @@ import {
     procedure,
     callback,
     interfaceReference,
+    method,
+    externalNamespacedTypeReference,
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 import { dictionary, group, member, taggedUnion, types, _function } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
@@ -41,14 +43,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 // })
             }),
             'interfaces': d({
-                "HandleTestParameters": ['method', {
-                    'data': {
-                        'context': ['import', "public"],
-                        'namespaces': a([]),
-                        'type': "TestParameters"
-                    },
-                    'interface': null,
-                }]
+                "HandleTestParameters": method(externalNamespacedTypeReference("public", "TestParameters")),
             }),
 
         },
@@ -79,7 +74,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         }),
         'algorithms': d({
             "createBoundTester": {
-                'definition':{
+                'definition': {
                     'function': "TestTestSet",
                 },
 
@@ -90,11 +85,11 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                             'context': ['import', "common"],
                             'function': "Signal"
                         },
-                        "log":  {
+                        "log": {
                             'context': ['import', "common"],
                             'function': "Log"
                         },
-                        "onError":  {
+                        "onError": {
                             'context': ['import', "common"],
                             'function': "Log"
                         },
@@ -131,76 +126,67 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 'definition': {
                     'function': "Summarize",
                 },
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "increment": {
-                            'function': "Increment",
-                        },
-                    }),
-                }],
+                'type': constructor(null, {
+                    "increment": {
+                        'function': "Increment",
+                    },
+                }),
             },
             "createSummarySerializer": {
                 'definition': {
                     'function': "SerializeSummary",
                 },
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "add": {
-                            'context': ['import', "arithmetic"],
-                            'function': "Add",
-                        },
-                        "isZero": {
-                            'context': ['import', "boolean"],
-                            'function': "IsZero",
-                        },
-                        "negate": {
-                            'context': ['import', "arithmetic"],
-                            'function': "Negate",
-                        },
+                'type': constructor(null, {
+                    "add": {
+                        'context': ['import', "arithmetic"],
+                        'function': "Add",
+                    },
+                    "isZero": {
+                        'context': ['import', "boolean"],
+                        'function': "IsZero",
+                    },
+                    "negate": {
+                        'context': ['import', "arithmetic"],
+                        'function': "Negate",
+                    },
 
 
-                        "log": {
-                            'context': ['import', "common"],
-                            'function': "Log",
-                        },
-                    }),
-                }],
+                    "log": {
+                        'context': ['import', "common"],
+                        'function': "Log",
+                    },
+                }),
             },
             "createTester": {
                 'definition': {
                     'function': "TestTestSet",
                 },
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "runTests": {
-                            'function': "RunTests",
-                        },
-                        "isZero": {
-                            'context': ['import', "boolean"],
-                            'function': "IsZero",
-                        },
-                        "summarize": {
-                            'function': "Summarize",
-                        },
-                        "onTestErrors": {
-                            'context': ['import', "common"],
-                            'function': "Signal"
-                        },
-                        "serializeTestResult": {
-                            'function': "SerializeTestResult"
-                        },
-                        "serializeSummary": {
-                            'function': "SerializeSummary"
-                        },
-                    }),
-                }],
+                'type': constructor(null, {
+                    "runTests": {
+                        'function': "RunTests",
+                    },
+                    "isZero": {
+                        'context': ['import', "boolean"],
+                        'function': "IsZero",
+                    },
+                    "summarize": {
+                        'function': "Summarize",
+                    },
+                    "onTestErrors": {
+                        'context': ['import', "common"],
+                        'function': "Signal"
+                    },
+                    "serializeTestResult": {
+                        'function': "SerializeTestResult"
+                    },
+                    "serializeSummary": {
+                        'function': "SerializeSummary"
+                    },
+                }),
             },
             "createTestParametersParser": {
                 'definition': {
-                    
+
 
                     'function': "ParseTestParameters"
                 },
@@ -221,11 +207,11 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "diffData":  {
+                        "diffData": {
                             'context': ['import', "diff"],
                             'function': "DiffData",
                         },
-                        "stringsAreEqual":  {
+                        "stringsAreEqual": {
                             'context': ['import', "diff"],
                             'function': "StringsAreEqual",
                         },
