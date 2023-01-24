@@ -27,7 +27,6 @@ const a = pr.wrapRawArray
 
 
 export const $: mmoduleDefinition.TModuleDefinition = {
-
     'glossary': {
         'imports': d({
             "public": "../../public",
@@ -41,7 +40,6 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             'interfaces': d({
                 "HandleTestParameters": method(externalNamespacedTypeReference("public", "TestParameters")),
             }),
-
         },
         'functions': d({
             "HandleArgumentError": procedure(externalTypeReference("public", "ArgumentError")),
