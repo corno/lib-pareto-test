@@ -1,18 +1,26 @@
 import * as pt from 'pareto-core-types'
 import * as mcommon from "glo-pareto-common"
+import * as mmain from "lib-pareto-main"
 import * as mpublic from "../../public"
 
-export type TWriteFileData = {
-    readonly 'data': string
-    readonly 'path': mcommon.TPath
-}
+export type IHandleTestParameters = ($: mpublic.TTestParameters, ) => void
 
-export type FIncrement = ($: mcommon.TNumber) => mcommon.TNumber
+export type FHandleArgumentError = ($: mpublic.TArgumentError,) => void
 
-export type AReadFile = ($: mcommon.TPath) => pt.AsyncValue<mcommon.TString>
+export type FIncrement = ($: mcommon.TNumber,) => mcommon.TNumber
 
-export type ARunTests = ($: mpublic.TTestSet) => pt.AsyncValue<mpublic.TTestSetResult>
+export type FParseTestParameters = ($: mmain.TArguments, $i: IHandleTestParameters,) => void
 
-export type FSummarize = ($: mpublic.TTestSetResult) => mpublic.TSummary
+export type FReadFile = ($: mcommon.TPath,) => pt.AsyncValue<mcommon.TString>
 
-export type AValidateFile = ($: mpublic.TValidateFileData) => pt.AsyncValue<mpublic.TTestElementResult>
+export type FRunTests = ($: mpublic.TTestSet,) => pt.AsyncValue<mpublic.TTestSetResult>
+
+export type FSerializeSummary = ($: mpublic.TSummary,) => void
+
+export type FSerializeTestResult = ($: mpublic.TTestSetResult,) => void
+
+export type FSummarize = ($: mpublic.TTestSetResult,) => mpublic.TSummary
+
+export type FTestTestSet = ($: mpublic.TTestSet,) => void
+
+export type FValidateFile = ($: mpublic.TValidateFileData,) => pt.AsyncValue<mpublic.TTestElementResult>

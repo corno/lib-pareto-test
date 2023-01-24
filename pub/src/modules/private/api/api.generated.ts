@@ -7,67 +7,60 @@ import * as mboolean from "res-pareto-boolean"
 import * as mcollation from "res-pareto-collation"
 import * as mcommon from "glo-pareto-common"
 import * as mdiff from "res-pareto-diff"
-import * as mfs from "res-pareto-filesystem"
+import * as mfs from "lib-pareto-filesystem"
 import * as mpublic from "../../public"
 
-export type CcreateArgumentsParser = ($d: {
-    readonly 'pr_callback': pt.Procedure<mpublic.TTestParameters>
-    readonly 'pr_onError': pt.Procedure<mcommon.TString>
-}) => pt.Procedure<mpublic.TArguments>
-
 export type CcreateBoundTester = ($d: {
-    readonly 'pr_log': pt.Procedure<mcommon.TString>
-    readonly 'pr_onError': pt.Procedure<mcommon.TString>
-    readonly 'pr_onTestErrors': pt.Procedure<mcommon.TNull>
-}) => pt.Procedure<mpublic.TTestSet>
+    readonly 'log': mcommon.FLog
+    readonly 'onError': mcommon.FLog
+    readonly 'onTestErrors': mcommon.FSignal
+}) => glo.FTestTestSet
 
 export type CcreateFileValidator = ($d: {
-    readonly 'sf_diffData': mdiff.FDiffData
-    readonly 'af_readFile': glo.AReadFile
-    readonly 'pr_unlink': pt.Procedure<mfs.TUnlink_Data>
-    readonly 'pr_writeFile': pt.Procedure<glo.TWriteFileData>
-}) => glo.AValidateFile
+    readonly 'diffData': mdiff.FDiffData
+    readonly 'readFile': glo.FReadFile
+    readonly 'unlink': mfs.FUnlinkFireAndForget
+    readonly 'writeFile': mfs.FWriteFile
+}) => glo.FValidateFile
 
 export type CcreateSummarizer = ($d: {
-    readonly 'sf_increment': glo.FIncrement
+    readonly 'increment': glo.FIncrement
 }) => glo.FSummarize
 
 export type CcreateSummarySerializer = ($d: {
-    readonly 'sf_add': marithmetic.FAdd
-    readonly 'sf_isZero': mboolean.FIsZero
-    readonly 'pr_log': pt.Procedure<mcommon.TString>
-    readonly 'sf_negate': marithmetic.FNegate
-}) => pt.Procedure<mpublic.TSummary>
+    readonly 'add': marithmetic.FAdd
+    readonly 'isZero': mboolean.FIsZero
+    readonly 'log': mcommon.FLog
+    readonly 'negate': marithmetic.FNegate
+}) => glo.FSerializeSummary
 
 export type CcreateTester = ($d: {
-    readonly 'sf_isZero': mboolean.FIsZero
-    readonly 'pr_onTestErrors': pt.Procedure<mcommon.TNull>
-    readonly 'af_runTests': glo.ARunTests
-    readonly 'pr_serializeSummary': pt.Procedure<mpublic.TSummary>
-    readonly 'pr_serializeTestResult': pt.Procedure<mpublic.TTestSetResult>
-    readonly 'sf_summarize': glo.FSummarize
-}) => pt.Procedure<mpublic.TTestSet>
+    readonly 'isZero': mboolean.FIsZero
+    readonly 'onTestErrors': mcommon.FSignal
+    readonly 'runTests': glo.FRunTests
+    readonly 'serializeSummary': glo.FSerializeSummary
+    readonly 'serializeTestResult': glo.FSerializeTestResult
+    readonly 'summarize': glo.FSummarize
+}) => glo.FTestTestSet
 
 export type CcreateTestParametersParser = ($d: {
-    readonly 'pr_callback': pt.Procedure<mpublic.TTestParameters>
-    readonly 'pr_onError': pt.Procedure<mpublic.TArgumentError>
-}) => pt.Procedure<mpublic.TArguments>
+    readonly 'onError': glo.FHandleArgumentError
+}) => glo.FParseTestParameters
 
 export type CcreateTestResultSerializer = ($d: {
-    readonly 'sf_isABeforeB': mcollation.FIsABeforeB
-    readonly 'pr_log': pt.Procedure<mcommon.TString>
-}) => pt.Procedure<mpublic.TTestSetResult>
+    readonly 'isABeforeB': mcollation.FIsABeforeB
+    readonly 'log': mcommon.FLog
+}) => glo.FSerializeTestResult
 
 export type CcreateTestRunner = ($d: {
-    readonly 'sf_diffData': mdiff.FDiffData
-    readonly 'sf_stringsAreEqual': mdiff.FStringsAreEqual
-    readonly 'af_validateFile': glo.AValidateFile
-}) => glo.ARunTests
+    readonly 'diffData': mdiff.FDiffData
+    readonly 'stringsAreEqual': mdiff.FStringsAreEqual
+    readonly 'validateFile': glo.FValidateFile
+}) => glo.FRunTests
 
 export type Cincrement = glo.FIncrement
 
 export type API = {
-    createArgumentsParser: CcreateArgumentsParser
     createBoundTester: CcreateBoundTester
     createFileValidator: CcreateFileValidator
     createSummarizer: CcreateSummarizer

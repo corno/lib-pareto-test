@@ -24,14 +24,13 @@ export const $$: api.CgetTestSet = ($) => {
 
         const tpp = pubPrivate.$a.createTestParametersParser(
             {
-                pr_onError: ($) => {
+                onError: ($) => {
                     log.push(['error', $])
                 },
-                pr_callback: ($) => {
-                    log.push(['callback', $])
-                }
             })
-        tpp($)
+        tpp($, ($) => {
+            log.push(['callback', $])
+        })
         pl.logDebugMessage(name)
         log.getArray().forEach(($) => {
             pl.logDebugMessage($[0])

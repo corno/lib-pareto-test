@@ -9,6 +9,7 @@ import {
     member,
     null_,
     number,
+    procedure,
     reference,
     string,
     taggedUnion,
@@ -36,7 +37,6 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         }),
         'namespace': {
             'types': types({
-                "Arguments": array(string()),
                 "ArgumentError": taggedUnion({
                     "missing": null_(),
                     "too many": null_(),
@@ -108,28 +108,38 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             'interfaces': d({}),
         },
         'functions': d({
-            "GetTestSet": _function(typeReference("TestParameters"), typeReference("TestSet"), true)
+            "GetTestSet": _function(typeReference("TestParameters"), typeReference("TestSet"), true),
+            "Signal": procedure(externalTypeReference("common", "Null")),
         }),
-        'callbacks': d({}),
-        'pipes': d({}),
     },
     'api': {
         'imports': d({
             "common": "glo-pareto-common",
+            "main": "lib-pareto-main",
         }),
         'algorithms': d({
             "createTestProgram": {
-                'definition': ['procedure', typeReference("Arguments")],
+                'definition': {
+                    'context': ['import', "main"],
+                    'function': "Main"
+                },
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "getTestSet": ['function', {
+                        "getTestSet":  {
                             'function': "GetTestSet",
-                            'async': true,
-                        }],
-                        "log": ['procedure', externalTypeReference("common", "String")],
-                        "logError": ['procedure', externalTypeReference("common", "String")],
-                        "onTestErrors": ['procedure', externalTypeReference("common", "Null")],
+                        },
+                        "log": {
+                            'context': ['import', "common"],
+                            'function': "Log",
+                        },
+                        "logError": {
+                            'context': ['import', "common"],
+                            'function': "Log",
+                        },
+                        "onTestErrors": {
+                            'function': "Signal",
+                        },
                     }),
                 }]
             },

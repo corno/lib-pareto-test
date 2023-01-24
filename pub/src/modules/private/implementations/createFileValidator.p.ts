@@ -7,9 +7,9 @@ import * as mpublic from "../../public"
 export const $$: api.CcreateFileValidator = ($d) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
-        return $d.af_readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
+        return $d.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
             const actualFileName = `${$.expectedFile.fileName}.actual.${$.expectedFile.extension}`
-            const parts = $d.sf_diffData(
+            const parts = $d.diffData(
                 {
                     originalData: expectedData,
                     changedData: $.actual,
@@ -17,10 +17,11 @@ export const $$: api.CcreateFileValidator = ($d) => {
                 },
             )
             if (pl.isNotNull(parts)) {
-                $d.pr_writeFile(
+                $d.writeFile(
                     {
                         path: [$.expectedFile.path, actualFileName],
                         data: $.actual,
+                        createContainingDirectories: true,
                     },
                 )
                 return pl.asyncValue<mpublic.TTestElementResult>({
@@ -34,7 +35,7 @@ export const $$: api.CcreateFileValidator = ($d) => {
                 })
 
             } else {
-                $d.pr_unlink({
+                $d.unlink({
                     path: [$.expectedFile.path, actualFileName]
                 })
                 return pl.asyncValue({

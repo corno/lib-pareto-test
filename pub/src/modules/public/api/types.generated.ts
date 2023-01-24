@@ -6,8 +6,6 @@ export type TArgumentError =
     | ['missing', null]
     | ['too many', null]
 
-export type TArguments = pt.Array<string>
-
 export type TSummary = {
     readonly 'numberOfErrors': number
     readonly 'numberOfTests': number
@@ -75,4 +73,6 @@ export type TValidateFileData = {
     }
 }
 
-export type AGetTestSet = ($: TTestParameters) => pt.AsyncValue<TTestSet>
+export type FGetTestSet = ($: TTestParameters,) => pt.AsyncValue<TTestSet>
+
+export type FSignal = ($: mcommon.TNull,) => void

@@ -10,6 +10,9 @@ import {
     array,
     externalTypeReference,
     typeReference,
+    procedure,
+    callback,
+    interfaceReference,
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 import { dictionary, group, member, taggedUnion, types, _function } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
@@ -18,6 +21,7 @@ import { string, reference, externalReference, number, boolean } from "lib-paret
 import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/modules/moduleDefinition"
 
 const d = pr.wrapRawDictionary
+const a = pr.wrapRawArray
 
 
 export const $: mmoduleDefinition.TModuleDefinition = {
@@ -25,31 +29,42 @@ export const $: mmoduleDefinition.TModuleDefinition = {
     'glossary': {
         'imports': d({
             "public": "../../public",
-            "common": "glo-pareto-common"
+            "common": "glo-pareto-common",
+            "main": "lib-pareto-main"
         }),
         'namespace': {
             'types': types({
-                "WriteFileData": group({
-                    "path": member(er("common", "Path")),
-                    "data": member(str()),
-                })
+                // "WriteFileData": group({
+                //     "path": member(er("common", "Path")),
+                //     "data": member(str()),
+                // })
             }),
-            'interfaces': d({}),
+            'interfaces': d({
+                "HandleTestParameters": ['method', {
+                    'data': {
+                        'context': ['import', "public"],
+                        'namespaces': a([]),
+                        'type': "TestParameters"
+                    },
+                    'interface': null,
+                }]
+            }),
 
         },
         'functions': d({
+            "HandleArgumentError": procedure(externalTypeReference("public", "ArgumentError")),
             "Increment": _function(externalTypeReference("common", "Number"), externalTypeReference("common", "Number")),
             // "IsZero": _function(number(), boolean()),
             // "Negate": _function(number(), number()),
+            "ParseTestParameters": callback(externalTypeReference("main", "Arguments"), interfaceReference("HandleTestParameters")),
             "ReadFile": _function(externalTypeReference("common", "Path"), externalTypeReference("common", "String"), true),
             "RunTests": _function(externalTypeReference("public", "TestSet"), externalTypeReference("public", "TestSetResult"), true),
             "ValidateFile": _function(externalTypeReference("public", "ValidateFileData"), externalTypeReference("public", "TestElementResult"), true),
             "Summarize": _function(externalTypeReference("public", "TestSetResult"), externalTypeReference("public", "Summary")),
-
-
+            "SerializeSummary": procedure(externalTypeReference("public", "Summary")),
+            "SerializeTestResult": procedure(externalTypeReference("public", "TestSetResult")),
+            "TestTestSet": procedure(externalTypeReference("public", "TestSet")),
         }),
-        'callbacks': d({}),
-        'pipes': d({}),
     },
     'api': {
         'imports': d({
@@ -59,164 +74,190 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "collation": "res-pareto-collation",
             "boolean": "res-pareto-boolean",
             "diff": "res-pareto-diff",
-            "fs": "res-pareto-filesystem",
+            "fs": "lib-pareto-filesystem",
         }),
         'algorithms': d({
-            "createArgumentsParser": {
-                'definition': ['procedure', externalTypeReference("public", "Arguments")],
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "callback": ['procedure', externalTypeReference("public", "TestParameters")],
-                        "onError": ['procedure', externalTypeReference("common", "String")],
-                    }),
-                }]
-            },
             "createBoundTester": {
-                'definition': ['procedure', externalTypeReference("public", "TestSet")],
+                'definition':{
+                    'function': "TestTestSet",
+                },
 
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "onTestErrors": ['procedure', externalTypeReference("common", "Null")],
-                        "log": ['procedure', externalTypeReference("common", "String")],
-                        "onError": ['procedure', externalTypeReference("common", "String")],
+                        "onTestErrors": {
+                            'context': ['import', "common"],
+                            'function': "Signal"
+                        },
+                        "log":  {
+                            'context': ['import', "common"],
+                            'function': "Log"
+                        },
+                        "onError":  {
+                            'context': ['import', "common"],
+                            'function': "Log"
+                        },
                     }),
                 }]
             },
             "createFileValidator": {
-                'definition': ['function', {
+                'definition': {
                     'function': "ValidateFile",
-                    'async': true,
-                }],
+                },
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "readFile": ['function', {
+                        "readFile": {
                             'function': "ReadFile",
-                            'async': true,
-                        }],
-                        "diffData": ['function', {
+                        },
+                        "diffData": {
                             'context': ['import', "diff"],
                             'function': "DiffData",
-                        }],
-
-                        "writeFile": ['procedure', typeReference("WriteFileData")],
-                        "unlink": ['procedure', externalTypeReference("fs", "Unlink_Data")],
+                        },
+                        "writeFile": {
+                            'context': ['import', "fs"],
+                            'function': "WriteFile"
+                        },
+                        "unlink": {
+                            'context': ['import', "fs"],
+                            'function': "UnlinkFireAndForget"
+                        },
                     }),
                 }]
             },
             "createSummarizer": {
 
-                'definition': ['function', {
+                'definition': {
                     'function': "Summarize",
-                }],
+                },
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "increment": ['function', {
+                        "increment": {
                             'function': "Increment",
-                        }],
+                        },
                     }),
                 }],
             },
             "createSummarySerializer": {
-                'definition': ['procedure', externalTypeReference("public", "Summary")],
+                'definition': {
+                    'function': "SerializeSummary",
+                },
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "add": ['function', {
+                        "add": {
                             'context': ['import', "arithmetic"],
                             'function': "Add",
-                        }],
-                        "isZero": ['function', {
+                        },
+                        "isZero": {
                             'context': ['import', "boolean"],
                             'function': "IsZero",
-                        }],
-                        "negate": ['function', {
+                        },
+                        "negate": {
                             'context': ['import', "arithmetic"],
                             'function': "Negate",
-                        }],
+                        },
 
 
-                        "log": ['procedure', externalTypeReference("common", "String")],
+                        "log": {
+                            'context': ['import', "common"],
+                            'function': "Log",
+                        },
                     }),
                 }],
             },
             "createTester": {
-                'definition': ['procedure', externalTypeReference("public", "TestSet")],
+                'definition': {
+                    'function': "TestTestSet",
+                },
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "runTests": ['function', {
+                        "runTests": {
                             'function': "RunTests",
-                            'async': true,
-                        }],
-                        "isZero": ['function', {
+                        },
+                        "isZero": {
                             'context': ['import', "boolean"],
                             'function': "IsZero",
-                        }],
-                        "summarize": ['function', {
+                        },
+                        "summarize": {
                             'function': "Summarize",
-                        }],
-                        "onTestErrors": ['procedure', externalTypeReference("common", "Null")],
-                        "serializeTestResult": ['procedure', externalTypeReference("public", "TestSetResult")],
-                        "serializeSummary": ['procedure', externalTypeReference("public", "Summary")],
+                        },
+                        "onTestErrors": {
+                            'context': ['import', "common"],
+                            'function': "Signal"
+                        },
+                        "serializeTestResult": {
+                            'function': "SerializeTestResult"
+                        },
+                        "serializeSummary": {
+                            'function': "SerializeSummary"
+                        },
                     }),
                 }],
             },
             "createTestParametersParser": {
-                'definition': ['procedure', externalTypeReference("public", "Arguments")],
+                'definition': {
+                    
+
+                    'function': "ParseTestParameters"
+                },
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "callback": ['procedure', externalTypeReference("public", "TestParameters")],
-                        "onError": ['procedure', externalTypeReference("public", "ArgumentError")],
+                        "onError": {
+                            'function': "HandleArgumentError"
+                        },
 
                     }),
                 }],
             },
             "createTestRunner": {
-                'definition': ['function', {
+                'definition': {
                     'function': "RunTests",
-                    'async': true,
-                }],
+                },
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "diffData": ['function', {
+                        "diffData":  {
                             'context': ['import', "diff"],
                             'function': "DiffData",
-                        }],
-                        "stringsAreEqual": ['function', {
+                        },
+                        "stringsAreEqual":  {
                             'context': ['import', "diff"],
                             'function': "StringsAreEqual",
-                        }],
-                        "validateFile": ['function', {
+                        },
+                        "validateFile": {
                             'function': "ValidateFile",
                             'async': true,
-                        }],
+                        },
                     }),
                 }],
             },
             "createTestResultSerializer": {
-                'definition': ['procedure', externalTypeReference("public", "TestSetResult")],
+                'definition': {
+                    'function': "SerializeTestResult",
+                },
                 'type': ['constructor', {
                     'configuration data': null,
                     'dependencies': d({
-                        "isABeforeB": ['function', {
+                        "isABeforeB": {
                             'context': ['import', "collation"],
                             'function': "IsABeforeB",
-                        }],
-                        "log": ['procedure', externalTypeReference("common", "String")],
+                        },
+                        "log": {
+                            'context': ['import', "common"],
+                            'function': "Log",
+                        },
                     }),
                 }],
             },
             "increment": {
 
-                'definition': ['function', {
+                'definition': {
                     'function': "Increment"
-                }],
+                },
                 'type': ['reference', null],
             }
         })

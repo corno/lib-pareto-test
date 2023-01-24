@@ -17,37 +17,37 @@ import { $a } from "../index"
 export const $$: api.CcreateBoundTester = ($d) => {
     return $a.createTester(
         {
-            pr_onTestErrors: $d.pr_onTestErrors,
-            pr_serializeTestResult: $a.createTestResultSerializer(
+            onTestErrors: $d.onTestErrors,
+            serializeTestResult: $a.createTestResultSerializer(
                 {
-                    pr_log: $d.pr_log,
-                    sf_isABeforeB: mcollation.$a.localeIsABeforeB,
+                    log: $d.log,
+                    isABeforeB: mcollation.$a.localeIsABeforeB,
                 },
             ),
-            pr_serializeSummary: $a.createSummarySerializer(
+            serializeSummary: $a.createSummarySerializer(
                 {
-                    pr_log: $d.pr_log,
-                    sf_isZero: mbool.$a.isZero,
-                    sf_add: marith.$a.add,
-                    sf_negate: marith.$a.negate,
+                    log: $d.log,
+                    isZero: mbool.$a.isZero,
+                    add: marith.$a.add,
+                    negate: marith.$a.negate,
 
                 }
             ),
-            af_runTests: $a.createTestRunner(
+            runTests: $a.createTestRunner(
                 {
-                    sf_diffData: mdiff.$a.diffData,
-                    sf_stringsAreEqual: mdiff.$a.stringsAreEqual,
-                    af_validateFile: $a.createFileValidator(
+                    diffData: mdiff.$a.diffData,
+                    stringsAreEqual: mdiff.$a.stringsAreEqual,
+                    validateFile: $a.createFileValidator(
                         {
-                            pr_writeFile: ($) =>/**/ {
+                            writeFile: ($) =>/**/ {
                                 mfslib.$a.createWriteFileFireAndForget(
                                     {
-                                        // pr_onError: ($) =>/**/ {
-                                        //     $d.pr_onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
+                                        // onError: ($) =>/**/ {
+                                        //     $d.onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
                                         // },
-                                        if_createWriteStream: mfs.$a.createWriteStream({
-                                            pr_onError: ($) => {
-                                                $d.pr_onError(`${$.path}: ${mfslib.$a.createWriteFileErrorMessage($.error)}`)
+                                        createWriteStream: mfs.$a.createWriteStream({
+                                            onError: ($) => {
+                                                $d.onError(`${$.path}: ${mfslib.$a.createWriteFileErrorMessage($.error)}`)
                                             }
                                         }),
                                     },
@@ -57,15 +57,15 @@ export const $$: api.CcreateBoundTester = ($d) => {
                                     createContainingDirectories: true,
                                 })
                             },
-                            pr_unlink: mfslib.$a.createUnlinkFireAndForget(
+                            unlink: mfslib.$a.createUnlinkFireAndForget(
                                 {
-                                    pr_onError: ($) =>/**/ {
-                                        $d.pr_onError(`${$.path}: ${mfslib.$a.createUnlinkErrorMessage($.error)}`)
+                                    onError: ($) =>/**/ {
+                                        $d.onError(`${$.path}: ${mfslib.$a.createUnlinkErrorMessage($.error)}`)
                                     },
-                                    af_unlink: mfs.$a.unlink,
+                                    unlink: mfs.$a.unlink,
                                 },
                             ),
-                            af_readFile: ($) =>/**/ {
+                            readFile: ($) =>/**/ {
                                 const x = $
                                 return pl.toAsyncValue(($i2) =>/**/ {
 
@@ -73,7 +73,7 @@ export const $$: api.CcreateBoundTester = ($d) => {
                                         x,
                                         {
                                             onError: ($) =>/**/ {
-                                                $d.pr_onError(`${$.path}: ${mfslib.$a.createReadFileErrorMessage($.error)}`)
+                                                $d.onError(`${$.path}: ${mfslib.$a.createReadFileErrorMessage($.error)}`)
                                             },
                                             init: ($c) =>/**/ {
                                                 let out = ""
@@ -90,17 +90,17 @@ export const $$: api.CcreateBoundTester = ($d) => {
                                     )
                                 })
                             },
-                            sf_diffData: mdiff.$a.diffData,
+                            diffData: mdiff.$a.diffData,
                         }),
                 }
             ),
-            sf_summarize: $a.createSummarizer(
+            summarize: $a.createSummarizer(
                 {
-                   //log: $d.pr_log,
-                    sf_increment: $a.increment,
+                   //log: $d.log,
+                    increment: $a.increment,
                 }
             ),
-            sf_isZero: mbool.$a.isZero,
+            isZero: mbool.$a.isZero,
         },
     )
 }

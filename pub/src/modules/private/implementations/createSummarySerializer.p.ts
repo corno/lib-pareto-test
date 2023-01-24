@@ -10,9 +10,9 @@ export const $$: api.CcreateSummarySerializer = (
         const green = "\x1b[32m"
         const reset = "\x1b[0m"
 
-        $d.pr_log(``)
+        $d.log(``)
         const summary = $
-        $d.pr_log(`${$d.sf_isZero(summary.numberOfErrors) ? green : ""}${$d.sf_add([summary.numberOfTests, $d.sf_negate(summary.numberOfErrors)])} successful tests${reset}`)
-        $d.pr_log(`${$d.sf_isZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
+        $d.log(`${$d.isZero(summary.numberOfErrors) ? green : ""}${$d.add([summary.numberOfTests, $d.negate(summary.numberOfErrors)])} successful tests${reset}`)
+        $d.log(`${$d.isZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
     }
 }

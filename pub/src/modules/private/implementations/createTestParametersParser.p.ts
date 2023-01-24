@@ -1,24 +1,29 @@
+import * as pl from 'pareto-core-lib'
+
 import * as api from "../api"
 
 export const $$: api.CcreateTestParametersParser = (
     $d,
 ) => {
-    return ($) => {
+    return ($, $i) => {
         type State = null | string
         let state: State = null
         $.forEach(($) => {
             if (state !== null) {
-                $d.pr_onError(['too many', null])
+                $d.onError(['too many', null])
             } else {
                 state = $
             }
         })
+        pl.cc($, ($) => {
         if (state === null) {
-            $d.pr_onError(['missing', null])
+            $d.onError(['missing', null])
         } else {
-            $d.pr_callback({
+            $i({
                 testDirectory: state,
             })
         }
+
+        })
     }
 }

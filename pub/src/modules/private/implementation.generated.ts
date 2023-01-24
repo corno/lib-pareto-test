@@ -1,5 +1,4 @@
 import { API } from "./api"
-import { $$ as icreateArgumentsParser } from "./implementations/createArgumentsParser.p"
 import { $$ as icreateBoundTester } from "./implementations/createBoundTester.p"
 import { $$ as icreateFileValidator } from "./implementations/createFileValidator.p"
 import { $$ as icreateSummarizer } from "./implementations/createSummarizer.p"
@@ -11,7 +10,6 @@ import { $$ as icreateTestRunner } from "./implementations/createTestRunner.p"
 import { $$ as iincrement } from "./implementations/increment.p"
 
 export const $a: API = {
-    'createArgumentsParser': icreateArgumentsParser,
     'createBoundTester': icreateBoundTester,
     'createFileValidator': icreateFileValidator,
     'createSummarizer': icreateSummarizer,
