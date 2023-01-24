@@ -7,7 +7,7 @@
     "pareto-core-lib": "^0.17.0",
     "pareto-core-raw": "^0.7.4",
     "pareto-core-state": "^0.12.0",
-    "res-pareto-arithmetic": "^0.8.0",
+    "res-pareto-arithmetic": "^0.9.0",
     "res-pareto-boolean": "^0.11.0",
     "res-pareto-collation": "^0.11.0",
     "res-pareto-diff": "^0.20.0"
@@ -25,5 +25,5 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.24.0",
-  "content-fingerprint": "d562149c650ac6daeb70d839274cf9043c20f35a"
+  "content-fingerprint": "3898542b575b133f023098e7abc20a142c636d68"
 }
