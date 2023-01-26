@@ -33,78 +33,76 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "common": "glo-pareto-common",
         }),
         'parameters': d({}),
-        'namespace': {
-            'types': types({
-                "ArgumentError": taggedUnion({
-                    "missing": null_(),
-                    "too many": null_(),
-                }),
-                "Summary": group({
-                    "numberOfTests": member(number()),
-                    "numberOfErrors": member(number()),
-                }),
-                "TestElement": group({
-                    "type": member(taggedUnion({
-                        "subset": reference("TestSet"),
-                        "test": group({
-                            "type": member(taggedUnion({
-                                "boolean": boolean(),
-                                "short string": group({
-                                    "expected": member(string()),
-                                    "actual": member(string()),
-                                }),
-                                "long string": group({
-                                    "expected": member(string()),
-                                    "actual": member(string()),
-                                }),
-                                "file string": reference("ValidateFileData"),
-                            })),
-                        }),
-                    })),
-                }),
-                "TestElementResult": group({
-                    "type": member(taggedUnion({
-                        "subset": reference("TestSetResult"),
-                        "test": group({
-                            "success": member(boolean()),
-                            "type": member(reference("TestType")),
-                        }),
-                    }))
-                }),
-                "TestParameters": group({
-                    "testDirectory": member(string()),
-                }),
-                "TestSet": group({
-                    "elements": member(dictionary(reference("TestElement")))
-                }),
-                "TestSetResult": group({
-                    "elements": member(dictionary(reference("TestElementResult")))
-                }),
-                "TestType": taggedUnion({
-                    "boolean": null_(),
-                    "long string": group({
-                        "parts": member(array(externalReference("diff", "MultilinePart")))
+        'types': types({
+            "ArgumentError": taggedUnion({
+                "missing": null_(),
+                "too many": null_(),
+            }),
+            "Summary": group({
+                "numberOfTests": member(number()),
+                "numberOfErrors": member(number()),
+            }),
+            "TestElement": group({
+                "type": member(taggedUnion({
+                    "subset": reference("TestSet"),
+                    "test": group({
+                        "type": member(taggedUnion({
+                            "boolean": boolean(),
+                            "short string": group({
+                                "expected": member(string()),
+                                "actual": member(string()),
+                            }),
+                            "long string": group({
+                                "expected": member(string()),
+                                "actual": member(string()),
+                            }),
+                            "file string": reference("ValidateFileData"),
+                        })),
                     }),
-                    "short string": group({
-                        "expected": member(string()),
-                        "actual": member(string()),
+                })),
+            }),
+            "TestElementResult": group({
+                "type": member(taggedUnion({
+                    "subset": reference("TestSetResult"),
+                    "test": group({
+                        "success": member(boolean()),
+                        "type": member(reference("TestType")),
                     }),
-                    "file string": group({
-                        "fileLocation": member(string()),
-                        "parts": member(array(externalReference("diff", "MultilinePart")))
-                    }),
+                }))
+            }),
+            "TestParameters": group({
+                "testDirectory": member(string()),
+            }),
+            "TestSet": group({
+                "elements": member(dictionary(reference("TestElement")))
+            }),
+            "TestSetResult": group({
+                "elements": member(dictionary(reference("TestElementResult")))
+            }),
+            "TestType": taggedUnion({
+                "boolean": null_(),
+                "long string": group({
+                    "parts": member(array(externalReference("diff", "MultilinePart")))
                 }),
-                "ValidateFileData": group({
-                    "expectedFile": member(group({
-                        "path": member(externalReference("common", "Path")),
-                        "fileName": member(string()),
-                        "extension": member(string())
-                    })),
-                    "actual": member(string())
+                "short string": group({
+                    "expected": member(string()),
+                    "actual": member(string()),
+                }),
+                "file string": group({
+                    "fileLocation": member(string()),
+                    "parts": member(array(externalReference("diff", "MultilinePart")))
                 }),
             }),
-            'interfaces': d({}),
-        },
+            "ValidateFileData": group({
+                "expectedFile": member(group({
+                    "path": member(externalReference("common", "Path")),
+                    "fileName": member(string()),
+                    "extension": member(string())
+                })),
+                "actual": member(string())
+            }),
+        }),
+        'interfaces': d({}),
         'functions': d({
             "GetTestSet": _function(typeReference("TestParameters"), typeReference("TestSet"), true),
             "Signal": procedure(externalTypeReference("common", "Null")),

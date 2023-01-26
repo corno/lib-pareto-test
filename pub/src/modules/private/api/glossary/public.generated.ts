@@ -1,7 +1,10 @@
 import * as pt from 'pareto-core-types'
+
+import * as t from './types.generated'
+
 import * as mcommon from "glo-pareto-common"
 import * as mmain from "lib-pareto-main"
-import * as mpublic from "../../public"
+import * as mpublic from "../../../public"
 
 export type IHandleTestParameters = ($: mpublic.TTestParameters, ) => void
 

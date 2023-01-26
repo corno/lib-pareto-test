@@ -1,6 +1,6 @@
 import * as pt from 'pareto-core-types'
 
-import * as glo from "./types.generated"
+import * as glo from "./glossary"
 
 import * as marithmetic from "res-pareto-arithmetic"
 import * as mboolean from "res-pareto-boolean"

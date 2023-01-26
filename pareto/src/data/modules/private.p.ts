@@ -14,7 +14,6 @@ import {
     callback,
     interfaceReference,
     method,
-    externalNamespacedTypeReference,
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 import { dictionary, group, member, taggedUnion, types, _function } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
@@ -29,18 +28,16 @@ const a = pr.wrapRawArray
 export const $: mmoduleDefinition.TModuleDefinition = {
     'glossary': {
         'imports': d({
-            "public": "../../public",
+            "public": "../../../public",
             "common": "glo-pareto-common",
             "main": "lib-pareto-main"
         }),
         'parameters': d({}),
-        'namespace': {
-            'types': types({
-            }),
-            'interfaces': d({
-                "HandleTestParameters": method(externalNamespacedTypeReference("public", "TestParameters")),
-            }),
-        },
+        'types': types({
+        }),
+        'interfaces': d({
+            "HandleTestParameters": method(externalTypeReference("public", "TestParameters")),
+        }),
         'functions': d({
             "HandleArgumentError": procedure(externalTypeReference("public", "ArgumentError")),
             "Increment": _function(externalTypeReference("common", "Number"), externalTypeReference("common", "Number")),
