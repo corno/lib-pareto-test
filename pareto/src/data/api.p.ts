@@ -33,6 +33,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "common": "glo-pareto-common",
         }),
         'parameters': d({}),
+        'templates': d({}),
         'types': types({
             "ArgumentError": taggedUnion({
                 "missing": null_(),

@@ -3,7 +3,7 @@
   "dependencies": {
     "glo-pareto-common": "^0.8.0",
     "lib-pareto-filesystem": "^0.22.0",
-    "lib-pareto-main": "^0.10.0",
+    "lib-pareto-main": "^0.11.0",
     "pareto-core-lib": "^0.17.0",
     "pareto-core-raw": "^0.7.4",
     "pareto-core-state": "^0.12.0",
@@ -25,5 +25,5 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.25.0",
-  "content-fingerprint": "a3bac147c45511777574a0d850597ba3ac349002"
+  "content-fingerprint": "7bae239e7df7fee519d112dae218d5379dc48cd5"
 }

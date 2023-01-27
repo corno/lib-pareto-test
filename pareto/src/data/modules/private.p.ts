@@ -33,6 +33,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "main": "lib-pareto-main"
         }),
         'parameters': d({}),
+        'templates': d({}),
         'types': types({
         }),
         'interfaces': d({
