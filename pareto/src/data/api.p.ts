@@ -3,8 +3,6 @@ import {
     array,
     boolean,
     dictionary,
-    externalReference,
-    externalTypeReference,
     group,
     member,
     null_,
@@ -18,10 +16,9 @@ import {
     _function,
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
-import { definitionReference, externalDefinitionReference, constructor } from "lib-pareto-typescript-project/dist/modules/moduleDefinition/api/shorthands.p"
+import { definitionReference, constructor, algorithm } from "lib-pareto-typescript-project/dist/modules/moduleDefinition/api/shorthands.p"
 
 import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/modules/moduleDefinition"
-
 
 const d = pr.wrapRawDictionary
 
@@ -29,7 +26,6 @@ export const $: mmoduleDefinition.TModuleDefinition = {
     'glossary': {
         'imports': d({
             "diff": "res-pareto-diff",
-            //"fs": "res-pareto-filesystem",
             "common": "glo-pareto-common",
         }),
         'parameters': d({}),
@@ -83,7 +79,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "TestType": taggedUnion({
                 "boolean": null_(),
                 "long string": group({
-                    "parts": member(array(externalReference("diff", "MultilinePart")))
+                    "parts": member(array(reference("diff", "MultilinePart")))
                 }),
                 "short string": group({
                     "expected": member(string()),
@@ -91,12 +87,12 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 }),
                 "file string": group({
                     "fileLocation": member(string()),
-                    "parts": member(array(externalReference("diff", "MultilinePart")))
+                    "parts": member(array(reference("diff", "MultilinePart")))
                 }),
             }),
             "ValidateFileData": group({
                 "expectedFile": member(group({
-                    "path": member(externalReference("common", "Path")),
+                    "path": member(reference("common", "Path")),
                     "fileName": member(string()),
                     "extension": member(string())
                 })),
@@ -106,7 +102,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         'interfaces': d({}),
         'functions': d({
             "GetTestSet": _function(typeReference("TestParameters"), typeReference("TestSet"), true),
-            "Signal": procedure(externalTypeReference("common", "Null")),
+            "Signal": procedure(typeReference("common", "Null")),
         }),
     },
     'api': {
@@ -115,32 +111,22 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "main": "lib-pareto-main",
         }),
         'algorithms': d({
-            "createTestProgram": {
-                'definition': {
-                    'context': ['import', "main"],
-                    'function': "Main"
+            "createTestProgram": algorithm(definitionReference("main", "Main"), constructor(null, {
+                "getTestSet": {
+                    'function': "GetTestSet",
                 },
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "getTestSet": {
-                            'function': "GetTestSet",
-                        },
-                        "log": {
-                            'context': ['import', "common"],
-                            'function': "Log",
-                        },
-                        "logError": {
-                            'context': ['import', "common"],
-                            'function': "Log",
-                        },
-                        "onTestErrors": {
-                            'function': "Signal",
-                        },
-                    }),
-                }]
-            },
-
+                "log": {
+                    'context': ['import', "common"],
+                    'function': "Log",
+                },
+                "logError": {
+                    'context': ['import', "common"],
+                    'function': "Log",
+                },
+                "onTestErrors": {
+                    'function': "Signal",
+                },
+            })),
         })
     }
 }

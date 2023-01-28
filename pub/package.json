@@ -1,15 +1,15 @@
 {
   "author": "Corno",
   "dependencies": {
-    "glo-pareto-common": "^0.8.0",
+    "glo-pareto-common": "^0.9.0",
     "lib-pareto-filesystem": "^0.22.0",
     "lib-pareto-main": "^0.11.0",
     "pareto-core-lib": "^0.17.0",
     "pareto-core-raw": "^0.7.4",
     "pareto-core-state": "^0.12.0",
     "res-pareto-arithmetic": "^0.10.0",
-    "res-pareto-boolean": "^0.13.0",
-    "res-pareto-collation": "^0.13.0",
+    "res-pareto-boolean": "^0.14.0",
+    "res-pareto-collation": "^0.14.0",
     "res-pareto-diff": "^0.22.0"
   },
   "description": "test functions for pareto",
@@ -25,5 +25,5 @@
   },
   "types": "dist/index.d.ts",
   "version": "0.26.0",
-  "content-fingerprint": "7bae239e7df7fee519d112dae218d5379dc48cd5"
+  "content-fingerprint": "69f18bb86f17c225c31fd81350488e28039ff562"
 }

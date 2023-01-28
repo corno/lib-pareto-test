@@ -1,29 +1,20 @@
 import * as pr from 'pareto-core-raw'
+
 import {
-    externalReference as er,
-    string as str,
-    reference as ref,
-    boolean as bln,
-    number as nr,
     nested,
-    optional,
     array,
-    externalTypeReference,
     typeReference,
     procedure,
     callback,
     interfaceReference,
-    method,
+    method, dictionary, group, member, taggedUnion, types, _function
 } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
-import { dictionary, group, member, taggedUnion, types, _function } from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
 
+import { definitionReference, constructor, algorithm } from "lib-pareto-typescript-project/dist/modules/moduleDefinition/api/shorthands.p"
 
-import { definitionReference, externalDefinitionReference, constructor } from "lib-pareto-typescript-project/dist/modules/moduleDefinition/api/shorthands.p"
 import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/modules/moduleDefinition"
 
 const d = pr.wrapRawDictionary
-const a = pr.wrapRawArray
-
 
 export const $: mmoduleDefinition.TModuleDefinition = {
     'glossary': {
@@ -37,19 +28,19 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         'types': types({
         }),
         'interfaces': d({
-            "HandleTestParameters": method(externalTypeReference("public", "TestParameters")),
+            "HandleTestParameters": method(typeReference("public", "TestParameters")),
         }),
         'functions': d({
-            "HandleArgumentError": procedure(externalTypeReference("public", "ArgumentError")),
-            "Increment": _function(externalTypeReference("common", "Number"), externalTypeReference("common", "Number")),
-            "ParseTestParameters": callback(externalTypeReference("main", "Arguments"), interfaceReference("HandleTestParameters")),
-            "ReadFile": _function(externalTypeReference("common", "Path"), externalTypeReference("common", "String"), true),
-            "RunTests": _function(externalTypeReference("public", "TestSet"), externalTypeReference("public", "TestSetResult"), true),
-            "ValidateFile": _function(externalTypeReference("public", "ValidateFileData"), externalTypeReference("public", "TestElementResult"), true),
-            "Summarize": _function(externalTypeReference("public", "TestSetResult"), externalTypeReference("public", "Summary")),
-            "SerializeSummary": procedure(externalTypeReference("public", "Summary")),
-            "SerializeTestResult": procedure(externalTypeReference("public", "TestSetResult")),
-            "TestTestSet": procedure(externalTypeReference("public", "TestSet")),
+            "HandleArgumentError": procedure(typeReference("public", "ArgumentError")),
+            "Increment": _function(typeReference("common", "Number"), typeReference("common", "Number")),
+            "ParseTestParameters": callback(typeReference("main", "Arguments"), interfaceReference("HandleTestParameters")),
+            "ReadFile": _function(typeReference("common", "Path"), typeReference("common", "String"), true),
+            "RunTests": _function(typeReference("public", "TestSet"), typeReference("public", "TestSetResult"), true),
+            "ValidateFile": _function(typeReference("public", "ValidateFileData"), typeReference("public", "TestElementResult"), true),
+            "Summarize": _function(typeReference("public", "TestSetResult"), typeReference("public", "Summary")),
+            "SerializeSummary": procedure(typeReference("public", "Summary")),
+            "SerializeTestResult": procedure(typeReference("public", "TestSetResult")),
+            "TestTestSet": procedure(typeReference("public", "TestSet")),
         }),
     },
     'api': {
@@ -63,122 +54,47 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "fs": "lib-pareto-filesystem",
         }),
         'algorithms': d({
-            "createBoundTester": {
-                'definition': definitionReference("TestTestSet"),
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "onTestErrors": {
-                            'context': ['import', "common"],
-                            'function': "Signal"
-                        },
-                        "log": {
-                            'context': ['import', "common"],
-                            'function': "Log"
-                        },
-                        "onError": {
-                            'context': ['import', "common"],
-                            'function': "Log"
-                        },
-                    }),
-                }]
-            },
-            "createFileValidator": {
-                'definition': definitionReference("ValidateFile"),
-                'type': ['constructor', {
-                    'configuration data': null,
-                    'dependencies': d({
-                        "readFile": definitionReference("ReadFile"),
-                        "diffData": {
-                            'context': ['import', "diff"],
-                            'function': "DiffData",
-                        },
-                        "writeFile": {
-                            'context': ['import', "fs"],
-                            'function': "WriteFile"
-                        },
-                        "unlink": {
-                            'context': ['import', "fs"],
-                            'function': "UnlinkFireAndForget"
-                        },
-                    }),
-                }]
-            },
-            "createSummarizer": {
-                'definition': definitionReference("Summarize"),
-                'type': constructor(null, {
-                    "increment": definitionReference("Increment"),
-                }),
-            },
-            "createSummarySerializer": {
-                'definition': definitionReference("SerializeSummary"),
-                'type': constructor(null, {
-                    "add": {
-                        'context': ['import', "arithmetic"],
-                        'function': "Add",
-                    },
-                    "isZero": {
-                        'context': ['import', "boolean"],
-                        'function': "IsZero",
-                    },
-                    "negate": {
-                        'context': ['import', "arithmetic"],
-                        'function': "Negate",
-                    },
-                    "log": {
-                        'context': ['import', "common"],
-                        'function': "Log",
-                    },
-                }),
-            },
-            "createTester": {
-                'definition': definitionReference("TestTestSet"),
-                'type': constructor(null, {
-                    "runTests": definitionReference("RunTests"),
-                    "isZero": {
-                        'context': ['import', "boolean"],
-                        'function': "IsZero",
-                    },
-                    "summarize": definitionReference("Summarize"),
-                    "onTestErrors": {
-                        'context': ['import', "common"],
-                        'function': "Signal"
-                    },
-                    "serializeTestResult": definitionReference("SerializeTestResult"),
-                    "serializeSummary": definitionReference("SerializeSummary"),
-                }),
-            },
-            "createTestParametersParser": {
-                'definition': definitionReference("ParseTestParameters"),
-                'type': constructor(null, {
-                    "onError": definitionReference("HandleArgumentError"),
-                }),
-            },
-            "createTestRunner": {
-                'definition': definitionReference("RunTests"),
-                'type': constructor(null, {
-                    "diffData": {
-                        'context': ['import', "diff"],
-                        'function': "DiffData",
-                    },
-                    "stringsAreEqual": {
-                        'context': ['import', "diff"],
-                        'function': "StringsAreEqual",
-                    },
-                    "validateFile": definitionReference("ValidateFile"),
-                }),
-            },
-            "createTestResultSerializer": {
-                'definition': definitionReference("SerializeTestResult"),
-                'type': constructor(null, {
-                    "isABeforeB": externalDefinitionReference("collation", "IsABeforeB"),
-                    "log": externalDefinitionReference("common", "Log"),
-                }),
-            },
-            "increment": {
-                'definition': definitionReference("Increment"),
-                'type': ['reference', null],
-            }
+            "createBoundTester": algorithm(definitionReference("TestTestSet"), constructor(null, {
+                "onTestErrors": definitionReference("common", "Signal"),
+                "log": definitionReference("common", "Log"),
+                "onError": definitionReference("common", "Log"),
+            })),
+            "createFileValidator": algorithm(definitionReference("ValidateFile"), constructor(null, {
+                "readFile": definitionReference("ReadFile"),
+                "diffData": definitionReference("diff", "DiffData"),
+                "writeFile": definitionReference("fs", "WriteFile"),
+                "unlink": definitionReference("fs", "UnlinkFireAndForget"),
+            })),
+            "createSummarizer": algorithm(definitionReference("Summarize"), constructor(null, {
+                "increment": definitionReference("Increment"),
+            })),
+            "createSummarySerializer": algorithm(definitionReference("SerializeSummary"), constructor(null, {
+                "add": definitionReference("arithmetic", "Add"),
+                "isZero": definitionReference("boolean", "IsZero"),
+                "negate": definitionReference("arithmetic", "Negate"),
+                "log": definitionReference("common", "Log"),
+            })),
+            "createTester": algorithm(definitionReference("TestTestSet"), constructor(null, {
+                "runTests": definitionReference("RunTests"),
+                "isZero": definitionReference("boolean", "IsZero"),
+                "summarize": definitionReference("Summarize"),
+                "onTestErrors": definitionReference("common", "Signal"),
+                "serializeTestResult": definitionReference("SerializeTestResult"),
+                "serializeSummary": definitionReference("SerializeSummary"),
+            })),
+            "createTestParametersParser": algorithm(definitionReference("ParseTestParameters"), constructor(null, {
+                "onError": definitionReference("HandleArgumentError"),
+            })),
+            "createTestRunner": algorithm(definitionReference("RunTests"), constructor(null, {
+                "diffData": definitionReference("diff", "DiffData"),
+                "stringsAreEqual": definitionReference("diff", "StringsAreEqual"),
+                "validateFile": definitionReference("ValidateFile"),
+            })),
+            "createTestResultSerializer": algorithm(definitionReference("SerializeTestResult"), constructor(null, {
+                "isABeforeB": definitionReference("collation", "IsABeforeB"),
+                "log": definitionReference("common", "Log"),
+            })),
+            "increment": algorithm(definitionReference("Increment")),
         })
     },
 }
