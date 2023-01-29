@@ -8,6 +8,12 @@ import { $ as private_ } from "./modules/private.p"
 const d = pr.wrapRawDictionary
 
 export const $: mproject.TProject = {
+    'name': "lib-pareto-test",
+
+    'author': "Corno",
+    'description': "the library needed to write tests for Pareto code",
+    'license': "ISC",
+
     'type': ['library', {}],
     'modules': d({
         "public": {
@@ -18,5 +24,16 @@ export const $: mproject.TProject = {
             'implemenation': {}
         }
     }),
-    'main': "public"
+    'main': "public",
+    'pubdependencies': d({
+        "glo-pareto-common": {},
+        "lib-pareto-filesystem": {},
+        "lib-pareto-main": {},
+        "res-pareto-arithmetic": {},
+        "res-pareto-boolean": {},
+        "res-pareto-collation": {},
+        "res-pareto-diff": {},
+        "res-pareto-main": {},
+    }),
+    'testdependencies': d({}),
 }

@@ -21,7 +21,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         'imports': d({
             "public": "../../../public",
             "common": "glo-pareto-common",
-            "main": "lib-pareto-main"
+            "main": "res-pareto-main"
         }),
         'parameters': d({}),
         'templates': d({}),

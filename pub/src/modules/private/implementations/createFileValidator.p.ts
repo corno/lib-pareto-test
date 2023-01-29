@@ -16,37 +16,45 @@ export const $$: api.CcreateFileValidator = ($d) => {
                     newline: "\n",
                 },
             )
-            if (pl.isNotNull(parts)) {
-                $d.writeFile(
-                    {
-                        path: [$.expectedFile.path, actualFileName],
-                        data: $.actual,
-                        createContainingDirectories: true,
-                    },
-                )
-                return pl.asyncValue<mpublic.TTestElementResult>({
-                    type: ['test', {
-                        success: false,
-                        type: ['file string', {
-                            fileLocation: `${$.expectedFile.path}/${expectedFileName}`,
-                            parts: parts
-                        }]
-                    }]
-                })
+            const validateFileData = $
+            switch (parts[0]) {
+                case 'not set':
+                    return pl.cc(parts[1], ($) => {
+                        $d.unlink({
+                            path: [validateFileData.expectedFile.path, actualFileName]
+                        })
+                        return pl.asyncValue({
+                            type: ['test', {
+                                success: true,
+                                type: ['file string', {
+                                    fileLocation: `${validateFileData.expectedFile.path}/${expectedFileName}`,
+                                    parts: pl.createEmptyArray()
+                                }]
+                            }]
+                        })
 
-            } else {
-                $d.unlink({
-                    path: [$.expectedFile.path, actualFileName]
-                })
-                return pl.asyncValue({
-                    type: ['test', {
-                        success: true,
-                        type: ['file string', {
-                            fileLocation: `${$.expectedFile.path}/${expectedFileName}`,
-                            parts: pl.createEmptyArray()
-                        }]
-                    }]
-                })
+                    })
+                case 'set':
+                    return pl.cc(parts[1], ($) => {
+                        $d.writeFile(
+                            {
+                                path: [validateFileData.expectedFile.path, actualFileName],
+                                data: validateFileData.actual,
+                                createContainingDirectories: true,
+                            },
+                        )
+                        return pl.asyncValue<mpublic.TTestElementResult>({
+                            type: ['test', {
+                                success: false,
+                                type: ['file string', {
+                                    fileLocation: `${validateFileData.expectedFile.path}/${expectedFileName}`,
+                                    parts: $
+                                }]
+                            }]
+                        })
+
+                    })
+                default: return pl.au(parts[0])
             }
         })
     }

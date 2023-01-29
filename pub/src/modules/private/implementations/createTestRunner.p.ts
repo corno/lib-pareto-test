@@ -46,26 +46,30 @@ export const $$: api.CcreateTestRunner = ($d) => {
                                                 newline: "\n",
                                             }
                                         )
-                                        if (pl.isNotNull(res)) {
-                                            return pl.asyncValue({
-                                                type: ['test', {
-                                                    success: false,
-                                                    type: ['long string', {
-                                                        parts: res
-                                                    }]
-                                                }]
-                                            })
-
-                                        } else {
-                                            return pl.asyncValue({
-                                                type: ['test', {
-                                                    success: true,
-                                                    type: ['long string', {
-                                                        parts: pl.createEmptyArray()
-                                                    }]
-                                                }]
-                                            })
-
+                                        switch (res[0]) {
+                                            case 'not set':
+                                                return pl.cc(res[1], ($) => {
+                                                    return pl.asyncValue({
+                                                        type: ['test', {
+                                                            success: true,
+                                                            type: ['long string', {
+                                                                parts: pl.createEmptyArray()
+                                                            }]
+                                                        }]
+                                                    })
+                                                })
+                                            case 'set':
+                                                return pl.cc(res[1], ($) => {
+                                                    return pl.asyncValue({
+                                                        type: ['test', {
+                                                            success: false,
+                                                            type: ['long string', {
+                                                                parts: $
+                                                            }]
+                                                        }]
+                                                    })
+                                                })
+                                            default: return pl.au(res[0])
                                         }
                                     })
                                 case 'short string':

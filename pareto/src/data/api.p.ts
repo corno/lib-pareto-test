@@ -108,7 +108,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
     'api': {
         'imports': d({
             "common": "glo-pareto-common",
-            "main": "lib-pareto-main",
+            "main": "res-pareto-main",
         }),
         'algorithms': d({
             "createTestProgram": algorithm(definitionReference("main", "Main"), constructor(null, {
