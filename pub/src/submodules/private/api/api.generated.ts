@@ -8,7 +8,7 @@ import * as mcollation from "res-pareto-collation"
 import * as mcommon from "glo-pareto-common"
 import * as mdiff from "res-pareto-diff"
 import * as mfs from "lib-pareto-filesystem"
-import * as mpublic from "../../public"
+import * as mpublic from "../../../main"
 
 export type CcreateBoundTester = ($d: {
     readonly 'log': mcommon.FLog

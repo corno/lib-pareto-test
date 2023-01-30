@@ -9,8 +9,8 @@ import * as api from "../api"
 
 import * as pub from "../../../../../pub"
 
-import * as pubTypes from "../../../../../pub/dist/modules/public"
-import * as pubPrivate from "../../../../../pub/dist/modules/private"
+import * as pubTypes from "../../../../../pub/dist/main"
+import * as pubPrivate from "../../../../../pub/dist/submodules/private"
 
 export const $$: api.CgetTestSet = ($) => {
 

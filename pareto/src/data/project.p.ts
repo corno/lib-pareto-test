@@ -14,17 +14,6 @@ export const $: mproject.TProject = {
     'description': "the library needed to write tests for Pareto code",
     'license': "ISC",
 
-    'type': ['library', {}],
-    'modules': d({
-        "public": {
-            'definition': api,
-        },
-        "private": {
-            'definition': private_,
-            'implemenation': {}
-        }
-    }),
-    'main': "public",
     'pubdependencies': d({
         "glo-pareto-common": {},
         "lib-pareto-filesystem": {},
@@ -35,5 +24,20 @@ export const $: mproject.TProject = {
         "res-pareto-diff": {},
         "res-pareto-main": {},
     }),
-    'testdependencies': d({}),
+    'type': ['library', {
+
+        'main': {
+            'definition': api,
+        },
+        'submodules': d({
+            "private": {
+                'definition': private_,
+                'implemenation': {}
+            }
+        }),
+        'test': {
+            'dependencies': d({
+            }),
+        },
+    }],
 }

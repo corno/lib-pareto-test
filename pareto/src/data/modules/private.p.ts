@@ -19,7 +19,7 @@ const d = pr.wrapRawDictionary
 export const $: mmoduleDefinition.TModuleDefinition = {
     'glossary': {
         'imports': d({
-            "public": "../../../public",
+            "public": "../../../../main",
             "common": "glo-pareto-common",
             "main": "res-pareto-main"
         }),
@@ -46,7 +46,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
     'api': {
         'imports': d({
             "common": "glo-pareto-common",
-            "public": "../../public",
+            "public": "../../../main",
             "arithmetic": "res-pareto-arithmetic",
             "collation": "res-pareto-collation",
             "boolean": "res-pareto-boolean",

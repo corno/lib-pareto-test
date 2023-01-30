@@ -3,7 +3,7 @@ import * as pl from 'pareto-core-lib'
 
 import * as api from "../api"
 
-import * as mpublic from "../../public"
+import * as mpublic from "../../../main"
 
 export const $$: api.CcreateTestRunner = ($d) => {
     return ($) => {

@@ -4,7 +4,7 @@ import * as t from './types.generated'
 
 import * as mcommon from "glo-pareto-common"
 import * as mmain from "res-pareto-main"
-import * as mpublic from "../../../public"
+import * as mpublic from "../../../../main"
 
 export type IHandleTestParameters = ($: mpublic.TTestParameters, ) => void
 
