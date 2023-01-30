@@ -4,15 +4,13 @@ import {
     nested,
     array,
     typeReference,
-    procedure,
-    callback,
     interfaceReference,
-    method, dictionary, group, member, taggedUnion, types, _function
-} from "lib-pareto-typescript-project/dist/modules/glossary/api/shorthands.p"
+    method, dictionary, group, member, taggedUnion, types, func, data
+} from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands.p"
 
-import { definitionReference, constructor, algorithm } from "lib-pareto-typescript-project/dist/modules/moduleDefinition/api/shorthands.p"
+import { definitionReference, constructor, algorithm } from "lib-pareto-typescript-project/dist/submodules/moduleDefinition/shorthands.p"
 
-import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/modules/moduleDefinition"
+import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/submodules/moduleDefinition"
 
 const d = pr.wrapRawDictionary
 
@@ -31,16 +29,16 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "HandleTestParameters": method(typeReference("public", "TestParameters")),
         }),
         'functions': d({
-            "HandleArgumentError": procedure(typeReference("public", "ArgumentError")),
-            "Increment": _function(typeReference("common", "Number"), typeReference("common", "Number")),
-            "ParseTestParameters": callback(typeReference("main", "Arguments"), interfaceReference("HandleTestParameters")),
-            "ReadFile": _function(typeReference("common", "Path"), typeReference("common", "String"), true),
-            "RunTests": _function(typeReference("public", "TestSet"), typeReference("public", "TestSetResult"), true),
-            "ValidateFile": _function(typeReference("public", "ValidateFileData"), typeReference("public", "TestElementResult"), true),
-            "Summarize": _function(typeReference("public", "TestSetResult"), typeReference("public", "Summary")),
-            "SerializeSummary": procedure(typeReference("public", "Summary")),
-            "SerializeTestResult": procedure(typeReference("public", "TestSetResult")),
-            "TestTestSet": procedure(typeReference("public", "TestSet")),
+            "HandleArgumentError": func(typeReference("public", "ArgumentError"), null, null, null),
+            "Increment": func(typeReference("common", "Number"), null, null, data(typeReference("common", "Number"), false)),
+            "ParseTestParameters": func(typeReference("main", "Arguments"), null, interfaceReference("HandleTestParameters"), null),
+            "ReadFile": func(typeReference("common", "Path"), null, null, data(typeReference("common", "String"), true)),
+            "RunTests": func(typeReference("public", "TestSet"), null, null, data(typeReference("public", "TestSetResult"), true)),
+            "ValidateFile": func(typeReference("public", "ValidateFileData"), null, null, data(typeReference("public", "TestElementResult"), true)),
+            "Summarize": func(typeReference("public", "TestSetResult"), null, null, data(typeReference("public", "Summary"), false)),
+            "SerializeSummary": func(typeReference("public", "Summary"), null, null, null),
+            "SerializeTestResult": func(typeReference("public", "TestSetResult"), null, null, null),
+            "TestTestSet": func(typeReference("public", "TestSet"), null, null, null),
         }),
     },
     'api': {
