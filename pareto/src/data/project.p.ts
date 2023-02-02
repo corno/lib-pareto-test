@@ -8,8 +8,6 @@ import { $ as private_ } from "./modules/private.p"
 const d = pr.wrapRawDictionary
 
 export const $: mproject.TProject = {
-    'name': "lib-pareto-test",
-
     'author': "Corno",
     'description': "the library needed to write tests for Pareto code",
     'license': "ISC",
