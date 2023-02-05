@@ -3,7 +3,7 @@ import * as pr from 'pareto-core-raw'
 import * as mproject from "lib-pareto-typescript-project/dist/submodules/project"
 import { $ as api } from "./api.data"
 
-import { $ as private_ } from "./modules/private.p"
+import { $ as private_ } from "./modules/private.data"
 
 const d = pr.wrapRawDictionary
 
