@@ -15,8 +15,8 @@ import * as pubPrivate from "../../../../../pub/dist/submodules/private"
 export const $$: api.CgetTestSet = ($) => {
 
     type LogEntry =
-        | ['error', pubTypes.TArgumentError]
-        | ['callback', pubTypes.TTestParameters]
+        | ['error', pubTypes.T.ArgumentError]
+        | ['callback', pubTypes.T.TestParameters]
 
 
     function doIt(name: string, $: pt.Array<string>) {

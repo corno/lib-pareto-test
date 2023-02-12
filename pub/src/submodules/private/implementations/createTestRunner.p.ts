@@ -7,19 +7,19 @@ import * as mpublic from "../../../main"
 
 export const $$: api.CcreateTestRunner = ($d) => {
     return ($) => {
-        function doTestSet($: mpublic.TTestSet): pt.AsyncValue<mpublic.TTestSetResult> {
-            return $.elements.asyncMap(($): pt.AsyncValue<mpublic.TTestElementResult> => {
+        function doTestSet($: mpublic.T.TestSet): pt.AsyncValue<mpublic.T.TestSetResult> {
+            return $.elements.asyncMap(($): pt.AsyncValue<mpublic.T.TestElementResult> => {
                 switch ($.type[0]) {
                     case 'subset':
                         return pl.cc($.type[1], ($) => {
                             return doTestSet($).map(($) => {
-                                return pl.asyncValue<mpublic.TTestElementResult>({
+                                return pl.asyncValue<mpublic.T.TestElementResult>({
                                     type: ['subset', $]
                                 })
                             })
                         })
                     case 'test':
-                        return pl.cc($.type[1], ($): pt.AsyncValue<mpublic.TTestElementResult> => {
+                        return pl.cc($.type[1], ($): pt.AsyncValue<mpublic.T.TestElementResult> => {
 
                             switch ($.type[0]) {
                                 case 'boolean':
@@ -46,30 +46,26 @@ export const $$: api.CcreateTestRunner = ($d) => {
                                                 newline: "\n",
                                             }
                                         )
-                                        switch (res[0]) {
-                                            case 'not set':
-                                                return pl.cc(res[1], ($) => {
-                                                    return pl.asyncValue({
-                                                        type: ['test', {
-                                                            success: true,
-                                                            type: ['long string', {
-                                                                parts: pl.createEmptyArray()
-                                                            }]
-                                                        }]
-                                                    })
-                                                })
-                                            case 'set':
-                                                return pl.cc(res[1], ($) => {
-                                                    return pl.asyncValue({
-                                                        type: ['test', {
-                                                            success: false,
-                                                            type: ['long string', {
-                                                                parts: $
-                                                            }]
-                                                        }]
-                                                    })
-                                                })
-                                            default: return pl.au(res[0])
+                                        if (res[0] === true) {
+
+                                            return pl.asyncValue({
+                                                type: ['test', {
+                                                    success: false,
+                                                    type: ['long string', {
+                                                        parts: res[1]
+                                                    }]
+                                                }]
+                                            })
+                                        } else {
+
+                                            return pl.asyncValue({
+                                                type: ['test', {
+                                                    success: true,
+                                                    type: ['long string', {
+                                                        parts: pl.createEmptyArray()
+                                                    }]
+                                                }]
+                                            })
                                         }
                                     })
                                 case 'short string':

@@ -4,14 +4,14 @@
   "description": "the library needed to write tests for Pareto code",
 
   "dependencies": {
-    "glo-pareto-common": "^0.11.0",
-    "lib-pareto-filesystem": "^0.24.0",
+    "glo-pareto-common": "^0.12.0",
+    "lib-pareto-filesystem": "^0.25.0",
     "lib-pareto-main": "^0.11.0",
-    "res-pareto-arithmetic": "^0.12.0",
+    "res-pareto-arithmetic": "^0.13.0",
     "res-pareto-boolean": "^0.15.0",
     "res-pareto-collation": "^0.17.0",
-    "res-pareto-diff": "^0.24.0",
-    "res-pareto-main": "^0.12.0",
+    "res-pareto-diff": "^0.25.0",
+    "res-pareto-main": "^0.13.0",
     "pareto-core-lib": "^0.18.1",
     "pareto-core-raw": "^0.7.4",
     "pareto-core-state": "^0.12.0"

@@ -7,7 +7,7 @@ import { $ as private_ } from "./modules/private.data"
 
 const d = pr.wrapRawDictionary
 
-export const $: mproject.TProject = {
+export const $: mproject.T.Project = {
     'author': "Corno",
     'description': "the library needed to write tests for Pareto code",
     'license': "ISC",
@@ -33,6 +33,7 @@ export const $: mproject.TProject = {
                 'implemenation': {}
             }
         }),
+        'executables': d({}),
         'test': {
             'dependencies': d({
             }),

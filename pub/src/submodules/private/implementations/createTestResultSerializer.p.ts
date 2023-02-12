@@ -18,7 +18,7 @@ export const $$: api.CcreateTestResultSerializer = (
 
         function serializeTestSetImp(
             $: {
-                result: mpublic.TTestSetResult,
+                result: mpublic.T.TestSetResult,
                 indentation: string,
             },
         ) {

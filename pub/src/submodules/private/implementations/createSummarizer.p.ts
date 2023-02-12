@@ -17,7 +17,7 @@ export const $$: api.CcreateSummarizer = (
             numberOfTests: 0,
         }
         function summarizeTestSetImp(
-            $: mpublic.TTestSetResult
+            $: mpublic.T.TestSetResult
         ): void {
             //this should be a reduce function!!!
             $.elements.map(($, key) => {

@@ -12,6 +12,7 @@ import {
     reference,
     string,
     taggedUnion,
+    type,
     typeReference,
     types,
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands.p"
@@ -22,24 +23,23 @@ import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/submodule
 
 const d = pr.wrapRawDictionary
 
-export const $: mmoduleDefinition.TModuleDefinition = {
+export const $: mmoduleDefinition.T.ModuleDefinition = {
     'glossary': {
         'imports': d({
             "diff": "res-pareto-diff",
             "common": "glo-pareto-common",
         }),
         'parameters': d({}),
-        'templates': d({}),
-        'types': types({
-            "ArgumentError": taggedUnion({
+        'types': d({
+            "ArgumentError": type(taggedUnion({
                 "missing": null_(),
                 "too many": null_(),
-            }),
-            "Summary": group({
+            })),
+            "Summary": type(group({
                 "numberOfTests": member(number()),
                 "numberOfErrors": member(number()),
-            }),
-            "TestElement": group({
+            })),
+            "TestElement": type(group({
                 "type": member(taggedUnion({
                     "subset": reference("TestSet"),
                     "test": group({
@@ -57,8 +57,8 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                         })),
                     }),
                 })),
-            }),
-            "TestElementResult": group({
+            })),
+            "TestElementResult": type(group({
                 "type": member(taggedUnion({
                     "subset": reference("TestSetResult"),
                     "test": group({
@@ -66,17 +66,17 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                         "type": member(reference("TestType")),
                     }),
                 }))
-            }),
-            "TestParameters": group({
+            })),
+            "TestParameters": type(group({
                 "testDirectory": member(string()),
-            }),
-            "TestSet": group({
+            })),
+            "TestSet": type( group({
                 "elements": member(dictionary(reference("TestElement")))
-            }),
-            "TestSetResult": group({
+            })),
+            "TestSetResult": type( group({
                 "elements": member(dictionary(reference("TestElementResult")))
-            }),
-            "TestType": taggedUnion({
+            })),
+            "TestType": type( taggedUnion({
                 "boolean": null_(),
                 "long string": group({
                     "parts": member(array(reference("diff", "MultilinePart")))
@@ -89,20 +89,19 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                     "fileLocation": member(string()),
                     "parts": member(array(reference("diff", "MultilinePart")))
                 }),
-            }),
-            "ValidateFileData": group({
+            })),
+            "ValidateFileData": type( group({
                 "expectedFile": member(group({
                     "path": member(reference("common", "Path")),
                     "fileName": member(string()),
                     "extension": member(string())
                 })),
                 "actual": member(string())
-            }),
+            })),
         }),
         'interfaces': d({}),
         'functions': d({
             "GetTestSet": func(typeReference("TestParameters"), null, null, data(typeReference("TestSet"), true)),
-            "Signal": func(typeReference("common", "Null"), null, null, null),
         }),
     },
     'api': {
@@ -111,21 +110,13 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "main": "res-pareto-main",
         }),
         'algorithms': d({
-            "createTestProgram": algorithm(definitionReference("main", "Main"), constructor(null, {
+            "createTestProgram": algorithm(definitionReference("main", {}, "Main"), constructor(null, {
                 "getTestSet": {
                     'function': "GetTestSet",
                 },
-                "log": {
-                    'context': ['import', "common"],
-                    'function': "Log",
-                },
-                "logError": {
-                    'context': ['import', "common"],
-                    'function': "Log",
-                },
-                "onTestErrors": {
-                    'function': "Signal",
-                },
+                "log": definitionReference("common", {}, "Log"),
+                "logError": definitionReference("common", {}, "Log"),
+                "onTestErrors": definitionReference("common", {}, "Signal"),
             })),
         })
     }

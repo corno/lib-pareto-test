@@ -9,7 +9,7 @@ export type CcreateTestProgram = ($d: {
     readonly 'getTestSet': glo.FGetTestSet
     readonly 'log': mcommon.FLog
     readonly 'logError': mcommon.FLog
-    readonly 'onTestErrors': glo.FSignal
+    readonly 'onTestErrors': mcommon.FSignal
 }) => mmain.FMain
 
 export type API = {

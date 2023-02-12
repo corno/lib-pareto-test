@@ -14,7 +14,7 @@ import * as mmoduleDefinition from "lib-pareto-typescript-project/dist/submodule
 
 const d = pr.wrapRawDictionary
 
-export const $: mmoduleDefinition.TModuleDefinition = {
+export const $: mmoduleDefinition.T.ModuleDefinition = {
     'glossary': {
         'imports': d({
             "public": "../../../../main",
@@ -22,8 +22,7 @@ export const $: mmoduleDefinition.TModuleDefinition = {
             "main": "res-pareto-main"
         }),
         'parameters': d({}),
-        'templates': d({}),
-        'types': types({
+        'types': d({
         }),
         'interfaces': d({
             "HandleTestParameters": method(typeReference("public", "TestParameters")),
@@ -53,30 +52,30 @@ export const $: mmoduleDefinition.TModuleDefinition = {
         }),
         'algorithms': d({
             "createBoundTester": algorithm(definitionReference("TestTestSet"), constructor(null, {
-                "onTestErrors": definitionReference("common", "Signal"),
-                "log": definitionReference("common", "Log"),
-                "onError": definitionReference("common", "Log"),
+                "onTestErrors": definitionReference("common", {}, "Signal"),
+                "log": definitionReference("common", {}, "Log"),
+                "onError": definitionReference("common", {}, "Log"),
             })),
             "createFileValidator": algorithm(definitionReference("ValidateFile"), constructor(null, {
                 "readFile": definitionReference("ReadFile"),
-                "diffData": definitionReference("diff", "DiffData"),
-                "writeFile": definitionReference("fs", "WriteFile"),
-                "unlink": definitionReference("fs", "UnlinkFireAndForget"),
+                "diffData": definitionReference("diff", {}, "DiffData"),
+                "writeFile": definitionReference("fs", {}, "WriteFile"),
+                "unlink": definitionReference("fs", {}, "UnlinkFireAndForget"),
             })),
             "createSummarizer": algorithm(definitionReference("Summarize"), constructor(null, {
                 "increment": definitionReference("Increment"),
             })),
             "createSummarySerializer": algorithm(definitionReference("SerializeSummary"), constructor(null, {
-                "add": definitionReference("arithmetic", "Add"),
-                "isZero": definitionReference("boolean", "IsZero"),
-                "negate": definitionReference("arithmetic", "Negate"),
-                "log": definitionReference("common", "Log"),
+                "add": definitionReference("arithmetic", {}, "Add"),
+                "isZero": definitionReference("boolean", {}, "IsZero"),
+                "negate": definitionReference("arithmetic", {}, "Negate"),
+                "log": definitionReference("common", {}, "Log"),
             })),
             "createTester": algorithm(definitionReference("TestTestSet"), constructor(null, {
                 "runTests": definitionReference("RunTests"),
-                "isZero": definitionReference("boolean", "IsZero"),
+                "isZero": definitionReference("boolean", {}, "IsZero"),
                 "summarize": definitionReference("Summarize"),
-                "onTestErrors": definitionReference("common", "Signal"),
+                "onTestErrors": definitionReference("common", {}, "Signal"),
                 "serializeTestResult": definitionReference("SerializeTestResult"),
                 "serializeSummary": definitionReference("SerializeSummary"),
             })),
@@ -84,13 +83,13 @@ export const $: mmoduleDefinition.TModuleDefinition = {
                 "onError": definitionReference("HandleArgumentError"),
             })),
             "createTestRunner": algorithm(definitionReference("RunTests"), constructor(null, {
-                "diffData": definitionReference("diff", "DiffData"),
-                "stringsAreEqual": definitionReference("diff", "StringsAreEqual"),
+                "diffData": definitionReference("diff", {}, "DiffData"),
+                "stringsAreEqual": definitionReference("diff", {}, "StringsAreEqual"),
                 "validateFile": definitionReference("ValidateFile"),
             })),
             "createTestResultSerializer": algorithm(definitionReference("SerializeTestResult"), constructor(null, {
-                "isABeforeB": definitionReference("collation", "IsABeforeB"),
-                "log": definitionReference("common", "Log"),
+                "isABeforeB": definitionReference("collation", {}, "IsABeforeB"),
+                "log": definitionReference("common", {}, "Log"),
             })),
             "increment": algorithm(definitionReference("Increment")),
         })

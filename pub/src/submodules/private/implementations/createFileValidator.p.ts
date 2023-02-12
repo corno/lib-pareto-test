@@ -17,44 +17,38 @@ export const $$: api.CcreateFileValidator = ($d) => {
                 },
             )
             const validateFileData = $
-            switch (parts[0]) {
-                case 'not set':
-                    return pl.cc(parts[1], ($) => {
-                        $d.unlink({
-                            path: [validateFileData.expectedFile.path, actualFileName]
-                        })
-                        return pl.asyncValue({
-                            type: ['test', {
-                                success: true,
-                                type: ['file string', {
-                                    fileLocation: `${validateFileData.expectedFile.path}/${expectedFileName}`,
-                                    parts: pl.createEmptyArray()
-                                }]
-                            }]
-                        })
+            if ( parts[0] === true) {
 
-                    })
-                case 'set':
-                    return pl.cc(parts[1], ($) => {
-                        $d.writeFile(
-                            {
-                                path: [validateFileData.expectedFile.path, actualFileName],
-                                data: validateFileData.actual,
-                                createContainingDirectories: true,
-                            },
-                        )
-                        return pl.asyncValue<mpublic.TTestElementResult>({
-                            type: ['test', {
-                                success: false,
-                                type: ['file string', {
-                                    fileLocation: `${validateFileData.expectedFile.path}/${expectedFileName}`,
-                                    parts: $
-                                }]
-                            }]
-                        })
+                $d.writeFile(
+                    {
+                        path: [validateFileData.expectedFile.path, actualFileName],
+                        data: validateFileData.actual,
+                        createContainingDirectories: true,
+                    },
+                )
+                return pl.asyncValue<mpublic.T.TestElementResult>({
+                    type: ['test', {
+                        success: false,
+                        type: ['file string', {
+                            fileLocation: `${validateFileData.expectedFile.path}/${expectedFileName}`,
+                            parts: parts[1]
+                        }]
+                    }]
+                })
+            } else {
 
-                    })
-                default: return pl.au(parts[0])
+                $d.unlink({
+                    path: [validateFileData.expectedFile.path, actualFileName]
+                })
+                return pl.asyncValue({
+                    type: ['test', {
+                        success: true,
+                        type: ['file string', {
+                            fileLocation: `${validateFileData.expectedFile.path}/${expectedFileName}`,
+                            parts: pl.createEmptyArray()
+                        }]
+                    }]
+                })
             }
         })
     }
