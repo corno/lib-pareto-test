@@ -12,7 +12,7 @@ export const $: mproject.T.Project = {
     'description': "the library needed to write tests for Pareto code",
     'license': "ISC",
 
-    'pubdependencies': d({
+    'dependencies': d({
         "glo-pareto-common": {},
         "lib-pareto-filesystem": {},
         "lib-pareto-main": {},
@@ -37,6 +37,13 @@ export const $: mproject.T.Project = {
         'test': {
             'dependencies': d({
             }),
+            'glossary': {
+                'functions': d({}),
+                'imports': d({}),
+                'parameters': d({}),
+                'types': d({}),
+                'interfaces': d({}),
+            },
         },
     }],
 }
