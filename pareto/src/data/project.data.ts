@@ -5,9 +5,9 @@ import { $ as api } from "./api.data"
 
 import { $ as private_ } from "./modules/private.data"
 
-const d = pd.wrapRawDictionary
+const d = pd.d
 
-export const $: mproject.T.Project = {
+export const $: mproject.T.Project<pd.SourceLocation> = {
     'author': "Corno",
     'description': "the library needed to write tests for Pareto code",
     'license': "ISC",

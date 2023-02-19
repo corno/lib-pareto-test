@@ -1,7 +1,7 @@
 import * as pt from 'pareto-core-types'
 import * as pl from 'pareto-core-lib'
 import * as ps from 'pareto-core-state'
-import * as pd from 'pareto-core-data'
+import * as pv from 'pareto-core-dev'
 
 import * as mtest from "lib-pareto-test"
 
@@ -12,6 +12,15 @@ import * as pub from "../../../../../pub"
 import * as pubTypes from "../../../../../pub/dist/main"
 import * as pubPrivate from "../../../../../pub/dist/submodules/private"
 
+
+function buildArray<T>($c: (push: (value: T) => void) => void): pt.Array<T> {
+    const temp = ps.createArrayBuilder<T>()
+    $c((value) => {
+        temp.push(value)
+    })
+    return temp.getArray()
+}
+
 export const $$: api.CgetTestSet = ($) => {
 
     type LogEntry =
@@ -20,22 +29,23 @@ export const $$: api.CgetTestSet = ($) => {
 
 
     function doIt(name: string, $: pt.Array<string>) {
-        const log = ps.createArrayBuilder<LogEntry>()
 
-        const tpp = pubPrivate.$a.createTestParametersParser(
-            {
-                onError: ($) => {
-                    log.push(['error', $])
-                },
+        pv.logDebugMessage(name)
+        buildArray<LogEntry>((push) => {
+
+            const tpp = pubPrivate.$a.createTestParametersParser(
+                {
+                    onError: ($) => {
+                        push(['error', $])
+                    },
+                })
+            tpp($, ($) => {
+                push(['callback', $])
             })
-        tpp($, ($) => {
-            log.push(['callback', $])
+        }).forEach(($) => {
+            pv.logDebugMessage($[0])
         })
-        pl.logDebugMessage(name)
-        log.getArray().forEach(($) => {
-            pl.logDebugMessage($[0])
-        })
-        //pl.logDebugMessage(us.f_JSONStringify(log.getArray()))
+        //pv.logDebugMessage(us.f_JSONStringify(log.getArray()))
     }
 
     // doIt("<", pr.wrapRawArray([]))
@@ -65,7 +75,7 @@ export const $$: api.CgetTestSet = ($) => {
     //             })
     //         },
     //         log: ($) => {
-    //             pl.logDebugMessage($)
+    //             pv.logDebugMessage($)
     //         }
     //     }
     // )(
@@ -86,7 +96,7 @@ export const $$: api.CgetTestSet = ($) => {
 
 
     //test that a failing test indeed fails!!! now it will make the program exit with an error code
-    pl.logDebugMessage("FIXME: TEST THE TESTLIB")
+    pv.logDebugMessage("FIXME: TEST THE TESTLIB")
     createTest(
         "TODO: ACTUALLY TEST THE TEST LIB",
         "TODO: ACTUALLY TEST THE TEST LIB",
