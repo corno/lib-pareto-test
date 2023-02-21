@@ -42,7 +42,7 @@ export const $$: api.CgetTestSet = ($) => {
             tpp($, ($) => {
                 push(['callback', $])
             })
-        }).forEach(($) => {
+        }).__forEach(($) => {
             pv.logDebugMessage($[0])
         })
         //pv.logDebugMessage(us.f_JSONStringify(log.getArray()))

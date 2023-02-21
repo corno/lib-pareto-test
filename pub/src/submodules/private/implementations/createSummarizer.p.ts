@@ -20,7 +20,7 @@ export const $$: api.CcreateSummarizer = (
             $: mpublic.T.TestSetResult
         ): void {
             //this should be a reduce function!!!
-            $.elements.map(($, key) => {
+            $.elements.map(($) => {
                 switch ($.type[0]) {
                     case 'subset':
                         pl.cc($.type[1], ($) => {

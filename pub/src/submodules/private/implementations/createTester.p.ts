@@ -5,7 +5,7 @@ import * as api from "../api"
 export const $$: api.CcreateTester = (
     $d,
 ) => {
-    const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
+    const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $.__execute($i)
     return ($) => {
         processAsync(
             $d.runTests($),

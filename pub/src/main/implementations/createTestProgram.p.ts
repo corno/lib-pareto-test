@@ -5,7 +5,7 @@ import * as api from "../api"
 import * as mprivate from "../../submodules/private"
 
 export const $$: api.CcreateTestProgram = ($d) => {
-    const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $._execute($i)
+    const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $.__execute($i)
     return ($) => {
         mprivate.$a.createTestParametersParser({
             onError: () => {

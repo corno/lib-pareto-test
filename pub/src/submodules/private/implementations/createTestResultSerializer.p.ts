@@ -23,7 +23,7 @@ export const $$: api.CcreateTestResultSerializer = (
             },
         ) {
             const indentation = $.indentation
-            $.result.elements.forEach(
+            $.result.elements.__forEach(
                 (a, b) => $d.isABeforeB({a: a, b: b}),
                 ($, key) => {
                     const name = key
@@ -44,11 +44,11 @@ export const $$: api.CcreateTestResultSerializer = (
                                         break
                                     case 'long string':
                                         pl.cc($.type[1], ($) => {
-                                            $.parts.forEach(($) => {
+                                            $.parts.__forEach(($) => {
                                                 const added = $.type[0] === "added"
 
                                                 $d.log(`${indentation}  line ${$.startLineInOriginal}|${$.startLineInChanged}`)
-                                                $.lines.forEach(($) => {
+                                                $.lines.__forEach(($) => {
                                                     $d.log(`${indentation}    ${added ? "+" : "-"}${$}`)
                                                 })
                                             })
@@ -57,10 +57,10 @@ export const $$: api.CcreateTestResultSerializer = (
                                     case 'file string':
                                         pl.cc($.type[1], ($) => {
                                             const fileLocation = $.fileLocation
-                                            $.parts.forEach(($) => {
+                                            $.parts.__forEach(($) => {
                                                 const added = $.type[0] === "added"
                                                 $d.log(`${indentation}  ${cyan}${fileLocation}${reset}:${yellow}${$.startLineInOriginal}${reset}`)
-                                                $.lines.forEach(($) => {
+                                                $.lines.__forEach(($) => {
                                                     $d.log(`${indentation}    ${added ? "+" : "-"}${$}`)
                                                 })
                                             })

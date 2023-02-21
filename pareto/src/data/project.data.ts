@@ -15,7 +15,6 @@ export const $: mproject.T.Project<pd.SourceLocation> = {
     'dependencies': d({
         "glo-pareto-common": {},
         "lib-pareto-filesystem": {},
-        "lib-pareto-main": {},
         "res-pareto-arithmetic": {},
         "res-pareto-boolean": {},
         "res-pareto-collation": {},
