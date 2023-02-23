@@ -7,7 +7,7 @@ import * as gbool from "res-pareto-boolean"
 import * as gfs from "res-pareto-filesystem"
 import * as gfslib from "lib-pareto-filesystem"
 
-import { $a } from "../index"
+import { $a } from ".."
 
 import { CcreateBoundTester } from "../api"
 
