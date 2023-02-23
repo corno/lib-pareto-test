@@ -1,10 +1,9 @@
 import * as pl from 'pareto-core-lib'
 
-import * as api from "../api"
-
+import * as mapi from "../api"
 import * as mpublic from "../../../main"
 
-export const $$: api.CcreateTestResultSerializer = (
+export const $$: mapi.CcreateTestResultSerializer = (
     $d,
 ) => {
     return (

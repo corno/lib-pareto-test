@@ -1,8 +1,6 @@
-import * as pt from 'pareto-core-types'
-import * as pl from 'pareto-core-lib'
+import * as pa from 'pareto-core-async'
 
-import * as api from "../api"
-
+import * as mapi from "../api"
 import * as mdiff from "res-pareto-diff"
 import * as marith from "res-pareto-arithmetic"
 import * as mcollation from "res-pareto-collation"
@@ -12,9 +10,7 @@ import * as mfslib from "lib-pareto-filesystem"
 
 import { $a } from "../index"
 
-
-
-export const $$: api.CcreateBoundTester = ($d) => {
+export const $$: mapi.CcreateBoundTester = ($d) => {
     return $a.createTester(
         {
             onTestErrors: $d.onTestErrors,
@@ -67,7 +63,7 @@ export const $$: api.CcreateBoundTester = ($d) => {
                             ),
                             readFile: ($) =>/**/ {
                                 const x = $
-                                return pl.toAsyncValue(($i2) =>/**/ {
+                                return pa.toAsyncValue(($i2) =>/**/ {
 
                                     mfs.$a.getFile(
                                         x,

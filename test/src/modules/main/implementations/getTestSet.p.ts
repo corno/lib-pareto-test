@@ -1,17 +1,12 @@
 import * as pt from 'pareto-core-types'
-import * as pl from 'pareto-core-lib'
+import * as pa from 'pareto-core-async'
 import * as ps from 'pareto-core-state'
 import * as pv from 'pareto-core-dev'
 
 import * as mtest from "lib-pareto-test"
-
-import * as api from "../api"
-
-import * as pub from "../../../../../pub"
-
-import * as pubTypes from "../../../../../pub/dist/main"
-import * as pubPrivate from "../../../../../pub/dist/submodules/private"
-
+import * as mapi from "../api"
+import * as mpub from "../../../../../pub"
+import * as mprivate from "../../../../../pub/dist/submodules/private"
 
 function buildArray<T>($c: (push: (value: T) => void) => void): pt.Array<T> {
     const temp = ps.createArrayBuilder<T>()
@@ -21,11 +16,11 @@ function buildArray<T>($c: (push: (value: T) => void) => void): pt.Array<T> {
     return temp.getArray()
 }
 
-export const $$: api.CgetTestSet = ($) => {
+export const $$: mapi.CgetTestSet = ($) => {
 
     type LogEntry =
-        | ['error', pubTypes.T.ArgumentError]
-        | ['callback', pubTypes.T.TestParameters]
+        | ['error', mpub.T.ArgumentError]
+        | ['callback', mpub.T.TestParameters]
 
 
     function doIt(name: string, $: pt.Array<string>) {
@@ -33,7 +28,7 @@ export const $$: api.CgetTestSet = ($) => {
         pv.logDebugMessage(name)
         buildArray<LogEntry>((push) => {
 
-            const tpp = pubPrivate.$a.createTestParametersParser(
+            const tpp = mprivate.$a.createTestParametersParser(
                 {
                     onError: ($) => {
                         push(['error', $])
@@ -70,7 +65,7 @@ export const $$: api.CgetTestSet = ($) => {
     // pub.$b.createTestProgram(
     //     {
     //         getTestSet: ($) => {
-    //             return pl.asyncValue({
+    //             return pa.asyncValue({
     //                 elements: pd.wrapRawDictionary({})
     //             })
     //         },
@@ -103,8 +98,8 @@ export const $$: api.CgetTestSet = ($) => {
         "TODO: ACTUALLY TEST THE TEST LIB",
     )
 
-    return pl.asyncValue(null).map(() => {
-        return pl.asyncValue({
+    return pa.asyncValue(null).map(() => {
+        return pa.asyncValue({
             elements: builder.getDictionary()
         })
     })

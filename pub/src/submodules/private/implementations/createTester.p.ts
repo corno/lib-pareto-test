@@ -1,8 +1,8 @@
 import * as pt from 'pareto-core-types'
 
-import * as api from "../api"
+import * as mapi from "../api"
 
-export const $$: api.CcreateTester = (
+export const $$: mapi.CcreateTester = (
     $d,
 ) => {
     const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $.__execute($i)

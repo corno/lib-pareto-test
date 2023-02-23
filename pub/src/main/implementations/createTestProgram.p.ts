@@ -1,10 +1,9 @@
 import * as pt from 'pareto-core-types'
 
-import * as api from "../api"
-
+import * as mapi from "../api"
 import * as mprivate from "../../submodules/private"
 
-export const $$: api.CcreateTestProgram = ($d) => {
+export const $$: mapi.CcreateTestProgram = ($d) => {
     const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $.__execute($i)
     return ($) => {
         mprivate.$a.createTestParametersParser({
