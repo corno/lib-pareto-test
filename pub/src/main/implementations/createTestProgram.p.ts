@@ -1,12 +1,14 @@
 import * as pt from 'pareto-core-types'
 
-import * as mapi from "../api"
-import * as mprivate from "../../submodules/private"
 
-export const $$: mapi.CcreateTestProgram = ($d) => {
+import * as gprivate from "../../submodules/private"
+
+import { CcreateTestProgram } from "../api"
+
+export const $$:CcreateTestProgram = ($d) => {
     const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $.__execute($i)
     return ($) => {
-        mprivate.$a.createTestParametersParser({
+        gprivate.$a.createTestParametersParser({
             onError: () => {
                 $d.logError("FIXME ARG ERROR MESSAGE")
             },
@@ -15,7 +17,7 @@ export const $$: mapi.CcreateTestProgram = ($d) => {
             ($) =>/**/ {
                 processAsync(
                     $d.getTestSet($),
-                    mprivate.$a.createBoundTester(
+                    gprivate.$a.createBoundTester(
                         {
                             onError: $d.logError,
                             onTestErrors: $d.onTestErrors,

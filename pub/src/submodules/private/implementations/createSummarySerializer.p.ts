@@ -1,6 +1,8 @@
-import * as mapi from "../api"
 
-export const $$: mapi.CcreateSummarySerializer = (
+
+import { CcreateSummarySerializer } from "../api"
+
+export const $$:CcreateSummarySerializer = (
     $d,
 ) => {
     return (

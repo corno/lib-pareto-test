@@ -1,49 +1,51 @@
 import * as pa from 'pareto-core-async'
 
-import * as mapi from "../api"
-import * as mdiff from "res-pareto-diff"
-import * as marith from "res-pareto-arithmetic"
-import * as mcollation from "res-pareto-collation"
-import * as mbool from "res-pareto-boolean"
-import * as mfs from "res-pareto-filesystem"
-import * as mfslib from "lib-pareto-filesystem"
+
+import * as gdiff from "res-pareto-diff"
+import * as garith from "res-pareto-arithmetic"
+import * as gcollation from "res-pareto-collation"
+import * as gbool from "res-pareto-boolean"
+import * as gfs from "res-pareto-filesystem"
+import * as gfslib from "lib-pareto-filesystem"
 
 import { $a } from "../index"
 
-export const $$: mapi.CcreateBoundTester = ($d) => {
+import { CcreateBoundTester } from "../api"
+
+export const $$:CcreateBoundTester = ($d) => {
     return $a.createTester(
         {
             onTestErrors: $d.onTestErrors,
             serializeTestResult: $a.createTestResultSerializer(
                 {
                     log: $d.log,
-                    isABeforeB: mcollation.$a.localeIsABeforeB,
+                    isABeforeB: gcollation.$a.localeIsABeforeB,
                 },
             ),
             serializeSummary: $a.createSummarySerializer(
                 {
                     log: $d.log,
-                    isZero: mbool.$a.isZero,
-                    add: marith.$a.add,
-                    negate: marith.$a.negate,
+                    isZero: gbool.$a.isZero,
+                    add: garith.$a.add,
+                    negate: garith.$a.negate,
 
                 }
             ),
             runTests: $a.createTestRunner(
                 {
-                    diffData: mdiff.$a.diffData,
-                    stringsAreEqual: mdiff.$a.stringsAreEqual,
+                    diffData: gdiff.$a.diffData,
+                    stringsAreEqual: gdiff.$a.stringsAreEqual,
                     validateFile: $a.createFileValidator(
                         {
                             writeFile: ($) =>/**/ {
-                                mfslib.$a.createWriteFileFireAndForget(
+                                gfslib.$a.createWriteFileFireAndForget(
                                     {
                                         // onError: ($) =>/**/ {
                                         //     $d.onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
                                         // },
-                                        createWriteStream: mfs.$a.createWriteStream({
+                                        createWriteStream: gfs.$a.createWriteStream({
                                             onError: ($) => {
-                                                $d.onError(`${$.path}: ${mfslib.$a.createWriteFileErrorMessage($.error)}`)
+                                                $d.onError(`${$.path}: ${gfslib.$a.createWriteFileErrorMessage($.error)}`)
                                             }
                                         }),
                                     },
@@ -53,23 +55,23 @@ export const $$: mapi.CcreateBoundTester = ($d) => {
                                     createContainingDirectories: true,
                                 })
                             },
-                            unlink: mfslib.$a.createUnlinkFireAndForget(
+                            unlink: gfslib.$a.createUnlinkFireAndForget(
                                 {
                                     onError: ($) =>/**/ {
-                                        $d.onError(`${$.path}: ${mfslib.$a.createUnlinkErrorMessage($.error)}`)
+                                        $d.onError(`${$.path}: ${gfslib.$a.createUnlinkErrorMessage($.error)}`)
                                     },
-                                    unlink: mfs.$a.unlink,
+                                    unlink: gfs.$a.unlink,
                                 },
                             ),
                             readFile: ($) =>/**/ {
                                 const x = $
                                 return pa.toAsyncValue(($i2) =>/**/ {
 
-                                    mfs.$a.getFile(
+                                    gfs.$a.getFile(
                                         x,
                                         {
                                             onError: ($) =>/**/ {
-                                                $d.onError(`${$.path}: ${mfslib.$a.createReadFileErrorMessage($.error)}`)
+                                                $d.onError(`${$.path}: ${gfslib.$a.createReadFileErrorMessage($.error)}`)
                                             },
                                             init: ($c) =>/**/ {
                                                 let out = ""
@@ -86,7 +88,7 @@ export const $$: mapi.CcreateBoundTester = ($d) => {
                                     )
                                 })
                             },
-                            diffData: mdiff.$a.diffData,
+                            diffData: gdiff.$a.diffData,
                         }),
                 }
             ),
@@ -96,7 +98,7 @@ export const $$: mapi.CcreateBoundTester = ($d) => {
                     increment: $a.increment,
                 }
             ),
-            isZero: mbool.$a.isZero,
+            isZero: gbool.$a.isZero,
         },
     )
 }

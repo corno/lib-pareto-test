@@ -1,10 +1,12 @@
 import * as pm from 'pareto-core-map'
 import * as pa from 'pareto-core-async'
 
-import * as mapi from "../api"
-import * as mpublic from "../../../main"
 
-export const $$: mapi.CcreateFileValidator = ($d) => {
+import * as gpublic from "../../../main"
+
+import { CcreateFileValidator } from "../api"
+
+export const $$:CcreateFileValidator = ($d) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
         return $d.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {
@@ -26,7 +28,7 @@ export const $$: mapi.CcreateFileValidator = ($d) => {
                         createContainingDirectories: true,
                     },
                 )
-                return pa.asyncValue<mpublic.T.TestElementResult>({
+                return pa.asyncValue<gpublic.T.TestElementResult>({
                     type: ['test', {
                         success: false,
                         type: ['file string', {

@@ -1,9 +1,11 @@
 import * as pl from 'pareto-core-lib'
 
-import * as mapi from "../api"
-import * as mpublic from "../../../main"
 
-export const $$: mapi.CcreateTestResultSerializer = (
+import * as gpublic from "../../../main"
+
+import { CcreateTestResultSerializer } from "../api"
+
+export const $$:CcreateTestResultSerializer = (
     $d,
 ) => {
     return (
@@ -17,7 +19,7 @@ export const $$: mapi.CcreateTestResultSerializer = (
 
         function serializeTestSetImp(
             $: {
-                result: mpublic.T.TestSetResult,
+                result: gpublic.T.TestSetResult,
                 indentation: string,
             },
         ) {

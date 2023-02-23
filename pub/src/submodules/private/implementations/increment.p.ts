@@ -1,5 +1,7 @@
-import * as mapi from "../api"
 
-export const $$: mapi.Cincrement = ($) =>/**/ {
+
+import { Cincrement } from "../api"
+
+export const $$:Cincrement = ($) =>/**/ {
     return $ + 1
 }

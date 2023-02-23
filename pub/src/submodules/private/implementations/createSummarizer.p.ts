@@ -1,9 +1,11 @@
 import * as pl from 'pareto-core-lib'
 
-import * as mapi from "../api"
-import * as mpublic from "../../../main"
 
-export const $$: mapi.CcreateSummarizer = (
+import * as gpublic from "../../../main"
+
+import { CcreateSummarizer } from "../api"
+
+export const $$:CcreateSummarizer = (
    $d,
 ) => {
     return ($) => {
@@ -16,7 +18,7 @@ export const $$: mapi.CcreateSummarizer = (
             numberOfTests: 0,
         }
         function summarizeTestSetImp(
-            $: mpublic.T.TestSetResult
+            $: gpublic.T.TestSetResult
         ): void {
             //this should be a reduce function!!!
             $.elements.map(($) => {

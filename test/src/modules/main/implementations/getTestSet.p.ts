@@ -3,10 +3,10 @@ import * as pa from 'pareto-core-async'
 import * as ps from 'pareto-core-state'
 import * as pv from 'pareto-core-dev'
 
-import * as mtest from "lib-pareto-test"
-import * as mapi from "../api"
-import * as mpub from "../../../../../pub"
-import * as mprivate from "../../../../../pub/dist/submodules/private"
+import * as gtest from "lib-pareto-test"
+
+import * as gpub from "../../../../../pub"
+import * as gprivate from "../../../../../pub/dist/submodules/private"
 
 function buildArray<T>($c: (push: (value: T) => void) => void): pt.Array<T> {
     const temp = ps.createArrayBuilder<T>()
@@ -16,11 +16,13 @@ function buildArray<T>($c: (push: (value: T) => void) => void): pt.Array<T> {
     return temp.getArray()
 }
 
-export const $$: mapi.CgetTestSet = ($) => {
+import { CgetTestSet } from "../api"
+
+export const $$:CgetTestSet = ($) => {
 
     type LogEntry =
-        | ['error', mpub.T.ArgumentError]
-        | ['callback', mpub.T.TestParameters]
+        | ['error', gpub.T.ArgumentError]
+        | ['callback', gpub.T.TestParameters]
 
 
     function doIt(name: string, $: pt.Array<string>) {
@@ -28,7 +30,7 @@ export const $$: mapi.CgetTestSet = ($) => {
         pv.logDebugMessage(name)
         buildArray<LogEntry>((push) => {
 
-            const tpp = mprivate.$a.createTestParametersParser(
+            const tpp = gprivate.$a.createTestParametersParser(
                 {
                     onError: ($) => {
                         push(['error', $])
@@ -77,7 +79,7 @@ export const $$: mapi.CgetTestSet = ($) => {
     //     pr.wrapRawArray(["foo"])
     // )
 
-    const builder = ps.createUnsafeDictionaryBuilder<mtest.T.TestElement>()
+    const builder = ps.createUnsafeDictionaryBuilder<gtest.T.TestElement>()
     function createTest(name: string, actual: string, expected: string) {
         builder.add(name, {
             type: ['test', {

@@ -3,24 +3,26 @@ import * as pl from 'pareto-core-lib'
 import * as pa from 'pareto-core-async'
 import * as pm from 'pareto-core-map'
 
-import * as mapi from "../api"
-import * as mpublic from "../../../main"
 
-export const $$: mapi.CcreateTestRunner = ($d) => {
+import * as gpublic from "../../../main"
+
+import { CcreateTestRunner } from "../api"
+
+export const $$:CcreateTestRunner = ($d) => {
     return ($) => {
-        function doTestSet($: mpublic.T.TestSet): pt.AsyncValue<mpublic.T.TestSetResult> {
-            return $.elements.asyncMap(($): pt.AsyncValue<mpublic.T.TestElementResult> => {
+        function doTestSet($: gpublic.T.TestSet): pt.AsyncValue<gpublic.T.TestSetResult> {
+            return $.elements.asyncMap(($): pt.AsyncValue<gpublic.T.TestElementResult> => {
                 switch ($.type[0]) {
                     case 'subset':
                         return pl.cc($.type[1], ($) => {
                             return doTestSet($).map(($) => {
-                                return pa.asyncValue<mpublic.T.TestElementResult>({
+                                return pa.asyncValue<gpublic.T.TestElementResult>({
                                     type: ['subset', $]
                                 })
                             })
                         })
                     case 'test':
-                        return pl.cc($.type[1], ($): pt.AsyncValue<mpublic.T.TestElementResult> => {
+                        return pl.cc($.type[1], ($): pt.AsyncValue<gpublic.T.TestElementResult> => {
 
                             switch ($.type[0]) {
                                 case 'boolean':
