@@ -1,6 +1,5 @@
 import * as pl from 'pareto-core-lib'
 
-
 import * as gpublic from "../../../main"
 
 import { CcreateTestResultSerializer } from "../api"
@@ -96,6 +95,5 @@ export const $$:CcreateTestResultSerializer = (
             indentation: ``
         })
     }
-
 
 }

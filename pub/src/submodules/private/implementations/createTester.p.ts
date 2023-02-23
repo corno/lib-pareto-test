@@ -1,7 +1,5 @@
 import * as pt from 'pareto-core-types'
 
-
-
 import { CcreateTester } from "../api"
 
 export const $$:CcreateTester = (
@@ -24,7 +22,6 @@ export const $$:CcreateTester = (
                 }
             }
         )
-
 
     }
 

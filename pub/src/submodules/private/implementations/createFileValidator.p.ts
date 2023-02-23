@@ -1,7 +1,6 @@
 import * as pm from 'pareto-core-map'
 import * as pa from 'pareto-core-async'
 
-
 import * as gpublic from "../../../main"
 
 import { CcreateFileValidator } from "../api"
@@ -55,5 +54,4 @@ export const $$:CcreateFileValidator = ($d) => {
         })
     }
 }
-
 

@@ -24,7 +24,6 @@ export const $$:CgetTestSet = ($) => {
         | ['error', gpub.T.ArgumentError]
         | ['callback', gpub.T.TestParameters]
 
-
     function doIt(name: string, $: pt.Array<string>) {
 
         pv.logDebugMessage(name)
@@ -90,7 +89,6 @@ export const $$:CgetTestSet = ($) => {
             }]
         })
     }
-
 
     //test that a failing test indeed fails!!! now it will make the program exit with an error code
     pv.logDebugMessage("FIXME: TEST THE TESTLIB")

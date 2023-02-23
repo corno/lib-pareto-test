@@ -1,6 +1,5 @@
 import * as pa from 'pareto-core-async'
 
-
 import * as gdiff from "res-pareto-diff"
 import * as garith from "res-pareto-arithmetic"
 import * as gcollation from "res-pareto-collation"
