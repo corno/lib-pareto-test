@@ -1,64 +1,64 @@
 import * as pt from 'pareto-core-types'
 
-import * as glo from "./glossary"
+import * as gglo from "./glossary"
 
-import * as marithmetic from "res-pareto-arithmetic"
-import * as mboolean from "res-pareto-boolean"
-import * as mcollation from "res-pareto-collation"
-import * as mcommon from "glo-pareto-common"
-import * as mdiff from "res-pareto-diff"
-import * as mfs from "lib-pareto-filesystem"
-import * as mpublic from "../../../main"
+import * as garithmetic from "res-pareto-arithmetic"
+import * as gboolean from "res-pareto-boolean"
+import * as gcollation from "res-pareto-collation"
+import * as gcommon from "glo-pareto-common"
+import * as gdiff from "res-pareto-diff"
+import * as gfs from "lib-pareto-filesystem"
+import * as gpublic from "../../../main"
 
 export type CcreateBoundTester = ($d: {
-    readonly 'log': mcommon.FLog
-    readonly 'onError': mcommon.FLog
-    readonly 'onTestErrors': mcommon.FSignal
-}) => glo.FTestTestSet
+    readonly 'log': gcommon.FLog
+    readonly 'onError': gcommon.FLog
+    readonly 'onTestErrors': gcommon.FSignal
+}) => gglo.FTestTestSet
 
 export type CcreateFileValidator = ($d: {
-    readonly 'diffData': mdiff.FDiffData
-    readonly 'readFile': glo.FReadFile
-    readonly 'unlink': mfs.FUnlinkFireAndForget
-    readonly 'writeFile': mfs.FWriteFile
-}) => glo.FValidateFile
+    readonly 'diffData': gdiff.FDiffData
+    readonly 'readFile': gglo.FReadFile
+    readonly 'unlink': gfs.FUnlinkFireAndForget
+    readonly 'writeFile': gfs.FWriteFile
+}) => gglo.FValidateFile
 
 export type CcreateSummarizer = ($d: {
-    readonly 'increment': glo.FIncrement
-}) => glo.FSummarize
+    readonly 'increment': gglo.FIncrement
+}) => gglo.FSummarize
 
 export type CcreateSummarySerializer = ($d: {
-    readonly 'add': marithmetic.FAdd
-    readonly 'isZero': mboolean.FIsZero
-    readonly 'log': mcommon.FLog
-    readonly 'negate': marithmetic.FNegate
-}) => glo.FSerializeSummary
+    readonly 'add': garithmetic.FAdd
+    readonly 'isZero': gboolean.FIsZero
+    readonly 'log': gcommon.FLog
+    readonly 'negate': garithmetic.FNegate
+}) => gglo.FSerializeSummary
 
 export type CcreateTester = ($d: {
-    readonly 'isZero': mboolean.FIsZero
-    readonly 'onTestErrors': mcommon.FSignal
-    readonly 'runTests': glo.FRunTests
-    readonly 'serializeSummary': glo.FSerializeSummary
-    readonly 'serializeTestResult': glo.FSerializeTestResult
-    readonly 'summarize': glo.FSummarize
-}) => glo.FTestTestSet
+    readonly 'isZero': gboolean.FIsZero
+    readonly 'onTestErrors': gcommon.FSignal
+    readonly 'runTests': gglo.FRunTests
+    readonly 'serializeSummary': gglo.FSerializeSummary
+    readonly 'serializeTestResult': gglo.FSerializeTestResult
+    readonly 'summarize': gglo.FSummarize
+}) => gglo.FTestTestSet
 
 export type CcreateTestParametersParser = ($d: {
-    readonly 'onError': glo.FHandleArgumentError
-}) => glo.FParseTestParameters
+    readonly 'onError': gglo.FHandleArgumentError
+}) => gglo.FParseTestParameters
 
 export type CcreateTestResultSerializer = ($d: {
-    readonly 'isABeforeB': mcollation.FIsABeforeB
-    readonly 'log': mcommon.FLog
-}) => glo.FSerializeTestResult
+    readonly 'isABeforeB': gcollation.FIsABeforeB
+    readonly 'log': gcommon.FLog
+}) => gglo.FSerializeTestResult
 
 export type CcreateTestRunner = ($d: {
-    readonly 'diffData': mdiff.FDiffData
-    readonly 'stringsAreEqual': mdiff.FStringsAreEqual
-    readonly 'validateFile': glo.FValidateFile
-}) => glo.FRunTests
+    readonly 'diffData': gdiff.FDiffData
+    readonly 'stringsAreEqual': gdiff.FStringsAreEqual
+    readonly 'validateFile': gglo.FValidateFile
+}) => gglo.FRunTests
 
-export type Cincrement = glo.FIncrement
+export type Cincrement = gglo.FIncrement
 
 export type API = {
     createBoundTester: CcreateBoundTester

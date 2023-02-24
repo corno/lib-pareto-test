@@ -1,7 +1,7 @@
 import * as pt from 'pareto-core-types'
 
-import * as mcommon from "glo-pareto-common"
-import * as mdiff from "res-pareto-diff"
+import * as gcommon from "glo-pareto-common"
+import * as gdiff from "res-pareto-diff"
 
 export namespace T {
     
@@ -213,29 +213,29 @@ export namespace T {
             
             export namespace parts {
                 
-                export type A = mdiff.T.MultilinePart
+                export type A = gdiff.T.MultilinePart
             }
             
-            export type parts = pt.Array<mdiff.T.MultilinePart>
+            export type parts = pt.Array<gdiff.T.MultilinePart>
         }
         
         export type file__string = {
             readonly 'fileLocation': string
-            readonly 'parts': pt.Array<mdiff.T.MultilinePart>
+            readonly 'parts': pt.Array<gdiff.T.MultilinePart>
         }
         
         export namespace long__string {
             
             export namespace parts {
                 
-                export type A = mdiff.T.MultilinePart
+                export type A = gdiff.T.MultilinePart
             }
             
-            export type parts = pt.Array<mdiff.T.MultilinePart>
+            export type parts = pt.Array<gdiff.T.MultilinePart>
         }
         
         export type long__string = {
-            readonly 'parts': pt.Array<mdiff.T.MultilinePart>
+            readonly 'parts': pt.Array<gdiff.T.MultilinePart>
         }
         
         export namespace short__string {
@@ -255,10 +255,10 @@ export namespace T {
         | ['boolean', null]
         | ['file string', {
             readonly 'fileLocation': string
-            readonly 'parts': pt.Array<mdiff.T.MultilinePart>
+            readonly 'parts': pt.Array<gdiff.T.MultilinePart>
         }]
         | ['long string', {
-            readonly 'parts': pt.Array<mdiff.T.MultilinePart>
+            readonly 'parts': pt.Array<gdiff.T.MultilinePart>
         }]
         | ['short string', {
             readonly 'actual': string
@@ -275,13 +275,13 @@ export namespace T {
             
             export type fileName = string
             
-            export type path = mcommon.T.Path
+            export type path = gcommon.T.Path
         }
         
         export type expectedFile = {
             readonly 'extension': string
             readonly 'fileName': string
-            readonly 'path': mcommon.T.Path
+            readonly 'path': gcommon.T.Path
         }
     }
     
@@ -290,7 +290,7 @@ export namespace T {
         readonly 'expectedFile': {
             readonly 'extension': string
             readonly 'fileName': string
-            readonly 'path': mcommon.T.Path
+            readonly 'path': gcommon.T.Path
         }
     }
 }
