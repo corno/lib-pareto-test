@@ -35,6 +35,7 @@ export const $: gproject.T.Project<pd.SourceLocation> = {
         'executables': d({}),
         'test': {
             'dependencies': d({
+                "res-pareto-build": {},
             }),
             'glossary': {
                 'functions': d({}),

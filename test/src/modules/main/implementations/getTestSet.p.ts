@@ -4,21 +4,13 @@ import * as ps from 'pareto-core-state'
 import * as pv from 'pareto-core-dev'
 
 import * as gtest from "lib-pareto-test"
-
+import * as gbuild from "res-pareto-build"
 import * as gpub from "../../../../../pub"
 import * as gprivate from "../../../../../pub/dist/submodules/private"
 
-function buildArray<T>($c: (push: (value: T) => void) => void): pt.Array<T> {
-    const temp = ps.createArrayBuilder<T>()
-    $c((value) => {
-        temp.push(value)
-    })
-    return temp.getArray()
-}
-
 import { CgetTestSet } from "../api"
 
-export const $$:CgetTestSet = ($) => {
+export const $$: CgetTestSet = ($) => {
 
     type LogEntry =
         | ['error', gpub.T.ArgumentError]
@@ -27,16 +19,17 @@ export const $$:CgetTestSet = ($) => {
     function doIt(name: string, $: pt.Array<string>) {
 
         pv.logDebugMessage(name)
-        buildArray<LogEntry>((push) => {
+        gbuild.$a.buildArray<LogEntry>(null, ($i) => {
 
             const tpp = gprivate.$a.createTestParametersParser(
                 {
                     onError: ($) => {
-                        push(['error', $])
+                        $i(['error', $])
                     },
-                })
+                }
+            )
             tpp($, ($) => {
-                push(['callback', $])
+                $i(['callback', $])
             })
         }).__forEach(($) => {
             pv.logDebugMessage($[0])
