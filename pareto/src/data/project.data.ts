@@ -10,7 +10,7 @@ const d = pd.d
 export const $: gproject.T.Project<pd.SourceLocation> = {
     'author': "Corno",
     'description': "the library needed to write tests for Pareto code",
-    'license': "ISC",
+    'license': "TBD",
 
     'dependencies': d({
         "glo-pareto-common": {},
@@ -25,11 +25,12 @@ export const $: gproject.T.Project<pd.SourceLocation> = {
 
         'main': {
             'definition': api,
+            'implementation': ['manual', {}],
         },
         'submodules': d({
             "private": {
                 'definition': private_,
-                'implemenation': {}
+                'implementation': ['manual', {}],
             }
         }),
         'executables': d({}),

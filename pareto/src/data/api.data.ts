@@ -111,9 +111,7 @@ export const $: gmoduleDefinition.T.ModuleDefinition<pd.SourceLocation> = {
         }),
         'algorithms': d({
             "createTestProgram": algorithm(definitionReference("main", {}, "Main"), constructor(null, {
-                "getTestSet": {
-                    'function': "GetTestSet",
-                },
+                "getTestSet": definitionReference("GetTestSet"),
                 "log": definitionReference("common", {}, "Log"),
                 "logError": definitionReference("common", {}, "Log"),
                 "onTestErrors": definitionReference("common", {}, "Signal"),
