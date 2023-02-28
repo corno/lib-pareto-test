@@ -1,9 +1,9 @@
 import * as pd from 'pareto-core-data'
 
 import * as gproject from "lib-pareto-typescript-project/dist/submodules/project"
-import { $ as api } from "./api.data"
+import { $ as main } from "./main/module.data"
 
-import { $ as private_ } from "./modules/private.data"
+import { $ as private_ } from "./submodules/private/module.data"
 
 const d = pd.d
 
@@ -23,15 +23,9 @@ export const $: gproject.T.Project<pd.SourceLocation> = {
     }),
     'type': ['library', {
 
-        'main': {
-            'definition': api,
-            'implementation': ['manual', {}],
-        },
+        'main': main,
         'submodules': d({
-            "private": {
-                'definition': private_,
-                'implementation': ['manual', {}],
-            }
+            "private": private_,
         }),
         'executables': d({}),
         'test': {
