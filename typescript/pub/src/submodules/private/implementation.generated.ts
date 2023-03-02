@@ -1,4 +1,4 @@
-import { API } from "./api"
+import { API } from "./definition/api.generated"
 import { $$ as icreateBoundTester } from "./implementations/createBoundTester.p"
 import { $$ as icreateFileValidator } from "./implementations/createFileValidator.p"
 import { $$ as icreateSummarizer } from "./implementations/createSummarizer.p"

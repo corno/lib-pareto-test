@@ -9,7 +9,7 @@ import * as gfslib from "lib-pareto-filesystem"
 
 import { $a } from ".."
 
-import { CcreateBoundTester } from "../api"
+import { CcreateBoundTester } from "../definition/api.generated"
 
 export const $$:CcreateBoundTester = ($d) => {
     return $a.createTester(

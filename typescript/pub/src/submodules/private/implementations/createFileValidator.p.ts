@@ -3,7 +3,7 @@ import * as pa from 'pareto-core-async'
 
 import * as gpublic from "../../../main"
 
-import { CcreateFileValidator } from "../api"
+import { CcreateFileValidator } from "../definition/api.generated"
 
 export const $$:CcreateFileValidator = ($d) => {
     return ($) => {

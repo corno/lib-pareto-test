@@ -2,7 +2,7 @@ import * as pl from 'pareto-core-lib'
 
 import * as gpublic from "../../../main"
 
-import { CcreateSummarizer } from "../api"
+import { CcreateSummarizer } from "../definition/api.generated"
 
 export const $$:CcreateSummarizer = (
    $d,

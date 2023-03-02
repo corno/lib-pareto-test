@@ -1,6 +1,6 @@
 import * as pt from 'pareto-core-types'
 
-import { CcreateTester } from "../api"
+import { CcreateTester } from "../definition/api.generated"
 
 export const $$:CcreateTester = (
     $d,

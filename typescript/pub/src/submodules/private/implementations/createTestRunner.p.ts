@@ -5,7 +5,7 @@ import * as pm from 'pareto-core-map'
 
 import * as gpublic from "../../../main"
 
-import { CcreateTestRunner } from "../api"
+import { CcreateTestRunner } from "../definition/api.generated"
 
 export const $$:CcreateTestRunner = ($d) => {
     return ($) => {

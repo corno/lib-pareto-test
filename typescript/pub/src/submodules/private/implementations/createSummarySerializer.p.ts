@@ -1,6 +1,6 @@
 
 
-import { CcreateSummarySerializer } from "../api"
+import { CcreateSummarySerializer } from "../definition/api.generated"
 
 export const $$:CcreateSummarySerializer = (
     $d,

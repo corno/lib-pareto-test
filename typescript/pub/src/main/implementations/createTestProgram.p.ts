@@ -2,7 +2,7 @@ import * as pt from 'pareto-core-types'
 
 import * as gprivate from "../../submodules/private"
 
-import { CcreateTestProgram } from "../api"
+import { CcreateTestProgram } from "../definition/api.generated"
 
 export const $$:CcreateTestProgram = ($d) => {
     const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $.__execute($i)
