@@ -13,13 +13,13 @@ export const $: gproject.T.Project<pd.SourceLocation> = {
     'license': "TBD",
 
     'dependencies': d({
-        "glo-pareto-common": {},
-        "lib-pareto-filesystem": {},
-        "res-pareto-arithmetic": {},
-        "res-pareto-boolean": {},
-        "res-pareto-collation": {},
-        "res-pareto-diff": {},
-        "res-pareto-main": {},
+        "glo-pareto-common": null,
+        "lib-pareto-filesystem": null,
+        "res-pareto-arithmetic": null,
+        "res-pareto-boolean": null,
+        "res-pareto-collation": null,
+        "res-pareto-diff": null,
+        "res-pareto-main": null,
     }),
     'type': ['library', {
 
@@ -30,7 +30,7 @@ export const $: gproject.T.Project<pd.SourceLocation> = {
         'executables': d({}),
         'test': {
             'dependencies': d({
-                "res-pareto-build": {},
+                "res-pareto-build": null,
             }),
             'glossary': {
                 'functions': d({}),
