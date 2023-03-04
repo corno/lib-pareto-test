@@ -1,4 +1,5 @@
 import * as pa from 'pareto-core-async'
+import * as pd from 'pareto-core-dev'
 
 import * as gdiff from "res-pareto-diff"
 import * as garith from "res-pareto-arithmetic"
@@ -9,31 +10,31 @@ import * as gfslib from "lib-pareto-filesystem"
 
 import { $a } from ".."
 
-import { CcreateBoundTester } from "../definition/api.generated"
+import { createBoundTester } from "../definition/api.generated"
 
-export const $$:CcreateBoundTester = ($d) => {
+export const $$: createBoundTester = ($d) => {
     return $a.createTester(
         {
             onTestErrors: $d.onTestErrors,
             serializeTestResult: $a.createTestResultSerializer(
                 {
                     log: $d.log,
-                    isABeforeB: gcollation.$a.localeIsABeforeB,
+                    isABeforeB: gcollation.$r.localeIsABeforeB,
                 },
             ),
             serializeSummary: $a.createSummarySerializer(
                 {
                     log: $d.log,
-                    isZero: gbool.$a.isZero,
-                    add: garith.$a.add,
-                    negate: garith.$a.negate,
+                    isZero: gbool.$r.isZero,
+                    add: garith.$r.add,
+                    negate: garith.$r.negate,
 
                 }
             ),
             runTests: $a.createTestRunner(
                 {
-                    diffData: gdiff.$a.diffData,
-                    stringsAreEqual: gdiff.$a.stringsAreEqual,
+                    diffData: gdiff.$r.diffData,
+                    stringsAreEqual: gdiff.$r.stringsAreEqual,
                     validateFile: $a.createFileValidator(
                         {
                             writeFile: ($) =>/**/ {
@@ -42,7 +43,7 @@ export const $$:CcreateBoundTester = ($d) => {
                                         // onError: ($) =>/**/ {
                                         //     $d.onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
                                         // },
-                                        createWriteStream: gfs.$r.createWriteStream({
+                                        createWriter: gfs.$r.createWriter({
                                             onError: ($) => {
                                                 $d.onError(`${$.path}: ${gfslib.$a.createWriteFileErrorMessage($.error)}`)
                                             }
@@ -64,30 +65,30 @@ export const $$:CcreateBoundTester = ($d) => {
                             ),
                             readFile: ($) =>/**/ {
                                 const x = $
-                                return pa.toAsyncValue(($i2) =>/**/ {
-
-                                    gfs.$r.getFile(
-                                        x,
-                                        {
-                                            onError: ($) =>/**/ {
-                                                $d.onError(`${$.path}: ${gfslib.$a.createReadFileErrorMessage($.error)}`)
-                                            },
-                                            init: ($c) =>/**/ {
-                                                let out = ""
-                                                $c({
-                                                    onData: ($) =>/**/ {
-                                                        out += $
-                                                    },
-                                                    onEnd: () =>/**/ {
-                                                        $i2(out)
-                                                    }
-                                                })
-                                            }
-                                        },
-                                    )
+                                return pa.toAsyncValue(($i) =>/**/ {
+                                    pd.implementMe(`READ FILE`)
+                                    // gfs.$r.getFile(
+                                    //     x,
+                                    //     {
+                                    //         onError: ($) =>/**/ {
+                                    //             $d.onError(`${$.path}: ${gfslib.$a.createReadFileErrorMessage($.error)}`)
+                                    //         },
+                                    //         init: ($c) =>/**/ {
+                                    //             let out = ""
+                                    //             $c({
+                                    //                 onData: ($) =>/**/ {
+                                    //                     out += $
+                                    //                 },
+                                    //                 onEnd: () =>/**/ {
+                                    //                     $i(out)
+                                    //                 }
+                                    //             })
+                                    //         }
+                                    //     },
+                                    // )
                                 })
                             },
-                            diffData: gdiff.$a.diffData,
+                            diffData: gdiff.$r.diffData,
                         }),
                 }
             ),
@@ -97,7 +98,7 @@ export const $$:CcreateBoundTester = ($d) => {
                     increment: $a.increment,
                 }
             ),
-            isZero: gbool.$a.isZero,
+            isZero: gbool.$r.isZero,
         },
     )
 }

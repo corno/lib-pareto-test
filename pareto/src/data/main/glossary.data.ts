@@ -90,6 +90,7 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
             "actual": member(string())
         })),
     }),
+    'builders': d({}),
     'interfaces': d({}),
     'functions': d({
         "GetTestSet": func(typeReference("TestParameters"), null, null, data(typeReference("TestSet"), true)),

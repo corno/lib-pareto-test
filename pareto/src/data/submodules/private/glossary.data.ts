@@ -13,9 +13,10 @@ import {
     type,
     optional,
     reference,
-    method,
     interfaceReference,
     number,
+    builderReference,
+    builderMethod,
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
 import * as gglossary from "lib-pareto-typescript-project/dist/submodules/glossary"
@@ -25,13 +26,15 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
     'parameters': d({}),
     'types': d({
     }),
+    'builders': d({
+        "HandleTestParameters": builderMethod(typeReference("public", "TestParameters")),
+    }),
     'interfaces': d({
-        "HandleTestParameters": method(typeReference("public", "TestParameters")),
     }),
     'functions': d({
         "HandleArgumentError": func(typeReference("public", "ArgumentError"), null, null, null),
         "Increment": func(typeReference("common", "Number"), null, null, data(typeReference("common", "Number"), false)),
-        "ParseTestParameters": func(typeReference("main", "Arguments"), null, interfaceReference("HandleTestParameters"), null),
+        "ParseTestParameters": func(typeReference("main", "Arguments"), null, builderReference("HandleTestParameters"), null),
         "ReadFile": func(typeReference("common", "Path"), null, null, data(typeReference("common", "String"), true)),
         "RunTests": func(typeReference("public", "TestSet"), null, null, data(typeReference("public", "TestSetResult"), true)),
         "ValidateFile": func(typeReference("public", "ValidateFileData"), null, null, data(typeReference("public", "TestElementResult"), true)),

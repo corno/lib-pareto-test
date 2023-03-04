@@ -1,8 +1,15 @@
 import * as pt from 'pareto-core-types'
 
-import { T   } from './types.generated'
+import { T } from './types.generated'
 
-import * as gcommon from "glo-pareto-common"
-import * as gdiff from "res-pareto-diff"
+import * as g_common from "glo-pareto-common"
+import * as g_diff from "res-pareto-diff"
 
-export type FGetTestSet = ($: T.TestParameters,) => pt.AsyncValue<T.TestSet>
+export namespace I {}
+
+export namespace B {}
+
+export namespace F {
+    
+    export type GetTestSet = ($: T.TestParameters,) => pt.AsyncValue<T.TestSet>
+}

@@ -1,16 +1,16 @@
 import * as pt from 'pareto-core-types'
 
-import * as gcommon from "glo-pareto-common"
-import * as gmain from "res-pareto-main"
-import * as gthis from "./glossary"
+import * as g_common from "glo-pareto-common"
+import * as g_main from "res-pareto-main"
+import * as g_this from "./glossary"
 
-export type CcreateTestProgram = ($d: {
-    readonly 'getTestSet': gthis.FGetTestSet
-    readonly 'log': gcommon.FLog
-    readonly 'logError': gcommon.FLog
-    readonly 'onTestErrors': gcommon.FSignal
-}) => gmain.FMain
+export type createTestProgram = ($d: {
+    readonly 'getTestSet': g_this.F.GetTestSet
+    readonly 'log': g_common.F.Log
+    readonly 'logError': g_common.F.Log
+    readonly 'onTestErrors': g_common.F.Signal
+}) => g_main.F.Main
 
 export type API = {
-    createTestProgram: CcreateTestProgram
+    createTestProgram: createTestProgram
 }

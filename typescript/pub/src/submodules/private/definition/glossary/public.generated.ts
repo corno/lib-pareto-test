@@ -1,29 +1,37 @@
 import * as pt from 'pareto-core-types'
 
-import { T   } from './types.generated'
+import { T } from './types.generated'
 
-import * as gcommon from "glo-pareto-common"
-import * as gmain from "res-pareto-main"
-import * as gpublic from "../../../../main"
+import * as g_common from "glo-pareto-common"
+import * as g_main from "res-pareto-main"
+import * as g_public from "../../../../main"
 
-export type IHandleTestParameters = ($: gpublic.T.TestParameters, ) => void
+export namespace I {}
 
-export type FHandleArgumentError = ($: gpublic.T.ArgumentError,) => void
+export namespace B {
+    
+    export type HandleTestParameters = ($: g_public.T.TestParameters, ) => void
+}
 
-export type FIncrement = ($: gcommon.T.Number,) => gcommon.T.Number
-
-export type FParseTestParameters = ($: gmain.T.Arguments, $i: IHandleTestParameters,) => void
-
-export type FReadFile = ($: gcommon.T.Path,) => pt.AsyncValue<gcommon.T.String>
-
-export type FRunTests = ($: gpublic.T.TestSet,) => pt.AsyncValue<gpublic.T.TestSetResult>
-
-export type FSerializeSummary = ($: gpublic.T.Summary,) => void
-
-export type FSerializeTestResult = ($: gpublic.T.TestSetResult,) => void
-
-export type FSummarize = ($: gpublic.T.TestSetResult,) => gpublic.T.Summary
-
-export type FTestTestSet = ($: gpublic.T.TestSet,) => void
-
-export type FValidateFile = ($: gpublic.T.ValidateFileData,) => pt.AsyncValue<gpublic.T.TestElementResult>
+export namespace F {
+    
+    export type HandleArgumentError = ($: g_public.T.ArgumentError,) => void
+    
+    export type Increment = ($: g_common.T.Number,) => g_common.T.Number
+    
+    export type ParseTestParameters = ($: g_main.T.Arguments, $b: B.HandleTestParameters,) => void
+    
+    export type ReadFile = ($: g_common.T.Path,) => pt.AsyncValue<g_common.T.String>
+    
+    export type RunTests = ($: g_public.T.TestSet,) => pt.AsyncValue<g_public.T.TestSetResult>
+    
+    export type SerializeSummary = ($: g_public.T.Summary,) => void
+    
+    export type SerializeTestResult = ($: g_public.T.TestSetResult,) => void
+    
+    export type Summarize = ($: g_public.T.TestSetResult,) => g_public.T.Summary
+    
+    export type TestTestSet = ($: g_public.T.TestSet,) => void
+    
+    export type ValidateFile = ($: g_public.T.ValidateFileData,) => pt.AsyncValue<g_public.T.TestElementResult>
+}

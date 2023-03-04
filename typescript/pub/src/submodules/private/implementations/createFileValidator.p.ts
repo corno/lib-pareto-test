@@ -3,9 +3,9 @@ import * as pa from 'pareto-core-async'
 
 import * as gpublic from "../../../main"
 
-import { CcreateFileValidator } from "../definition/api.generated"
+import { createFileValidator } from "../definition/api.generated"
 
-export const $$:CcreateFileValidator = ($d) => {
+export const $$: createFileValidator = ($d) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
         return $d.readFile([$.expectedFile.path, expectedFileName]).map((expectedData) => {

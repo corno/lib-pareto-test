@@ -8,9 +8,9 @@ import * as gbuild from "res-pareto-build"
 import * as gpub from "../../../../../pub"
 import * as gprivate from "../../../../../pub/dist/submodules/private"
 
-import { CgetTestSet } from "../definition/api.generated"
+import { getTestSet } from "../definition/api.generated"
 
-export const $$: CgetTestSet = ($) => {
+export const $$: getTestSet = ($) => {
 
     type LogEntry =
         | ['error', gpub.T.ArgumentError]
@@ -19,7 +19,7 @@ export const $$: CgetTestSet = ($) => {
     function doIt(name: string, $: pt.Array<string>) {
 
         pv.logDebugMessage(name)
-        gbuild.$a.buildArray<LogEntry>(null, ($i) => {
+        gbuild.$r.buildArray<LogEntry>(null, ($i) => {
 
             const tpp = gprivate.$a.createTestParametersParser(
                 {

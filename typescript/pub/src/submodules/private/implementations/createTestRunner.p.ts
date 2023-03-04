@@ -5,9 +5,9 @@ import * as pm from 'pareto-core-map'
 
 import * as gpublic from "../../../main"
 
-import { CcreateTestRunner } from "../definition/api.generated"
+import { createTestRunner } from "../definition/api.generated"
 
-export const $$:CcreateTestRunner = ($d) => {
+export const $$: createTestRunner = ($d) => {
     return ($) => {
         function doTestSet($: gpublic.T.TestSet): pt.AsyncValue<gpublic.T.TestSetResult> {
             return $.elements.asyncMap(($): pt.AsyncValue<gpublic.T.TestElementResult> => {

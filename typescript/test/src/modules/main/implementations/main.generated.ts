@@ -11,8 +11,8 @@ import { Cmain } from "../definition/api.generated"
 export const $$:Cmain = ($) => {
     gtest.$a.createTestProgram({
         'getTestSet': getTestSet,
-        'log': gmain.$a.log,
-        'logError': gmain.$a.logError,
-        'onTestErrors': gmain.$a.setExitCodeToFailed
+        'log': gmain.$r.log,
+        'logError': gmain.$r.logError,
+        'onTestErrors': gmain.$r.setExitCodeToFailed
     })($)
 }

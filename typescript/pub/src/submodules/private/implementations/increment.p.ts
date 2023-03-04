@@ -1,7 +1,7 @@
 
 
-import { Cincrement } from "../definition/api.generated"
+import { increment } from "../definition/api.generated"
 
-export const $$:Cincrement = ($) =>/**/ {
+export const $$: increment = ($) =>/**/ {
     return $ + 1
 }
