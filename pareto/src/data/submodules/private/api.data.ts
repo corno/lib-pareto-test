@@ -6,16 +6,6 @@ import * as gapi from "lib-pareto-typescript-project/dist/submodules/api"
 const d = pd.d
 
 export const $: gapi.T.API<pd.SourceLocation> = {
-    'imports': d({
-        "common": "glo-pareto-common",
-        "public": "../../../main",
-        "arithmetic": "res-pareto-arithmetic",
-        "collation": "res-pareto-collation",
-        "boolean": "res-pareto-boolean",
-        "diff": "res-pareto-diff",
-        "fs": "lib-pareto-filesystem",
-        "this": "./glossary",
-    }),
     'algorithms': d({
         "createBoundTester": algorithm(functionReference("this", {}, "TestTestSet"), constructor(null, {
             "onTestErrors": functionReference("common", {}, "Signal"),

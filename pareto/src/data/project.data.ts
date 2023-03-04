@@ -34,11 +34,12 @@ export const $: gproject.T.Project<pd.SourceLocation> = {
             }),
             'glossary': {
                 'functions': d({}),
-                'imports': d({}),
                 'parameters': d({}),
                 'types': d({}),
                 'interfaces': d({}),
             },
+            'imports': d({}),
+
         },
     }],
 }

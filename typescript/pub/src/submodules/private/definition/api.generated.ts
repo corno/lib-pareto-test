@@ -6,7 +6,6 @@ import * as gcollation from "res-pareto-collation"
 import * as gcommon from "glo-pareto-common"
 import * as gdiff from "res-pareto-diff"
 import * as gfs from "lib-pareto-filesystem"
-import * as gpublic from "../../../main"
 import * as gthis from "./glossary"
 
 export type CcreateBoundTester = ($d: {
