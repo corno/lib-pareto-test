@@ -42,7 +42,7 @@ export const $$:CcreateBoundTester = ($d) => {
                                         // onError: ($) =>/**/ {
                                         //     $d.onError(`${$.path}: ${fslib.$a.createWriteFileErrorMessage($.error)}`)
                                         // },
-                                        createWriteStream: gfs.$a.createWriteStream({
+                                        createWriteStream: gfs.$r.createWriteStream({
                                             onError: ($) => {
                                                 $d.onError(`${$.path}: ${gfslib.$a.createWriteFileErrorMessage($.error)}`)
                                             }
@@ -59,14 +59,14 @@ export const $$:CcreateBoundTester = ($d) => {
                                     onError: ($) =>/**/ {
                                         $d.onError(`${$.path}: ${gfslib.$a.createUnlinkErrorMessage($.error)}`)
                                     },
-                                    unlink: gfs.$a.unlink,
+                                    unlink: gfs.$r.unlink,
                                 },
                             ),
                             readFile: ($) =>/**/ {
                                 const x = $
                                 return pa.toAsyncValue(($i2) =>/**/ {
 
-                                    gfs.$a.getFile(
+                                    gfs.$r.getFile(
                                         x,
                                         {
                                             onError: ($) =>/**/ {
