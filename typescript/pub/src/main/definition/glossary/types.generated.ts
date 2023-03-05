@@ -213,7 +213,7 @@ export namespace T {
             
             export namespace parts {
                 
-                export type T = g_diff.T.MultilinePart
+                export type A = g_diff.T.MultilinePart
             }
             
             export type parts = pt.Array<g_diff.T.MultilinePart>
@@ -228,7 +228,7 @@ export namespace T {
             
             export namespace parts {
                 
-                export type T = g_diff.T.MultilinePart
+                export type A = g_diff.T.MultilinePart
             }
             
             export type parts = pt.Array<g_diff.T.MultilinePart>

@@ -48,5 +48,5 @@ export const $: gapi.T.API<pd.SourceLocation> = {
             "log": functionReference("common", {}, "Log"),
         })),
         "increment": algorithm(functionReference("this", {}, "Increment")),
-    })
+    }),
 }

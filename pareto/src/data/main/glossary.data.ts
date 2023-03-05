@@ -56,21 +56,21 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
                     "success": member(boolean()),
                     "type": member(reference("TestType")),
                 }),
-            }))
+            })),
         })),
         "TestParameters": type(group({
             "testDirectory": member(string()),
         })),
         "TestSet": type( group({
-            "elements": member(dictionary(reference("TestElement")))
+            "elements": member(dictionary(reference("TestElement"))),
         })),
         "TestSetResult": type( group({
-            "elements": member(dictionary(reference("TestElementResult")))
+            "elements": member(dictionary(reference("TestElementResult"))),
         })),
         "TestType": type( taggedUnion({
             "boolean": null_(),
             "long string": group({
-                "parts": member(array(reference("diff", "MultilinePart")))
+                "parts": member(array(reference("diff", "MultilinePart"))),
             }),
             "short string": group({
                 "expected": member(string()),
@@ -78,16 +78,16 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
             }),
             "file string": group({
                 "fileLocation": member(string()),
-                "parts": member(array(reference("diff", "MultilinePart")))
+                "parts": member(array(reference("diff", "MultilinePart"))),
             }),
         })),
         "ValidateFileData": type( group({
             "expectedFile": member(group({
                 "path": member(reference("common", "Path")),
                 "fileName": member(string()),
-                "extension": member(string())
+                "extension": member(string()),
             })),
-            "actual": member(string())
+            "actual": member(string()),
         })),
     }),
     'builders': d({}),
