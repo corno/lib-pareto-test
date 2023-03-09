@@ -2,7 +2,8 @@ import * as pd from 'pareto-core-data'
 
 import * as gproject from "lib-pareto-typescript-project/dist/submodules/project"
 
-import { $ as api } from "./api.data"
+import { $ as bindings } from "./bindings.api.data"
+import { $ as pure } from "./pure.api.data"
 import { $ as glossary } from "./glossary.data"
 
 import { external, main, this_ } from "lib-pareto-typescript-project/dist/submodules/project/shorthands"
@@ -10,19 +11,26 @@ import { external, main, this_ } from "lib-pareto-typescript-project/dist/submod
 const d = pd.d
 
 export const $: gproject.T.Project._ltype.library.submodules.D<pd.SourceLocation> = {
-    'definition': {
-        'glossary': {
-            'root': glossary,
+    'glossary': {
+        'root': glossary,
 
+        'imports': d({
+            "public": main(),
+            "common": external("glo-pareto-common"),
+            "main": external("res-pareto-main"),
+        }),
+    },
+    'bindings': {
+        'api': {
+            'root': bindings,
             'imports': d({
-                "public": main(),
-                "common": external("glo-pareto-common"),
-                "main": external("res-pareto-main"),
             }),
         },
+        'implementation': ['typescript', null],
+    },
+    'pure algorithms': {
         'api': {
-            'root': api,
-
+            'root': pure,
             'imports': d({
                 "common": external("glo-pareto-common"),
                 //"public": main(),
@@ -34,6 +42,6 @@ export const $: gproject.T.Project._ltype.library.submodules.D<pd.SourceLocation
                 "this": this_(),
             }),
         },
+        'implementation': ['typescript', null],
     },
-    'implementation': ['typescript', null],
 }

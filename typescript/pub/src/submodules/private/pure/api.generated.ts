@@ -6,7 +6,7 @@ import * as g_collation from "res-pareto-collation"
 import * as g_common from "glo-pareto-common"
 import * as g_diff from "res-pareto-diff"
 import * as g_fs from "lib-pareto-filesystem"
-import * as g_this from "./glossary"
+import * as g_this from "../glossary"
 
 export type createBoundTester = ($d: {
     readonly 'log': g_common.F.Log

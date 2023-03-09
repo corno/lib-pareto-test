@@ -1,4 +1,4 @@
-import { API } from "./definition/api.generated"
+import { API } from "./api.generated"
 import { $$ as icreateBoundTester } from "./implementations/createBoundTester.p"
 import { $$ as icreateFileValidator } from "./implementations/createFileValidator.p"
 import { $$ as icreateSummarizer } from "./implementations/createSummarizer.p"
@@ -9,7 +9,7 @@ import { $$ as icreateTestResultSerializer } from "./implementations/createTestR
 import { $$ as icreateTestRunner } from "./implementations/createTestRunner.p"
 import { $$ as iincrement } from "./implementations/increment.p"
 
-export const $a: API = {
+export const $api: API = {
     'createBoundTester': icreateBoundTester,
     'createFileValidator': icreateFileValidator,
     'createSummarizer': icreateSummarizer,

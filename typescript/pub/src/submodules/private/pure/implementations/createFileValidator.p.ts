@@ -1,9 +1,9 @@
 import * as pm from 'pareto-core-map'
 import * as pa from 'pareto-core-async'
 
-import * as gpublic from "../../../main"
+import * as gpublic from "../../../../main"
 
-import { createFileValidator } from "../definition/api.generated"
+import { createFileValidator } from "../api.generated"
 
 export const $$: createFileValidator = ($d) => {
     return ($) => {

@@ -8,7 +8,7 @@ import * as gbuild from "res-pareto-build"
 import * as gpub from "../../../../../pub"
 import * as gprivate from "../../../../../pub/dist/submodules/private"
 
-import { getTestSet } from "../definition/api.generated"
+import { getTestSet } from "../api.generated"
 
 export const $$: getTestSet = ($) => {
 

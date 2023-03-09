@@ -3,9 +3,9 @@ import * as pl from 'pareto-core-lib'
 import * as pa from 'pareto-core-async'
 import * as pm from 'pareto-core-map'
 
-import * as gpublic from "../../../main"
+import * as gpublic from "../../../../main"
 
-import { createTestRunner } from "../definition/api.generated"
+import { createTestRunner } from "../api.generated"
 
 export const $$: createTestRunner = ($d) => {
     return ($) => {

@@ -1,6 +1,6 @@
-import { API } from "./definition/api.generated"
+import { API } from "./api.generated"
 import { $$ as icreateTestProgram } from "./implementations/createTestProgram.p"
 
-export const $a: API = {
+export const $api: API = {
     'createTestProgram': icreateTestProgram,
 }

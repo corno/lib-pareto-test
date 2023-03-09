@@ -1,6 +1,6 @@
 
 
-import { createSummarySerializer } from "../definition/api.generated"
+import { createSummarySerializer } from "../api.generated"
 
 export const $$: createSummarySerializer = (
     $d,

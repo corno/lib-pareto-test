@@ -8,9 +8,9 @@ import * as gbool from "res-pareto-boolean"
 import * as gfs from "res-pareto-filesystem"
 import * as gfslib from "lib-pareto-filesystem"
 
-import { $a } from ".."
+import { $api as $a } from "../../pure/implementation.generated"
 
-import { createBoundTester } from "../definition/api.generated"
+import { createBoundTester } from "../api.generated"
 
 export const $$: createBoundTester = ($d) => {
     return $a.createTester(

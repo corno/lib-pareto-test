@@ -1,8 +1,8 @@
 import * as pl from 'pareto-core-lib'
 
-import * as gpublic from "../../../main"
+import * as gpublic from "../../../../main"
 
-import { createSummarizer } from "../definition/api.generated"
+import { createSummarizer } from "../api.generated"
 
 export const $$: createSummarizer = (
    $d,

@@ -1,8 +1,8 @@
 import * as pl from 'pareto-core-lib'
 
-import * as gpublic from "../../../main"
+import * as gpublic from "../../../../main"
 
-import { createTestResultSerializer } from "../definition/api.generated"
+import { createTestResultSerializer } from "../api.generated"
 
 export const $$: createTestResultSerializer = (
     $d,

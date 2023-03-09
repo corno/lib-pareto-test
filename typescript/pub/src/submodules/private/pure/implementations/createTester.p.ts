@@ -1,6 +1,6 @@
 import * as pt from 'pareto-core-types'
 
-import { createTester } from "../definition/api.generated"
+import { createTester } from "../api.generated"
 
 export const $$: createTester = (
     $d,
