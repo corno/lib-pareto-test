@@ -8,9 +8,9 @@ import * as g_build from "res-pareto-build"
 import * as g_pub from "../../../../../pub/dist"
 import * as g_parameters from "../../../../../pub/dist/submodules/parameters"
 
-import { getTestSet } from "../api.generated"
+import { A } from "../api.generated"
 
-export const $$: getTestSet = ($) => {
+export const $$: A.getTestSet = ($) => {
 
     type LogEntry =
         | ['error', g_pub.T.ArgumentError]

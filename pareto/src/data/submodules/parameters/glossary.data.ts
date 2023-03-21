@@ -5,12 +5,7 @@ import {
     aInterfaceMethod,
     aInterfaceReference,
     externalTypeReference,
-    imp,
-    sconstructor,
-    sInterfaceMethod,
-    sInterfaceReference,
-    streamconsumer,
-    typeReference,
+    imp, streamconsumer
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
 import * as g_glossary from "lib-pareto-typescript-project/dist/submodules/glossary"

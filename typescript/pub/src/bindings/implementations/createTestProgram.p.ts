@@ -35,17 +35,13 @@ export const $$: A.createTestProgram = ($d) => {
                     }, {
                         'unlink': a_fs.$a.createUnlinkFireAndForget({
                             'unlink': a_fsr.$r.unlink()
-                        }, null)({
+                        })({
                             'errorHandler': a_fserror.$a.unlink()({
                                 'handler': errorLogger(null).data
                             }),
                         }),
                         'writeFile': a_fs.$a.createWriteFileFireAndForget({
                             'createFileWriter': a_fsr.$r.createFileWriter()
-                        }, {
-                            'onError': () => {
-                                /////// this one should be removed
-                            },
                         })({
                             'errorHandler': a_fserror.$a.writeFile()({
                                 'handler': errorLogger(null).data
@@ -61,7 +57,7 @@ export const $$: A.createTestProgram = ($d) => {
                 'serializeTestResult': a_analyse.$a.serializeTestResult({
                     'dictionaryForEach': a_foreach.$r.createDictionaryForEach({
                         'compare': a_collation.$r.localeIsABeforeB(),
-                    }, null)
+                    })
                 }),
                 'summarize': a_analyse.$a.summarize({
                     'increment': a_analyse.$a.increment()
