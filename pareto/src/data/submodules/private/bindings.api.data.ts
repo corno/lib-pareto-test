@@ -7,6 +7,7 @@ const d = pd.d
 
 export const $: gapi.T.API<pd.SourceLocation> = {
     'algorithms': d({
+        "test": algorithm(functionReference("analyse", {}, "BoundTestTestSet")),
 
     }),
 }

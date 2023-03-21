@@ -6,9 +6,6 @@ import * as g_this from "../glossary"
 
 export type createTestProgram = ($d: {
     readonly 'getTestSet': g_this.F.GetTestSet
-    readonly 'log': g_common.F.Log
-    readonly 'logError': g_common.F.Log
-    readonly 'onTestErrors': g_common.F.Signal
 }) => g_main.F.Main
 
 export type API = {

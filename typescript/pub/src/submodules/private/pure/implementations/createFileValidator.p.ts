@@ -12,41 +12,43 @@ export const $$: createFileValidator = ($d) => {
             const actualFileName = `${$.expectedFile.fileName}.actual.${$.expectedFile.extension}`
             const parts = $d.diffData(
                 {
-                    originalData: expectedData,
-                    changedData: $.actual,
-                    newline: "\n",
+                    'originalData': expectedData,
+                    'changedData': $.actual,
+                    'newline': "\n",
                 },
             )
             const validateFileData = $
-            if ( parts[0] === true) {
+            if (parts[0] === true) {
 
                 $d.writeFile(
                     {
-                        path: [validateFileData.expectedFile.path, actualFileName],
-                        data: validateFileData.actual,
-                        createContainingDirectories: true,
+                        'data': validateFileData.actual,
+                        'settings': {
+                            'path': [validateFileData.expectedFile.path, actualFileName],
+                            'createContainingDirectories': true,
+                        }
                     },
                 )
                 return pa.asyncValue<gpublic.T.TestElementResult>({
-                    type: ['test', {
-                        success: false,
-                        type: ['file string', {
-                            fileLocation: `${validateFileData.expectedFile.path}/${expectedFileName}`,
-                            parts: parts[1]
+                    'type': ['test', {
+                        'success': false,
+                        'type': ['file string', {
+                            'fileLocation': `${validateFileData.expectedFile.path}/${expectedFileName}`,
+                            'parts': parts[1]
                         }]
                     }]
                 })
             } else {
 
                 $d.unlink({
-                    path: [validateFileData.expectedFile.path, actualFileName]
+                    'path': [validateFileData.expectedFile.path, actualFileName]
                 })
                 return pa.asyncValue({
-                    type: ['test', {
-                        success: true,
-                        type: ['file string', {
-                            fileLocation: `${validateFileData.expectedFile.path}/${expectedFileName}`,
-                            parts: pm.wrapRawArray([])
+                    'type': ['test', {
+                        'success': true,
+                        'type': ['file string', {
+                            'fileLocation': `${validateFileData.expectedFile.path}/${expectedFileName}`,
+                            'parts': pm.wrapRawArray([])
                         }]
                     }]
                 })

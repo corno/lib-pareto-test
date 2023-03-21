@@ -7,9 +7,9 @@ import {
     dictionary, member, taggedUnion, types, group,
     array,
     typeReference,
-    data,
+    adata,
     boolean,
-    func,
+    afunc,
     type,
     optional,
     reference,
@@ -61,13 +61,13 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
         "TestParameters": type(group({
             "testDirectory": member(string()),
         })),
-        "TestSet": type( group({
+        "TestSet": type(group({
             "elements": member(dictionary(reference("TestElement"))),
         })),
-        "TestSetResult": type( group({
+        "TestSetResult": type(group({
             "elements": member(dictionary(reference("TestElementResult"))),
         })),
-        "TestType": type( taggedUnion({
+        "TestType": type(taggedUnion({
             "boolean": null_(),
             "long string": group({
                 "parts": member(array(reference("diff", "MultilinePart"))),
@@ -81,7 +81,7 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
                 "parts": member(array(reference("diff", "MultilinePart"))),
             }),
         })),
-        "ValidateFileData": type( group({
+        "ValidateFileData": type(group({
             "expectedFile": member(group({
                 "path": member(reference("common", "Path")),
                 "fileName": member(string()),
@@ -90,9 +90,10 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
             "actual": member(string()),
         })),
     }),
-    'builders': d({}),
-    'interfaces': d({}),
-    'functions': d({
-        "GetTestSet": func(typeReference("TestParameters"), null, null, data(typeReference("TestSet"), true)),
-    }),
+    'type': ['asynchronous', {
+        'interfaces': d({}),
+        'functions': d({
+            "GetTestSet": afunc(typeReference("TestParameters"), null, adata(typeReference("TestSet"))),
+        }),
+    }],
 }

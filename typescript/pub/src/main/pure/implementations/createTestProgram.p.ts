@@ -1,28 +1,23 @@
-import * as pt from 'pareto-core-types'
+import * as pl from 'pareto-core-lib'
 
-import * as gprivate from "../../../submodules/private"
+import * as g_parameters from "../../../submodules/parameters"
+import * as g_private from "../../../submodules/private"
+import * as g_main from "res-pareto-main"
 
 import { createTestProgram } from "../api.generated"
 
 export const $$: createTestProgram = ($d) => {
-    const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $.__execute($i)
     return ($) => {
-        gprivate.$a.createTestParametersParser({
+        g_parameters.$a.createTestParametersParser({ //<----NOT PURE, THIS IS BINDING
             onError: () => {
-                $d.logError("FIXME ARG ERROR MESSAGE")
+                g_main.$r.logError("FIXME ARG ERROR MESSAGE") //<----NOT PURE, THIS IS BINDING
             },
         })(
             $.arguments,
             ($) =>/**/ {
-                processAsync(
+                pl.processAsyncValue(
                     $d.getTestSet($),
-                    gprivate.$a.createBoundTester(
-                        {
-                            onError: $d.logError,
-                            onTestErrors: $d.onTestErrors,
-                            log: $d.log
-                        }
-                    )
+                    g_private.$b.test, //<----NOT PURE, THIS IS BINDING
                 )
             }
         )

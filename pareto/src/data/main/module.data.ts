@@ -4,7 +4,6 @@ import * as pd from 'pareto-core-data'
 import { external, this_ } from "lib-pareto-typescript-project/dist/submodules/project/shorthands"
 import * as gproject from "lib-pareto-typescript-project/dist/submodules/project"
 
-import { $ as bindings } from "./bindings.api.data"
 import { $ as pure } from "./pure.api.data"
 
 import { $ as glossary } from "./glossary.data"
@@ -20,23 +19,11 @@ export const $: gproject.T.Project._ltype.library.main<pd.SourceLocation> = {
             "common": external("glo-pareto-common"),
         }),
     },
-    'bindings': {
-        'api': {
-            'root': bindings,
-    
-            'imports': d({
-                "common": external("glo-pareto-common"),
-                "main": external("res-pareto-main"),
-                "this": this_(),
-            }),
-        },
-        'implementation': ['typescript', null],
-
-    },
+    'bindings': [false],
     'pure algorithms': {
         'api': {
             'root': pure,
-    
+
             'imports': d({
                 "common": external("glo-pareto-common"),
                 "main": external("res-pareto-main"),

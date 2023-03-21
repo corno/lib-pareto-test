@@ -1,24 +1,26 @@
-import * as pt from 'pareto-core-types'
+import * as pl from 'pareto-core-lib'
 
 import { createTester } from "../api.generated"
+
+import * as gmain from "res-pareto-main"
+
 
 export const $$: createTester = (
     $d,
 ) => {
-    const processAsync: <T>($: pt.AsyncValue<T>, $i: ($: T) => void) => void = ($, $i) => $.__execute($i)
-    return ($) => {
-        processAsync(
+    return ($, $i) => {
+        pl.processAsyncValue(
             $d.runTests($),
             ($) => {
-                $d.serializeTestResult($)
+                $d.serializeTestResult($, $i.log)
                 const summary = $d.summarize(
                     $,
                 )
-                $d.serializeSummary(summary)
+                $d.serializeSummary(summary, $i.log)
                 if ($d.isZero(summary.numberOfErrors)) {
                     //
                 } else {
-                    $d.onTestErrors(null)
+                    $i.onTestErrors(null)
                 }
             }
         )

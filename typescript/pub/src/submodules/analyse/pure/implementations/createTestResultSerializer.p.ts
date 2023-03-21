@@ -7,9 +7,7 @@ import { createTestResultSerializer } from "../api.generated"
 export const $$: createTestResultSerializer = (
     $d,
 ) => {
-    return (
-        $,
-    ) => {
+    return ($, $i) => {
         const red = "\x1b[31m"
         const green = "\x1b[32m"
         const yellow = "\x1b[33m"
@@ -24,21 +22,21 @@ export const $$: createTestResultSerializer = (
         ) {
             const indentation = $.indentation
             $.result.elements.__forEach(
-                (a, b) => $d.isABeforeB({a: a, b: b}),
+                (a, b) => $d.isABeforeB({ a: a, b: b }),
                 ($, key) => {
                     const name = key
                     switch ($.type[0]) {
                         case 'test':
                             pl.cc($.type[1], ($) => {
                                 const success = $.success
-                                $d.log(`${indentation}${$.success ? green : red}${name}${reset}`)
+                                $i(`${indentation}${$.success ? green : red}${name}${reset}`)
                                 switch ($.type[0]) {
                                     case 'short string':
                                         pl.cc($.type[1], ($) => {
                                             if (success) {
                                             } else {
-                                                $d.log(`${indentation}  expected: '${$.expected}'`)
-                                                $d.log(`${indentation}  actual:   '${$.actual}'`)
+                                                $i(`${indentation}  expected: '${$.expected}'`)
+                                                $i(`${indentation}  actual:   '${$.actual}'`)
                                             }
                                         })
                                         break
@@ -47,9 +45,9 @@ export const $$: createTestResultSerializer = (
                                             $.parts.__forEach(($) => {
                                                 const added = $.type[0] === "added"
 
-                                                $d.log(`${indentation}  line ${$.startLineInOriginal}|${$.startLineInChanged}`)
+                                                $i(`${indentation}  line ${$.startLineInOriginal}|${$.startLineInChanged}`)
                                                 $.lines.__forEach(($) => {
-                                                    $d.log(`${indentation}    ${added ? "+" : "-"}${$}`)
+                                                    $i(`${indentation}    ${added ? "+" : "-"}${$}`)
                                                 })
                                             })
                                         })
@@ -59,9 +57,9 @@ export const $$: createTestResultSerializer = (
                                             const fileLocation = $.fileLocation
                                             $.parts.__forEach(($) => {
                                                 const added = $.type[0] === "added"
-                                                $d.log(`${indentation}  ${cyan}${fileLocation}${reset}:${yellow}${$.startLineInOriginal}${reset}`)
+                                                $i(`${indentation}  ${cyan}${fileLocation}${reset}:${yellow}${$.startLineInOriginal}${reset}`)
                                                 $.lines.__forEach(($) => {
-                                                    $d.log(`${indentation}    ${added ? "+" : "-"}${$}`)
+                                                    $i(`${indentation}    ${added ? "+" : "-"}${$}`)
                                                 })
                                             })
                                         })
@@ -77,7 +75,7 @@ export const $$: createTestResultSerializer = (
                             break
                         case 'subset':
                             pl.cc($.type[1], ($) => {
-                                $d.log(`${indentation}${name}`)
+                                $i(`${indentation}${name}`)
                                 serializeTestSetImp({
                                     result: $,
                                     indentation: `${indentation}  `,

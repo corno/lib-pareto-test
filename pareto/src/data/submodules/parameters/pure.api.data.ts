@@ -7,5 +7,8 @@ const d = pd.d
 
 export const $: gapi.T.API<pd.SourceLocation> = {
     'algorithms': d({
+        "createTestParametersParser": algorithm(functionReference("this", {}, "ParseTestParameters"), constructor(null, {
+            "onError": functionReference("this", {}, "HandleArgumentError"),
+        })),
     }),
 }
