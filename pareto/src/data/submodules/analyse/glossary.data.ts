@@ -1,51 +1,55 @@
 import * as pd from 'pareto-core-data'
 
 import {
-    string,
-    null_,
-    nested,
-    dictionary, member, taggedUnion, types, group,
-    array,
+    aconstructor,
+    aInterfaceMethod,
+    aInterfaceReference,
+    data,
+    externalTypeReference,
+    imp,
+    sbuilder,
+    sconstructor,
+    sfunction,
+    sInterfaceMethod,
+    sInterfaceReference,
     typeReference,
-    sdata,
-    boolean,
-    sfunc,
-    type,
-    optional,
-    reference,
-    interfaceReference,
-    number,
-    builderReference,
-    builderMethod,
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
-import * as gglossary from "lib-pareto-typescript-project/dist/submodules/glossary"
+import * as g_glossary from "lib-pareto-typescript-project/dist/submodules/glossary"
 const d = pd.d
 
-export const $: gglossary.T.Glossary<pd.SourceLocation> = {
+export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
     'parameters': d({}),
+    'imports': d({
+        "common": imp({}),
+        "main": imp({}),
+        "mainlib": imp({}),
+    }),
     'types': d({
     }),
-    'type': ['synchronous', {
-        'builders': d({
-            "HandleTestParameters": builderMethod(typeReference("public", "TestParameters")),
-            "HandleTestOutput": ['group', {
-                'members': d({
-                    "log": ['reference', builderReference("common", "StringBuilder")],
-                    "logError": ['reference', builderReference("common", "StringBuilder")],
-                    "onTestErrors": builderMethod(typeReference("common", "Null")) 
-                })
-            }]
+    'asynchronous': {
+        'interfaces': d({
+            "HandleTestSet": aInterfaceMethod(externalTypeReference("main", "TestSet")),
         }),
-        'functions': d({
-            "Increment": sfunc(typeReference("common", "Number"), null, null, sdata(typeReference("common", "Number"))),
-            "Summarize": sfunc(typeReference("public", "TestSetResult"), null, null, sdata(typeReference("public", "Summary"))),
-
-            "SerializeSummary": sfunc(typeReference("public", "Summary"), null, builderReference("common", "StringBuilder"), null),
-            "SerializeTestResult": sfunc(typeReference("public", "TestSetResult"), null, builderReference("common", "StringBuilder"), null),
-            "TestTestSet": sfunc(typeReference("public", "TestSet"), null, builderReference("HandleTestOutput"), null),
-            "BoundTestTestSet": sfunc(typeReference("public", "TestSet"), null, null, null),
+        'algorithms': d({
+            "CreateTester": aconstructor(sInterfaceReference("HandleTestSet"), {
+                "log": sInterfaceReference("mainlib", "Log"),
+                "logError": sInterfaceReference("mainlib", "Log"),
+                "onTestErrors": sInterfaceReference("mainlib", "Signal"),
+            }),
         }),
+    },
+    'synchronous': {
+        'interfaces': d({
+        }),
+        'algorithms': d({
+            "SerializeSummary": sbuilder(data(externalTypeReference("main", "Summary")), sInterfaceReference("common", "String")),
+            //"SerializeTestSet": sbuilder(data(externalTypeReference("main", "TestSet")), sInterfaceReference("common", "String")),
+            "SerializeTestResult": sbuilder(data(externalTypeReference("main", "TestSetResult")), sInterfaceReference("common", "String")),
 
-    }],
+            "Increment": sfunction(externalTypeReference("common", "Number"), data(externalTypeReference("common", "Number")),),
+            "Summarize": sfunction(externalTypeReference("main", "Summary"), data(externalTypeReference("main", "TestSetResult"))),
+
+        }),
+    },
 }

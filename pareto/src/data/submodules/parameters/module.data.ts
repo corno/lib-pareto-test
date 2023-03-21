@@ -1,26 +1,25 @@
 import * as pd from 'pareto-core-data'
 
-import * as gproject from "lib-pareto-typescript-project/dist/submodules/project"
+import * as g_project from "lib-pareto-typescript-project/dist/submodules/project"
 
-import { $ as pure } from "./pure.api.data"
+import { $ as pure } from "./api.data"
 import { $ as glossary } from "./glossary.data"
 
 import { external, main, this_ } from "lib-pareto-typescript-project/dist/submodules/project/shorthands"
 
 const d = pd.d
 
-export const $: gproject.T.Project._ltype.library.submodules.D<pd.SourceLocation> = {
-    'glossary': {
-        'root': glossary,
+export const $: g_project.T.Module<pd.SourceLocation> = {
+    'definition': {
+        'glossary': {
+            'root': glossary,
 
-        'imports': d({
-            "public": main(),
-            "common": external("glo-pareto-common"),
-            "main": external("res-pareto-main"),
-        }),
-    },
-    'bindings': [false],
-    'pure algorithms': {
+            'imports': d({
+                "main": main(),
+                "mainlib": external("res-pareto-main"),
+                "common": external("glo-pareto-common"),
+            }),
+        },
         'api': {
             'root': pure,
             'imports': d({
@@ -34,6 +33,6 @@ export const $: gproject.T.Project._ltype.library.submodules.D<pd.SourceLocation
                 "this": this_(),
             }),
         },
-        'implementation': ['typescript', null],
     },
+    'implementation': ['typescript', null],
 }

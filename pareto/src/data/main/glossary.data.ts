@@ -1,26 +1,21 @@
 import * as pd from 'pareto-core-data'
 
 import {
-    string,
-    null_,
-    nested,
-    dictionary, member, taggedUnion, types, group,
-    array,
-    typeReference,
-    adata,
-    boolean,
-    afunc,
-    type,
-    optional,
-    reference,
-    number,
+    aconstructor,
+    afunction, aInterfaceReference, array, boolean, data, dictionary, externalTypeReference, group, imp, member, null_, number,
+    ref, string, taggedUnion, type, typeReference
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
-import * as gglossary from "lib-pareto-typescript-project/dist/submodules/glossary"
+import * as g_glossary from "lib-pareto-typescript-project/dist/submodules/glossary"
 const d = pd.d
 
-export const $: gglossary.T.Glossary<pd.SourceLocation> = {
+export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
     'parameters': d({}),
+    'imports': d({
+        "common": imp({}),
+        "main": imp({}),
+        "diff": imp({}),
+    }),
     'types': d({
         "ArgumentError": type(taggedUnion({
             "missing": null_(),
@@ -32,7 +27,7 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
         })),
         "TestElement": type(group({
             "type": member(taggedUnion({
-                "subset": reference("TestSet"),
+                "subset": ref(typeReference("TestSet")),
                 "test": group({
                     "type": member(taggedUnion({
                         "boolean": boolean(),
@@ -44,17 +39,17 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
                             "expected": member(string()),
                             "actual": member(string()),
                         }),
-                        "file string": reference("ValidateFileData"),
+                        "file string": ref(typeReference("ValidateFileData")),
                     })),
                 }),
             })),
         })),
         "TestElementResult": type(group({
             "type": member(taggedUnion({
-                "subset": reference("TestSetResult"),
+                "subset": ref(typeReference("TestSetResult")),
                 "test": group({
                     "success": member(boolean()),
-                    "type": member(reference("TestType")),
+                    "type": member(ref(typeReference("TestType"))),
                 }),
             })),
         })),
@@ -62,15 +57,15 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
             "testDirectory": member(string()),
         })),
         "TestSet": type(group({
-            "elements": member(dictionary(reference("TestElement"))),
+            "elements": member(dictionary(ref(typeReference("TestElement")))),
         })),
         "TestSetResult": type(group({
-            "elements": member(dictionary(reference("TestElementResult"))),
+            "elements": member(dictionary(ref(typeReference("TestElementResult")))),
         })),
         "TestType": type(taggedUnion({
             "boolean": null_(),
             "long string": group({
-                "parts": member(array(reference("diff", "MultilinePart"))),
+                "parts": member(array(ref(externalTypeReference("diff", "MultilinePart")))),
             }),
             "short string": group({
                 "expected": member(string()),
@@ -78,22 +73,32 @@ export const $: gglossary.T.Glossary<pd.SourceLocation> = {
             }),
             "file string": group({
                 "fileLocation": member(string()),
-                "parts": member(array(reference("diff", "MultilinePart"))),
+                "parts": member(array(ref(externalTypeReference("diff", "MultilinePart")))),
             }),
         })),
         "ValidateFileData": type(group({
             "expectedFile": member(group({
-                "path": member(reference("common", "Path")),
+                "path": member(ref(externalTypeReference("common", "Path"))),
                 "fileName": member(string()),
                 "extension": member(string()),
             })),
             "actual": member(string()),
         })),
     }),
-    'type': ['asynchronous', {
+    'asynchronous': {
         'interfaces': d({}),
-        'functions': d({
-            "GetTestSet": afunc(typeReference("TestParameters"), null, adata(typeReference("TestSet"))),
+        'algorithms': d({
+            "GetTestSet": afunction(typeReference("TestSet"), data(typeReference("TestParameters"))),
+            "CreateTester": aconstructor(aInterfaceReference("main", "Main"), {
+                "logErrors": aInterfaceReference("main", "Log"),
+                "log": aInterfaceReference("main", "Log"),
+                "reportFailed": aInterfaceReference("main", "Signal"),
+            })
         }),
-    }],
+    },
+    'synchronous': {
+        'interfaces': d({}),
+        'algorithms': d({}),
+    },
+
 }

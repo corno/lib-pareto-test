@@ -1,29 +1,32 @@
 import * as pd from 'pareto-core-data'
 
 import {
-    typeReference,
-    adata,
-    afunc,
+    afunction,
+    data,
+    externalTypeReference,
+    imp,
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
-import * as gglossary from "lib-pareto-typescript-project/dist/submodules/glossary"
+import * as g_glossary from "lib-pareto-typescript-project/dist/submodules/glossary"
 const d = pd.d
 
-export const $: gglossary.T.Glossary<pd.SourceLocation> = {
+export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
     'parameters': d({}),
+    'imports': d({
+        "common": imp({}),
+        "public": imp({}),
+    }),
     'types': d({
     }),
-    'type': ['asynchronous', {
-        'interfaces': d({
+    'asynchronous': {
+        'interfaces': d({}),
+        'algorithms': d({
+            "RunTests": afunction(externalTypeReference("public", "TestSetResult"), data(externalTypeReference("public", "TestSet"))),
+            "ValidateFile": afunction(externalTypeReference("public", "TestElementResult"), data(externalTypeReference("public", "ValidateFileData"))),
         }),
-        'functions': d({
-            "ReadFile": afunc(typeReference("common", "Path"), null, adata(typeReference("common", "String"))),
-            "RunTests": afunc(typeReference("public", "TestSet"), null, adata(typeReference("public", "TestSetResult"))),
-            "ValidateFile": afunc(typeReference("public", "ValidateFileData"), null, adata(typeReference("public", "TestElementResult"))),
-            // "SerializeSummary": afunc(typeReference("public", "Summary"), null, null, null),
-            // "SerializeTestResult": afunc(typeReference("public", "TestSetResult"), null, null, null),
-            // "TestTestSet": afunc(typeReference("public", "TestSet"), null, null, null),
-        }),
-
-    }],
+    },
+    'synchronous': {
+        'interfaces': d({}),
+        'algorithms': d({}),
+    },
 }

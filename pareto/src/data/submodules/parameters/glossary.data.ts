@@ -1,42 +1,53 @@
 import * as pd from 'pareto-core-data'
 
 import {
-    string,
-    null_,
-    nested,
-    dictionary, member, taggedUnion, types, group,
-    array,
+    aconstructor,
+    aInterfaceMethod,
+    aInterfaceReference,
+    externalTypeReference,
+    imp,
+    sconstructor,
+    sInterfaceMethod,
+    sInterfaceReference,
+    streamconsumer,
     typeReference,
-    sdata,
-    boolean,
-    sfunc,
-    type,
-    optional,
-    reference,
-    interfaceReference,
-    number,
-    builderReference,
-    builderMethod,
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
-import * as gglossary from "lib-pareto-typescript-project/dist/submodules/glossary"
+import * as g_glossary from "lib-pareto-typescript-project/dist/submodules/glossary"
 const d = pd.d
 
-export const $: gglossary.T.Glossary<pd.SourceLocation> = {
+export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
     'parameters': d({}),
     'types': d({
     }),
-    'type': ['synchronous', {
-        'builders': d({
-            "HandleTestParameters": builderMethod(typeReference("public", "TestParameters")),
+    'imports': d({
+        "main": imp({}),
+        "mainlib": imp({}),
+    }),
+    'asynchronous': {
+        'interfaces': d({
+            "ParametersHandler": aInterfaceMethod(externalTypeReference("main", "TestParameters")),
+            "ErrorsHandler": streamconsumer(
+                aInterfaceMethod(externalTypeReference("main", "ArgumentError")),
+                aInterfaceMethod(null),
+            ),
+            "HandleArguments": streamconsumer(
+                aInterfaceMethod(externalTypeReference("mainlib", "Arguments")),
+                aInterfaceMethod(null)
+            )
         }),
-        'functions': d({
-            "HandleArgumentError": sfunc(typeReference("public", "ArgumentError"), null, null, null),
-            "ParseTestParameters": sfunc(typeReference("main", "Arguments"), null, builderReference("HandleTestParameters"), null),
-            // "SerializeSummary": sfunc(typeReference("public", "Summary"), null, null, null),
-            // "SerializeTestResult": sfunc(typeReference("public", "TestSetResult"), null, null, null),
-            // "TestTestSet": sfunc(typeReference("public", "TestSet"), null, null, null),
+        'algorithms': d({
+            "CreateTestParametersParser": aconstructor(aInterfaceReference("HandleArguments"), {
+                "handler": aInterfaceReference("ParametersHandler"),
+                "errorHandler": aInterfaceReference("ErrorsHandler"),
+            }),
         }),
+    },
+    'synchronous': {
+        'interfaces': d({
+        }),
+        'algorithms': d({
+        }),
+    },
 
-    }],
 }
