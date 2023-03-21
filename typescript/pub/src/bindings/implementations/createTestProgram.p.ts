@@ -1,3 +1,4 @@
+import * as pl from 'pareto-core-lib'
 
 import * as a_analyse from "../../submodules/analyse"
 import * as a_arithmetic from "res-pareto-arithmetic"
@@ -28,7 +29,9 @@ export const $$: A.createTestProgram = ($d) => {
                     'stringsAreEqual': a_diff.$r.stringsAreEqual(),
                     'validateFile': a_private.$a.validateFile({
                         'diffData': a_diff.$r.diffData(),
-                        'readFile': a_fs.$a(),
+                        'readFile': () => {
+                            pl.panic("SFSDFSDF")
+                        },
                     }, {
                         'unlink': a_fs.$a.createUnlinkFireAndForget({
                             'unlink': a_fsr.$r.unlink()

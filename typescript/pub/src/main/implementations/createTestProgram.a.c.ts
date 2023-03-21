@@ -1,14 +1,12 @@
 import * as pl from 'pareto-core-lib'
 
-import * as g_private from "../../submodules/private"
-
 import { A } from "../api.generated"
 
 export const $$: A.createTestProgram = ($d) => {
     return ($is) => {
         return ($) => {
     
-            $d.createTestParametersParser({
+            const x = $d.createTestParametersParser({
                 'errorHandler': {
                     'data': () => {
     
@@ -28,9 +26,12 @@ export const $$: A.createTestProgram = ($d) => {
                         }),
                     )
                 }
-            })(
+            })
+            
+            x.data(
                 $.arguments,
             )
+            x.end()
 
         }
     }
