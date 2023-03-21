@@ -37,14 +37,14 @@ export const $$: A.createTestProgram = ($d) => {
                             'unlink': a_fsr.$r.unlink()
                         })({
                             'errorHandler': a_fserror.$a.unlink()({
-                                'handler': errorLogger(null).data
+                                'handler': errorLogger().data
                             }),
                         }),
                         'writeFile': a_fs.$a.createWriteFileFireAndForget({
                             'createFileWriter': a_fsr.$r.createFileWriter()
                         })({
                             'errorHandler': a_fserror.$a.writeFile()({
-                                'handler': errorLogger(null).data
+                                'handler': errorLogger().data
                             }),
                         }),
                     }),
@@ -66,9 +66,9 @@ export const $$: A.createTestProgram = ($d) => {
             'createTestParametersParser': a_parameters.$a.createTestParametersParser(),
             'getTestSet': $d.getTestSet,
         })({
-            'log': logger(null),
-            'logErrors': errorLogger(null),
-            'reportFailed': failedFlagger(null),
+            'log': logger(),
+            'logErrors': errorLogger(),
+            'reportFailed': failedFlagger(),
         })
     }
 }
