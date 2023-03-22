@@ -1,7 +1,7 @@
 import * as pd from 'pareto-core-data'
 
 import {
-    aconstructor,
+    constructor,
     aInterfaceMethod,
     aInterfaceReference,
     externalTypeReference,
@@ -32,7 +32,7 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
             )
         }),
         'algorithms': d({
-            "CreateTestParametersParser": aconstructor(aInterfaceReference("HandleArguments"), {
+            "CreateTestParametersParser": constructor(aInterfaceReference("HandleArguments"), {
                 "handler": aInterfaceReference("ParametersHandler"),
                 "errorHandler": aInterfaceReference("ErrorsHandler"),
             }),

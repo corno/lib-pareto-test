@@ -1,7 +1,7 @@
 import * as pd from 'pareto-core-data'
 
 import {
-    aconstructor,
+    constructor,
     afunction, aInterfaceReference, array, boolean, data, dictionary, externalTypeReference, group, imp, member, null_, number,
     ref, string, taggedUnion, type, typeReference
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
@@ -88,8 +88,8 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
     'asynchronous': {
         'interfaces': d({}),
         'algorithms': d({
-            "GetTestSet": afunction(typeReference("TestSet"), data(typeReference("TestParameters"))),
-            "CreateTester": aconstructor(aInterfaceReference("main", "Main"), {
+            "GetTestSet": afunction(typeReference("TestSet"), typeReference("TestParameters")),
+            "CreateTester": constructor(aInterfaceReference("main", "Main"), {
                 "logErrors": aInterfaceReference("main", "Log"),
                 "log": aInterfaceReference("main", "Log"),
                 "reportFailed": aInterfaceReference("main", "Signal"),

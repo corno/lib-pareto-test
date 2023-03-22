@@ -21,8 +21,8 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
     'asynchronous': {
         'interfaces': d({}),
         'algorithms': d({
-            "RunTests": afunction(externalTypeReference("public", "TestSetResult"), data(externalTypeReference("public", "TestSet"))),
-            "ValidateFile": afunction(externalTypeReference("public", "TestElementResult"), data(externalTypeReference("public", "ValidateFileData"))),
+            "RunTests": afunction(externalTypeReference("public", "TestSetResult"), externalTypeReference("public", "TestSet")),
+            "ValidateFile": afunction(externalTypeReference("public", "TestElementResult"), externalTypeReference("public", "ValidateFileData")),
         }),
     },
     'synchronous': {

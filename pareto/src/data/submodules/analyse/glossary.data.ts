@@ -1,18 +1,11 @@
 import * as pd from 'pareto-core-data'
 
 import {
-    aconstructor,
-    aInterfaceMethod,
-    aInterfaceReference,
-    data,
+    constructor,
+    aInterfaceMethod, data,
     externalTypeReference,
     imp,
-    sbuilder,
-    sconstructor,
-    sfunction,
-    sInterfaceMethod,
-    sInterfaceReference,
-    typeReference,
+    procedure, sfunction, sInterfaceReference
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
 import * as g_glossary from "lib-pareto-typescript-project/dist/submodules/glossary"
@@ -32,7 +25,7 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
             "HandleTestSet": aInterfaceMethod(externalTypeReference("main", "TestSet")),
         }),
         'algorithms': d({
-            "CreateTester": aconstructor(sInterfaceReference("HandleTestSet"), {
+            "CreateTester": constructor(sInterfaceReference("HandleTestSet"), {
                 "log": sInterfaceReference("mainlib", "Log"),
                 "logError": sInterfaceReference("mainlib", "Log"),
                 "onTestErrors": sInterfaceReference("mainlib", "Signal"),
@@ -43,9 +36,9 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
         'interfaces': d({
         }),
         'algorithms': d({
-            "SerializeSummary": sbuilder(data(externalTypeReference("main", "Summary")), sInterfaceReference("common", "String")),
-            //"SerializeTestSet": sbuilder(data(externalTypeReference("main", "TestSet")), sInterfaceReference("common", "String")),
-            "SerializeTestResult": sbuilder(data(externalTypeReference("main", "TestSetResult")), sInterfaceReference("common", "String")),
+            "SerializeSummary": procedure(data(externalTypeReference("main", "Summary")), sInterfaceReference("common", "String")),
+            //"SerializeTestSet": procedure(data(externalTypeReference("main", "TestSet")), sInterfaceReference("common", "String")),
+            "SerializeTestResult": procedure(data(externalTypeReference("main", "TestSetResult")), sInterfaceReference("common", "String")),
 
             "Increment": sfunction(externalTypeReference("common", "Number"), data(externalTypeReference("common", "Number")),),
             "Summarize": sfunction(externalTypeReference("main", "Summary"), data(externalTypeReference("main", "TestSetResult"))),

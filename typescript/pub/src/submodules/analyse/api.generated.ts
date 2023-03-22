@@ -14,11 +14,11 @@ export namespace A {
         readonly 'add': g_arithmetic.SYNC.A.F.Add
         readonly 'isZero': g_boolean.SYNC.A.F.IsZero
         readonly 'negate': g_arithmetic.SYNC.A.F.Negate
-    }, ) => g_this.SYNC.A.B.SerializeSummary
+    }, ) => g_this.SYNC.A.P.SerializeSummary
     
     export type serializeTestResult = ($d: {
-        readonly 'dictionaryForEach': g_foreach.SYNC.A.B.DictionaryForEach<g_main.T.TestSetResult.elements.D>
-    }, ) => g_this.SYNC.A.B.SerializeTestResult
+        readonly 'dictionaryForEach': g_foreach.SYNC.A.P.DictionaryForEach<g_main.T.TestSetResult.elements.D>
+    }, ) => g_this.SYNC.A.P.SerializeTestResult
     
     export type summarize = ($d: {
         readonly 'increment': g_this.SYNC.A.F.Increment

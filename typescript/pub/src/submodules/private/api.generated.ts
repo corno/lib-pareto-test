@@ -11,8 +11,8 @@ export namespace A {
     export type createTester = ($d: {
         readonly 'isZero': g_boolean.SYNC.A.F.IsZero
         readonly 'runTests': g_this.ASYNC.A.F.RunTests
-        readonly 'serializeSummary': g_analyse.SYNC.A.B.SerializeSummary
-        readonly 'serializeTestResult': g_analyse.SYNC.A.B.SerializeTestResult
+        readonly 'serializeSummary': g_analyse.SYNC.A.P.SerializeSummary
+        readonly 'serializeTestResult': g_analyse.SYNC.A.P.SerializeTestResult
         readonly 'summarize': g_analyse.SYNC.A.F.Summarize
     }, ) => g_analyse.ASYNC.A.C.CreateTester
     

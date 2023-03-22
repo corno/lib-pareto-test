@@ -4,9 +4,7 @@ import * as g_main from "../../../main"
 
 import { A } from "../api.generated"
 
-export const $$: A.serializeTestResult = (
-    $d,
-) => {
+export const $$: A.serializeTestResult = ($d) => {
     return ($, $i) => {
 
         const red = "\x1b[31m"

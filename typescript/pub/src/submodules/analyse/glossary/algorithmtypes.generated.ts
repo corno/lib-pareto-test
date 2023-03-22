@@ -36,12 +36,12 @@ export namespace SYNC {
         }
         
         
-        export namespace B {
+        export namespace P {
             export type SerializeSummary = ($: g_main.T.Summary, $i: g_common.SYNC.I.String) => void
         }
         
         
-        export namespace B {
+        export namespace P {
             export type SerializeTestResult = ($: g_main.T.TestSetResult, $i: g_common.SYNC.I.String) => void
         }
         
