@@ -17,7 +17,7 @@ export namespace A {
     }, ) => g_this.SYNC.A.P.SerializeSummary
     
     export type serializeTestResult = ($d: {
-        readonly 'dictionaryForEach': g_foreach.SYNC.A.P.DictionaryForEach<g_main.T.TestSetResult.elements.D>
+        readonly 'dictionaryForEach': g_foreach.SYNC.A.P.DictionaryForEach
     }, ) => g_this.SYNC.A.P.SerializeTestResult
     
     export type summarize = ($d: {

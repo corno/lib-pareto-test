@@ -8,7 +8,7 @@ const d = pd.d
 export const $: g_project.T.ModuleDefinition.api.root<pd.SourceLocation> = {
     'algorithms': d({
         "serializeTestResult": algorithm(procedure("this", {}, "SerializeTestResult"), {}, dependent(null, {
-            "dictionaryForEach": procedure("foreach", { "T": "g_main.T.TestSetResult.elements.D"}, "DictionaryForEach"),
+            "dictionaryForEach": procedure("foreach", {}, "DictionaryForEach"),
         }, {})),
         "summarize": algorithm(sfunction("this", {}, "Summarize"), {},  dependent(null, {
             "increment": sfunction("this", {}, "Increment"),
