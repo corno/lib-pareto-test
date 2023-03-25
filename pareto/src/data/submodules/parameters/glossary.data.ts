@@ -5,7 +5,7 @@ import {
     aInterfaceMethod,
     aInterfaceReference,
     externalTypeReference,
-    imp, streamconsumer
+    imp, streamconsumer, aInterface
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
 import * as g_glossary from "lib-pareto-typescript-project/dist/submodules/glossary"
@@ -21,15 +21,15 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
     }),
     'asynchronous': {
         'interfaces': d({
-            "ParametersHandler": aInterfaceMethod(externalTypeReference("main", "TestParameters")),
-            "ErrorsHandler": streamconsumer(
-                aInterfaceMethod(externalTypeReference("main", "ArgumentError")),
+            "ParametersHandler": aInterface(aInterfaceMethod(externalTypeReference("main", "TestParameters"))),
+            "ErrorsHandler": aInterface(streamconsumer(
+                aInterfaceMethod(externalTypeReference("main", "ArgumentsError")),
                 aInterfaceMethod(null),
-            ),
-            "HandleArguments": streamconsumer(
+            )),
+            "HandleArguments": aInterface(streamconsumer(
                 aInterfaceMethod(externalTypeReference("mainlib", "Arguments")),
                 aInterfaceMethod(null)
-            )
+            ))
         }),
         'algorithms': d({
             "CreateTestParametersParser": constructor(aInterfaceReference("HandleArguments"), {

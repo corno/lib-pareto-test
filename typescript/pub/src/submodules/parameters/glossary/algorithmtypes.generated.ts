@@ -11,7 +11,7 @@ export namespace ASYNC {
     export namespace I {
         
         export type ErrorsHandler = {
-            'data': ($: g_main.T.ArgumentError, ) => void
+            'data': ($: g_main.T.ArgumentsError, ) => void
             'end': () => void
         }
         

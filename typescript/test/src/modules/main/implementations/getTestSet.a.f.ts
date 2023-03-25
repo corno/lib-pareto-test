@@ -13,7 +13,7 @@ import { A } from "../api.generated"
 export const $$: A.getTestSet = ($) => {
 
     type LogEntry =
-        | ['error', g_pub.T.ArgumentError]
+        | ['error', g_pub.T.ArgumentsError]
         | ['callback', g_pub.T.TestParameters]
 
     function doIt(name: string, $: pt.Array<string>) {

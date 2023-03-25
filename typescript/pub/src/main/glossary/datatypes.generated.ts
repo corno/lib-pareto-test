@@ -6,14 +6,14 @@ import * as g_main from "res-pareto-main"
 
 export namespace T {
     
-    export namespace ArgumentError {
+    export namespace ArgumentsError {
         
         export type missing = null
         
         export type too__many = null
     }
     
-    export type ArgumentError = 
+    export type ArgumentsError = 
         | ['missing', null]
         | ['too many', null]
     

@@ -3,7 +3,7 @@ import * as pd from 'pareto-core-data'
 import {
     constructor,
     afunction, aInterfaceReference, array, boolean, data, dictionary, externalTypeReference, group, imp, member, null_, number,
-    ref, string, taggedUnion, type, typeReference
+    ref, string, taggedUnion, type, typeReference, aExternalInterfaceReference
 } from "lib-pareto-typescript-project/dist/submodules/glossary/shorthands"
 
 import * as g_glossary from "lib-pareto-typescript-project/dist/submodules/glossary"
@@ -17,7 +17,7 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
         "diff": imp({}),
     }),
     'types': d({
-        "ArgumentError": type(taggedUnion({
+        "ArgumentsError": type(taggedUnion({
             "missing": null_(),
             "too many": null_(),
         })),
@@ -89,10 +89,10 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
         'interfaces': d({}),
         'algorithms': d({
             "GetTestSet": afunction(typeReference("TestSet"), typeReference("TestParameters")),
-            "CreateTester": constructor(aInterfaceReference("main", "Main"), {
-                "logErrors": aInterfaceReference("main", "Log"),
-                "log": aInterfaceReference("main", "Log"),
-                "reportFailed": aInterfaceReference("main", "Signal"),
+            "CreateTester": constructor(aExternalInterfaceReference("main", "Main"), {
+                "logErrors": aExternalInterfaceReference("main", "Log"),
+                "log": aExternalInterfaceReference("main", "Log"),
+                "reportFailed": aExternalInterfaceReference("main", "Signal"),
             })
         }),
     },
