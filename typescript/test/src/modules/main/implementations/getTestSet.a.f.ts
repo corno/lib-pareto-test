@@ -19,7 +19,7 @@ export const $$: A.getTestSet = ($) => {
     function doIt(name: string, $: pt.Array<string>) {
 
         pv.logDebugMessage(name)
-        g_build.$r.buildArray<LogEntry>(($i) => {
+        g_build.$r.buildArray()<LogEntry>(($i) => {
 
             // const tpp = g_parameters.$a.createTestParametersParser(
 
