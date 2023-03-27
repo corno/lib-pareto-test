@@ -8,6 +8,10 @@ import * as g_diff from "res-pareto-diff"
 import * as g_fs from "lib-pareto-filesystem"
 import * as g_this from "./glossary"
 
+export namespace D {
+    
+}
+
 export namespace A {
     
     export type createTestParametersParser = () => g_this.ASYNC.A.C.CreateTestParametersParser

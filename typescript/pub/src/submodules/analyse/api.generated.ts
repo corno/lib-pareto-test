@@ -6,23 +6,33 @@ import * as g_foreach from "res-pareto-foreach"
 import * as g_main from "../../main"
 import * as g_this from "./glossary"
 
+export namespace D {
+    
+    
+    export type serializeSummary = {
+        readonly 'add': g_arithmetic.SYNC.A.F.Add
+        readonly 'isZero': g_boolean.SYNC.A.F.IsZero
+        readonly 'negate': g_arithmetic.SYNC.A.F.Negate
+    }
+    
+    export type serializeTestResult = {
+        readonly 'dictionaryForEach': g_foreach.SYNC.A.P.DictionaryForEach
+    }
+    
+    export type summarize = {
+        readonly 'increment': g_this.SYNC.A.F.Increment
+    }
+}
+
 export namespace A {
     
     export type increment = () => g_this.SYNC.A.F.Increment
     
-    export type serializeSummary = ($d: {
-        readonly 'add': g_arithmetic.SYNC.A.F.Add
-        readonly 'isZero': g_boolean.SYNC.A.F.IsZero
-        readonly 'negate': g_arithmetic.SYNC.A.F.Negate
-    }, ) => g_this.SYNC.A.P.SerializeSummary
+    export type serializeSummary = ($d: D.serializeSummary, ) => g_this.SYNC.A.P.SerializeSummary
     
-    export type serializeTestResult = ($d: {
-        readonly 'dictionaryForEach': g_foreach.SYNC.A.P.DictionaryForEach
-    }, ) => g_this.SYNC.A.P.SerializeTestResult
+    export type serializeTestResult = ($d: D.serializeTestResult, ) => g_this.SYNC.A.P.SerializeTestResult
     
-    export type summarize = ($d: {
-        readonly 'increment': g_this.SYNC.A.F.Increment
-    }, ) => g_this.SYNC.A.F.Summarize
+    export type summarize = ($d: D.summarize, ) => g_this.SYNC.A.F.Summarize
 }
 
 export type API = {
