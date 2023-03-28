@@ -18,11 +18,14 @@ export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
         "main": imp({}),
         "mainlib": imp({}),
     }),
-    'types': d({
-    }),
+    'root': {
+        'namespaces': d({}),
+        'types': d({
+        }),
+    },
     'asynchronous': {
         'interfaces': d({
-            "HandleTestSet":aInterface( aInterfaceMethod(externalTypeReference("main", "TestSet"))),
+            "HandleTestSet": aInterface(aInterfaceMethod(externalTypeReference("main", "TestSet"))),
         }),
         'algorithms': d({
             "CreateTester": constructor(aInterfaceReference("HandleTestSet"), {

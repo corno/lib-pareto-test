@@ -4,6 +4,8 @@ import * as g_common from "glo-pareto-common"
 import * as g_diff from "res-pareto-diff"
 import * as g_main from "res-pareto-main"
 
+export namespace N {}
+
 export namespace T {
     
     export namespace ArgumentsError {

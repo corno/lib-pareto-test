@@ -13,12 +13,15 @@ const d = pd.d
 
 export const $: g_glossary.T.Glossary<pd.SourceLocation> = {
     'parameters': d({}),
-    'types': d({
-    }),
     'imports': d({
         "main": imp({}),
         "mainlib": imp({}),
     }),
+    'root': {
+        'namespaces': d({}),
+        'types': d({
+        }),
+    },
     'asynchronous': {
         'interfaces': d({
             "ParametersHandler": aInterface(aInterfaceMethod(externalTypeReference("main", "TestParameters"))),
