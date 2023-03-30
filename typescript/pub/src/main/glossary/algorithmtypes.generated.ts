@@ -14,11 +14,13 @@ export namespace ASYNC {
         
         
         export namespace C {
-            export type CreateTester = ($is: {
-                readonly 'log': g_main.ASYNC.I.Log
-                readonly 'logErrors': g_main.ASYNC.I.Log
-                readonly 'reportFailed': g_main.ASYNC.I.Signal
-            }) => g_main.ASYNC.I.Main
+            export type CreateTester = {
+                'construct': ($is: {
+                    readonly 'log': g_main.ASYNC.I.Log
+                    readonly 'logErrors': g_main.ASYNC.I.Log
+                    readonly 'reportFailed': g_main.ASYNC.I.Signal
+                }) => g_main.ASYNC.I.Main
+            }
         }
         
         
