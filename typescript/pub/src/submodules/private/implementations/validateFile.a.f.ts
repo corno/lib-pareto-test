@@ -29,7 +29,8 @@ export const $$: A.validateFile = ($d, $se) => {
                             'data': validateFileData.actual,
                             'settings': {
                                 'path': [validateFileData.expectedFile.path, actualFileName],
-                                'createContainingDirectories': true,
+                                'create containing directories': true,
+                                'overwrite if exists': true,
                             }
                         },
                     )
