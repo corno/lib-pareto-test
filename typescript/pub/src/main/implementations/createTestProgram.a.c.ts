@@ -20,7 +20,7 @@ export const $$: A.createTestProgram = ($d) => {
         
                         pl.processAsyncValue(
                             $d.getTestSet($),
-                            $d.createTester({
+                            $d.createTester.construct({
                                 'log': $is.log,
                                 'logError': $is.logErrors,
                                 'onTestErrors': $is.reportFailed,

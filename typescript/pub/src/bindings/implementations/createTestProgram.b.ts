@@ -21,7 +21,7 @@ export const $$: A.createTestProgram = ($d) => {
         'construct': () => {
             const errorLogger = a_mainlib.$r.createErrorLogger().construct()
             const logger = a_mainlib.$r.createLogger().construct()
-            const failedFlagger = a_mainlib.$r.setExitCodeToFailed()
+            const failedFlagger = a_mainlib.$r.setExitCodeToFailed().construct()
             return a_main.$a.createTestProgram({
                 'createTester': a_private.$a.createTester({
                     'isZero': a_boolean.$r.isZero(),
@@ -36,15 +36,15 @@ export const $$: A.createTestProgram = ($d) => {
                         }, {
                             'unlink': a_fs.$a.createUnlinkFireAndForget({
                                 'unlink': a_fsr.$r.unlink()
-                            })({
-                                'errorHandler': a_fserror.$a.unlink()({
+                            }).construct({
+                                'errorHandler': a_fserror.$a.unlink().construct({
                                     'handler': errorLogger.data
                                 }),
                             }),
                             'writeFile': a_fs.$a.createWriteFileFireAndForget({
                                 'createFileWriter': a_fsr.$r.createFileWriter()
-                            })({
-                                'errorHandler': a_fserror.$a.writeFile()({
+                            }).construct({
+                                'errorHandler': a_fserror.$a.writeFile().construct({
                                     'handler': errorLogger.data
                                 }),
                             }),
@@ -66,7 +66,7 @@ export const $$: A.createTestProgram = ($d) => {
                 }),
                 'createTestParametersParser': a_parameters.$a.createTestParametersParser(),
                 'getTestSet': $d.getTestSet,
-            })({
+            }).construct({
                 'log': logger,
                 'logErrors': errorLogger,
                 'reportFailed': failedFlagger,
