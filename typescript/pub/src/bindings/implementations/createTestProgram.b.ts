@@ -19,8 +19,8 @@ import { A } from "../api.generated"
 export const $$: A.createTestProgram = ($d) => {
     return {
         'construct': () => {
-            const errorLogger = a_mainlib.$r.createErrorLogger()
-            const logger = a_mainlib.$r.createLogger()
+            const errorLogger = a_mainlib.$r.createErrorLogger().construct()
+            const logger = a_mainlib.$r.createLogger().construct()
             const failedFlagger = a_mainlib.$r.setExitCodeToFailed()
             return a_main.$a.createTestProgram({
                 'createTester': a_private.$a.createTester({
@@ -31,21 +31,21 @@ export const $$: A.createTestProgram = ($d) => {
                         'validateFile': a_private.$a.validateFile({
                             'diffData': a_diff.$r.diffData(),
                             'readFile': () => {
-                                pl.panic("SFSDFSDF")
+                                return pl.panic("SFSDFSDF")
                             },
                         }, {
                             'unlink': a_fs.$a.createUnlinkFireAndForget({
                                 'unlink': a_fsr.$r.unlink()
                             })({
                                 'errorHandler': a_fserror.$a.unlink()({
-                                    'handler': errorLogger().data
+                                    'handler': errorLogger.data
                                 }),
                             }),
                             'writeFile': a_fs.$a.createWriteFileFireAndForget({
                                 'createFileWriter': a_fsr.$r.createFileWriter()
                             })({
                                 'errorHandler': a_fserror.$a.writeFile()({
-                                    'handler': errorLogger().data
+                                    'handler': errorLogger.data
                                 }),
                             }),
                         }),
@@ -67,9 +67,9 @@ export const $$: A.createTestProgram = ($d) => {
                 'createTestParametersParser': a_parameters.$a.createTestParametersParser(),
                 'getTestSet': $d.getTestSet,
             })({
-                'log': logger(),
-                'logErrors': errorLogger(),
-                'reportFailed': failedFlagger(),
+                'log': logger,
+                'logErrors': errorLogger,
+                'reportFailed': failedFlagger,
             })
         }
     }
