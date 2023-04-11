@@ -21,12 +21,12 @@ export const $$: A.summarize = ($d) => {
             $.elements.map(($) => {
                 switch ($.type[0]) {
                     case 'subset':
-                        pl.cc($.type[1], ($) => {
+                        pl.ss($.type, ($) => {
                             summarizeTestSetImp($)
                         })
                         break
                     case 'test':
-                        pl.cc($.type[1], ($) => {
+                        pl.ss($.type, ($) => {
                             summary.numberOfTests = $d.increment(summary.numberOfTests)
                             if (!$.success) {
                                 summary.numberOfErrors = $d.increment(summary.numberOfErrors)

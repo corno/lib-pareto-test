@@ -26,12 +26,12 @@ export const $$: A.serializeTestResult = ($d) => {
 
                     switch ($.type[0]) {
                         case 'test':
-                            pl.cc($.type[1], ($) => {
+                            pl.ss($.type, ($) => {
                                 const success = $.success
                                 $i(`${indentation}${$.success ? green : red}${name}${reset}`)
                                 switch ($.type[0]) {
                                     case 'short string':
-                                        pl.cc($.type[1], ($) => {
+                                        pl.ss($.type, ($) => {
                                             if (success) {
                                             } else {
                                                 $i(`${indentation}  expected: '${$.expected}'`)
@@ -40,7 +40,7 @@ export const $$: A.serializeTestResult = ($d) => {
                                         })
                                         break
                                     case 'long string':
-                                        pl.cc($.type[1], ($) => {
+                                        pl.ss($.type, ($) => {
                                             $.parts.__forEach(($) => {
                                                 const added = $.type[0] === "added"
 
@@ -52,7 +52,7 @@ export const $$: A.serializeTestResult = ($d) => {
                                         })
                                         break
                                     case 'file string':
-                                        pl.cc($.type[1], ($) => {
+                                        pl.ss($.type, ($) => {
                                             const fileLocation = $.fileLocation
                                             $.parts.__forEach(($) => {
                                                 const added = $.type[0] === "added"
@@ -64,7 +64,7 @@ export const $$: A.serializeTestResult = ($d) => {
                                         })
                                         break
                                     case 'boolean':
-                                        pl.cc($.type[1], ($) => {
+                                        pl.ss($.type, ($) => {
                                         })
                                         break
 
@@ -73,7 +73,7 @@ export const $$: A.serializeTestResult = ($d) => {
                             })
                             break
                         case 'subset':
-                            pl.cc($.type[1], ($) => {
+                            pl.ss($.type, ($) => {
                                 $i(`${indentation}${name}`)
                                 serializeTestSetImp({
                                     result: $,
