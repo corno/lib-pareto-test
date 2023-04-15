@@ -23,6 +23,7 @@ export const $: g_project.T.Project<pd.SourceLocation> = {
         "glo-pareto-common": null,
         "lib-pareto-filesystem": null,
         "res-pareto-arithmetic": null,
+        "res-pareto-array": null,
         "res-pareto-boolean": null,
         "res-pareto-collation": null,
         "res-pareto-diff": null,

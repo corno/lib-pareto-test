@@ -1,6 +1,7 @@
 import * as pt from 'pareto-core-types'
 
 import * as g_analyse from "../analyse"
+import * as g_array from "res-pareto-array"
 import * as g_boolean from "res-pareto-boolean"
 import * as g_diff from "res-pareto-diff"
 import * as g_fs from "lib-pareto-filesystem"
@@ -24,6 +25,7 @@ export namespace D {
     
     export type validateFile = {
         readonly 'diffData': g_diff.SYNC.A.F.DiffData
+        readonly 'push': g_array.SYNC.A.F.Push
         readonly 'readFile': g_fs.ASYNC.A.F.ReadFileOrAbort
     }
 }

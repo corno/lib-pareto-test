@@ -10,6 +10,7 @@ export const $: g_project.T.ModuleDefinition.api.root<pd.SourceLocation> = {
         "validateFile": algorithm(afunction("this", {}, "ValidateFile"), {}, dependent(null, {
             "readFile": afunction("fs", {}, "ReadFileOrAbort"),
             "diffData": sfunction("diff", {}, "DiffData"),
+            "push": sfunction("array", {}, "Push"),
         }, {
             "writeFile": aSideEffect("fs", {}, "WriteFileFireAndForget"),
             "unlink": aSideEffect("fs", {}, "UnlinkFireAndForget")

@@ -2,6 +2,7 @@ import * as pl from 'pareto-core-lib'
 
 import * as a_analyse from "../../submodules/analyse"
 import * as a_arithmetic from "res-pareto-arithmetic"
+import * as a_array from "res-pareto-array"
 import * as a_boolean from "res-pareto-boolean"
 import * as a_collation from "res-pareto-collation"
 import * as a_diff from "res-pareto-diff"
@@ -33,6 +34,7 @@ export const $$: A.createTestProgram = ($d) => {
                             'readFile': () => {
                                 return pl.panic("SFSDFSDF")
                             },
+                            'push': a_array.$r.push()
                         }, {
                             'unlink': a_fs.$a.createUnlinkFireAndForget({
                                 'unlink': a_fsr.$r.unlink()

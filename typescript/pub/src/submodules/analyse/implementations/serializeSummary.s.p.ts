@@ -1,3 +1,5 @@
+import * as pm from 'pareto-core-map'
+
 import { A } from "../api.generated"
 
 export const $$: A.serializeSummary = (
@@ -10,7 +12,7 @@ export const $$: A.serializeSummary = (
 
         $i(``)
         const summary = $
-        $i(`${$d.isZero(summary.numberOfErrors) ? green : ""}${$d.add([summary.numberOfTests, $d.negate(summary.numberOfErrors)])} successful tests${reset}`)
+        $i(`${$d.isZero(summary.numberOfErrors) ? green : ""}${$d.add(pm.wrapRawArray([summary.numberOfTests, $d.negate(summary.numberOfErrors)]))} successful tests${reset}`)
         $i(`${$d.isZero(summary.numberOfErrors) ? "" : red}${summary.numberOfErrors} errors${reset}`)
 
 

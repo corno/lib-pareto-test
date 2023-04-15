@@ -1,6 +1,7 @@
 import * as pm from 'pareto-core-map'
 import * as pl from 'pareto-core-lib'
 import * as pa from 'pareto-core-async'
+import * as pd from 'pareto-core-data'
 
 import * as g_main from "../../../main"
 
@@ -10,7 +11,10 @@ export const $$: A.validateFile = ($d, $se) => {
     return ($) => {
         const expectedFileName = `${$.expectedFile.fileName}.expected.${$.expectedFile.extension}`
         return $d.readFile({
-            'path': [$.expectedFile.path, expectedFileName],
+            'path': $d.push({
+                'array': $.expectedFile.path,
+                'element': expectedFileName
+            }),
         }).map((expectedData) => {
             const actualFileName = `${$.expectedFile.fileName}.actual.${$.expectedFile.extension}`
             const validateFileData = $
@@ -28,7 +32,10 @@ export const $$: A.validateFile = ($d, $se) => {
                         {
                             'data': validateFileData.actual,
                             'settings': {
-                                'path': [validateFileData.expectedFile.path, actualFileName],
+                                'path': $d.push({
+                                    'array': validateFileData.expectedFile.path,
+                                    'element': actualFileName,
+                                }),
                                 'create containing directories': true,
                                 'overwrite if exists': true,
                             }
@@ -48,7 +55,10 @@ export const $$: A.validateFile = ($d, $se) => {
                     {
                         //side effect
                         $se.unlink({
-                            'path': [validateFileData.expectedFile.path, actualFileName]
+                            'path': $d.push({
+                                'array': validateFileData.expectedFile.path,
+                                'element': actualFileName,
+                            })
                         })
                         return pa.asyncValue({
                             'type': ['test', {

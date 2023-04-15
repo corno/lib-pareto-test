@@ -24,6 +24,7 @@ export const $: g_project.T.Module<pd.SourceLocation> = {
             'root': pure,
             'imports': d({
                 "analyse": sibling("analyse"),
+                "array": external("res-pareto-array"),
                 //"public": main(),
                 "boolean": external("res-pareto-boolean"),
                 "diff": external("res-pareto-diff"),
