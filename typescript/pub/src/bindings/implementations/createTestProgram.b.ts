@@ -58,7 +58,7 @@ export const $$: A.createTestProgram = ($d) => {
                         'negate': a_arithmetic.$r.negate(),
                     }),
                     'serializeTestResult': a_analyse.$a.serializeTestResult({
-                        'dictionaryForEach': a_foreach.$r.createDictionaryForEach({
+                        'dictionaryForEach': a_foreach.$r.dictionaryForEach({
                             'compare': a_collation.$r.localeIsABeforeB(),
                         })
                     }),
