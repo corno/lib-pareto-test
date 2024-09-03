@@ -7,6 +7,18 @@ import * as g_main from "../../../main"
 
 import { A } from "../api.generated"
 
+/*temp*/
+function wrapRawOptionalValue<T>(
+    $: pt.RawOptionalValue<T>,
+): pt.OptionalValue<T> {
+    if ($[0] === false) {
+        return pl.notSet()
+    } else {
+        return pl.set($[1])
+    }
+
+}
+
 export const $$: A.createTestRunner = ($d) => {
     return ($) => {
         function doTestSet($: g_main.T.TestSet): pt.AsyncValue<g_main.T.TestSetResult> {
@@ -24,14 +36,14 @@ export const $$: A.createTestRunner = ($d) => {
                                 }]
                             }))
                             case 'file string': return pl.ss($.type, ($) => $d.validateFile($,))
-                            case 'long string': return pl.ss($.type, ($) => pl.optional(
-                                    $d.diffData(
-                                        {
-                                            originalData: $.expected,
-                                            changedData: $.actual,
-                                            newline: "\n",
-                                        }
-                                    ),
+                            case 'long string': return pl.ss($.type, ($) => wrapRawOptionalValue(
+                                $d.diffData(
+                                    {
+                                        originalData: $.expected,
+                                        changedData: $.actual,
+                                        newline: "\n",
+                                    }
+                                )).map(
                                     ($): pt.AsyncValue<g_main.T.TestElementResult> => pa.asyncValue({
                                         type: ['test', {
                                             success: false,

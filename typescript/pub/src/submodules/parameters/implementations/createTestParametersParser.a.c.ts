@@ -10,17 +10,19 @@ export const $$: A.createTestParametersParser = (
             return {
                 'data': ($) => {
                     type State = pt.OptionalValue<string>
-                    let state: State = [false]
+                    let state: State = pl.notSet()
                     $.__forEach(($) => {
-                        if (state[0] === true) {
-                            $is.errorHandler.data(['too many', null])
-                        } else {
-                            state = [true, $]
-                        }
+                        state.map(
+                            ($) => {
+                                $is.errorHandler.data(['too many', null])
+                            },
+                            () => {
+                                state = pl.set($)
+                             }
+                        )
                     })
                     pl.cc($, ($) => {
-                        pl.optional(
-                            state,
+                        state.map(
                             ($) => {
                                 $is.handler({
                                     testDirectory: $,
@@ -31,9 +33,6 @@ export const $$: A.createTestParametersParser = (
                             }
 
                         )
-                        if (state === null) {
-                        } else {
-                        }
 
                     })
                 },
