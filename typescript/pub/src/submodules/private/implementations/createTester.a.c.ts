@@ -17,7 +17,7 @@ export const $$: A.createTester = ($d) => {
                         if ($d.isZero(summary.numberOfErrors)) {
                             //
                         } else {
-                            $is.onTestErrors(null)
+                            $is.onTestErrors.data() //When is .end() called???
                         }
                     }
                 )
