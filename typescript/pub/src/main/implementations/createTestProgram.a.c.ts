@@ -23,7 +23,7 @@ export const $$: A.createTestProgram = ($d) => {
                             $d.createTester.construct({
                                 'log': $is.log,
                                 'logError': $is.logErrors,
-                                'onTestErrors': pl.panic("SDFSD"),
+                                'onTestErrors': $is.reportFailed,
                             }),
                         )
                     }
